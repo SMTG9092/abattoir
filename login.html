@@ -2,945 +2,706 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#075596">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>ABATTOIR - Connexion</title>
-
-    <!-- =====================================================
-         SUPABASE
-         ===================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    <title>SMTG Abattoir - Connexion</title>
 
     <style>
-
-        /* =====================================================
-           RESET
-           ===================================================== */
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-
         html,
         body {
             width: 100%;
             height: 100%;
+            font-family: "Segoe UI", Arial, sans-serif;
+            overflow: hidden;
         }
-
 
         body {
-            font-family:
-                Inter,
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
             background:
                 linear-gradient(
-                    135deg,
-                    #080b0f 0%,
-                    #111820 45%,
-                    #07090c 100%
-                );
+                    90deg,
+                    rgba(3, 18, 35, 0.48),
+                    rgba(3, 18, 35, 0.12),
+                    rgba(3, 18, 35, 0.45)
+                ),
+                url("img/login-bg.png")
+                center center / cover no-repeat fixed;
 
-            color: #ffffff;
-
-            overflow: hidden;
-        }
-
-
-        /* =====================================================
-           BACKGROUND
-           ===================================================== */
-
-        .page {
             position: relative;
-
-            width: 100%;
-            height: 100vh;
-
-            overflow: hidden;
+            color: #183b63;
         }
 
-
-        .background {
+        body::before {
+            content: "";
             position: absolute;
-
             inset: 0;
 
             background:
                 linear-gradient(
                     90deg,
-                    rgba(5, 8, 11, 0.97) 0%,
-                    rgba(5, 8, 11, 0.78) 30%,
-                    rgba(5, 8, 11, 0.48) 55%,
-                    rgba(5, 8, 11, 0.78) 100%
+                    rgba(0, 25, 50, 0.20),
+                    rgba(255, 255, 255, 0.02),
+                    rgba(0, 25, 50, 0.18)
                 );
 
             z-index: 0;
+            pointer-events: none;
         }
 
+        /* ==========================================
+           TOP BRAND
+        ========================================== */
 
-        /* Image industrielle en arrière-plan */
-
-        .background::before {
-            content: "";
-
+        .top-brand {
             position: absolute;
-
-            inset: 0;
-
-            background-image:
-                url(
-                    "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=2200&q=85"
-                );
-
-            background-size: cover;
-
-            background-position: center;
-
-            filter:
-                brightness(0.48)
-                contrast(1.08)
-                saturate(0.75);
-
-            z-index: -2;
-        }
-
-
-        .background::after {
-            content: "";
-
-            position: absolute;
-
-            inset: 0;
-
-            background:
-                radial-gradient(
-                    circle at 50% 45%,
-                    rgba(170, 0, 25, 0.10),
-                    transparent 45%
-                ),
-                linear-gradient(
-                    180deg,
-                    rgba(0, 0, 0, 0.12),
-                    rgba(0, 0, 0, 0.65)
-                );
-
-            z-index: -1;
-        }
-
-
-        /* =====================================================
-           HEADER
-           ===================================================== */
-
-        .header {
-            position: absolute;
-
-            top: 28px;
-            left: 42px;
-            right: 42px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
+            top: 24px;
+            left: 35px;
             z-index: 5;
-        }
 
+            color: white;
 
-        .brand {
             display: flex;
-
             align-items: center;
-
-            gap: 14px;
+            gap: 12px;
         }
 
-
-        .brand-logo {
-            width: 58px;
-            height: 58px;
+        .brand-mini {
+            width: 44px;
+            height: 44px;
 
             border-radius: 50%;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #b00020,
-                    #750015
-                );
-
-            border: 2px solid rgba(255,255,255,0.20);
+            background: rgba(255,255,255,0.95);
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
-            font-size: 29px;
+            font-size: 11px;
+            font-weight: 900;
+
+            color: #075596;
 
             box-shadow:
-                0 8px 30px rgba(0,0,0,0.35);
+                0 5px 20px rgba(0,0,0,0.20);
         }
 
-
-        .brand-text h1 {
-            font-size: 30px;
-
-            font-weight: 800;
-
-            letter-spacing: 1px;
-        }
-
-
-        .brand-text h1 span {
-            color: #d20b2f;
-        }
-
-
-        .brand-text p {
-            margin-top: 3px;
-
-            color: rgba(255,255,255,0.72);
-
-            font-size: 11px;
-
+        .brand-mini-text {
+            font-size: 15px;
             letter-spacing: 2px;
-
-            text-transform: uppercase;
+            font-weight: 700;
         }
 
+        /* ==========================================
+           RIGHT MESSAGE
+        ========================================== */
 
-        .datetime {
-            text-align: right;
-
-            color: rgba(255,255,255,0.82);
-
-            font-size: 13px;
-        }
-
-
-        .datetime strong {
-            display: block;
-
-            margin-top: 4px;
-
-            font-size: 21px;
-
-            color: #ffffff;
-        }
-
-
-        /* =====================================================
-           MAIN
-           ===================================================== */
-
-        .main {
-            position: relative;
+        .right-message {
+            position: absolute;
+            right: 6%;
+            top: 18%;
 
             z-index: 2;
 
-            width: 100%;
-            height: 100%;
+            width: 320px;
+
+            color: white;
+
+            text-shadow:
+                0 3px 12px rgba(0,0,0,0.35);
+        }
+
+        .right-message h2 {
+            font-size: 34px;
+            line-height: 1.25;
+            font-weight: 300;
+
+            margin-bottom: 18px;
+        }
+
+        .right-line {
+            width: 95px;
+            height: 2px;
+
+            background: white;
+
+            margin-bottom: 15px;
+        }
+
+        .right-message p {
+            font-size: 15px;
+            line-height: 1.65;
+
+            opacity: 0.95;
+        }
+
+        /* ==========================================
+           LEFT SLOGAN
+        ========================================== */
+
+        .left-slogan {
+            position: absolute;
+            left: 5%;
+            bottom: 21%;
+
+            z-index: 3;
+
+            width: 260px;
+
+            color: white;
+
+            text-shadow:
+                0 3px 10px rgba(0,0,0,0.45);
+        }
+
+        .left-slogan div {
+            font-family: Georgia, serif;
+            font-style: italic;
+
+            font-size: 27px;
+            line-height: 1.35;
+        }
+
+        .slogan-line {
+            width: 180px;
+            height: 2px;
+
+            background: white;
+
+            margin-top: 14px;
+
+            transform: rotate(-5deg);
+            transform-origin: left;
+        }
+
+        /* ==========================================
+           LOGIN WRAPPER
+        ========================================== */
+
+        .login-wrapper {
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 10;
 
             display: flex;
 
             align-items: center;
-
             justify-content: center;
+
+            padding: 30px;
         }
 
+        /* ==========================================
+           LOGIN CARD
+        ========================================== */
 
-        /* =====================================================
-           LEFT INFORMATION
-           ===================================================== */
+        .login-card {
+            width: 600px;
+            max-width: 95vw;
 
-        .left-info {
-            position: absolute;
+            min-height: 680px;
 
-            left: 50px;
+            padding:
+                42px 48px 35px;
 
-            top: 50%;
+            border-radius: 24px;
 
-            transform: translateY(-43%);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.97),
+                    rgba(241,247,252,0.94)
+                );
 
-            width: 300px;
+            border:
+                1px solid rgba(255,255,255,0.90);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.28),
+                0 5px 20px rgba(0,0,0,0.12);
+
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
         }
 
+        /* ==========================================
+           LOGO
+        ========================================== */
 
-        .left-title {
-            font-size: 15px;
+        .logo-area {
+            text-align: center;
 
-            font-weight: 700;
-
-            letter-spacing: 1px;
-
-            margin-bottom: 20px;
-
-            color: rgba(255,255,255,0.9);
+            margin-bottom: 28px;
         }
 
+        .logo-image {
+            width: 210px;
+            max-width: 70%;
 
-        .menu-item {
+            height: auto;
+
+            display: block;
+
+            margin: 0 auto 16px;
+
+            object-fit: contain;
+        }
+
+        .system-title {
+            margin-top: 8px;
+
             display: flex;
 
             align-items: center;
 
             gap: 13px;
 
-            margin-bottom: 14px;
+            color: #2f4f70;
+
+            font-size: 20px;
+
+            font-weight: 400;
         }
 
-
-        .menu-icon {
-            width: 42px;
-            height: 42px;
-
-            flex-shrink: 0;
-
-            border-radius: 10px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-                rgba(150, 0, 25, 0.78);
-
-            border:
-                1px solid rgba(255,255,255,0.10);
-
-            font-size: 19px;
-        }
-
-
-        .menu-text strong {
-            display: block;
-
-            font-size: 14px;
-        }
-
-
-        .menu-text span {
-            display: block;
-
-            margin-top: 2px;
-
-            color: rgba(255,255,255,0.58);
-
-            font-size: 11px;
-        }
-
-
-        /* =====================================================
-           LOGIN CARD
-           ===================================================== */
-
-        .login-card {
-            width: 500px;
-
-            max-width: calc(100vw - 40px);
-
-            padding: 42px 46px 34px;
-
-            background:
-                rgba(245, 246, 247, 0.97);
-
-            border-radius: 18px;
-
-            border-top:
-                5px solid #a90020;
-
-            box-shadow:
-                0 35px 90px rgba(0,0,0,0.60);
-
-            color: #171b20;
-
-            position: relative;
-
-            overflow: hidden;
-        }
-
-
-        .login-card::before {
+        .system-title::before,
+        .system-title::after {
             content: "";
 
-            position: absolute;
+            flex: 1;
 
-            width: 220px;
-            height: 220px;
+            height: 1px;
 
-            right: -120px;
-            top: -120px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(169,0,32,0.06);
+            background: #c9d5e0;
         }
 
-
-        .login-brand {
-            text-align: center;
-
-            margin-bottom: 31px;
-        }
-
-
-        .login-logo {
-            width: 82px;
-            height: 82px;
-
-            margin: 0 auto 13px;
-
-            border-radius: 50%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #b30024,
-                    #760016
-                );
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: white;
-
-            font-size: 40px;
-
-            box-shadow:
-                0 10px 25px rgba(125,0,20,0.22);
-        }
-
-
-        .login-brand h2 {
-            font-size: 29px;
-
-            font-weight: 800;
-
-            letter-spacing: 0.5px;
-        }
-
-
-        .login-brand h2 span {
-            color: #ad0022;
-        }
-
-
-        .login-brand p {
-            margin-top: 5px;
-
-            font-size: 11px;
-
-            letter-spacing: 2.2px;
-
-            color: #6c737b;
-
-            text-transform: uppercase;
-        }
-
-
-        .separator {
-            width: 72px;
-            height: 3px;
-
-            margin: 16px auto 0;
-
-            background: #a90020;
-
-            border-radius: 10px;
-        }
-
-
-        /* =====================================================
+        /* ==========================================
            FORM
-           ===================================================== */
+        ========================================== */
 
-        .form-group {
-            margin-bottom: 19px;
+        .form-area {
+            margin-top: 10px;
         }
 
-
-        .form-label {
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-bottom: 8px;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            color: #30363c;
-        }
-
-
-        .input-wrapper {
-            position: relative;
-        }
-
-
-        .input-icon {
-            position: absolute;
-
-            left: 15px;
-
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            font-size: 17px;
-
-            color: #747c84;
-
-            pointer-events: none;
-        }
-
-
-        .form-input {
-            width: 100%;
-
-            height: 52px;
+        .input-group {
+            height: 62px;
 
             border:
-                1px solid #d4d9de;
+                1px solid #d3dfeb;
 
-            border-radius: 10px;
+            background:
+                rgba(255,255,255,0.84);
 
-            background: #ffffff;
+            border-radius: 13px;
 
-            color: #20252a;
+            display: flex;
 
-            font-size: 14px;
+            align-items: center;
 
-            padding:
-                0 46px 0 45px;
+            overflow: hidden;
 
-            outline: none;
+            margin-bottom: 17px;
 
             transition:
-                border-color .2s,
-                box-shadow .2s;
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.2s ease;
         }
 
-
-        .form-input::placeholder {
-            color: #9ba1a7;
-        }
-
-
-        .form-input:focus {
-            border-color: #a90020;
+        .input-group:focus-within {
+            border-color: #1680df;
 
             box-shadow:
-                0 0 0 3px rgba(169,0,32,0.09);
+                0 0 0 4px
+                rgba(22,128,223,0.10);
+
+            transform: translateY(-1px);
         }
 
+        .input-icon {
+            width: 65px;
+            height: 100%;
 
-        .password-toggle {
-            position: absolute;
+            display: flex;
 
-            right: 14px;
+            align-items: center;
+            justify-content: center;
 
-            top: 50%;
+            color: #075596;
 
-            transform: translateY(-50%);
+            border-right:
+                1px solid #e0e8f0;
 
-            border: none;
+            flex-shrink: 0;
+        }
+
+        .input-icon svg {
+            width: 27px;
+            height: 27px;
+
+            stroke: currentColor;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 100%;
+
+            border: 0;
+            outline: none;
 
             background: transparent;
 
-            cursor: pointer;
+            padding:
+                0 18px;
 
-            font-size: 18px;
+            font-size: 17px;
 
-            color: #727a82;
+            color: #1b456c;
         }
 
+        .input-group input::placeholder {
+            color: #7890a8;
+        }
 
-        /* =====================================================
+        /* ==========================================
+           PASSWORD BUTTON
+        ========================================== */
+
+        .password-eye {
+            width: 58px;
+            height: 100%;
+
+            border: 0;
+
+            background: transparent;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            color: #496987;
+
+            flex-shrink: 0;
+        }
+
+        .password-eye:hover {
+            color: #075596;
+        }
+
+        .password-eye svg {
+            width: 23px;
+            height: 23px;
+
+            stroke: currentColor;
+        }
+
+        /* ==========================================
            OPTIONS
-           ===================================================== */
+        ========================================== */
 
         .options {
             display: flex;
 
             justify-content: space-between;
-
             align-items: center;
 
             margin:
-                3px 0 20px;
-        }
+                3px 3px 25px;
 
+            font-size: 14px;
+        }
 
         .remember {
             display: flex;
 
             align-items: center;
 
-            gap: 8px;
-
-            font-size: 12px;
-
-            color: #555d65;
+            gap: 9px;
 
             cursor: pointer;
-        }
 
+            color: #355574;
+
+            user-select: none;
+        }
 
         .remember input {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
 
-            accent-color: #a90020;
+            accent-color: #0877d1;
+
+            cursor: pointer;
         }
 
-
         .forgot {
-            border: none;
+            color: #0877d1;
 
-            background: none;
-
-            color: #9d001f;
-
-            font-size: 12px;
+            text-decoration: none;
 
             cursor: pointer;
 
-            font-weight: 600;
+            font-weight: 500;
         }
 
+        .forgot:hover {
+            text-decoration: underline;
+        }
 
-        /* =====================================================
+        /* ==========================================
            LOGIN BUTTON
-           ===================================================== */
+        ========================================== */
 
-        .login-button {
+        .login-btn {
             width: 100%;
+            height: 64px;
 
-            height: 54px;
+            border: 0;
 
-            border: none;
-
-            border-radius: 10px;
+            border-radius: 13px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #b30024,
-                    #8e001c
+                    #0876d1,
+                    #0757a3
                 );
 
             color: white;
 
-            font-size: 15px;
-
-            font-weight: 800;
-
-            letter-spacing: 0.3px;
-
-            cursor: pointer;
-
-            transition:
-                transform .18s,
-                box-shadow .18s,
-                opacity .18s;
-
-            box-shadow:
-                0 8px 20px rgba(140,0,28,0.24);
-        }
-
-
-        .login-button:hover {
-            transform: translateY(-1px);
-
-            box-shadow:
-                0 12px 25px rgba(140,0,28,0.32);
-        }
-
-
-        .login-button:active {
-            transform: translateY(0);
-        }
-
-
-        .login-button:disabled {
-            opacity: 0.65;
-
-            cursor: not-allowed;
-
-            transform: none;
-        }
-
-
-        .button-content {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 10px;
-        }
-
-
-        /* =====================================================
-           MESSAGE
-           ===================================================== */
-
-        .message {
-            display: none;
-
-            margin-top: 15px;
-
-            padding: 11px 13px;
-
-            border-radius: 8px;
-
-            font-size: 12px;
-
-            line-height: 1.5;
-        }
-
-
-        .message.error {
-            display: block;
-
-            color: #8b001c;
-
-            background: #fff0f2;
-
-            border: 1px solid #f3c4cb;
-        }
-
-
-        .message.success {
-            display: block;
-
-            color: #176534;
-
-            background: #eefaf1;
-
-            border: 1px solid #bce5c7;
-        }
-
-
-        /* =====================================================
-           SECURITY
-           ===================================================== */
-
-        .security {
-            margin-top: 24px;
-
-            padding-top: 19px;
-
-            border-top:
-                1px solid #e0e3e6;
-
-            text-align: center;
-        }
-
-
-        .security-title {
-            font-size: 12px;
+            font-size: 20px;
 
             font-weight: 700;
 
-            color: #59616a;
-        }
+            cursor: pointer;
 
-
-        .security-text {
-            margin-top: 5px;
-
-            font-size: 11px;
-
-            color: #8b9299;
-        }
-
-
-        .security-tags {
             display: flex;
 
+            align-items: center;
             justify-content: center;
 
             gap: 13px;
 
-            margin-top: 12px;
+            box-shadow:
+                0 9px 22px
+                rgba(7,91,163,0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease;
         }
 
+        .login-btn:hover {
+            transform: translateY(-2px);
 
-        .security-tag {
-            font-size: 9px;
+            box-shadow:
+                0 13px 27px
+                rgba(7,91,163,0.32);
 
-            color: #727a82;
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.8px;
+            filter: brightness(1.04);
         }
 
-
-        /* =====================================================
-           RIGHT SLOGAN
-           ===================================================== */
-
-        .right-info {
-            position: absolute;
-
-            right: 50px;
-
-            top: 50%;
-
-            transform: translateY(-25%);
-
-            width: 270px;
-
-            text-align: right;
+        .login-btn:active {
+            transform: translateY(0);
         }
 
+        .login-btn:disabled {
+            opacity: 0.70;
 
-        .slogan {
-            font-family:
-                Georgia,
-                serif;
+            cursor: wait;
 
-            font-style: italic;
-
-            font-size: 42px;
-
-            line-height: 1.05;
-
-            color: rgba(255,255,255,0.94);
+            transform: none;
         }
 
+        .login-btn svg {
+            width: 26px;
+            height: 26px;
 
-        .slogan-line {
-            width: 160px;
+            stroke: currentColor;
+        }
 
-            height: 3px;
+        /* ==========================================
+           MESSAGE
+        ========================================== */
+
+        .message {
+            min-height: 23px;
+
+            text-align: center;
+
+            margin-top: 14px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.2s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+        }
+
+        .message.error {
+            color: #c62828;
+        }
+
+        .message.success {
+            color: #218838;
+        }
+
+        .message.info {
+            color: #22639a;
+        }
+
+        /* ==========================================
+           BOTTOM BRAND
+        ========================================== */
+
+        .bottom-brand {
+            margin-top: auto;
+
+            padding-top: 28px;
+
+            text-align: center;
+        }
+
+        .farm-icon {
+            width: 120px;
+            height: 50px;
 
             margin:
-                18px 0 18px auto;
+                0 auto 8px;
 
-            background: #bd0027;
-
-            transform: rotate(-4deg);
-
-            border-radius: 10px;
+            position: relative;
         }
 
-
-        .right-keywords {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-
-            font-size: 11px;
-
-            letter-spacing: 2px;
-
-            color: rgba(255,255,255,0.70);
-
-            text-transform: uppercase;
-        }
-
-
-        /* =====================================================
-           FOOTER
-           ===================================================== */
-
-        .footer {
+        .farm-roof {
             position: absolute;
 
-            left: 0;
-            right: 0;
-            bottom: 0;
+            left: 31px;
+            top: 7px;
 
-            height: 54px;
+            width: 58px;
+            height: 30px;
 
-            display: flex;
+            background: #d92b2f;
 
-            align-items: center;
+            clip-path:
+                polygon(
+                    0 45%,
+                    50% 0,
+                    100% 45%,
+                    100% 100%,
+                    0 100%
+                );
+        }
 
-            justify-content: space-between;
+        .farm-body {
+            position: absolute;
 
-            padding:
-                0 42px;
+            left: 38px;
+            top: 22px;
 
-            background:
-                rgba(5,8,11,0.84);
+            width: 44px;
+            height: 23px;
 
-            border-top:
-                1px solid rgba(255,255,255,0.08);
+            background: #f1f3f5;
 
-            color:
-                rgba(255,255,255,0.58);
+            border:
+                2px solid #d92b2f;
+        }
+
+        .farm-door {
+            position: absolute;
+
+            left: 56px;
+            top: 31px;
+
+            width: 10px;
+            height: 14px;
+
+            background: #28663a;
+        }
+
+        .tree {
+            position: absolute;
+
+            width: 14px;
+            height: 24px;
+
+            background: #299448;
+
+            border-radius:
+                50% 50% 45% 45%;
+
+            bottom: 5px;
+        }
+
+        .tree.left {
+            left: 21px;
+        }
+
+        .tree.right {
+            right: 21px;
+        }
+
+        .bottom-title {
+            color: #315574;
+
+            font-size: 17px;
+
+            font-weight: 600;
+        }
+
+        .bottom-subtitle {
+            margin-top: 8px;
 
             font-size: 11px;
 
-            z-index: 5;
+            letter-spacing: 4px;
+
+            color: #73879b;
         }
 
+        /* ==========================================
+           SPINNER
+        ========================================== */
 
-        .footer-left {
-            display: flex;
-
-            gap: 10px;
-
-            align-items: center;
-        }
-
-
-        .footer-left strong {
-            color: #ffffff;
-        }
-
-
-        /* =====================================================
-           LOADER
-           ===================================================== */
-
-        .loader {
-            width: 17px;
-            height: 17px;
+        .spinner {
+            width: 22px;
+            height: 22px;
 
             border:
-                2px solid rgba(255,255,255,0.35);
+                3px solid
+                rgba(255,255,255,0.45);
 
-            border-top-color: #ffffff;
+            border-top-color: white;
 
             border-radius: 50%;
 
             animation:
-                spin .7s linear infinite;
+                spin 0.8s linear infinite;
         }
-
 
         @keyframes spin {
             to {
@@ -948,440 +709,433 @@
             }
         }
 
+        /* ==========================================
+           FOOTER
+        ========================================== */
 
-        /* =====================================================
+        .footer-left {
+            position: fixed;
+
+            left: 3%;
+            bottom: 20px;
+
+            z-index: 20;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 14px;
+
+            text-shadow:
+                0 2px 7px
+                rgba(0,0,0,0.45);
+        }
+
+        .footer-left svg {
+            width: 19px;
+            height: 19px;
+
+            stroke: currentColor;
+        }
+
+        .footer-right {
+            position: fixed;
+
+            right: 3%;
+            bottom: 18px;
+
+            z-index: 20;
+
+            color: white;
+
+            text-align: center;
+
+            text-shadow:
+                0 2px 7px
+                rgba(0,0,0,0.45);
+        }
+
+        .animals {
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            margin-bottom: 5px;
+        }
+
+        .animal {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            font-size: 10px;
+
+            letter-spacing: 1px;
+
+            font-weight: 700;
+        }
+
+        .animal-icon {
+            font-size: 27px;
+
+            line-height: 30px;
+        }
+
+        .version {
+            font-size: 11px;
+
+            opacity: 0.75;
+
+            margin-top: 5px;
+        }
+
+        /* ==========================================
            RESPONSIVE
-           ===================================================== */
+        ========================================== */
 
         @media (max-width: 1100px) {
 
-            .left-info,
-            .right-info {
+            .right-message,
+            .left-slogan {
                 display: none;
             }
 
             .login-card {
-                width: 500px;
+                width: 560px;
             }
-
         }
 
-
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
 
             body {
-                overflow: auto;
+                background-position: center;
             }
 
-            .page {
-                min-height: 100vh;
-
-                height: auto;
+            .top-brand {
+                top: 15px;
+                left: 18px;
             }
 
-            .header {
-                position: relative;
-
-                top: auto;
-                left: auto;
-                right: auto;
-
-                padding: 20px;
-
-                justify-content: center;
-            }
-
-            .datetime {
-                display: none;
-            }
-
-            .main {
-                min-height:
-                    calc(100vh - 95px);
-
-                padding:
-                    20px 15px 75px;
+            .login-wrapper {
+                padding: 15px;
             }
 
             .login-card {
-                padding:
-                    32px 24px 27px;
+                width: 100%;
 
-                border-radius: 14px;
-            }
+                max-width: 480px;
 
-            .login-brand h2 {
-                font-size: 25px;
-            }
-
-            .footer {
-                position: fixed;
-
-                height: 50px;
+                min-height: auto;
 
                 padding:
-                    0 15px;
+                    32px 25px 25px;
 
-                font-size: 9px;
+                border-radius: 20px;
+            }
+
+            .logo-image {
+                width: 170px;
+            }
+
+            .system-title {
+                font-size: 16px;
+            }
+
+            .input-group {
+                height: 58px;
+            }
+
+            .login-btn {
+                height: 58px;
+
+                font-size: 18px;
+            }
+
+            .footer-left {
+                display: none;
             }
 
             .footer-right {
-                display: none;
+                right: 50%;
+
+                transform:
+                    translateX(50%);
+
+                bottom: 8px;
             }
 
+            .bottom-brand {
+                padding-top: 18px;
+            }
+
+            .animals {
+                display: none;
+            }
         }
 
+        @media (max-height: 760px) {
+
+            .login-card {
+                min-height: auto;
+
+                padding-top: 25px;
+                padding-bottom: 20px;
+            }
+
+            .logo-area {
+                margin-bottom: 18px;
+            }
+
+            .logo-image {
+                width: 150px;
+            }
+
+            .system-title {
+                margin-top: 14px;
+            }
+
+            .input-group {
+                height: 53px;
+
+                margin-bottom: 12px;
+            }
+
+            .options {
+                margin-bottom: 15px;
+            }
+
+            .login-btn {
+                height: 55px;
+            }
+
+            .bottom-brand {
+                padding-top: 15px;
+            }
+        }
     </style>
 </head>
 
 
 <body>
 
-<div class="page">
+    <!-- ==========================================
+         TOP BRAND
+    ========================================== -->
 
-    <!-- =====================================================
-         BACKGROUND
-         ===================================================== -->
+    <div class="top-brand">
 
-    <div class="background"></div>
-
-
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
-
-    <header class="header">
-
-        <div class="brand">
-
-            <div class="brand-logo">
-                🐄
-            </div>
-
-            <div class="brand-text">
-
-                <h1>
-                    ABAT<span>TOIR</span>
-                </h1>
-
-                <p>
-                    Qualité • Hygiène • Traçabilité
-                </p>
-
-            </div>
-
+        <div class="brand-mini">
+            SMTG
         </div>
 
-
-        <div class="datetime">
-
-            <div id="currentDate">
-                Chargement...
-            </div>
-
-            <strong id="currentTime">
-                --:--:--
-            </strong>
-
+        <div class="brand-mini-text">
+            ABATTOIR
         </div>
 
-    </header>
+    </div>
 
 
-    <!-- =====================================================
-         MAIN
-         ===================================================== -->
+    <!-- ==========================================
+         RIGHT MESSAGE
+    ========================================== -->
 
-    <main class="main">
+    <div class="right-message">
 
+        <h2>
+            Ensemble<br>
+            pour une alimentation<br>
+            plus saine
+        </h2>
 
-        <!-- =================================================
-             LEFT INFORMATION
-             ================================================= -->
+        <div class="right-line"></div>
 
-        <section class="left-info">
+        <p>
+            Une gestion intégrée au service
+            de la qualité, de la sécurité
+            et de la performance.
+        </p>
 
-            <div class="left-title">
-                SYSTÈME D'INFORMATION
-            </div>
+    </div>
 
 
-            <div class="menu-item">
+    <!-- ==========================================
+         LEFT SLOGAN
+    ========================================== -->
 
-                <div class="menu-icon">
-                    ⚙
-                </div>
+    <div class="left-slogan">
 
-                <div class="menu-text">
+        <div>Qualité</div>
+        <div>Hygiène</div>
+        <div>Traçabilité</div>
+        <div>Notre engagement</div>
 
-                    <strong>
-                        Administration
-                    </strong>
+        <div class="slogan-line"></div>
 
-                    <span>
-                        Gestion globale du système
-                    </span>
+    </div>
 
-                </div>
 
-            </div>
+    <!-- ==========================================
+         LOGIN
+    ========================================== -->
 
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    👥
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Ressources Humaines
-                    </strong>
-
-                    <span>
-                        Personnel et organisation
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    🏭
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Production
-                    </strong>
-
-                    <span>
-                        Suivi de l'abattage
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    🛡
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Qualité
-                    </strong>
-
-                    <span>
-                        Contrôle et conformité
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    📦
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Stock
-                    </strong>
-
-                    <span>
-                        Gestion des stocks
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    🚚
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Logistique
-                    </strong>
-
-                    <span>
-                        Réception et expédition
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    💰
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Finance & Comptabilité
-                    </strong>
-
-                    <span>
-                        Suivi financier
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="menu-item">
-
-                <div class="menu-icon">
-                    🔧
-                </div>
-
-                <div class="menu-text">
-
-                    <strong>
-                        Maintenance
-                    </strong>
-
-                    <span>
-                        Équipements et infrastructures
-                    </span>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             LOGIN CARD
-             ================================================= -->
+    <main class="login-wrapper">
 
         <section class="login-card">
 
 
-            <div class="login-brand">
+            <!-- ==================================
+                 LOGO
+            ================================== -->
 
-                <div class="login-logo">
-                    🐄
+            <div class="logo-area">
+
+                <img
+                    src="img/logo-smtg.png"
+                    alt="SMTG Abattoir"
+                    class="logo-image"
+                >
+
+                <div class="system-title">
+                    Système de Gestion Intégré
                 </div>
-
-                <h2>
-                    ABAT<span>TOIR</span>
-                </h2>
-
-                <p>
-                    Système d'information intégré
-                </p>
-
-                <div class="separator"></div>
 
             </div>
 
 
-            <!-- =================================================
-                 LOGIN FORM
-                 ================================================= -->
+            <!-- ==================================
+                 FORM
+            ================================== -->
 
-            <form id="loginForm">
+            <form
+                id="loginForm"
+                class="form-area"
+            >
 
 
                 <!-- USERNAME -->
 
-                <div class="form-group">
+                <div class="input-group">
 
-                    <label
-                        class="form-label"
-                        for="username"
-                    >
-                        👤
-                        Nom d'utilisateur
-                    </label>
+                    <div class="input-icon">
 
-
-                    <div class="input-wrapper">
-
-                        <span class="input-icon">
-                            👤
-                        </span>
-
-                        <input
-                            type="text"
-                            id="username"
-                            class="form-input"
-                            placeholder="Entrez votre nom d'utilisateur"
-                            autocomplete="username"
-                            required
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                         >
 
+                            <path
+                                d="M20 21a8 8 0 0 0-16 0"
+                            ></path>
+
+                            <circle
+                                cx="12"
+                                cy="7"
+                                r="4"
+                            ></circle>
+
+                        </svg>
+
                     </div>
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Nom d'utilisateur"
+                        autocomplete="username"
+                        required
+                    >
 
                 </div>
 
 
                 <!-- PASSWORD -->
 
-                <div class="form-group">
+                <div class="input-group">
 
-                    <label
-                        class="form-label"
-                        for="password"
-                    >
-                        🔒
-                        Mot de passe
-                    </label>
+                    <div class="input-icon">
 
-
-                    <div class="input-wrapper">
-
-                        <span class="input-icon">
-                            🔒
-                        </span>
-
-
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-input"
-                            placeholder="Entrez votre mot de passe"
-                            autocomplete="current-password"
-                            required
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                         >
 
+                            <rect
+                                x="4"
+                                y="10"
+                                width="16"
+                                height="11"
+                                rx="2"
+                            ></rect>
 
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            id="togglePassword"
-                            title="Afficher le mot de passe"
-                        >
-                            👁
-                        </button>
+                            <path
+                                d="M8 10V7a4 4 0 0 1 8 0v3"
+                            ></path>
+
+                        </svg>
 
                     </div>
+
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Mot de passe"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="password-eye"
+                        id="togglePassword"
+                        aria-label="Afficher le mot de passe"
+                    >
+
+                        <svg
+                            id="eyeIcon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+
+                            <path
+                                d="M2 12s3.5-7 10-7
+                                   10 7 10 7-3.5 7-10 7
+                                   S2 12 2 12z"
+                            ></path>
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="3"
+                            ></circle>
+
+                        </svg>
+
+                    </button>
 
                 </div>
 
@@ -1394,7 +1148,7 @@
 
                         <input
                             type="checkbox"
-                            id="rememberMe"
+                            id="remember"
                         >
 
                         <span>
@@ -1404,36 +1158,50 @@
                     </label>
 
 
-                    <button
-                        type="button"
+                    <a
+                        href="#"
                         class="forgot"
                         id="forgotPassword"
                     >
                         Mot de passe oublié ?
-                    </button>
+                    </a>
 
                 </div>
 
 
-                <!-- BUTTON -->
+                <!-- LOGIN BUTTON -->
 
                 <button
                     type="submit"
-                    class="login-button"
+                    class="login-btn"
                     id="loginButton"
                 >
 
-                    <span
-                        class="button-content"
-                        id="buttonContent"
+                    <svg
+                        id="loginIcon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                     >
-                        <span>
-                            ➜
-                        </span>
 
-                        <span>
-                            SE CONNECTER
-                        </span>
+                        <path
+                            d="M10 17l5-5-5-5"
+                        ></path>
+
+                        <path
+                            d="M15 12H3"
+                        ></path>
+
+                        <path
+                            d="M21 19V5a2 2 0 0 0-2-2h-6"
+                        ></path>
+
+                    </svg>
+
+                    <span id="loginText">
+                        Se connecter
                     </span>
 
                 </button>
@@ -1446,720 +1214,711 @@
                     class="message"
                 ></div>
 
-
             </form>
 
 
-            <!-- =================================================
-                 SECURITY
-                 ================================================= -->
+            <!-- ==================================
+                 BOTTOM BRAND
+            ================================== -->
 
-            <div class="security">
+            <div class="bottom-brand">
 
-                <div class="security-title">
-                    🔐 Accès réservé aux utilisateurs autorisés
-                </div>
+                <div class="farm-icon">
 
-                <div class="security-text">
-                    Toute activité est enregistrée et tracée
-                </div>
+                    <div class="tree left"></div>
 
+                    <div class="tree right"></div>
 
-                <div class="security-tags">
+                    <div class="farm-roof"></div>
 
-                    <span class="security-tag">
-                        Sécurité
-                    </span>
+                    <div class="farm-body"></div>
 
-                    <span class="security-tag">
-                        •
-                    </span>
-
-                    <span class="security-tag">
-                        Traçabilité
-                    </span>
-
-                    <span class="security-tag">
-                        •
-                    </span>
-
-                    <span class="security-tag">
-                        Conformité
-                    </span>
+                    <div class="farm-door"></div>
 
                 </div>
 
-            </div>
+
+                <div class="bottom-title">
+                    De la ferme à l'assiette
+                </div>
 
 
-        </section>
-
-
-        <!-- =================================================
-             RIGHT INFORMATION
-             ================================================= -->
-
-        <section class="right-info">
-
-            <div class="slogan">
-                Du champ<br>
-                à l'assiette
-            </div>
-
-
-            <div class="slogan-line"></div>
-
-
-            <div class="right-keywords">
-
-                <span>
-                    Sécurité
-                </span>
-
-                <span>
-                    Traçabilité
-                </span>
-
-                <span>
-                    Conformité
-                </span>
-
-                <span>
-                    Performance
-                </span>
+                <div class="bottom-subtitle">
+                    SÉCURITÉ • QUALITÉ • PERFORMANCE
+                </div>
 
             </div>
 
         </section>
-
 
     </main>
 
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
+    <!-- ==========================================
+         DATE / TIME
+    ========================================== -->
 
-    <footer class="footer">
+    <div class="footer-left">
 
-        <div class="footer-left">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
 
-            <span>
-                🔒
-            </span>
+            <circle
+                cx="12"
+                cy="12"
+                r="9"
+            ></circle>
 
-            <strong>
-                ABATTOIR
-            </strong>
+            <polyline
+                points="12 7 12 12 15 14"
+            ></polyline>
 
-            <span>
-                |
-            </span>
+        </svg>
 
-            <span>
-                Système d'information intégré
-            </span>
+        <span id="dateTime">
+            Chargement...
+        </span>
 
-            <span>
-                |
-            </span>
+    </div>
 
-            <span>
-                Version 1.0
-            </span>
+
+    <!-- ==========================================
+         ANIMALS / VERSION
+    ========================================== -->
+
+    <div class="footer-right">
+
+        <div class="animals">
+
+            <div class="animal">
+
+                <div class="animal-icon">
+                    🐄
+                </div>
+
+                <div>
+                    BOVIN
+                </div>
+
+            </div>
+
+
+            <div class="animal">
+
+                <div class="animal-icon">
+                    🐑
+                </div>
+
+                <div>
+                    OVIN
+                </div>
+
+            </div>
+
+
+            <div class="animal">
+
+                <div class="animal-icon">
+                    🐔
+                </div>
+
+                <div>
+                    VOLAILLE
+                </div>
+
+            </div>
 
         </div>
 
 
-        <div class="footer-right">
-            © 2026 Abattoir. Tous droits réservés.
+        <div class="version">
+            v1.0.0
         </div>
 
-    </footer>
-
-</div>
+    </div>
 
 
-<script>
+    <!-- ==========================================
+         SUPABASE
+    ========================================== -->
 
-    /* =========================================================
-       SUPABASE CONFIGURATION
-       ========================================================= */
-
-    const SUPABASE_URL =
-        "TON_SUPABASE_URL";
-
-    const SUPABASE_ANON_KEY =
-        "TON_SUPABASE_ANON_KEY";
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
 
 
-    let supabaseClient = null;
+    <!-- ==========================================
+         OUR API CONNECTION
+    ========================================== -->
+
+    <script
+        src="api/supabase.js"
+    ></script>
 
 
-    /*
-     * إنشاء client فقط إذا كانت المعلومات موجودة
-     */
+    <!-- ==========================================
+         LOGIN JAVASCRIPT
+    ========================================== -->
 
-    if (
-        SUPABASE_URL !== "TON_SUPABASE_URL" &&
-        SUPABASE_ANON_KEY !== "TON_SUPABASE_ANON_KEY"
-    ) {
+    <script>
 
-        supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_ANON_KEY
+        /* ==========================================
+           ELEMENTS
+        ========================================== */
+
+        const loginForm =
+            document.getElementById(
+                "loginForm"
             );
 
-    }
-
-
-    /* =========================================================
-       ELEMENTS
-       ========================================================= */
-
-    const loginForm =
-        document.getElementById("loginForm");
-
-    const usernameInput =
-        document.getElementById("username");
-
-    const passwordInput =
-        document.getElementById("password");
-
-    const togglePassword =
-        document.getElementById("togglePassword");
-
-    const loginButton =
-        document.getElementById("loginButton");
-
-    const buttonContent =
-        document.getElementById("buttonContent");
-
-    const message =
-        document.getElementById("message");
-
-    const rememberMe =
-        document.getElementById("rememberMe");
-
-
-    /* =========================================================
-       DATE / TIME
-       ========================================================= */
-
-    function updateDateTime() {
-
-        const now = new Date();
-
-
-        const dateText =
-            now.toLocaleDateString(
-                "fr-FR",
-                {
-                    weekday: "long",
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric"
-                }
+        const usernameInput =
+            document.getElementById(
+                "username"
             );
 
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
 
-        const timeText =
-            now.toLocaleTimeString(
-                "fr-FR",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
-                }
+        const rememberInput =
+            document.getElementById(
+                "remember"
+            );
+
+        const togglePassword =
+            document.getElementById(
+                "togglePassword"
+            );
+
+        const eyeIcon =
+            document.getElementById(
+                "eyeIcon"
+            );
+
+        const loginButton =
+            document.getElementById(
+                "loginButton"
+            );
+
+        const loginText =
+            document.getElementById(
+                "loginText"
+            );
+
+        const loginIcon =
+            document.getElementById(
+                "loginIcon"
+            );
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+        const forgotPassword =
+            document.getElementById(
+                "forgotPassword"
+            );
+
+        const dateTime =
+            document.getElementById(
+                "dateTime"
             );
 
 
-        document.getElementById("currentDate")
-            .textContent =
-                capitalizeFirstLetter(dateText);
+        /* ==========================================
+           DATE / TIME
+        ========================================== */
 
+        function updateDateTime() {
 
-        document.getElementById("currentTime")
-            .textContent =
-                timeText;
+            const now =
+                new Date();
 
-    }
+            const datePart =
+                now.toLocaleDateString(
+                    "fr-FR",
+                    {
+                        weekday: "long",
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
 
+            const timePart =
+                now.toLocaleTimeString(
+                    "fr-FR",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
 
-    function capitalizeFirstLetter(text) {
-
-        if (!text) {
-            return text;
+            dateTime.textContent =
+                datePart.charAt(0).toUpperCase() +
+                datePart.slice(1) +
+                "  |  " +
+                timePart;
         }
 
-        return (
-            text.charAt(0).toUpperCase() +
-            text.slice(1)
+
+        updateDateTime();
+
+
+        setInterval(
+            updateDateTime,
+            1000
         );
 
-    }
 
+        /* ==========================================
+           SHOW / HIDE PASSWORD
+        ========================================== */
 
-    updateDateTime();
-
-    setInterval(
-        updateDateTime,
-        1000
-    );
-
-
-    /* =========================================================
-       PASSWORD SHOW / HIDE
-       ========================================================= */
-
-    togglePassword.addEventListener(
-        "click",
-        function () {
-
-            if (
-                passwordInput.type === "password"
-            ) {
-
-                passwordInput.type =
-                    "text";
-
-                togglePassword.textContent =
-                    "🙈";
-
-            } else {
-
-                passwordInput.type =
-                    "password";
-
-                togglePassword.textContent =
-                    "👁";
-
-            }
-
-        }
-    );
-
-
-    /* =========================================================
-       MESSAGE
-       ========================================================= */
-
-    function showMessage(
-        text,
-        type = "error"
-    ) {
-
-        message.className =
-            "message " + type;
-
-        message.textContent =
-            text;
-
-    }
-
-
-    function hideMessage() {
-
-        message.className =
-            "message";
-
-        message.textContent =
-            "";
-
-    }
-
-
-    /* =========================================================
-       LOADING
-       ========================================================= */
-
-    function setLoading(
-        loading
-    ) {
-
-        loginButton.disabled =
-            loading;
-
-
-        if (loading) {
-
-            buttonContent.innerHTML = `
-                <span class="loader"></span>
-                <span>Connexion...</span>
-            `;
-
-        } else {
-
-            buttonContent.innerHTML = `
-                <span>➜</span>
-                <span>SE CONNECTER</span>
-            `;
-
-        }
-
-    }
-
-
-    /* =========================================================
-       SAVE SESSION
-       ========================================================= */
-
-    function saveUserSession(
-        user
-    ) {
-
-        const sessionData = {
-
-            id:
-                user.id,
-
-            username:
-                user.username,
-
-            full_name:
-                user.full_name,
-
-            role_id:
-                user.role_id,
-
-            is_active:
-                user.is_active,
-
-            login_at:
-                new Date().toISOString()
-
-        };
-
-
-        const storage =
-            rememberMe.checked
-                ? localStorage
-                : sessionStorage;
-
-
-        storage.setItem(
-            "abattoir_current_user",
-            JSON.stringify(
-                sessionData
-            )
-        );
-
-    }
-
-
-    /* =========================================================
-       LOGIN
-       ========================================================= */
-
-    loginForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-            hideMessage();
-
-
-            const username =
-                usernameInput.value.trim();
-
-            const password =
-                passwordInput.value;
-
-
-            if (!username) {
-
-                showMessage(
-                    "Veuillez saisir votre nom d'utilisateur."
-                );
-
-                usernameInput.focus();
-
-                return;
-            }
-
-
-            if (!password) {
-
-                showMessage(
-                    "Veuillez saisir votre mot de passe."
-                );
-
-                passwordInput.focus();
-
-                return;
-            }
-
-
-            setLoading(true);
-
-
-            try {
-
-                /*
-                 * Vérification de configuration
-                 */
-
-                if (!supabaseClient) {
-
-                    throw new Error(
-                        "SUPABASE_NOT_CONFIGURED"
-                    );
-
-                }
-
-
-                /*
-                 * Recherche utilisateur
-                 *
-                 * SYSTEM est volontairement exclu.
-                 */
-
-                const {
-                    data,
-                    error
-                } =
-                    await supabaseClient
-                        .from("users")
-                        .select(`
-                            id,
-                            username,
-                            full_name,
-                            password,
-                            role_id,
-                            is_active,
-                            is_system
-                        `)
-                        .eq(
-                            "username",
-                            username
-                        )
-                        .eq(
-                            "is_active",
-                            true
-                        )
-                        .eq(
-                            "is_system",
-                            false
-                        )
-                        .maybeSingle();
-
-
-                if (error) {
-
-                    console.error(
-                        "LOGIN ERROR:",
-                        error
-                    );
-
-                    throw error;
-
-                }
-
-
-                /*
-                 * Utilisateur introuvable
-                 */
-
-                if (!data) {
-
-                    showMessage(
-                        "Nom d'utilisateur ou mot de passe incorrect."
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * SYSTEM interdit
-                 */
-
-                if (
-                    data.is_system === true ||
-                    data.username.toUpperCase() === "SYSTEM"
-                ) {
-
-                    showMessage(
-                        "Ce compte système ne peut pas être utilisé pour se connecter."
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * Vérification password
-                 *
-                 * TEMPORAIRE :
-                 * actuellement le champ password
-                 * est utilisé directement.
-                 *
-                 * Nous remplacerons cette partie
-                 * par un système de hash sécurisé.
-                 */
-
-                if (
-                    data.password !== password
-                ) {
-
-                    showMessage(
-                        "Nom d'utilisateur ou mot de passe incorrect."
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * Connexion réussie
-                 */
-
-                saveUserSession(
-                    data
-                );
-
-
-                showMessage(
-                    "Connexion réussie. Redirection...",
-                    "success"
-                );
-
-
-                /*
-                 * Petite pause pour afficher
-                 * le message de succès.
-                 */
-
-                setTimeout(
-                    function () {
-
-                        window.location.href =
-                            "index.html";
-
-                    },
-                    700
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-
-                if (
-                    error.message ===
-                    "SUPABASE_NOT_CONFIGURED"
-                ) {
-
-                    showMessage(
-                        "Supabase n'est pas encore configuré dans login.html."
-                    );
-
-                } else {
-
-                    showMessage(
-                        "Une erreur est survenue pendant la connexion."
-                    );
-
-                }
-
-            } finally {
-
-                setLoading(false);
-
-            }
-
-        }
-    );
-
-
-    /* =========================================================
-       FORGOT PASSWORD
-       ========================================================= */
-
-    document
-        .getElementById("forgotPassword")
-        .addEventListener(
+        togglePassword.addEventListener(
             "click",
             function () {
 
+                const isPassword =
+                    passwordInput.type ===
+                    "password";
+
+
+                if (isPassword) {
+
+                    passwordInput.type =
+                        "text";
+
+                    eyeIcon.innerHTML = `
+                        <path d="M3 3l18 18"></path>
+
+                        <path
+                            d="M10.58 10.58
+                               A2 2 0 0 0
+                               13.42 13.42"
+                        ></path>
+
+                        <path
+                            d="M9.88 4.24
+                               A10.94 10.94 0 0 1
+                               12 4
+                               c7 0 10 8 10 8
+                               a18.3 18.3 0 0 1
+                               -3.12 4.19"
+                        ></path>
+
+                        <path
+                            d="M6.61 6.61
+                               A18.3 18.3 0 0 0
+                               2 12
+                               s3 8 10 8
+                               a10.94 10.94 0 0 0
+                               5.24-1.35"
+                        ></path>
+                    `;
+
+                } else {
+
+                    passwordInput.type =
+                        "password";
+
+                    eyeIcon.innerHTML = `
+                        <path
+                            d="M2 12s3.5-7 10-7
+                               10 7 10 7-3.5 7-10 7
+                               S2 12 2 12z"
+                        ></path>
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="3"
+                        ></circle>
+                    `;
+                }
+
+            }
+        );
+
+
+        /* ==========================================
+           MESSAGE
+        ========================================== */
+
+        function showMessage(
+            text,
+            type = "info"
+        ) {
+
+            message.textContent =
+                text;
+
+            message.className =
+                "message show " + type;
+        }
+
+
+        function clearMessage() {
+
+            message.textContent =
+                "";
+
+            message.className =
+                "message";
+        }
+
+
+        /* ==========================================
+           REMEMBER USERNAME
+        ========================================== */
+
+        const savedUsername =
+            localStorage.getItem(
+                "smtg_remember_username"
+            );
+
+
+        if (savedUsername) {
+
+            usernameInput.value =
+                savedUsername;
+
+            rememberInput.checked =
+                true;
+
+        }
+
+
+        /* ==========================================
+           FORGOT PASSWORD
+        ========================================== */
+
+        forgotPassword.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
                 showMessage(
-                    "Veuillez contacter l'administrateur du système pour réinitialiser votre mot de passe."
+                    "Veuillez contacter l'administrateur système pour réinitialiser votre mot de passe.",
+                    "info"
                 );
 
             }
         );
 
 
-    /* =========================================================
-       ENTER KEY
-       ========================================================= */
+        /* ==========================================
+           LOGIN
+        ========================================== */
 
-    usernameInput.addEventListener(
-        "keydown",
-        function (event) {
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
 
-            if (
-                event.key === "Enter"
-            ) {
+                event.preventDefault();
 
-                passwordInput.focus();
+                clearMessage();
+
+
+                const username =
+                    usernameInput.value.trim();
+
+                const password =
+                    passwordInput.value;
+
+
+                if (
+                    !username ||
+                    !password
+                ) {
+
+                    showMessage(
+                        "Veuillez saisir votre nom d'utilisateur et votre mot de passe.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                /* ==================================
+                   LOADING
+                ================================== */
+
+                loginButton.disabled =
+                    true;
+
+                loginText.textContent =
+                    "Connexion...";
+
+                loginIcon.style.display =
+                    "none";
+
+
+                const spinner =
+                    document.createElement(
+                        "span"
+                    );
+
+                spinner.className =
+                    "spinner";
+
+
+                loginButton.insertBefore(
+                    spinner,
+                    loginText
+                );
+
+
+                try {
+
+                    /* ==================================
+                       GET SUPABASE
+                    ================================== */
+
+                    const client =
+                        getSupabase();
+
+
+                    /* ==================================
+                       FIND USER
+                    ================================== */
+
+                    const result =
+                        await client
+                            .from("users")
+                            .select(`
+                                id,
+                                username,
+                                full_name,
+                                password,
+                                role_id,
+                                is_active,
+                                is_system
+                            `)
+                            .eq(
+                                "username",
+                                username
+                            )
+                            .eq(
+                                "is_active",
+                                true
+                            )
+                            .eq(
+                                "is_system",
+                                false
+                            )
+                            .maybeSingle();
+
+
+                    const data =
+                        result.data;
+
+                    const error =
+                        result.error;
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    /* ==================================
+                       USER NOT FOUND
+                    ================================== */
+
+                    if (!data) {
+
+                        showMessage(
+                            "Nom d'utilisateur ou mot de passe incorrect.",
+                            "error"
+                        );
+
+                        return;
+                    }
+
+
+                    /* ==================================
+                       PASSWORD
+                       
+                       TEMPORAIRE
+                    ================================== */
+
+                    if (
+                        data.password !==
+                        password
+                    ) {
+
+                        showMessage(
+                            "Nom d'utilisateur ou mot de passe incorrect.",
+                            "error"
+                        );
+
+                        return;
+                    }
+
+
+                    /* ==================================
+                       REMEMBER
+                    ================================== */
+
+                    if (
+                        rememberInput.checked
+                    ) {
+
+                        localStorage.setItem(
+                            "smtg_remember_username",
+                            username
+                        );
+
+                    } else {
+
+                        localStorage.removeItem(
+                            "smtg_remember_username"
+                        );
+
+                    }
+
+
+                    /* ==================================
+                       APPLICATION SESSION
+                    ================================== */
+
+                    const sessionUser = {
+
+                        id:
+                            data.id,
+
+                        username:
+                            data.username,
+
+                        full_name:
+                            data.full_name,
+
+                        role_id:
+                            data.role_id,
+
+                        login_at:
+                            new Date()
+                                .toISOString()
+
+                    };
+
+
+                    sessionStorage.setItem(
+                        "smtg_current_user",
+                        JSON.stringify(
+                            sessionUser
+                        )
+                    );
+
+
+                    /* ==================================
+                       SUCCESS
+                    ================================== */
+
+                    showMessage(
+                        "Connexion réussie. Ouverture du système...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        700
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Erreur Login:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "Erreur de connexion à la base de données.",
+                        "error"
+                    );
+
+
+                } finally {
+
+                    loginButton.disabled =
+                        false;
+
+                    loginText.textContent =
+                        "Se connecter";
+
+                    loginIcon.style.display =
+                        "block";
+
+
+                    if (spinner) {
+
+                        spinner.remove();
+
+                    }
+
+                }
 
             }
-
-        }
-    );
-
-
-    /* =========================================================
-       REMEMBER USERNAME
-       ========================================================= */
-
-    const savedUsername =
-        localStorage.getItem(
-            "abattoir_last_username"
         );
 
 
-    if (savedUsername) {
+        /* ==========================================
+           ENTER USERNAME
+        ========================================== */
 
-        usernameInput.value =
-            savedUsername;
+        usernameInput.addEventListener(
+            "keydown",
+            function (event) {
 
-        rememberMe.checked =
-            true;
+                if (
+                    event.key === "Enter"
+                ) {
 
-    }
+                    passwordInput.focus();
 
-
-    loginForm.addEventListener(
-        "submit",
-        function () {
-
-            if (
-                rememberMe.checked &&
-                usernameInput.value.trim()
-            ) {
-
-                localStorage.setItem(
-                    "abattoir_last_username",
-                    usernameInput.value.trim()
-                );
+                }
 
             }
+        );
+
+
+        /* ==========================================
+           AUTO FOCUS
+        ========================================== */
+
+        if (
+            usernameInput.value
+        ) {
+
+            passwordInput.focus();
+
+        } else {
+
+            usernameInput.focus();
 
         }
-    );
 
-
-</script>
+    </script>
 
 </body>
 </html>
