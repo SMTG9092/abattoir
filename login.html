@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ABATTOIR - Connexion</title>
+
+    <!-- =====================================================
+         SUPABASE
+         ===================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        body {
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #080b0f 0%,
+                    #111820 45%,
+                    #07090c 100%
+                );
+
+            color: #ffffff;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND
+           ===================================================== */
+
+        .page {
+            position: relative;
+
+            width: 100%;
+            height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        .background {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5, 8, 11, 0.97) 0%,
+                    rgba(5, 8, 11, 0.78) 30%,
+                    rgba(5, 8, 11, 0.48) 55%,
+                    rgba(5, 8, 11, 0.78) 100%
+                );
+
+            z-index: 0;
+        }
+
+
+        /* Image industrielle en arrière-plan */
+
+        .background::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image:
+                url(
+                    "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=2200&q=85"
+                );
+
+            background-size: cover;
+
+            background-position: center;
+
+            filter:
+                brightness(0.48)
+                contrast(1.08)
+                saturate(0.75);
+
+            z-index: -2;
+        }
+
+
+        .background::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(170, 0, 25, 0.10),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.12),
+                    rgba(0, 0, 0, 0.65)
+                );
+
+            z-index: -1;
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+            position: absolute;
+
+            top: 28px;
+            left: 42px;
+            right: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            z-index: 5;
+        }
+
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .brand-logo {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #b00020,
+                    #750015
+                );
+
+            border: 2px solid rgba(255,255,255,0.20);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 29px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.35);
+        }
+
+
+        .brand-text h1 {
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        .brand-text h1 span {
+            color: #d20b2f;
+        }
+
+
+        .brand-text p {
+            margin-top: 3px;
+
+            color: rgba(255,255,255,0.72);
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        .datetime {
+            text-align: right;
+
+            color: rgba(255,255,255,0.82);
+
+            font-size: 13px;
+        }
+
+
+        .datetime strong {
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 21px;
+
+            color: #ffffff;
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .main {
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        /* =====================================================
+           LEFT INFORMATION
+           ===================================================== */
+
+        .left-info {
+            position: absolute;
+
+            left: 50px;
+
+            top: 50%;
+
+            transform: translateY(-43%);
+
+            width: 300px;
+        }
+
+
+        .left-title {
+            font-size: 15px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 20px;
+
+            color: rgba(255,255,255,0.9);
+        }
+
+
+        .menu-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .menu-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(150, 0, 25, 0.78);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            font-size: 19px;
+        }
+
+
+        .menu-text strong {
+            display: block;
+
+            font-size: 14px;
+        }
+
+
+        .menu-text span {
+            display: block;
+
+            margin-top: 2px;
+
+            color: rgba(255,255,255,0.58);
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+           ===================================================== */
+
+        .login-card {
+            width: 500px;
+
+            max-width: calc(100vw - 40px);
+
+            padding: 42px 46px 34px;
+
+            background:
+                rgba(245, 246, 247, 0.97);
+
+            border-radius: 18px;
+
+            border-top:
+                5px solid #a90020;
+
+            box-shadow:
+                0 35px 90px rgba(0,0,0,0.60);
+
+            color: #171b20;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .login-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -120px;
+            top: -120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(169,0,32,0.06);
+        }
+
+
+        .login-brand {
+            text-align: center;
+
+            margin-bottom: 31px;
+        }
+
+
+        .login-logo {
+            width: 82px;
+            height: 82px;
+
+            margin: 0 auto 13px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #b30024,
+                    #760016
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            font-size: 40px;
+
+            box-shadow:
+                0 10px 25px rgba(125,0,20,0.22);
+        }
+
+
+        .login-brand h2 {
+            font-size: 29px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .login-brand h2 span {
+            color: #ad0022;
+        }
+
+
+        .login-brand p {
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            letter-spacing: 2.2px;
+
+            color: #6c737b;
+
+            text-transform: uppercase;
+        }
+
+
+        .separator {
+            width: 72px;
+            height: 3px;
+
+            margin: 16px auto 0;
+
+            background: #a90020;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+
+        .form-label {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #30363c;
+        }
+
+
+        .input-wrapper {
+            position: relative;
+        }
+
+
+        .input-icon {
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 17px;
+
+            color: #747c84;
+
+            pointer-events: none;
+        }
+
+
+        .form-input {
+            width: 100%;
+
+            height: 52px;
+
+            border:
+                1px solid #d4d9de;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #20252a;
+
+            font-size: 14px;
+
+            padding:
+                0 46px 0 45px;
+
+            outline: none;
+
+            transition:
+                border-color .2s,
+                box-shadow .2s;
+        }
+
+
+        .form-input::placeholder {
+            color: #9ba1a7;
+        }
+
+
+        .form-input:focus {
+            border-color: #a90020;
+
+            box-shadow:
+                0 0 0 3px rgba(169,0,32,0.09);
+        }
+
+
+        .password-toggle {
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            color: #727a82;
+        }
+
+
+        /* =====================================================
+           OPTIONS
+           ===================================================== */
+
+        .options {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin:
+                3px 0 20px;
+        }
+
+
+        .remember {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 12px;
+
+            color: #555d65;
+
+            cursor: pointer;
+        }
+
+
+        .remember input {
+            width: 15px;
+            height: 15px;
+
+            accent-color: #a90020;
+        }
+
+
+        .forgot {
+            border: none;
+
+            background: none;
+
+            color: #9d001f;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+           ===================================================== */
+
+        .login-button {
+            width: 100%;
+
+            height: 54px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #b30024,
+                    #8e001c
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.3px;
+
+            cursor: pointer;
+
+            transition:
+                transform .18s,
+                box-shadow .18s,
+                opacity .18s;
+
+            box-shadow:
+                0 8px 20px rgba(140,0,28,0.24);
+        }
+
+
+        .login-button:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 12px 25px rgba(140,0,28,0.32);
+        }
+
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+
+        .login-button:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .button-content {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+           ===================================================== */
+
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 11px 13px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        .message.error {
+            display: block;
+
+            color: #8b001c;
+
+            background: #fff0f2;
+
+            border: 1px solid #f3c4cb;
+        }
+
+
+        .message.success {
+            display: block;
+
+            color: #176534;
+
+            background: #eefaf1;
+
+            border: 1px solid #bce5c7;
+        }
+
+
+        /* =====================================================
+           SECURITY
+           ===================================================== */
+
+        .security {
+            margin-top: 24px;
+
+            padding-top: 19px;
+
+            border-top:
+                1px solid #e0e3e6;
+
+            text-align: center;
+        }
+
+
+        .security-title {
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #59616a;
+        }
+
+
+        .security-text {
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color: #8b9299;
+        }
+
+
+        .security-tags {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 13px;
+
+            margin-top: 12px;
+        }
+
+
+        .security-tag {
+            font-size: 9px;
+
+            color: #727a82;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+        }
+
+
+        /* =====================================================
+           RIGHT SLOGAN
+           ===================================================== */
+
+        .right-info {
+            position: absolute;
+
+            right: 50px;
+
+            top: 50%;
+
+            transform: translateY(-25%);
+
+            width: 270px;
+
+            text-align: right;
+        }
+
+
+        .slogan {
+            font-family:
+                Georgia,
+                serif;
+
+            font-style: italic;
+
+            font-size: 42px;
+
+            line-height: 1.05;
+
+            color: rgba(255,255,255,0.94);
+        }
+
+
+        .slogan-line {
+            width: 160px;
+
+            height: 3px;
+
+            margin:
+                18px 0 18px auto;
+
+            background: #bd0027;
+
+            transform: rotate(-4deg);
+
+            border-radius: 10px;
+        }
+
+
+        .right-keywords {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            color: rgba(255,255,255,0.70);
+
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .footer {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 54px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 42px;
+
+            background:
+                rgba(5,8,11,0.84);
+
+            border-top:
+                1px solid rgba(255,255,255,0.08);
+
+            color:
+                rgba(255,255,255,0.58);
+
+            font-size: 11px;
+
+            z-index: 5;
+        }
+
+
+        .footer-left {
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+
+        .footer-left strong {
+            color: #ffffff;
+        }
+
+
+        /* =====================================================
+           LOADER
+           ===================================================== */
+
+        .loader {
+            width: 17px;
+            height: 17px;
+
+            border:
+                2px solid rgba(255,255,255,0.35);
+
+            border-top-color: #ffffff;
+
+            border-radius: 50%;
+
+            animation:
+                spin .7s linear infinite;
+        }
+
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .left-info,
+            .right-info {
+                display: none;
+            }
+
+            .login-card {
+                width: 500px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .page {
+                min-height: 100vh;
+
+                height: auto;
+            }
+
+            .header {
+                position: relative;
+
+                top: auto;
+                left: auto;
+                right: auto;
+
+                padding: 20px;
+
+                justify-content: center;
+            }
+
+            .datetime {
+                display: none;
+            }
+
+            .main {
+                min-height:
+                    calc(100vh - 95px);
+
+                padding:
+                    20px 15px 75px;
+            }
+
+            .login-card {
+                padding:
+                    32px 24px 27px;
+
+                border-radius: 14px;
+            }
+
+            .login-brand h2 {
+                font-size: 25px;
+            }
+
+            .footer {
+                position: fixed;
+
+                height: 50px;
+
+                padding:
+                    0 15px;
+
+                font-size: 9px;
+            }
+
+            .footer-right {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
+    <div class="background"></div>
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                🐄
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+                    ABAT<span>TOIR</span>
+                </h1>
+
+                <p>
+                    Qualité • Hygiène • Traçabilité
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="datetime">
+
+            <div id="currentDate">
+                Chargement...
+            </div>
+
+            <strong id="currentTime">
+                --:--:--
+            </strong>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             LEFT INFORMATION
+             ================================================= -->
+
+        <section class="left-info">
+
+            <div class="left-title">
+                SYSTÈME D'INFORMATION
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    ⚙
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Administration
+                    </strong>
+
+                    <span>
+                        Gestion globale du système
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    👥
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Ressources Humaines
+                    </strong>
+
+                    <span>
+                        Personnel et organisation
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    🏭
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Production
+                    </strong>
+
+                    <span>
+                        Suivi de l'abattage
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    🛡
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Qualité
+                    </strong>
+
+                    <span>
+                        Contrôle et conformité
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    📦
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Stock
+                    </strong>
+
+                    <span>
+                        Gestion des stocks
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    🚚
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Logistique
+                    </strong>
+
+                    <span>
+                        Réception et expédition
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    💰
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Finance & Comptabilité
+                    </strong>
+
+                    <span>
+                        Suivi financier
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-item">
+
+                <div class="menu-icon">
+                    🔧
+                </div>
+
+                <div class="menu-text">
+
+                    <strong>
+                        Maintenance
+                    </strong>
+
+                    <span>
+                        Équipements et infrastructures
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOGIN CARD
+             ================================================= -->
+
+        <section class="login-card">
+
+
+            <div class="login-brand">
+
+                <div class="login-logo">
+                    🐄
+                </div>
+
+                <h2>
+                    ABAT<span>TOIR</span>
+                </h2>
+
+                <p>
+                    Système d'information intégré
+                </p>
+
+                <div class="separator"></div>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGIN FORM
+                 ================================================= -->
+
+            <form id="loginForm">
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="username"
+                    >
+                        👤
+                        Nom d'utilisateur
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            class="form-input"
+                            placeholder="Entrez votre nom d'utilisateur"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="password"
+                    >
+                        🔒
+                        Mot de passe
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-input"
+                            placeholder="Entrez votre mot de passe"
+                            autocomplete="current-password"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            title="Afficher le mot de passe"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>
+                            Se souvenir de moi
+                        </span>
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        class="forgot"
+                        id="forgotPassword"
+                    >
+                        Mot de passe oublié ?
+                    </button>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+
+                    <span
+                        class="button-content"
+                        id="buttonContent"
+                    >
+                        <span>
+                            ➜
+                        </span>
+
+                        <span>
+                            SE CONNECTER
+                        </span>
+                    </span>
+
+                </button>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="message"
+                    class="message"
+                ></div>
+
+
+            </form>
+
+
+            <!-- =================================================
+                 SECURITY
+                 ================================================= -->
+
+            <div class="security">
+
+                <div class="security-title">
+                    🔐 Accès réservé aux utilisateurs autorisés
+                </div>
+
+                <div class="security-text">
+                    Toute activité est enregistrée et tracée
+                </div>
+
+
+                <div class="security-tags">
+
+                    <span class="security-tag">
+                        Sécurité
+                    </span>
+
+                    <span class="security-tag">
+                        •
+                    </span>
+
+                    <span class="security-tag">
+                        Traçabilité
+                    </span>
+
+                    <span class="security-tag">
+                        •
+                    </span>
+
+                    <span class="security-tag">
+                        Conformité
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT INFORMATION
+             ================================================= -->
+
+        <section class="right-info">
+
+            <div class="slogan">
+                Du champ<br>
+                à l'assiette
+            </div>
+
+
+            <div class="slogan-line"></div>
+
+
+            <div class="right-keywords">
+
+                <span>
+                    Sécurité
+                </span>
+
+                <span>
+                    Traçabilité
+                </span>
+
+                <span>
+                    Conformité
+                </span>
+
+                <span>
+                    Performance
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-left">
+
+            <span>
+                🔒
+            </span>
+
+            <strong>
+                ABATTOIR
+            </strong>
+
+            <span>
+                |
+            </span>
+
+            <span>
+                Système d'information intégré
+            </span>
+
+            <span>
+                |
+            </span>
+
+            <span>
+                Version 1.0
+            </span>
+
+        </div>
+
+
+        <div class="footer-right">
+            © 2026 Abattoir. Tous droits réservés.
+        </div>
+
+    </footer>
+
+</div>
+
+
+<script>
+
+    /* =========================================================
+       SUPABASE CONFIGURATION
+       ========================================================= */
+
+    const SUPABASE_URL =
+        "TON_SUPABASE_URL";
+
+    const SUPABASE_ANON_KEY =
+        "TON_SUPABASE_ANON_KEY";
+
+
+    let supabaseClient = null;
+
+
+    /*
+     * إنشاء client فقط إذا كانت المعلومات موجودة
+     */
+
+    if (
+        SUPABASE_URL !== "TON_SUPABASE_URL" &&
+        SUPABASE_ANON_KEY !== "TON_SUPABASE_ANON_KEY"
+    ) {
+
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+    }
+
+
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const usernameInput =
+        document.getElementById("username");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const togglePassword =
+        document.getElementById("togglePassword");
+
+    const loginButton =
+        document.getElementById("loginButton");
+
+    const buttonContent =
+        document.getElementById("buttonContent");
+
+    const message =
+        document.getElementById("message");
+
+    const rememberMe =
+        document.getElementById("rememberMe");
+
+
+    /* =========================================================
+       DATE / TIME
+       ========================================================= */
+
+    function updateDateTime() {
+
+        const now = new Date();
+
+
+        const dateText =
+            now.toLocaleDateString(
+                "fr-FR",
+                {
+                    weekday: "long",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        const timeText =
+            now.toLocaleTimeString(
+                "fr-FR",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+
+
+        document.getElementById("currentDate")
+            .textContent =
+                capitalizeFirstLetter(dateText);
+
+
+        document.getElementById("currentTime")
+            .textContent =
+                timeText;
+
+    }
+
+
+    function capitalizeFirstLetter(text) {
+
+        if (!text) {
+            return text;
+        }
+
+        return (
+            text.charAt(0).toUpperCase() +
+            text.slice(1)
+        );
+
+    }
+
+
+    updateDateTime();
+
+    setInterval(
+        updateDateTime,
+        1000
+    );
+
+
+    /* =========================================================
+       PASSWORD SHOW / HIDE
+       ========================================================= */
+
+    togglePassword.addEventListener(
+        "click",
+        function () {
+
+            if (
+                passwordInput.type === "password"
+            ) {
+
+                passwordInput.type =
+                    "text";
+
+                togglePassword.textContent =
+                    "🙈";
+
+            } else {
+
+                passwordInput.type =
+                    "password";
+
+                togglePassword.textContent =
+                    "👁";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       MESSAGE
+       ========================================================= */
+
+    function showMessage(
+        text,
+        type = "error"
+    ) {
+
+        message.className =
+            "message " + type;
+
+        message.textContent =
+            text;
+
+    }
+
+
+    function hideMessage() {
+
+        message.className =
+            "message";
+
+        message.textContent =
+            "";
+
+    }
+
+
+    /* =========================================================
+       LOADING
+       ========================================================= */
+
+    function setLoading(
+        loading
+    ) {
+
+        loginButton.disabled =
+            loading;
+
+
+        if (loading) {
+
+            buttonContent.innerHTML = `
+                <span class="loader"></span>
+                <span>Connexion...</span>
+            `;
+
+        } else {
+
+            buttonContent.innerHTML = `
+                <span>➜</span>
+                <span>SE CONNECTER</span>
+            `;
+
+        }
+
+    }
+
+
+    /* =========================================================
+       SAVE SESSION
+       ========================================================= */
+
+    function saveUserSession(
+        user
+    ) {
+
+        const sessionData = {
+
+            id:
+                user.id,
+
+            username:
+                user.username,
+
+            full_name:
+                user.full_name,
+
+            role_id:
+                user.role_id,
+
+            is_active:
+                user.is_active,
+
+            login_at:
+                new Date().toISOString()
+
+        };
+
+
+        const storage =
+            rememberMe.checked
+                ? localStorage
+                : sessionStorage;
+
+
+        storage.setItem(
+            "abattoir_current_user",
+            JSON.stringify(
+                sessionData
+            )
+        );
+
+    }
+
+
+    /* =========================================================
+       LOGIN
+       ========================================================= */
+
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            hideMessage();
+
+
+            const username =
+                usernameInput.value.trim();
+
+            const password =
+                passwordInput.value;
+
+
+            if (!username) {
+
+                showMessage(
+                    "Veuillez saisir votre nom d'utilisateur."
+                );
+
+                usernameInput.focus();
+
+                return;
+            }
+
+
+            if (!password) {
+
+                showMessage(
+                    "Veuillez saisir votre mot de passe."
+                );
+
+                passwordInput.focus();
+
+                return;
+            }
+
+
+            setLoading(true);
+
+
+            try {
+
+                /*
+                 * Vérification de configuration
+                 */
+
+                if (!supabaseClient) {
+
+                    throw new Error(
+                        "SUPABASE_NOT_CONFIGURED"
+                    );
+
+                }
+
+
+                /*
+                 * Recherche utilisateur
+                 *
+                 * SYSTEM est volontairement exclu.
+                 */
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("users")
+                        .select(`
+                            id,
+                            username,
+                            full_name,
+                            password,
+                            role_id,
+                            is_active,
+                            is_system
+                        `)
+                        .eq(
+                            "username",
+                            username
+                        )
+                        .eq(
+                            "is_active",
+                            true
+                        )
+                        .eq(
+                            "is_system",
+                            false
+                        )
+                        .maybeSingle();
+
+
+                if (error) {
+
+                    console.error(
+                        "LOGIN ERROR:",
+                        error
+                    );
+
+                    throw error;
+
+                }
+
+
+                /*
+                 * Utilisateur introuvable
+                 */
+
+                if (!data) {
+
+                    showMessage(
+                        "Nom d'utilisateur ou mot de passe incorrect."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * SYSTEM interdit
+                 */
+
+                if (
+                    data.is_system === true ||
+                    data.username.toUpperCase() === "SYSTEM"
+                ) {
+
+                    showMessage(
+                        "Ce compte système ne peut pas être utilisé pour se connecter."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Vérification password
+                 *
+                 * TEMPORAIRE :
+                 * actuellement le champ password
+                 * est utilisé directement.
+                 *
+                 * Nous remplacerons cette partie
+                 * par un système de hash sécurisé.
+                 */
+
+                if (
+                    data.password !== password
+                ) {
+
+                    showMessage(
+                        "Nom d'utilisateur ou mot de passe incorrect."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Connexion réussie
+                 */
+
+                saveUserSession(
+                    data
+                );
+
+
+                showMessage(
+                    "Connexion réussie. Redirection...",
+                    "success"
+                );
+
+
+                /*
+                 * Petite pause pour afficher
+                 * le message de succès.
+                 */
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "index.html";
+
+                    },
+                    700
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                if (
+                    error.message ===
+                    "SUPABASE_NOT_CONFIGURED"
+                ) {
+
+                    showMessage(
+                        "Supabase n'est pas encore configuré dans login.html."
+                    );
+
+                } else {
+
+                    showMessage(
+                        "Une erreur est survenue pendant la connexion."
+                    );
+
+                }
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       FORGOT PASSWORD
+       ========================================================= */
+
+    document
+        .getElementById("forgotPassword")
+        .addEventListener(
+            "click",
+            function () {
+
+                showMessage(
+                    "Veuillez contacter l'administrateur du système pour réinitialiser votre mot de passe."
+                );
+
+            }
+        );
+
+
+    /* =========================================================
+       ENTER KEY
+       ========================================================= */
+
+    usernameInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                passwordInput.focus();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       REMEMBER USERNAME
+       ========================================================= */
+
+    const savedUsername =
+        localStorage.getItem(
+            "abattoir_last_username"
+        );
+
+
+    if (savedUsername) {
+
+        usernameInput.value =
+            savedUsername;
+
+        rememberMe.checked =
+            true;
+
+    }
+
+
+    loginForm.addEventListener(
+        "submit",
+        function () {
+
+            if (
+                rememberMe.checked &&
+                usernameInput.value.trim()
+            ) {
+
+                localStorage.setItem(
+                    "abattoir_last_username",
+                    usernameInput.value.trim()
+                );
+
+            }
+
+        }
+    );
+
+
+</script>
+
+</body>
+</html>
