@@ -1,0 +1,3429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Modifier un utilisateur - SMTG Abattoir</title>
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="api/supabase.js"></script>
+
+
+    <!-- =====================================================
+         STYLE
+    ====================================================== -->
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                #f4f7fb;
+
+            color:
+                #172033;
+
+            min-height: 100vh;
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        .page-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b1f3a,
+                    #123b69
+                );
+
+            color: white;
+
+            padding:
+                22px 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            box-shadow:
+                0 4px 15px rgba(
+                    0,
+                    0,
+                    0,
+                    .12
+                );
+        }
+
+
+        .header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .header-icon {
+
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 23px;
+        }
+
+
+        .header-title h1 {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            margin-bottom: 4px;
+        }
+
+
+        .header-title p {
+
+            font-size: 13px;
+
+            opacity: .78;
+        }
+
+
+        .header-user {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            opacity: .9;
+        }
+
+
+        .header-user i {
+
+            font-size: 18px;
+        }
+
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        .container {
+
+            max-width: 1100px;
+
+            margin:
+                28px auto;
+
+            padding:
+                0 20px;
+        }
+
+
+        /* =================================================
+           BREADCRUMB
+        ================================================= */
+
+        .breadcrumb {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 13px;
+
+            color: #687386;
+
+            margin-bottom: 18px;
+        }
+
+
+        .breadcrumb i {
+
+            font-size: 10px;
+        }
+
+
+        .breadcrumb .current {
+
+            color:
+                #123b69;
+
+            font-weight: 600;
+        }
+
+
+        /* =================================================
+           CARD
+        ================================================= */
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 25px rgba(
+                    25,
+                    42,
+                    70,
+                    .08
+                );
+
+            border:
+                1px solid #e8edf4;
+
+            overflow: hidden;
+        }
+
+
+        .card-header {
+
+            padding:
+                22px 25px;
+
+            border-bottom:
+                1px solid #edf0f5;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .card-header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .card-header-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 11px;
+
+            background:
+                #e9f2ff;
+
+            color:
+                #1769d2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .card-header h2 {
+
+            font-size: 18px;
+
+            color:
+                #1b2a41;
+        }
+
+
+        .card-header p {
+
+            font-size: 12px;
+
+            color:
+                #7a8494;
+
+            margin-top: 3px;
+        }
+
+
+        /* =================================================
+           FORM
+        ================================================= */
+
+        .form-body {
+
+            padding:
+                28px;
+        }
+
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color:
+                #123b69;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+
+            padding-bottom: 10px;
+
+            border-bottom:
+                1px solid #edf0f5;
+        }
+
+
+        .section-title i {
+
+            color:
+                #1769d2;
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                20px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .form-group.full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        label {
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color:
+                #344054;
+        }
+
+
+        label .required {
+
+            color:
+                #e53935;
+
+            margin-left: 2px;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            height: 46px;
+
+            border:
+                1px solid #d8dee8;
+
+            border-radius: 10px;
+
+            background:
+                #fff;
+
+            padding:
+                0 14px;
+
+            font-size: 14px;
+
+            color:
+                #172033;
+
+            outline: none;
+
+            transition:
+                .2s;
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color:
+                #2d7fe5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    45,
+                    127,
+                    229,
+                    .10
+                );
+        }
+
+
+        input::placeholder {
+
+            color:
+                #a2aaba;
+        }
+
+
+        .input-with-icon input {
+
+            padding-left:
+                42px;
+        }
+
+
+        .input-with-icon > i {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color:
+                #8a94a6;
+
+            font-size: 15px;
+        }
+
+
+        .password-wrapper input {
+
+            padding-right:
+                45px;
+        }
+
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 13px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color:
+                #7d8797;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+
+        .password-toggle:hover {
+
+            color:
+                #1769d2;
+        }
+
+
+        .help-text {
+
+            font-size: 11px;
+
+            color:
+                #8993a4;
+        }
+
+
+        /* =================================================
+           PASSWORD STRENGTH
+        ================================================= */
+
+        .password-strength {
+
+            margin-top: 7px;
+        }
+
+
+        .strength-bar {
+
+            height: 5px;
+
+            border-radius: 10px;
+
+            background:
+                #e8ecf2;
+
+            overflow: hidden;
+        }
+
+
+        .strength-fill {
+
+            width: 0%;
+
+            height: 100%;
+
+            transition:
+                .25s;
+        }
+
+
+        .strength-text {
+
+            font-size: 11px;
+
+            margin-top: 4px;
+
+            color:
+                #8993a4;
+        }
+
+
+        /* =================================================
+           STATUS
+        ================================================= */
+
+        .status-box {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border:
+                1px solid #e0e5ed;
+
+            border-radius: 12px;
+
+            padding:
+                14px 16px;
+
+            min-height: 64px;
+        }
+
+
+        .status-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .status-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                #edf8f1;
+
+            color:
+                #20a35a;
+        }
+
+
+        .status-info strong {
+
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .status-info span {
+
+            display: block;
+
+            font-size: 11px;
+
+            color:
+                #8993a4;
+
+            margin-top: 2px;
+        }
+
+
+        /* =================================================
+           SWITCH
+        ================================================= */
+
+        .switch {
+
+            position: relative;
+
+            width: 48px;
+
+            height: 26px;
+        }
+
+
+        .switch input {
+
+            opacity: 0;
+
+            width: 0;
+
+            height: 0;
+        }
+
+
+        .slider {
+
+            position: absolute;
+
+            cursor: pointer;
+
+            inset: 0;
+
+            background:
+                #cfd5df;
+
+            border-radius: 30px;
+
+            transition:
+                .25s;
+        }
+
+
+        .slider:before {
+
+            content: "";
+
+            position: absolute;
+
+            height: 20px;
+
+            width: 20px;
+
+            left: 3px;
+
+            top: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 1px 4px rgba(
+                    0,
+                    0,
+                    0,
+                    .25
+                );
+
+            transition:
+                .25s;
+        }
+
+
+        .switch input:checked + .slider {
+
+            background:
+                #22a65b;
+        }
+
+
+        .switch input:checked + .slider:before {
+
+            transform:
+                translateX(22px);
+        }
+
+
+        /* =================================================
+           USER INFO
+        ================================================= */
+
+        .user-info-box {
+
+            background:
+                #f7f9fc;
+
+            border:
+                1px solid #e8edf4;
+
+            border-radius: 13px;
+
+            padding:
+                15px 18px;
+
+            margin-bottom: 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .avatar {
+
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1769d2,
+                    #0b3c78
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+            font-weight: 700;
+        }
+
+
+        .user-info-main {
+
+            flex: 1;
+        }
+
+
+        .user-info-main strong {
+
+            display: block;
+
+            font-size: 15px;
+
+            color:
+                #1b2a41;
+        }
+
+
+        .user-info-main span {
+
+            display: block;
+
+            font-size: 12px;
+
+            color:
+                #7d8797;
+
+            margin-top: 3px;
+        }
+
+
+        .system-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding:
+                5px 9px;
+
+            border-radius: 20px;
+
+            background:
+                #fff3cd;
+
+            color:
+                #856404;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        /* =================================================
+           AUDIT
+        ================================================= */
+
+        .audit-box {
+
+            margin-top: 26px;
+
+            padding:
+                15px 18px;
+
+            border:
+                1px solid #e8edf4;
+
+            background:
+                #fafbfc;
+
+            border-radius: 12px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .audit-item {
+
+            font-size: 11px;
+
+            color:
+                #7b8595;
+        }
+
+
+        .audit-item strong {
+
+            display: block;
+
+            color:
+                #4b5565;
+
+            margin-bottom: 3px;
+        }
+
+
+        /* =================================================
+           FOOTER BUTTONS
+        ================================================= */
+
+        .form-footer {
+
+            padding:
+                20px 28px;
+
+            border-top:
+                1px solid #edf0f5;
+
+            background:
+                #fafbfd;
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+        }
+
+
+        button {
+
+            border: none;
+
+            cursor: pointer;
+
+            font-family: inherit;
+        }
+
+
+        .btn {
+
+            min-height: 42px;
+
+            padding:
+                0 18px;
+
+            border-radius: 9px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition:
+                .2s;
+        }
+
+
+        .btn-secondary {
+
+            background:
+                #eef1f5;
+
+            color:
+                #4c5667;
+        }
+
+
+        .btn-secondary:hover {
+
+            background:
+                #e2e6ec;
+        }
+
+
+        .btn-primary {
+
+            background:
+                #1769d2;
+
+            color: white;
+
+            box-shadow:
+                0 4px 10px
+                rgba(
+                    23,
+                    105,
+                    210,
+                    .20
+                );
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                #0f5bbd;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .btn-primary:disabled {
+
+            opacity:
+                .65;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+        }
+
+
+        /* =================================================
+           TOAST
+        ================================================= */
+
+        .toast-container {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 20px;
+
+            z-index: 9999;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .toast {
+
+            min-width: 300px;
+
+            max-width: 420px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding:
+                14px 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .14
+                );
+
+            border-left:
+                4px solid #1769d2;
+
+            animation:
+                toastIn .25s ease;
+        }
+
+
+        .toast.success {
+
+            border-left-color:
+                #20a35a;
+        }
+
+
+        .toast.error {
+
+            border-left-color:
+                #dc3545;
+        }
+
+
+        .toast.warning {
+
+            border-left-color:
+                #f0a000;
+        }
+
+
+        .toast i {
+
+            font-size: 18px;
+        }
+
+
+        .toast.success i {
+
+            color:
+                #20a35a;
+        }
+
+
+        .toast.error i {
+
+            color:
+                #dc3545;
+        }
+
+
+        .toast.warning i {
+
+            color:
+                #f0a000;
+        }
+
+
+        .toast span {
+
+            font-size: 13px;
+
+            color:
+                #344054;
+        }
+
+
+        @keyframes toastIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateX(0);
+            }
+        }
+
+
+        /* =================================================
+           LOADING
+        ================================================= */
+
+        .loading-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .82
+                );
+
+            z-index: 9998;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .loading-box {
+
+            background: white;
+
+            padding:
+                25px 35px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 10px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .12
+                );
+
+            text-align: center;
+        }
+
+
+        .spinner {
+
+            width: 35px;
+
+            height: 35px;
+
+            border:
+                3px solid #e4e9f0;
+
+            border-top-color:
+                #1769d2;
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+
+            margin:
+                0 auto 12px;
+        }
+
+
+        .loading-box span {
+
+            font-size: 13px;
+
+            color:
+                #667085;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 700px) {
+
+            .page-header {
+
+                padding:
+                    18px;
+            }
+
+            .header-user {
+
+                display: none;
+            }
+
+            .container {
+
+                padding:
+                    0 12px;
+
+                margin:
+                    18px auto;
+            }
+
+            .form-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .form-group.full {
+
+                grid-column:
+                    auto;
+            }
+
+            .audit-box {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .form-body {
+
+                padding:
+                    20px;
+            }
+
+            .form-footer {
+
+                padding:
+                    16px 20px;
+
+                flex-direction:
+                    column-reverse;
+            }
+
+            .form-footer .btn {
+
+                width: 100%;
+            }
+
+            .toast-container {
+
+                left: 12px;
+
+                right: 12px;
+
+                top: 12px;
+            }
+
+            .toast {
+
+                min-width: 0;
+
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+    <div
+        class="loading-overlay"
+        id="loadingOverlay"
+    >
+
+        <div class="loading-box">
+
+            <div class="spinner"></div>
+
+            <span>
+                Chargement de l'utilisateur...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+        <div class="header-left">
+
+            <div class="header-icon">
+
+                <i class="fa-solid fa-user-pen"></i>
+
+            </div>
+
+            <div class="header-title">
+
+                <h1>
+                    Modifier un utilisateur
+                </h1>
+
+                <p>
+                    Gestion et mise à jour du compte utilisateur
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+            <i class="fa-solid fa-user-circle"></i>
+
+            <span id="currentUserName">
+                Chargement...
+            </span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="container">
+
+
+        <!-- BREADCRUMB -->
+
+        <div class="breadcrumb">
+
+            <span>
+                Administration
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span>
+                Utilisateurs
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span class="current">
+                Modifier
+            </span>
+
+        </div>
+
+
+
+        <!-- CARD -->
+
+        <div class="card">
+
+
+            <!-- CARD HEADER -->
+
+            <div class="card-header">
+
+                <div class="card-header-left">
+
+                    <div class="card-header-icon">
+
+                        <i class="fa-solid fa-user-pen"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Informations utilisateur
+                        </h2>
+
+                        <p>
+                            Modifiez les informations du compte
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FORM BODY -->
+
+            <div class="form-body">
+
+
+                <!-- USER INFO -->
+
+                <div
+                    class="user-info-box"
+                    id="userInfoBox"
+                >
+
+                    <div
+                        class="avatar"
+                        id="userAvatar"
+                    >
+                        U
+                    </div>
+
+                    <div class="user-info-main">
+
+                        <strong id="displayFullName">
+                            -
+                        </strong>
+
+                        <span id="displayUsername">
+                            -
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="system-badge"
+                        id="systemBadge"
+                        style="display:none;"
+                    >
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        SYSTEM
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     INFORMATIONS
+                ================================================== -->
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-id-card"></i>
+
+                    Informations générales
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- USERNAME -->
+
+                    <div class="form-group">
+
+                        <label for="username">
+
+                            Nom d'utilisateur
+
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <div
+                            class="input-wrapper input-with-icon"
+                        >
+
+                            <i
+                                class="fa-solid fa-user"
+                            ></i>
+
+                            <input
+                                type="text"
+                                id="username"
+                                maxlength="100"
+                                placeholder="Ex : YAHYA"
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+
+                        <span class="help-text">
+                            Le nom d'utilisateur doit être unique.
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+
+                            Nom complet
+
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <div
+                            class="input-wrapper input-with-icon"
+                        >
+
+                            <i
+                                class="fa-solid fa-id-badge"
+                            ></i>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                maxlength="150"
+                                placeholder="Nom et prénom"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ROLE -->
+
+                    <div class="form-group full">
+
+                        <label for="role">
+
+                            Rôle
+
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <div
+                            class="input-wrapper input-with-icon"
+                        >
+
+                            <i
+                                class="fa-solid fa-user-shield"
+                            ></i>
+
+                            <select id="role">
+
+                                <option value="">
+                                    Sélectionner un rôle
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PASSWORD
+                ================================================== -->
+
+                <div
+                    class="section-title"
+                    style="margin-top:30px;"
+                >
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Sécurité
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+
+                            Nouveau mot de passe
+
+                        </label>
+
+
+                        <div
+                            class="input-wrapper password-wrapper"
+                        >
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Laisser vide pour conserver l'ancien"
+                                autocomplete="new-password"
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="password-strength">
+
+                            <div class="strength-bar">
+
+                                <div
+                                    class="strength-fill"
+                                    id="strengthFill"
+                                ></div>
+
+                            </div>
+
+                            <div
+                                class="strength-text"
+                                id="strengthText"
+                            >
+                                Aucun changement de mot de passe
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+
+                            Confirmer le mot de passe
+
+                        </label>
+
+
+                        <div
+                            class="input-wrapper password-wrapper"
+                        >
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirmer le nouveau mot de passe"
+                                autocomplete="new-password"
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="toggleConfirmPassword"
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     STATUS
+                ================================================== -->
+
+                <div
+                    class="section-title"
+                    style="margin-top:30px;"
+                >
+
+                    <i class="fa-solid fa-toggle-on"></i>
+
+                    Statut du compte
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <div class="status-info">
+
+                        <div class="status-icon">
+
+                            <i
+                                class="fa-solid fa-user-check"
+                            ></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong id="statusTitle">
+                                Compte actif
+                            </strong>
+
+                            <span id="statusDescription">
+                                L'utilisateur peut se connecter à l'application.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="isActive"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AUDIT
+                ================================================== -->
+
+                <div class="audit-box">
+
+                    <div class="audit-item">
+
+                        <strong>
+                            Créé le
+                        </strong>
+
+                        <span id="createdAt">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="audit-item">
+
+                        <strong>
+                            Dernière modification
+                        </strong>
+
+                        <span id="updatedAt">
+                            -
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <div class="form-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelBtn"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Annuler
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveBtn"
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Enregistrer les modifications
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast-container"
+        id="toastContainer"
+    ></div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =================================================
+           GLOBAL
+        ================================================= */
+
+        let currentUser = null;
+
+        let editingUser = null;
+
+        let roles = [];
+
+        let isSaving = false;
+
+
+
+        /* =================================================
+           HELPERS
+        ================================================= */
+
+        function getCurrentUser() {
+
+            try {
+
+                const sessionUser =
+                    sessionStorage.getItem(
+                        "smtg_current_user"
+                    );
+
+                if (sessionUser) {
+
+                    return JSON.parse(
+                        sessionUser
+                    );
+
+                }
+
+
+                const localUser =
+                    localStorage.getItem(
+                        "smtg_current_user"
+                    );
+
+                if (localUser) {
+
+                    return JSON.parse(
+                        localUser
+                    );
+
+                }
+
+
+                const fallback =
+                    sessionStorage.getItem(
+                        "smtgUser"
+                    );
+
+                if (fallback) {
+
+                    return JSON.parse(
+                        fallback
+                    );
+
+                }
+
+
+                const fallbackLocal =
+                    localStorage.getItem(
+                        "smtgUser"
+                    );
+
+                if (fallbackLocal) {
+
+                    return JSON.parse(
+                        fallbackLocal
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Erreur session :",
+                    error
+                );
+
+            }
+
+            return null;
+        }
+
+
+
+        function getUserIdFromUrl() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            return params.get("id");
+        }
+
+
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+        }
+
+
+
+        function formatDate(value) {
+
+            if (!value) {
+
+                return "-";
+
+            }
+
+            try {
+
+                return new Intl.DateTimeFormat(
+                    "fr-FR",
+                    {
+                        dateStyle: "medium",
+                        timeStyle: "short"
+                    }
+                ).format(
+                    new Date(value)
+                );
+
+            } catch {
+
+                return value;
+
+            }
+        }
+
+
+
+        function getInitials(name) {
+
+            if (!name) {
+
+                return "U";
+
+            }
+
+            const parts =
+                name
+                    .trim()
+                    .split(/\s+/)
+                    .filter(Boolean);
+
+            if (parts.length === 1) {
+
+                return parts[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+            return (
+                parts[0][0] +
+                parts[parts.length - 1][0]
+            ).toUpperCase();
+        }
+
+
+
+        /* =================================================
+           TOAST
+        ================================================= */
+
+        function showToast(
+            message,
+            type = "success"
+        ) {
+
+            const container =
+                document.getElementById(
+                    "toastContainer"
+                );
+
+
+            const toast =
+                document.createElement(
+                    "div"
+                );
+
+            toast.className =
+                `toast ${type}`;
+
+
+            let icon =
+                "fa-circle-check";
+
+            if (type === "error") {
+
+                icon =
+                    "fa-circle-xmark";
+
+            }
+
+            if (type === "warning") {
+
+                icon =
+                    "fa-triangle-exclamation";
+
+            }
+
+
+            toast.innerHTML = `
+
+                <i class="fa-solid ${icon}"></i>
+
+                <span>
+                    ${escapeHtml(message)}
+                </span>
+
+            `;
+
+
+            container.appendChild(
+                toast
+            );
+
+
+            setTimeout(() => {
+
+                toast.remove();
+
+            }, 4000);
+        }
+
+
+
+        /* =================================================
+           LOAD ROLES
+        ================================================= */
+
+        async function loadRoles() {
+
+            const {
+                data,
+                error
+            } = await getSupabase()
+
+                .from("roles")
+
+                .select(`
+                    id,
+                    name,
+                    code,
+                    is_active
+                `)
+
+                .eq(
+                    "is_active",
+                    true
+                )
+
+                .order(
+                    "name",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur chargement rôles :",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            roles =
+                data || [];
+
+
+            const select =
+                document.getElementById(
+                    "role"
+                );
+
+
+            select.innerHTML = `
+
+                <option value="">
+                    Sélectionner un rôle
+                </option>
+
+            `;
+
+
+            roles.forEach(
+                role => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        role.id;
+
+                    option.textContent =
+                        role.name;
+
+                    select.appendChild(
+                        option
+                    );
+
+                }
+            );
+        }
+
+
+
+        /* =================================================
+           LOAD USER
+        ================================================= */
+
+        async function loadUser() {
+
+            const userId =
+                getUserIdFromUrl();
+
+
+            if (!userId) {
+
+                throw new Error(
+                    "Identifiant utilisateur manquant."
+                );
+
+            }
+
+
+            const {
+                data,
+                error
+            } = await getSupabase()
+
+                .from("users")
+
+                .select(`
+                    id,
+                    username,
+                    full_name,
+                    password,
+                    role_id,
+                    is_active,
+                    is_system,
+                    created_at,
+                    updated_at,
+                    created_by,
+                    updated_by
+                `)
+
+                .eq(
+                    "id",
+                    userId
+                )
+
+                .single();
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur chargement utilisateur :",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            if (!data) {
+
+                throw new Error(
+                    "Utilisateur introuvable."
+                );
+
+            }
+
+
+            editingUser =
+                data;
+
+
+            fillForm(
+                data
+            );
+        }
+
+
+
+        /* =================================================
+           FILL FORM
+        ================================================= */
+
+        function fillForm(user) {
+
+            document.getElementById(
+                "username"
+            ).value =
+                user.username || "";
+
+
+            document.getElementById(
+                "fullName"
+            ).value =
+                user.full_name || "";
+
+
+            document.getElementById(
+                "role"
+            ).value =
+                user.role_id || "";
+
+
+            document.getElementById(
+                "isActive"
+            ).checked =
+                user.is_active !== false;
+
+
+            document.getElementById(
+                "displayFullName"
+            ).textContent =
+                user.full_name || "-";
+
+
+            document.getElementById(
+                "displayUsername"
+            ).textContent =
+                user.username
+                    ? "@" + user.username
+                    : "-";
+
+
+            document.getElementById(
+                "userAvatar"
+            ).textContent =
+                getInitials(
+                    user.full_name ||
+                    user.username
+                );
+
+
+            document.getElementById(
+                "createdAt"
+            ).textContent =
+                formatDate(
+                    user.created_at
+                );
+
+
+            document.getElementById(
+                "updatedAt"
+            ).textContent =
+                formatDate(
+                    user.updated_at
+                );
+
+
+            updateStatusUI(
+                user.is_active
+            );
+
+
+            if (user.is_system) {
+
+                document.getElementById(
+                    "systemBadge"
+                ).style.display =
+                    "inline-flex";
+
+
+                document.getElementById(
+                    "username"
+                ).disabled = true;
+
+
+                document.getElementById(
+                    "fullName"
+                ).disabled = true;
+
+
+                document.getElementById(
+                    "role"
+                ).disabled = true;
+
+
+                document.getElementById(
+                    "password"
+                ).disabled = true;
+
+
+                document.getElementById(
+                    "confirmPassword"
+                ).disabled = true;
+
+
+                document.getElementById(
+                    "isActive"
+                ).disabled = true;
+
+
+                document.getElementById(
+                    "saveBtn"
+                ).disabled = true;
+
+
+                showToast(
+                    "Le compte SYSTEM est protégé et ne peut pas être modifié.",
+                    "warning"
+                );
+            }
+
+        }
+
+
+
+        /* =================================================
+           STATUS UI
+        ================================================= */
+
+        function updateStatusUI(
+            active
+        ) {
+
+            const title =
+                document.getElementById(
+                    "statusTitle"
+                );
+
+            const description =
+                document.getElementById(
+                    "statusDescription"
+                );
+
+            const icon =
+                document.querySelector(
+                    ".status-icon"
+                );
+
+
+            if (active) {
+
+                title.textContent =
+                    "Compte actif";
+
+                description.textContent =
+                    "L'utilisateur peut se connecter à l'application.";
+
+                icon.innerHTML =
+                    `<i class="fa-solid fa-user-check"></i>`;
+
+                icon.style.background =
+                    "#edf8f1";
+
+                icon.style.color =
+                    "#20a35a";
+
+            } else {
+
+                title.textContent =
+                    "Compte désactivé";
+
+                description.textContent =
+                    "L'utilisateur ne peut pas se connecter à l'application.";
+
+                icon.innerHTML =
+                    `<i class="fa-solid fa-user-slash"></i>`;
+
+                icon.style.background =
+                    "#fff0f0";
+
+                icon.style.color =
+                    "#dc3545";
+            }
+
+        }
+
+
+
+        /* =================================================
+           PASSWORD TOGGLE
+        ================================================= */
+
+        function setupPasswordToggle(
+            inputId,
+            buttonId
+        ) {
+
+            const input =
+                document.getElementById(
+                    inputId
+                );
+
+            const button =
+                document.getElementById(
+                    buttonId
+                );
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const icon =
+                        button.querySelector(
+                            "i"
+                        );
+
+
+                    if (
+                        input.type ===
+                        "password"
+                    ) {
+
+                        input.type =
+                            "text";
+
+                        icon.className =
+                            "fa-solid fa-eye-slash";
+
+                    } else {
+
+                        input.type =
+                            "password";
+
+                        icon.className =
+                            "fa-solid fa-eye";
+                    }
+
+                }
+            );
+        }
+
+
+
+        /* =================================================
+           PASSWORD STRENGTH
+        ================================================= */
+
+        function updatePasswordStrength() {
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
+
+
+            const fill =
+                document.getElementById(
+                    "strengthFill"
+                );
+
+
+            const text =
+                document.getElementById(
+                    "strengthText"
+                );
+
+
+            if (!password) {
+
+                fill.style.width =
+                    "0%";
+
+                text.textContent =
+                    "Aucun changement de mot de passe";
+
+                return;
+            }
+
+
+            let score = 0;
+
+
+            if (
+                password.length >= 8
+            ) {
+
+                score++;
+
+            }
+
+            if (
+                /[A-Z]/.test(
+                    password
+                )
+            ) {
+
+                score++;
+
+            }
+
+            if (
+                /[a-z]/.test(
+                    password
+                )
+            ) {
+
+                score++;
+
+            }
+
+            if (
+                /[0-9]/.test(
+                    password
+                )
+            ) {
+
+                score++;
+
+            }
+
+            if (
+                /[^A-Za-z0-9]/.test(
+                    password
+                )
+            ) {
+
+                score++;
+
+            }
+
+
+            const percentage =
+                (score / 5) * 100;
+
+
+            fill.style.width =
+                percentage + "%";
+
+
+            if (score <= 1) {
+
+                text.textContent =
+                    "Très faible";
+
+            } else if (score === 2) {
+
+                text.textContent =
+                    "Faible";
+
+            } else if (score === 3) {
+
+                text.textContent =
+                    "Moyen";
+
+            } else if (score === 4) {
+
+                text.textContent =
+                    "Fort";
+
+            } else {
+
+                text.textContent =
+                    "Très fort";
+            }
+
+        }
+
+
+
+        /* =================================================
+           VALIDATION
+        ================================================= */
+
+        function validateForm() {
+
+            const username =
+                document.getElementById(
+                    "username"
+                ).value.trim();
+
+
+            const fullName =
+                document.getElementById(
+                    "fullName"
+                ).value.trim();
+
+
+            const roleId =
+                document.getElementById(
+                    "role"
+                ).value;
+
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
+
+
+            const confirmPassword =
+                document.getElementById(
+                    "confirmPassword"
+                ).value;
+
+
+            if (!username) {
+
+                showToast(
+                    "Veuillez saisir le nom d'utilisateur.",
+                    "error"
+                );
+
+                return false;
+            }
+
+
+            if (
+                username.length < 3
+            ) {
+
+                showToast(
+                    "Le nom d'utilisateur doit contenir au moins 3 caractères.",
+                    "error"
+                );
+
+                return false;
+            }
+
+
+            if (!fullName) {
+
+                showToast(
+                    "Veuillez saisir le nom complet.",
+                    "error"
+                );
+
+                return false;
+            }
+
+
+            if (!roleId) {
+
+                showToast(
+                    "Veuillez sélectionner un rôle.",
+                    "error"
+                );
+
+                return false;
+            }
+
+
+            /*
+             * Password optionnel.
+             * S'il est vide → ancien password conservé.
+             */
+
+            if (password) {
+
+                if (
+                    password.length < 6
+                ) {
+
+                    showToast(
+                        "Le nouveau mot de passe doit contenir au moins 6 caractères.",
+                        "error"
+                    );
+
+                    return false;
+                }
+
+
+                if (
+                    password !==
+                    confirmPassword
+                ) {
+
+                    showToast(
+                        "Les mots de passe ne correspondent pas.",
+                        "error"
+                    );
+
+                    return false;
+                }
+            }
+
+
+            return true;
+        }
+
+
+
+        /* =================================================
+           CHECK USERNAME
+        ================================================= */
+
+        async function checkUsername(
+            username
+        ) {
+
+            const {
+                data,
+                error
+            } = await getSupabase()
+
+                .from("users")
+
+                .select(
+                    "id, username"
+                )
+
+                .ilike(
+                    "username",
+                    username
+                )
+
+                .neq(
+                    "id",
+                    editingUser.id
+                )
+                
+                .limit(1);
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur vérification username :",
+                    error
+                );
+
+                throw error;
+            }
+
+
+            return (
+                data &&
+                data.length > 0
+            );
+        }
+
+
+
+        /* =================================================
+           SAVE USER
+        ================================================= */
+
+        async function saveUser() {
+
+            if (isSaving) {
+
+                return;
+            }
+
+
+            if (!editingUser) {
+
+                showToast(
+                    "Aucun utilisateur chargé.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                editingUser.is_system
+            ) {
+
+                showToast(
+                    "Le compte SYSTEM ne peut pas être modifié.",
+                    "warning"
+                );
+
+                return;
+            }
+
+
+            if (!validateForm()) {
+
+                return;
+            }
+
+
+            const username =
+                document.getElementById(
+                    "username"
+                ).value.trim();
+
+
+            const fullName =
+                document.getElementById(
+                    "fullName"
+                ).value.trim();
+
+
+            const roleId =
+                document.getElementById(
+                    "role"
+                ).value;
+
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
+
+
+            const isActive =
+                document.getElementById(
+                    "isActive"
+                ).checked;
+
+
+            const usernameExists =
+                await checkUsername(
+                    username
+                );
+
+
+            if (usernameExists) {
+
+                showToast(
+                    "Ce nom d'utilisateur existe déjà.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            isSaving = true;
+
+
+            const saveBtn =
+                document.getElementById(
+                    "saveBtn"
+                );
+
+
+            saveBtn.disabled = true;
+
+
+            saveBtn.innerHTML = `
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                Enregistrement...
+
+            `;
+
+
+            try {
+
+                const currentActorId =
+                    currentUser &&
+                    currentUser.id
+                        ? currentUser.id
+                        : 1;
+
+
+                const updateData = {
+
+                    username:
+                        username,
+
+                    full_name:
+                        fullName,
+
+                    role_id:
+                        Number(roleId),
+
+                    is_active:
+                        isActive,
+
+                    updated_by:
+                        currentActorId,
+
+                    updated_at:
+                        new Date().toISOString()
+                };
+
+
+                /*
+                 * Password uniquement si
+                 * l'utilisateur en saisit un nouveau.
+                 */
+
+                if (password) {
+
+                    updateData.password =
+                        password;
+                }
+
+
+                const {
+                    data,
+                    error
+                } = await getSupabase()
+
+                    .from("users")
+
+                    .update(
+                        updateData
+                    )
+
+                    .eq(
+                        "id",
+                        editingUser.id
+                    )
+
+                    .select(`
+                        id,
+                        username,
+                        full_name,
+                        role_id,
+                        is_active,
+                        is_system,
+                        created_at,
+                        updated_at
+                    `)
+
+                    .single();
+
+
+                if (error) {
+
+                    console.error(
+                        "Erreur modification :",
+                        error
+                    );
+
+                    throw error;
+                }
+
+
+                editingUser =
+                    data;
+
+
+                /*
+                 * Mise à jour session si
+                 * on modifie l'utilisateur
+                 * actuellement connecté.
+                 */
+
+                if (
+                    currentUser &&
+                    Number(currentUser.id) ===
+                    Number(data.id)
+                ) {
+
+                    currentUser.username =
+                        data.username;
+
+                    currentUser.full_name =
+                        data.full_name;
+
+                    currentUser.role_id =
+                        data.role_id;
+
+                    currentUser.is_active =
+                        data.is_active;
+
+
+                    sessionStorage.setItem(
+                        "smtg_current_user",
+                        JSON.stringify(
+                            currentUser
+                        )
+                    );
+
+
+                    localStorage.setItem(
+                        "smtg_current_user",
+                        JSON.stringify(
+                            currentUser
+                        )
+                    );
+
+
+                    sessionStorage.setItem(
+                        "smtgUser",
+                        JSON.stringify(
+                            currentUser
+                        )
+                    );
+
+
+                    localStorage.setItem(
+                        "smtgUser",
+                        JSON.stringify(
+                            currentUser
+                        )
+                    );
+                }
+
+
+                showToast(
+                    "Utilisateur modifié avec succès.",
+                    "success"
+                );
+
+
+                /*
+                 * Recharger les informations
+                 */
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "users.html";
+
+                    },
+                    900
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showToast(
+                    error.message ||
+                    "Erreur lors de la modification de l'utilisateur.",
+                    "error"
+                );
+
+
+                saveBtn.disabled =
+                    false;
+
+
+                saveBtn.innerHTML = `
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Enregistrer les modifications
+
+                `;
+
+                isSaving =
+                    false;
+            }
+
+        }
+
+
+
+        /* =================================================
+           CANCEL
+        ================================================= */
+
+        function cancelEdit() {
+
+            window.location.href =
+                "users.html";
+        }
+
+
+
+        /* =================================================
+           INIT
+        ================================================= */
+
+        async function init() {
+
+            try {
+
+                currentUser =
+                    getCurrentUser();
+
+
+                if (!currentUser) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+                }
+
+
+                document.getElementById(
+                    "currentUserName"
+                ).textContent =
+                    currentUser.full_name ||
+                    currentUser.username ||
+                    "Utilisateur";
+
+
+                /*
+                 * Charger les rôles puis
+                 * l'utilisateur.
+                 */
+
+                await loadRoles();
+
+                await loadUser();
+
+
+                /*
+                 * Masquer loading
+                 */
+
+                document.getElementById(
+                    "loadingOverlay"
+                ).style.display =
+                    "none";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Erreur initialisation :",
+                    error
+                );
+
+
+                document.getElementById(
+                    "loadingOverlay"
+                ).style.display =
+                    "none";
+
+
+                showToast(
+                    error.message ||
+                    "Impossible de charger les données.",
+                    "error"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "users.html";
+
+                    },
+                    1800
+                );
+            }
+
+        }
+
+
+
+        /* =================================================
+           EVENTS
+        ================================================= */
+
+        document
+            .getElementById(
+                "password"
+            )
+            .addEventListener(
+                "input",
+                updatePasswordStrength
+            );
+
+
+        document
+            .getElementById(
+                "isActive"
+            )
+            .addEventListener(
+                "change",
+                function () {
+
+                    updateStatusUI(
+                        this.checked
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "saveBtn"
+            )
+            .addEventListener(
+                "click",
+                saveUser
+            );
+
+
+        document
+            .getElementById(
+                "cancelBtn"
+            )
+            .addEventListener(
+                "click",
+                cancelEdit
+            );
+
+
+        setupPasswordToggle(
+            "password",
+            "togglePassword"
+        );
+
+
+        setupPasswordToggle(
+            "confirmPassword",
+            "toggleConfirmPassword"
+        );
+
+
+        /*
+         * Actualiser le nom affiché
+         */
+
+        document
+            .getElementById(
+                "fullName"
+            )
+            .addEventListener(
+                "input",
+                function () {
+
+                    document.getElementById(
+                        "displayFullName"
+                    ).textContent =
+                        this.value.trim() ||
+                        "-";
+
+
+                    document.getElementById(
+                        "userAvatar"
+                    ).textContent =
+                        getInitials(
+                            this.value.trim() ||
+                            document.getElementById(
+                                "username"
+                            ).value
+                        );
+
+                }
+            );
+
+
+        /*
+         * Actualiser username affiché
+         */
+
+        document
+            .getElementById(
+                "username"
+            )
+            .addEventListener(
+                "input",
+                function () {
+
+                    document.getElementById(
+                        "displayUsername"
+                    ).textContent =
+                        this.value.trim()
+                            ? "@" +
+                              this.value.trim()
+                            : "-";
+
+                }
+            );
+
+
+        /*
+         * Lancer
+         */
+
+        init();
+
+    </script>
+
+</body>
+</html>
