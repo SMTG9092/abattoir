@@ -1,1 +1,3384 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#075596"
+    >
+
+    <title>SMTG Abattoir - Tableau de bord</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #f4f7fa;
+
+            color:
+                #243b53;
+
+            overflow:
+                hidden;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           APP
+        ===================================================== */
+
+        .app {
+
+            display:
+                flex;
+
+            width:
+                100%;
+
+            height:
+                100vh;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            width:
+                255px;
+
+            min-width:
+                255px;
+
+            height:
+                100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #063b69 0%,
+                    #052d50 100%
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            box-shadow:
+                4px 0 18px
+                rgba(0, 0, 0, 0.10);
+
+            z-index:
+                100;
+        }
+
+
+        /* =====================================================
+           LOGO AREA
+        ===================================================== */
+
+        .sidebar-header {
+
+            height:
+                82px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            padding:
+                0 20px;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+        }
+
+
+        .sidebar-logo {
+
+            width:
+                145px;
+
+            height:
+                auto;
+
+            background:
+                white;
+
+            padding:
+                5px 10px;
+
+            border-radius:
+                8px;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .sidebar-nav {
+
+            flex:
+                1;
+
+            overflow-y:
+                auto;
+
+            padding:
+                18px 12px;
+        }
+
+
+        .nav-section {
+
+            margin:
+                0 10px 9px;
+
+            color:
+                rgba(255, 255, 255, 0.45);
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1.2px;
+        }
+
+
+        .nav-item {
+
+            width:
+                100%;
+
+            height:
+                43px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            padding:
+                0 12px;
+
+            margin-bottom:
+                4px;
+
+            border:
+                none;
+
+            border-radius:
+                8px;
+
+            background:
+                transparent;
+
+            color:
+                rgba(255, 255, 255, 0.78);
+
+            text-align:
+                left;
+
+            font-size:
+                13px;
+
+            cursor:
+                pointer;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .nav-item:hover {
+
+            background:
+                rgba(255, 255, 255, 0.09);
+
+            color:
+                white;
+        }
+
+
+        .nav-item.active {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #087bd2,
+                    #0965b1
+                );
+
+            color:
+                white;
+
+            box-shadow:
+                0 5px 14px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        .nav-icon {
+
+            width:
+                20px;
+
+            min-width:
+                20px;
+
+            height:
+                20px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+
+        .nav-icon svg {
+
+            width:
+                18px;
+
+            height:
+                18px;
+
+            stroke:
+                currentColor;
+
+            fill:
+                none;
+
+            stroke-width:
+                1.8;
+
+            stroke-linecap:
+                round;
+
+            stroke-linejoin:
+                round;
+        }
+
+
+        .nav-text {
+
+            flex:
+                1;
+        }
+
+
+        .nav-arrow {
+
+            opacity:
+                0.45;
+
+            font-size:
+                13px;
+        }
+
+
+        /* =====================================================
+           SIDEBAR FOOTER
+        ===================================================== */
+
+        .sidebar-footer {
+
+            padding:
+                14px 16px;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+        }
+
+
+        .system-status {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            color:
+                rgba(255, 255, 255, 0.65);
+
+            font-size:
+                10px;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        .status-dot {
+
+            width:
+                8px;
+
+            height:
+                8px;
+
+            border-radius:
+                50%;
+
+            background:
+                #36c46f;
+
+            box-shadow:
+                0 0 8px
+                rgba(54, 196, 111, 0.7);
+        }
+
+
+        .logout-button {
+
+            width:
+                100%;
+
+            height:
+                40px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                9px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.18);
+
+            border-radius:
+                8px;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            color:
+                white;
+
+            cursor:
+                pointer;
+
+            font-size:
+                12px;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .logout-button:hover {
+
+            background:
+                rgba(220, 60, 60, 0.18);
+
+            border-color:
+                rgba(255, 255, 255, 0.30);
+        }
+
+
+        .logout-button svg {
+
+            width:
+                17px;
+
+            height:
+                17px;
+
+            stroke:
+                currentColor;
+
+            fill:
+                none;
+
+            stroke-width:
+                2;
+
+            stroke-linecap:
+                round;
+
+            stroke-linejoin:
+                round;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            flex:
+                1;
+
+            min-width:
+                0;
+
+            height:
+                100vh;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            overflow:
+                hidden;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+
+            height:
+                70px;
+
+            min-height:
+                70px;
+
+            background:
+                white;
+
+            border-bottom:
+                1px solid
+                #e3eaf0;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                0 25px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, 0.03);
+        }
+
+
+        .topbar-left {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                14px;
+        }
+
+
+        .mobile-menu {
+
+            display:
+                none;
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            border:
+                1px solid
+                #dbe4eb;
+
+            border-radius:
+                8px;
+
+            background:
+                white;
+
+            cursor:
+                pointer;
+        }
+
+
+        .mobile-menu svg {
+
+            width:
+                19px;
+
+            height:
+                19px;
+
+            stroke:
+                #315574;
+
+            fill:
+                none;
+
+            stroke-width:
+                2;
+
+            stroke-linecap:
+                round;
+        }
+
+
+        .page-title {
+
+            font-size:
+                19px;
+
+            font-weight:
+                700;
+
+            color:
+                #173b5c;
+        }
+
+
+        .page-subtitle {
+
+            margin-top:
+                2px;
+
+            color:
+                #8293a2;
+
+            font-size:
+                10px;
+        }
+
+
+        /* =====================================================
+           USER AREA
+        ===================================================== */
+
+        .topbar-right {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+        }
+
+
+        .current-date {
+
+            color:
+                #748798;
+
+            font-size:
+                11px;
+        }
+
+
+        .user-box {
+
+            height:
+                44px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            padding:
+                0 10px 0 6px;
+
+            border:
+                1px solid
+                #e1e8ee;
+
+            border-radius:
+                10px;
+
+            background:
+                #fafcfd;
+        }
+
+
+        .user-avatar {
+
+            width:
+                32px;
+
+            height:
+                32px;
+
+            border-radius:
+                50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0878d1,
+                    #064d8d
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
+
+        .user-info {
+
+            min-width:
+                90px;
+        }
+
+
+        .user-name {
+
+            color:
+                #244765;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
+
+        .user-role {
+
+            color:
+                #8293a2;
+
+            font-size:
+                9px;
+
+            margin-top:
+                2px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+
+            flex:
+                1;
+
+            overflow-y:
+                auto;
+
+            padding:
+                25px;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome-card {
+
+            min-height:
+                145px;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    115deg,
+                    #075596 0%,
+                    #0879cf 55%,
+                    #0b67ac 100%
+                );
+
+            color:
+                white;
+
+            padding:
+                25px 28px;
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            box-shadow:
+                0 8px 24px
+                rgba(5, 80, 140, 0.18);
+        }
+
+
+        .welcome-card::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                260px;
+
+            height:
+                260px;
+
+            border:
+                45px solid
+                rgba(255, 255, 255, 0.07);
+
+            border-radius:
+                50%;
+
+            right:
+                -90px;
+
+            top:
+                -130px;
+        }
+
+
+        .welcome-title {
+
+            font-size:
+                22px;
+
+            font-weight:
+                700;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .welcome-text {
+
+            margin-top:
+                7px;
+
+            font-size:
+                12px;
+
+            opacity:
+                0.82;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .welcome-info {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                20px;
+
+            margin-top:
+                17px;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .welcome-date {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            font-size:
+                10px;
+
+            opacity:
+                0.8;
+        }
+
+
+        .welcome-date svg {
+
+            width:
+                15px;
+
+            height:
+                15px;
+
+            stroke:
+                currentColor;
+
+            fill:
+                none;
+
+            stroke-width:
+                1.8;
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-header {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin:
+                25px 0 13px;
+        }
+
+
+        .section-title {
+
+            color:
+                #244765;
+
+            font-size:
+                15px;
+
+            font-weight:
+                700;
+        }
+
+
+        .section-link {
+
+            color:
+                #0875c8;
+
+            font-size:
+                11px;
+
+            cursor:
+                pointer;
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap:
+                15px;
+        }
+
+
+        .stat-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #e3eaf0;
+
+            border-radius:
+                12px;
+
+            min-height:
+                125px;
+
+            padding:
+                18px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            justify-content:
+                space-between;
+
+            box-shadow:
+                0 3px 12px
+                rgba(25, 60, 90, 0.04);
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(25, 60, 90, 0.08);
+        }
+
+
+        .stat-top {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+        }
+
+
+        .stat-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                10px;
+
+            background:
+                #edf5fb;
+
+            color:
+                #0874c5;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+
+        .stat-icon svg {
+
+            width:
+                21px;
+
+            height:
+                21px;
+
+            stroke:
+                currentColor;
+
+            fill:
+                none;
+
+            stroke-width:
+                1.7;
+
+            stroke-linecap:
+                round;
+
+            stroke-linejoin:
+                round;
+        }
+
+
+        .stat-label {
+
+            color:
+                #8293a2;
+
+            font-size:
+                10px;
+
+            font-weight:
+                600;
+        }
+
+
+        .stat-value {
+
+            color:
+                #244765;
+
+            font-size:
+                25px;
+
+            font-weight:
+                700;
+
+            line-height:
+                1;
+        }
+
+
+        .stat-footer {
+
+            color:
+                #98a7b3;
+
+            font-size:
+                9px;
+        }
+
+
+        /* =====================================================
+           LOWER GRID
+        ===================================================== */
+
+        .dashboard-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1.4fr 1fr;
+
+            gap:
+                15px;
+
+            margin-top:
+                15px;
+        }
+
+
+        .panel {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #e3eaf0;
+
+            border-radius:
+                12px;
+
+            padding:
+                19px;
+
+            min-height:
+                250px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(25, 60, 90, 0.04);
+        }
+
+
+        .panel-header {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding-bottom:
+                14px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+        }
+
+
+        .panel-title {
+
+            color:
+                #244765;
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+        }
+
+
+        .panel-subtitle {
+
+            color:
+                #8a9aa8;
+
+            font-size:
+                9px;
+
+            margin-top:
+                3px;
+        }
+
+
+        /* =====================================================
+           QUICK ACCESS
+        ===================================================== */
+
+        .quick-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                10px;
+
+            margin-top:
+                15px;
+        }
+
+
+        .quick-item {
+
+            min-height:
+                72px;
+
+            border:
+                1px solid
+                #e5ebf0;
+
+            border-radius:
+                9px;
+
+            background:
+                #fbfcfd;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                7px;
+
+            cursor:
+                pointer;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .quick-item:hover {
+
+            background:
+                #f1f7fc;
+
+            border-color:
+                #c9dfef;
+        }
+
+
+        .quick-item svg {
+
+            width:
+                20px;
+
+            height:
+                20px;
+
+            stroke:
+                #0874c5;
+
+            fill:
+                none;
+
+            stroke-width:
+                1.7;
+
+            stroke-linecap:
+                round;
+
+            stroke-linejoin:
+                round;
+        }
+
+
+        .quick-item span {
+
+            color:
+                #526d82;
+
+            font-size:
+                9px;
+
+            text-align:
+                center;
+        }
+
+
+        /* =====================================================
+           ACTIVITY
+        ===================================================== */
+
+        .activity-empty {
+
+            min-height:
+                180px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            color:
+                #95a4b0;
+
+            text-align:
+                center;
+        }
+
+
+        .empty-icon {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            border-radius:
+                50%;
+
+            background:
+                #f1f5f8;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .empty-icon svg {
+
+            width:
+                22px;
+
+            height:
+                22px;
+
+            stroke:
+                #91a1ad;
+
+            fill:
+                none;
+
+            stroke-width:
+                1.6;
+
+        }
+
+
+        .activity-empty strong {
+
+            color:
+                #637b8d;
+
+            font-size:
+                11px;
+        }
+
+
+        .activity-empty span {
+
+            margin-top:
+                4px;
+
+            font-size:
+                9px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            height:
+                34px;
+
+            min-height:
+                34px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                0 25px;
+
+            background:
+                white;
+
+            border-top:
+                1px solid
+                #e5ebf0;
+
+            color:
+                #91a0ac;
+
+            font-size:
+                9px;
+        }
+
+
+        /* =====================================================
+           OVERLAY
+        ===================================================== */
+
+        .sidebar-overlay {
+
+            display:
+                none;
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(0, 0, 0, 0.35);
+
+            z-index:
+                90;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .dashboard-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                position:
+                    fixed;
+
+                left:
+                    -270px;
+
+                top:
+                    0;
+
+                transition:
+                    left 0.25s ease;
+            }
+
+
+            .sidebar.open {
+
+                left:
+                    0;
+            }
+
+
+            .sidebar-overlay.show {
+
+                display:
+                    block;
+            }
+
+
+            .mobile-menu {
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+            }
+
+
+            .current-date {
+
+                display:
+                    none;
+            }
+
+
+            .content {
+
+                padding:
+                    17px;
+            }
+
+
+            .topbar {
+
+                padding:
+                    0 17px;
+            }
+
+
+            .footer {
+
+                padding:
+                    0 17px;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .welcome-title {
+
+                font-size:
+                    18px;
+            }
+
+
+            .welcome-card {
+
+                padding:
+                    21px;
+            }
+
+
+            .quick-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .user-info {
+
+                display:
+                    none;
+            }
+
+
+            .user-box {
+
+                padding:
+                    5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+
+        <div class="sidebar-header">
+
+            <img
+                src="img/logo-smtg.png"
+                alt="SMTG Abattoir"
+                class="sidebar-logo"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+
+            <!-- DASHBOARD -->
+
+            <div class="nav-section">
+                Général
+            </div>
+
+
+            <button
+                class="nav-item active"
+                data-page="dashboard"
+            >
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <rect
+                            x="3"
+                            y="3"
+                            width="7"
+                            height="7"
+                            rx="1"
+                        ></rect>
+
+                        <rect
+                            x="14"
+                            y="3"
+                            width="7"
+                            height="7"
+                            rx="1"
+                        ></rect>
+
+                        <rect
+                            x="3"
+                            y="14"
+                            width="7"
+                            height="7"
+                            rx="1"
+                        ></rect>
+
+                        <rect
+                            x="14"
+                            y="14"
+                            width="7"
+                            height="7"
+                            rx="1"
+                        ></rect>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Tableau de bord
+                </span>
+
+            </button>
+
+
+            <!-- PRODUCTION -->
+
+            <div class="nav-section">
+                Production
+            </div>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M4 20V10"
+                        ></path>
+
+                        <path
+                            d="M9 20V4"
+                        ></path>
+
+                        <path
+                            d="M14 20v-7"
+                        ></path>
+
+                        <path
+                            d="M19 20V7"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Production
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M4 5h16"
+                        ></path>
+
+                        <path
+                            d="M7 3v4"
+                        ></path>
+
+                        <path
+                            d="M17 3v4"
+                        ></path>
+
+                        <rect
+                            x="4"
+                            y="5"
+                            width="16"
+                            height="15"
+                            rx="2"
+                        ></rect>
+
+                        <path
+                            d="M8 11h3"
+                        ></path>
+
+                        <path
+                            d="M13 11h3"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Planning
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M3 6h18"
+                        ></path>
+
+                        <path
+                            d="M3 12h18"
+                        ></path>
+
+                        <path
+                            d="M3 18h18"
+                        ></path>
+
+                        <circle
+                            cx="8"
+                            cy="6"
+                            r="2"
+                        ></circle>
+
+                        <circle
+                            cx="15"
+                            cy="12"
+                            r="2"
+                        ></circle>
+
+                        <circle
+                            cx="11"
+                            cy="18"
+                            r="2"
+                        ></circle>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Suivi de production
+                </span>
+
+            </button>
+
+
+            <!-- QUALITÉ -->
+
+            <div class="nav-section">
+                Qualité & HSE
+            </div>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"
+                        ></path>
+
+                        <path
+                            d="M9 12l2 2 4-4"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Qualité
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="8"
+                        ></circle>
+
+                        <path
+                            d="M12 8v4l3 2"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    HSE
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <!-- STOCK / LOGISTIQUE -->
+
+            <div class="nav-section">
+                Stock & Logistique
+            </div>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M3 7l9-4 9 4-9 4-9-4z"
+                        ></path>
+
+                        <path
+                            d="M3 12l9 4 9-4"
+                        ></path>
+
+                        <path
+                            d="M3 17l9 4 9-4"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Stock
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <rect
+                            x="3"
+                            y="6"
+                            width="13"
+                            height="10"
+                            rx="1"
+                        ></rect>
+
+                        <path
+                            d="M16 10h3l2 3v3h-5"
+                        ></path>
+
+                        <circle
+                            cx="7"
+                            cy="18"
+                            r="2"
+                        ></circle>
+
+                        <circle
+                            cx="18"
+                            cy="18"
+                            r="2"
+                        ></circle>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Expédition
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M4 4h16v16H4z"
+                        ></path>
+
+                        <path
+                            d="M8 8h8"
+                        ></path>
+
+                        <path
+                            d="M8 12h8"
+                        ></path>
+
+                        <path
+                            d="M8 16h5"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Réception
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <!-- ADMINISTRATION -->
+
+            <div class="nav-section">
+                Administration
+            </div>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="8"
+                            r="3"
+                        ></circle>
+
+                        <path
+                            d="M5 21c0-4 3-7 7-7s7 3 7 7"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Utilisateurs
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M12 3l2 2 3-.2.8 2.8 2.5 1.5-1.5 2.6.5 3-2.8 1-1 2.7-3-.8-2.7.8-1-2.7-2.8-1 .5-3L3 9.1l2.5-1.5.8-2.8 3 .2 2-2z"
+                        ></path>
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="3"
+                        ></circle>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Paramètres
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+            <button class="nav-item">
+
+                <span class="nav-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M4 19V5"
+                        ></path>
+
+                        <path
+                            d="M4 18h16"
+                        ></path>
+
+                        <path
+                            d="M7 15l3-4 3 2 5-7"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span class="nav-text">
+                    Rapports
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    Système opérationnel
+                </span>
+
+            </div>
+
+
+            <button
+                class="logout-button"
+                id="logoutButton"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M10 17l5-5-5-5"
+                    ></path>
+
+                    <path
+                        d="M15 12H3"
+                    ></path>
+
+                    <path
+                        d="M21 19V5a2 2 0 0 0-2-2h-6"
+                    ></path>
+
+                </svg>
+
+                <span>
+                    Déconnexion
+                </span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div class="topbar-left">
+
+
+                <button
+                    class="mobile-menu"
+                    id="mobileMenu"
+                >
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M4 6h16"></path>
+
+                        <path d="M4 12h16"></path>
+
+                        <path d="M4 18h16"></path>
+
+                    </svg>
+
+                </button>
+
+
+                <div>
+
+                    <div class="page-title">
+                        Tableau de bord
+                    </div>
+
+                    <div class="page-subtitle">
+                        Système de Gestion Intégré — SMTG Abattoir
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+
+                <div
+                    class="current-date"
+                    id="currentDate"
+                >
+                    --
+                </div>
+
+
+                <div class="user-box">
+
+
+                    <div
+                        class="user-avatar"
+                        id="userAvatar"
+                    >
+                        --
+                    </div>
+
+
+                    <div class="user-info">
+
+                        <div
+                            class="user-name"
+                            id="userName"
+                        >
+                            Utilisateur
+                        </div>
+
+                        <div
+                            class="user-role"
+                            id="userRole"
+                        >
+                            Chargement...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <div class="content">
+
+
+            <!-- WELCOME -->
+
+            <section class="welcome-card">
+
+
+                <div
+                    class="welcome-title"
+                    id="welcomeTitle"
+                >
+                    Bienvenue
+                </div>
+
+
+                <div class="welcome-text">
+
+                    Bienvenue dans le système de gestion intégré
+                    de SMTG Abattoir.
+
+                </div>
+
+
+                <div class="welcome-info">
+
+
+                    <div class="welcome-date">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <rect
+                                x="3"
+                                y="4"
+                                width="18"
+                                height="17"
+                                rx="2"
+                            ></rect>
+
+                            <path
+                                d="M8 2v4"
+                            ></path>
+
+                            <path
+                                d="M16 2v4"
+                            ></path>
+
+                            <path
+                                d="M3 9h18"
+                            ></path>
+
+                        </svg>
+
+                        <span id="welcomeDate">
+                            --
+                        </span>
+
+                    </div>
+
+
+                    <div class="welcome-date">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="9"
+                            ></circle>
+
+                            <path
+                                d="M12 7v5l3 2"
+                            ></path>
+
+                        </svg>
+
+                        <span id="welcomeTime">
+                            --
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- STATS -->
+
+            <div class="section-header">
+
+                <div class="section-title">
+                    Vue générale
+                </div>
+
+                <div class="section-link">
+                    Actualisation automatique
+                </div>
+
+            </div>
+
+
+            <section class="stats-grid">
+
+
+                <!-- PRODUCTION -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-label">
+                            Production
+                        </div>
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M4 20V10"
+                                ></path>
+
+                                <path
+                                    d="M9 20V4"
+                                ></path>
+
+                                <path
+                                    d="M14 20v-7"
+                                ></path>
+
+                                <path
+                                    d="M19 20V7"
+                                ></path>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-value">
+                        0
+                    </div>
+
+
+                    <div class="stat-footer">
+                        Données à connecter
+                    </div>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-label">
+                            Stock
+                        </div>
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M3 7l9-4 9 4-9 4-9-4z"
+                                ></path>
+
+                                <path
+                                    d="M3 12l9 4 9-4"
+                                ></path>
+
+                                <path
+                                    d="M3 17l9 4 9-4"
+                                ></path>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-value">
+                        0
+                    </div>
+
+
+                    <div class="stat-footer">
+                        Données à connecter
+                    </div>
+
+                </div>
+
+
+                <!-- EXPEDITION -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-label">
+                            Expéditions
+                        </div>
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <rect
+                                    x="3"
+                                    y="6"
+                                    width="13"
+                                    height="10"
+                                    rx="1"
+                                ></rect>
+
+                                <path
+                                    d="M16 10h3l2 3v3h-5"
+                                ></path>
+
+                                <circle
+                                    cx="7"
+                                    cy="18"
+                                    r="2"
+                                ></circle>
+
+                                <circle
+                                    cx="18"
+                                    cy="18"
+                                    r="2"
+                                ></circle>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-value">
+                        0
+                    </div>
+
+
+                    <div class="stat-footer">
+                        Données à connecter
+                    </div>
+
+                </div>
+
+
+                <!-- QUALITE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-label">
+                            Qualité
+                        </div>
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"
+                                ></path>
+
+                                <path
+                                    d="M9 12l2 2 4-4"
+                                ></path>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-value">
+                        0
+                    </div>
+
+
+                    <div class="stat-footer">
+                        Données à connecter
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- LOWER -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- QUICK ACCESS -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="panel-title">
+                                Accès rapide
+                            </div>
+
+                            <div class="panel-subtitle">
+                                Modules principaux
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-grid">
+
+
+                        <div class="quick-item">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M4 20V10"
+                                ></path>
+
+                                <path
+                                    d="M9 20V4"
+                                ></path>
+
+                                <path
+                                    d="M14 20v-7"
+                                ></path>
+
+                                <path
+                                    d="M19 20V7"
+                                ></path>
+
+                            </svg>
+
+                            <span>
+                                Production
+                            </span>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M3 7l9-4 9 4-9 4-9-4z"
+                                ></path>
+
+                                <path
+                                    d="M3 12l9 4 9-4"
+                                ></path>
+
+                                <path
+                                    d="M3 17l9 4 9-4"
+                                ></path>
+
+                            </svg>
+
+                            <span>
+                                Stock
+                            </span>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"
+                                ></path>
+
+                                <path
+                                    d="M9 12l2 2 4-4"
+                                ></path>
+
+                            </svg>
+
+                            <span>
+                                Qualité
+                            </span>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <rect
+                                    x="3"
+                                    y="6"
+                                    width="13"
+                                    height="10"
+                                    rx="1"
+                                ></rect>
+
+                                <path
+                                    d="M16 10h3l2 3v3h-5"
+                                ></path>
+
+                                <circle
+                                    cx="7"
+                                    cy="18"
+                                    r="2"
+                                ></circle>
+
+                                <circle
+                                    cx="18"
+                                    cy="18"
+                                    r="2"
+                                ></circle>
+
+                            </svg>
+
+                            <span>
+                                Expédition
+                            </span>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <circle
+                                    cx="12"
+                                    cy="8"
+                                    r="3"
+                                ></circle>
+
+                                <path
+                                    d="M5 21c0-4 3-7 7-7s7 3 7 7"
+                                ></path>
+
+                            </svg>
+
+                            <span>
+                                Utilisateurs
+                            </span>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M4 19V5"
+                                ></path>
+
+                                <path
+                                    d="M4 18h16"
+                                ></path>
+
+                                <path
+                                    d="M7 15l3-4 3 2 5-7"
+                                ></path>
+
+                            </svg>
+
+                            <span>
+                                Rapports
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVITY -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="panel-title">
+                                Activité récente
+                            </div>
+
+                            <div class="panel-subtitle">
+                                Dernières opérations du système
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-empty">
+
+
+                        <div class="empty-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M4 4h16v16H4z"
+                                ></path>
+
+                                <path
+                                    d="M8 9h8"
+                                ></path>
+
+                                <path
+                                    d="M8 13h5"
+                                ></path>
+
+                                <path
+                                    d="M8 17h7"
+                                ></path>
+
+                            </svg>
+
+                        </div>
+
+
+                        <strong>
+                            Aucune activité récente
+                        </strong>
+
+
+                        <span>
+                            L'historique apparaîtra ici.
+                        </span>
+
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <span>
+                SMTG Abattoir — Système de Gestion Intégré
+            </span>
+
+            <span>
+                v1.0.0
+            </span>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<script
+    src="api/supabase.js"
+></script>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+    /* =====================================================
+       SESSION
+    ===================================================== */
+
+    const SESSION_KEY =
+        "smtg_current_user";
+
+
+    const storedUser =
+        sessionStorage.getItem(
+            SESSION_KEY
+        );
+
+
+    /*
+     * إذا ماكايناش session
+     * رجع المستخدم للـLogin
+     */
+
+    if (!storedUser) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    let currentUser = null;
+
+
+    try {
+
+        currentUser =
+            JSON.parse(
+                storedUser
+            );
+
+    } catch (error) {
+
+        sessionStorage.removeItem(
+            SESSION_KEY
+        );
+
+        window.location.href =
+            "login.html";
+    }
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const userName =
+        document.getElementById(
+            "userName"
+        );
+
+
+    const userRole =
+        document.getElementById(
+            "userRole"
+        );
+
+
+    const userAvatar =
+        document.getElementById(
+            "userAvatar"
+        );
+
+
+    const welcomeTitle =
+        document.getElementById(
+            "welcomeTitle"
+        );
+
+
+    const currentDate =
+        document.getElementById(
+            "currentDate"
+        );
+
+
+    const welcomeDate =
+        document.getElementById(
+            "welcomeDate"
+        );
+
+
+    const welcomeTime =
+        document.getElementById(
+            "welcomeTime"
+        );
+
+
+    /* =====================================================
+       USER DATA
+    ===================================================== */
+
+    if (currentUser) {
+
+
+        const fullName =
+            currentUser.full_name ||
+            currentUser.username ||
+            "Utilisateur";
+
+
+        const username =
+            currentUser.username ||
+            "";
+
+
+        userName.textContent =
+            fullName;
+
+
+        welcomeTitle.textContent =
+            "Bienvenue, " +
+            fullName;
+
+
+        /*
+         * Initiales
+         */
+
+        const initials =
+            fullName
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map(
+                    word =>
+                        word.charAt(0)
+                            .toUpperCase()
+                )
+                .join("");
+
+
+        userAvatar.textContent =
+            initials ||
+            "U";
+
+
+        /*
+         * Role temporaire
+         */
+
+        userRole.textContent =
+            "Chargement du rôle...";
+
+
+        loadUserRole(
+            currentUser.role_id
+        );
+
+    }
+
+
+    /* =====================================================
+       LOAD ROLE
+    ===================================================== */
+
+    async function loadUserRole(
+        roleId
+    ) {
+
+        if (!roleId) {
+
+            userRole.textContent =
+                "Utilisateur";
+
+            return;
+        }
+
+
+        try {
+
+            const client =
+                getSupabase();
+
+
+            const {
+                data,
+                error
+            } = await client
+                .from("roles")
+                .select(
+                    "name, code"
+                )
+                .eq(
+                    "id",
+                    roleId
+                )
+                .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur role:",
+                    error
+                );
+
+                userRole.textContent =
+                    "Utilisateur";
+
+                return;
+            }
+
+
+            if (data) {
+
+                userRole.textContent =
+                    data.name ||
+                    data.code ||
+                    "Utilisateur";
+
+            } else {
+
+                userRole.textContent =
+                    "Utilisateur";
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+            userRole.textContent =
+                "Utilisateur";
+        }
+
+    }
+
+
+    /* =====================================================
+       DATE / TIME
+    ===================================================== */
+
+    function updateDateTime() {
+
+
+        const now =
+            new Date();
+
+
+        const date =
+            now.toLocaleDateString(
+                "fr-FR",
+                {
+                    weekday: "long",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        const time =
+            now.toLocaleTimeString(
+                "fr-FR",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+
+
+        const dateCapitalized =
+            date.charAt(0)
+                .toUpperCase() +
+            date.slice(1);
+
+
+        currentDate.textContent =
+            dateCapitalized;
+
+
+        welcomeDate.textContent =
+            dateCapitalized;
+
+
+        welcomeTime.textContent =
+            time;
+    }
+
+
+    updateDateTime();
+
+
+    setInterval(
+        updateDateTime,
+        1000
+    );
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    logoutButton.addEventListener(
+        "click",
+        function () {
+
+
+            const confirmLogout =
+                confirm(
+                    "Voulez-vous vraiment vous déconnecter ?"
+                );
+
+
+            if (!confirmLogout) {
+
+                return;
+            }
+
+
+            sessionStorage.removeItem(
+                SESSION_KEY
+            );
+
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+
+    /* =====================================================
+       SIDEBAR MOBILE
+    ===================================================== */
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+
+    const sidebarOverlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    const mobileMenu =
+        document.getElementById(
+            "mobileMenu"
+        );
+
+
+    function openSidebar() {
+
+        sidebar.classList.add(
+            "open"
+        );
+
+        sidebarOverlay.classList.add(
+            "show"
+        );
+    }
+
+
+    function closeSidebar() {
+
+        sidebar.classList.remove(
+            "open"
+        );
+
+        sidebarOverlay.classList.remove(
+            "show"
+        );
+    }
+
+
+    mobileMenu.addEventListener(
+        "click",
+        openSidebar
+    );
+
+
+    sidebarOverlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+
+    /* =====================================================
+       NAVIGATION UI
+    ===================================================== */
+
+    const navItems =
+        document.querySelectorAll(
+            ".nav-item"
+        );
+
+
+    navItems.forEach(
+        function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+
+                    navItems.forEach(
+                        function (nav) {
+
+                            nav.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    item.classList.add(
+                        "active"
+                    );
+
+
+                    if (
+                        window.innerWidth <= 800
+                    ) {
+
+                        closeSidebar();
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
