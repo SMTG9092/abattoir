@@ -1,42 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Utilisateurs - SMTG Abattoir</title>
-
-
-    <!-- =====================================================
-         SUPABASE
-    ====================================================== -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script src="api/supabase.js"></script>
-
 
     <!-- =====================================================
          FONT AWESOME
     ====================================================== -->
-
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="api/supabase.js"></script>
 
+
+    <!-- =====================================================
+         STYLE
+    ====================================================== -->
     <style>
-
-        /* =====================================================
-           RESET
-        ====================================================== */
 
         * {
             margin: 0;
@@ -44,370 +32,247 @@
             box-sizing: border-box;
         }
 
-
         body {
-
-            font-family:
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
+            font-family: "Segoe UI", Arial, sans-serif;
             background: #f4f7fb;
-
             color: #172033;
-
             min-height: 100vh;
         }
 
 
-        button,
-        input,
-        select,
-        textarea {
-
-            font-family: inherit;
-        }
-
-
-        button {
-
-            cursor: pointer;
-        }
-
-
-        /* =====================================================
-           PAGE
-        ====================================================== */
-
-        .page {
-
-            min-height: 100vh;
-
-            padding: 24px;
-        }
-
-
-        .container {
-
-            max-width: 1600px;
-
-            margin: 0 auto;
-        }
-
-
-        /* =====================================================
+        /* =================================================
            HEADER
-        ====================================================== */
+        ================================================= */
 
         .page-header {
+            background: linear-gradient(
+                135deg,
+                #0b1f3a,
+                #123b69
+            );
+
+            color: white;
+
+            padding: 22px 30px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
-            gap: 20px;
-
-            margin-bottom: 24px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, .12);
         }
 
-
         .header-left {
-
             display: flex;
-
             align-items: center;
-
             gap: 15px;
         }
 
-
         .header-icon {
-
             width: 52px;
             height: 52px;
 
             border-radius: 14px;
 
             background:
-                linear-gradient(
-                    135deg,
-                    #0b5ed7,
-                    #174ea6
-                );
-
-            color: white;
+                rgba(255, 255, 255, .12);
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
-            font-size: 22px;
-
-            box-shadow:
-                0 8px 20px
-                rgba(11, 94, 215, .18);
+            font-size: 23px;
         }
-
 
         .header-title h1 {
-
-            font-size: 25px;
-
-            font-weight: 750;
-
-            color: #152238;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
         }
-
 
         .header-title p {
-
-            margin-top: 4px;
-
             font-size: 13px;
-
-            color: #718096;
+            opacity: .78;
         }
 
-
-        .header-actions {
-
+        .header-user {
             display: flex;
-
+            align-items: center;
             gap: 10px;
+            font-size: 13px;
+            opacity: .9;
+        }
+
+        .header-user i {
+            font-size: 18px;
         }
 
 
-        /* =====================================================
-           BUTTONS
-        ====================================================== */
+        /* =================================================
+           CONTAINER
+        ================================================= */
 
-        .btn {
+        .container {
+            max-width: 1450px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
 
-            border: none;
 
-            border-radius: 10px;
+        /* =================================================
+           BREADCRUMB
+        ================================================= */
 
-            padding:
-                11px 17px;
-
-            font-size: 13px;
-
-            font-weight: 650;
-
-            display: inline-flex;
-
+        .breadcrumb {
+            display: flex;
             align-items: center;
-
-            justify-content: center;
-
             gap: 8px;
 
-            transition: .2s;
+            font-size: 13px;
+            color: #687386;
+
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb i {
+            font-size: 10px;
+        }
+
+        .breadcrumb .current {
+            color: #123b69;
+            font-weight: 600;
         }
 
 
-        .btn:hover {
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        .btn-primary {
-
-            background: #0b5ed7;
-
-            color: white;
-
-            box-shadow:
-                0 5px 14px
-                rgba(11, 94, 215, .20);
-        }
-
-
-        .btn-primary:hover {
-
-            background: #084db4;
-        }
-
-
-        .btn-secondary {
-
-            background: #eef2f7;
-
-            color: #344054;
-        }
-
-
-        .btn-secondary:hover {
-
-            background: #e2e8f0;
-        }
-
-
-        .btn-danger {
-
-            background: #dc3545;
-
-            color: white;
-        }
-
-
-        .btn-small {
-
-            padding:
-                7px 10px;
-
-            font-size: 12px;
-
-            border-radius: 8px;
-        }
-
-
-        /* =====================================================
+        /* =================================================
            STATS
-        ====================================================== */
+        ================================================= */
 
         .stats-grid {
-
             display: grid;
 
             grid-template-columns:
-                repeat(4, minmax(0, 1fr));
+                repeat(4, 1fr);
 
             gap: 16px;
 
             margin-bottom: 20px;
         }
 
-
         .stat-card {
-
             background: white;
-
-            border:
-                1px solid #e7ebf1;
 
             border-radius: 15px;
 
-            padding: 18px;
+            padding: 18px 20px;
 
-            display: flex;
-
-            align-items: center;
-
-            gap: 15px;
+            border:
+                1px solid #e8edf4;
 
             box-shadow:
-                0 4px 14px
-                rgba(15, 23, 42, .04);
+                0 4px 18px rgba(
+                    25,
+                    42,
+                    70,
+                    .06
+                );
+
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
         }
 
-
         .stat-icon {
-
             width: 45px;
             height: 45px;
 
             border-radius: 12px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            background: #edf4ff;
-
-            color: #0b5ed7;
 
             font-size: 18px;
         }
 
+        .stat-icon.blue {
+            background: #e9f2ff;
+            color: #1769d2;
+        }
 
-        .stat-card:nth-child(2)
-        .stat-icon {
-
+        .stat-icon.green {
             background: #eaf8f0;
+            color: #1fa35a;
+        }
 
-            color: #198754;
+        .stat-icon.red {
+            background: #fff0f0;
+            color: #dc3545;
+        }
+
+        .stat-icon.orange {
+            background: #fff5e5;
+            color: #e89100;
+        }
+
+        .stat-info {
+            min-width: 0;
+        }
+
+        .stat-info strong {
+            display: block;
+
+            font-size: 22px;
+
+            color: #1b2a41;
+        }
+
+        .stat-info span {
+            display: block;
+
+            font-size: 11px;
+
+            color: #7d8797;
+
+            margin-top: 2px;
         }
 
 
-        .stat-card:nth-child(3)
-        .stat-icon {
+        /* =================================================
+           CARD
+        ================================================= */
 
-            background: #fff6df;
-
-            color: #d88a00;
-        }
-
-
-        .stat-card:nth-child(4)
-        .stat-icon {
-
-            background: #f3edff;
-
-            color: #7048c8;
-        }
-
-
-        .stat-label {
-
-            font-size: 12px;
-
-            color: #7b8798;
-
-            margin-bottom: 4px;
-        }
-
-
-        .stat-value {
-
-            font-size: 23px;
-
-            font-weight: 750;
-
-            color: #182337;
-        }
-
-
-        /* =====================================================
-           MAIN CARD
-        ====================================================== */
-
-        .main-card {
-
+        .card {
             background: white;
 
-            border:
-                1px solid #e6eaf0;
+            border-radius: 18px;
 
-            border-radius: 16px;
+            border:
+                1px solid #e8edf4;
 
             box-shadow:
-                0 5px 18px
-                rgba(15, 23, 42, .04);
+                0 5px 25px rgba(
+                    25,
+                    42,
+                    70,
+                    .08
+                );
 
             overflow: hidden;
         }
 
 
-        /* =====================================================
-           TOOLBAR
-        ====================================================== */
+        /* =================================================
+           CARD HEADER
+        ================================================= */
 
-        .toolbar {
-
-            padding:
-                17px 18px;
+        .card-header {
+            padding: 20px 24px;
 
             border-bottom:
-                1px solid #edf0f4;
+                1px solid #edf0f5;
 
             display: flex;
 
@@ -420,208 +285,228 @@
             flex-wrap: wrap;
         }
 
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .filters {
+        .card-title-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 11px;
+
+            background: #e9f2ff;
+
+            color: #1769d2;
 
             display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            gap: 10px;
+        .card-title h2 {
+            font-size: 18px;
+            color: #1b2a41;
+        }
 
-            flex-wrap: wrap;
-
-            flex: 1;
+        .card-title p {
+            font-size: 12px;
+            color: #7a8494;
+            margin-top: 3px;
         }
 
 
-        .search-box {
+        /* =================================================
+           FILTERS
+        ================================================= */
 
+        .filters {
+            padding: 18px 24px;
+
+            background: #fafbfd;
+
+            border-bottom:
+                1px solid #edf0f5;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(250px, 1fr)
+                210px
+                180px;
+
+            gap: 12px;
+        }
+
+        .search-box,
+        .filter-box {
             position: relative;
-
-            min-width: 280px;
-
-            max-width: 430px;
-
-            flex: 1;
         }
 
-
-        .search-box i {
-
+        .search-box i,
+        .filter-box > i {
             position: absolute;
 
-            left: 13px;
+            left: 14px;
 
             top: 50%;
 
             transform:
                 translateY(-50%);
 
-            color: #98a2b3;
+            color: #8993a4;
 
-            font-size: 13px;
+            font-size: 14px;
+
+            pointer-events: none;
         }
 
-
-        .search-box input {
-
+        .search-box input,
+        .filter-box select {
             width: 100%;
 
-            height: 40px;
+            height: 43px;
 
             border:
-                1px solid #dfe4eb;
+                1px solid #d8dee8;
 
             border-radius: 9px;
-
-            padding:
-                0 13px 0 38px;
-
-            outline: none;
-
-            color: #1f2937;
-
-            background: #fff;
-        }
-
-
-        .search-box input:focus {
-
-            border-color: #0b5ed7;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(11, 94, 215, .08);
-        }
-
-
-        .filter-select {
-
-            height: 40px;
-
-            border:
-                1px solid #dfe4eb;
-
-            border-radius: 9px;
-
-            padding:
-                0 35px 0 12px;
 
             background: white;
 
-            color: #344054;
-
             outline: none;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            color: #344054;
+        }
+
+        .search-box input {
+            padding:
+                0 40px;
+        }
+
+        .filter-box select {
+            padding:
+                0 12px 0 39px;
+
+            cursor: pointer;
+        }
+
+        .search-box input:focus,
+        .filter-box select:focus {
+            border-color: #2d7fe5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    45,
+                    127,
+                    229,
+                    .10
+                );
         }
 
 
-        .filter-select:focus {
-
-            border-color: #0b5ed7;
-        }
-
-
-        /* =====================================================
+        /* =================================================
            TABLE
-        ====================================================== */
+        ================================================= */
 
         .table-wrapper {
-
+            width: 100%;
             overflow-x: auto;
         }
 
-
         table {
-
             width: 100%;
 
             border-collapse: collapse;
 
-            min-width: 1100px;
+            min-width: 950px;
         }
 
-
-        thead {
-
+        thead th {
             background: #f8fafc;
-        }
 
-
-        th {
-
-            text-align: left;
-
-            padding:
-                13px 15px;
+            color: #657184;
 
             font-size: 11px;
 
-            font-weight: 750;
+            font-weight: 700;
 
             text-transform: uppercase;
 
-            letter-spacing: .35px;
-
-            color: #667085;
-
-            border-bottom:
-                1px solid #e7ebf0;
-        }
-
-
-        td {
+            letter-spacing: .3px;
 
             padding:
-                14px 15px;
+                14px 16px;
+
+            text-align: left;
+
+            border-bottom:
+                1px solid #e8edf4;
+
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding:
+                14px 16px;
+
+            border-bottom:
+                1px solid #edf0f4;
 
             font-size: 13px;
 
             color: #344054;
 
-            border-bottom:
-                1px solid #edf0f3;
-
             vertical-align: middle;
         }
 
-
         tbody tr {
-
             transition: .15s;
         }
 
-
         tbody tr:hover {
+            background: #f9fbfe;
+        }
 
-            background: #f9fbfd;
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
 
-        /* =====================================================
-           USER INFO
-        ====================================================== */
+        /* =================================================
+           USER CELL
+        ================================================= */
 
-        .user-info {
-
+        .user-cell {
             display: flex;
 
             align-items: center;
 
             gap: 11px;
+
+            min-width: 210px;
         }
 
-
-        .user-avatar {
-
+        .avatar {
             width: 40px;
             height: 40px;
+
+            flex-shrink: 0;
 
             border-radius: 50%;
 
             background:
                 linear-gradient(
                     135deg,
-                    #0b5ed7,
-                    #397bd8
+                    #1769d2,
+                    #0b3c78
                 );
 
             color: white;
@@ -629,41 +514,56 @@
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
-            font-size: 14px;
-
-            font-weight: 750;
-
-            flex-shrink: 0;
-        }
-
-
-        .user-name {
+            font-size: 13px;
 
             font-weight: 700;
-
-            color: #182337;
         }
 
+        .avatar.system {
+            background:
+                linear-gradient(
+                    135deg,
+                    #667085,
+                    #344054
+                );
+        }
 
-        .username {
+        .user-main {
+            min-width: 0;
+        }
+
+        .user-main strong {
+            display: block;
+
+            font-size: 13px;
+
+            color: #1b2a41;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .user-main span {
+            display: block;
 
             font-size: 11px;
 
-            color: #8993a4;
+            color: #8a94a6;
 
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
 
-        /* =====================================================
+        /* =================================================
            ROLE
-        ====================================================== */
+        ================================================= */
 
         .role-badge {
-
             display: inline-flex;
 
             align-items: center;
@@ -675,36 +575,127 @@
 
             border-radius: 20px;
 
-            background: #edf4ff;
+            background: #eef4fb;
 
-            color: #0b5ed7;
+            color: #31577f;
 
             font-size: 11px;
 
-            font-weight: 700;
+            font-weight: 600;
+
+            white-space: nowrap;
         }
 
-
         .role-badge i {
-
             font-size: 10px;
         }
 
 
-        .no-role {
+        /* =================================================
+           STATUS
+        ================================================= */
 
-            color: #98a2b3;
+        .status-badge {
+            display: inline-flex;
 
-            font-size: 12px;
+            align-items: center;
+
+            gap: 6px;
+
+            padding:
+                6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+        .status-badge.active {
+            background: #eaf8f0;
+            color: #18894c;
+        }
+
+        .status-badge.inactive {
+            background: #fff0f0;
+            color: #c52d38;
+        }
+
+        .status-badge.system {
+            background: #fff5d9;
+            color: #866a00;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: currentColor;
         }
 
 
-        /* =====================================================
-           BADGES
-        ====================================================== */
+        /* =================================================
+           DATE
+        ================================================= */
 
-        .badge {
+        .date-cell {
+            color: #687386;
 
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =================================================
+           DELETE
+        ================================================= */
+
+        .delete-btn {
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #fff0f0;
+
+            color: #dc3545;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .delete-btn:hover {
+            background: #dc3545;
+            color: white;
+
+            transform: translateY(-1px);
+        }
+
+        .delete-btn:disabled {
+            background: #f0f2f5;
+            color: #a5adba;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .protected-badge {
             display: inline-flex;
 
             align-items: center;
@@ -712,230 +703,142 @@
             gap: 5px;
 
             padding:
-                5px 9px;
-
-            border-radius: 20px;
-
-            font-size: 11px;
-
-            font-weight: 700;
-        }
-
-
-        .badge-active {
-
-            background: #e9f8ef;
-
-            color: #16834b;
-        }
-
-
-        .badge-inactive {
-
-            background: #f1f3f5;
-
-            color: #68707d;
-        }
-
-
-        .badge-system {
-
-            background: #fff3cd;
-
-            color: #956c00;
-        }
-
-
-        /* =====================================================
-           ACTIONS
-        ====================================================== */
-
-        .actions {
-
-            display: flex;
-
-            gap: 6px;
-        }
-
-
-        .icon-btn {
-
-            width: 33px;
-            height: 33px;
-
-            border:
-                1px solid #e2e7ed;
+                6px 9px;
 
             border-radius: 8px;
 
-            background: white;
+            background: #f2f4f7;
 
-            display: flex;
+            color: #7a8494;
 
-            align-items: center;
+            font-size: 10px;
 
-            justify-content: center;
-
-            color: #667085;
-
-            transition: .2s;
+            font-weight: 600;
         }
 
 
-        .icon-btn:hover {
-
-            background: #f4f7fb;
-
-            color: #0b5ed7;
-
-            border-color: #cbd5e1;
-        }
-
-
-        .icon-btn.delete:hover {
-
-            color: #dc3545;
-
-            border-color: #f2b8bf;
-
-            background: #fff5f6;
-        }
-
-
-        .icon-btn:disabled {
-
-            opacity: .4;
-
-            cursor: not-allowed;
-        }
-
-
-        /* =====================================================
+        /* =================================================
            EMPTY
-        ====================================================== */
+        ================================================= */
 
         .empty-state {
+            text-align: center;
 
             padding:
                 60px 20px;
 
-            text-align: center;
-
-            color: #8792a2;
+            color: #7d8797;
         }
-
 
         .empty-state i {
+            font-size: 40px;
 
-            font-size: 38px;
+            color: #c8d0dc;
 
-            margin-bottom: 13px;
-
-            color: #b4bdca;
+            margin-bottom: 12px;
         }
 
-
         .empty-state h3 {
+            font-size: 15px;
 
-            color: #475467;
-
-            font-size: 16px;
+            color: #566174;
 
             margin-bottom: 5px;
         }
 
-
         .empty-state p {
-
-            font-size: 13px;
+            font-size: 12px;
         }
 
 
-        /* =====================================================
-           FOOTER
-        ====================================================== */
+        /* =================================================
+           LOADING
+        ================================================= */
 
-        .table-footer {
+        .loading-row td {
+            text-align: center;
 
             padding:
-                14px 18px;
+                60px 20px;
+        }
+
+        .spinner-small {
+            width: 28px;
+            height: 28px;
+
+            border:
+                3px solid #e4e9f0;
+
+            border-top-color:
+                #1769d2;
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+
+            margin:
+                0 auto 10px;
+        }
+
+        .loading-row span {
+            font-size: 12px;
+            color: #7d8797;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        .table-footer {
+            padding:
+                15px 24px;
+
+            border-top:
+                1px solid #edf0f5;
+
+            background: #fafbfd;
 
             display: flex;
-
-            justify-content: space-between;
 
             align-items: center;
 
-            gap: 15px;
+            justify-content: space-between;
+
+            font-size: 11px;
+
+            color: #7d8797;
         }
 
 
-        .results-info {
-
-            font-size: 12px;
-
-            color: #7b8798;
-        }
-
-
-        .pagination {
-
-            display: flex;
-
-            gap: 5px;
-        }
-
-
-        .page-btn {
-
-            min-width: 32px;
-
-            height: 32px;
-
-            border:
-                1px solid #e0e5eb;
-
-            background: white;
-
-            border-radius: 7px;
-
-            font-size: 12px;
-
-            color: #667085;
-        }
-
-
-        .page-btn:hover,
-        .page-btn.active {
-
-            background: #0b5ed7;
-
-            color: white;
-
-            border-color: #0b5ed7;
-        }
-
-
-        .page-btn:disabled {
-
-            opacity: .45;
-
-            cursor: not-allowed;
-        }
-
-
-        /* =====================================================
-           MODAL
-        ====================================================== */
+        /* =================================================
+           MODAL DELETE
+        ================================================= */
 
         .modal-overlay {
-
             position: fixed;
 
             inset: 0;
 
             background:
-                rgba(15, 23, 42, .52);
+                rgba(
+                    11,
+                    31,
+                    58,
+                    .48
+                );
+
+            backdrop-filter:
+                blur(3px);
+
+            z-index: 9999;
 
             display: none;
 
@@ -944,95 +847,137 @@
             justify-content: center;
 
             padding: 20px;
-
-            z-index: 9999;
         }
 
-
         .modal-overlay.show {
-
             display: flex;
         }
 
-
-        .modal {
-
+        .delete-modal {
             width: 100%;
 
-            max-width: 650px;
-
-            max-height: 92vh;
+            max-width: 430px;
 
             background: white;
 
             border-radius: 17px;
 
             box-shadow:
-                0 25px 70px
-                rgba(0, 0, 0, .20);
-
-            display: flex;
-
-            flex-direction: column;
+                0 20px 60px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .20
+                );
 
             overflow: hidden;
+
+            animation:
+                modalIn .2s ease;
         }
 
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(10px)
+                    scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
 
         .modal-header {
-
             padding:
-                18px 21px;
+                22px 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
 
             border-bottom:
-                1px solid #edf0f3;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
+                1px solid #edf0f5;
         }
 
+        .modal-danger-icon {
+            width: 43px;
+            height: 43px;
 
-        .modal-title {
+            border-radius: 11px;
 
-            display: flex;
+            background: #fff0f0;
 
-            align-items: center;
-
-            gap: 11px;
-        }
-
-
-        .modal-title-icon {
-
-            width: 38px;
-            height: 38px;
-
-            border-radius: 9px;
-
-            background: #edf4ff;
-
-            color: #0b5ed7;
+            color: #dc3545;
 
             display: flex;
 
             align-items: center;
-
             justify-content: center;
         }
 
-
-        .modal-title h2 {
-
+        .modal-header h3 {
             font-size: 17px;
-
-            color: #182337;
+            color: #1b2a41;
         }
 
+        .modal-header p {
+            font-size: 11px;
+            color: #8993a4;
+            margin-top: 3px;
+        }
 
-        .modal-title p {
+        .modal-body {
+            padding: 22px 24px;
+        }
+
+        .modal-body > p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #566174;
+        }
+
+        .delete-user-preview {
+            margin-top: 15px;
+
+            background: #f8fafc;
+
+            border:
+                1px solid #e7ebf1;
+
+            border-radius: 11px;
+
+            padding: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .delete-user-preview .avatar {
+            width: 38px;
+            height: 38px;
+        }
+
+        .delete-user-preview strong {
+            display: block;
+
+            font-size: 13px;
+
+            color: #1b2a41;
+        }
+
+        .delete-user-preview span {
+            display: block;
 
             font-size: 11px;
 
@@ -1041,43 +986,14 @@
             margin-top: 2px;
         }
 
-
-        .close-btn {
-
-            width: 34px;
-            height: 34px;
-
-            border: none;
-
-            background: #f4f6f8;
-
-            border-radius: 8px;
-
-            color: #667085;
-        }
-
-
-        .close-btn:hover {
-
-            background: #e9edf2;
-        }
-
-
-        .modal-body {
-
-            padding: 21px;
-
-            overflow-y: auto;
-        }
-
-
         .modal-footer {
-
             padding:
-                15px 21px;
+                16px 24px;
+
+            background: #fafbfd;
 
             border-top:
-                1px solid #edf0f3;
+                1px solid #edf0f5;
 
             display: flex;
 
@@ -1086,509 +1002,283 @@
             gap: 9px;
         }
 
-
-        /* =====================================================
-           FORM
-        ====================================================== */
-
-        .form-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 17px;
-        }
-
-
-        .form-group {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 7px;
-        }
-
-
-        .form-group.full {
-
-            grid-column: 1 / -1;
-        }
-
-
-        .form-label {
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            color: #344054;
-        }
-
-
-        .required {
-
-            color: #dc3545;
-        }
-
-
-        .form-control {
-
-            width: 100%;
-
-            height: 42px;
-
-            border:
-                1px solid #dce2e9;
-
-            border-radius: 9px;
+        .btn {
+            min-height: 40px;
 
             padding:
-                0 12px;
-
-            outline: none;
-
-            color: #1f2937;
-
-            background: white;
-
-            font-size: 13px;
-        }
-
-
-        .form-control:focus {
-
-            border-color: #0b5ed7;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(11, 94, 215, .08);
-        }
-
-
-        .form-help {
-
-            font-size: 10px;
-
-            color: #98a2b3;
-        }
-
-
-        .password-wrapper {
-
-            position: relative;
-        }
-
-
-        .password-wrapper .form-control {
-
-            padding-right: 45px;
-        }
-
-
-        .password-toggle {
-
-            position: absolute;
-
-            right: 7px;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            width: 34px;
-            height: 34px;
+                0 16px;
 
             border: none;
 
-            background: transparent;
+            border-radius: 9px;
 
-            color: #98a2b3;
-        }
-
-
-        .password-toggle:hover {
-
-            color: #0b5ed7;
-        }
-
-
-        .checkbox-row {
-
-            display: flex;
+            display: inline-flex;
 
             align-items: center;
 
-            gap: 9px;
+            justify-content: center;
 
-            min-height: 42px;
+            gap: 7px;
 
-            padding:
-                0 12px;
-
-            border:
-                1px solid #e0e5eb;
-
-            border-radius: 9px;
-        }
-
-
-        .checkbox-row input {
-
-            width: 16px;
-            height: 16px;
-
-            accent-color: #0b5ed7;
-        }
-
-
-        .checkbox-row label {
-
-            font-size: 13px;
-
-            color: #475467;
-        }
-
-
-        /* =====================================================
-           NOTICE
-        ====================================================== */
-
-        .system-notice {
-
-            padding:
-                12px 14px;
-
-            border-radius: 10px;
-
-            background: #fff8e6;
-
-            border:
-                1px solid #f7df9b;
-
-            color: #765b12;
+            font-family: inherit;
 
             font-size: 12px;
 
-            line-height: 1.5;
+            font-weight: 600;
 
-            display: flex;
+            cursor: pointer;
 
-            gap: 9px;
+            transition: .2s;
+        }
 
-            margin-bottom: 18px;
+        .btn-secondary {
+            background: #eef1f5;
+            color: #4c5667;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e6ec;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-danger:disabled {
+            opacity: .65;
+            cursor: not-allowed;
         }
 
 
-        /* =====================================================
+        /* =================================================
            TOAST
-        ====================================================== */
+        ================================================= */
 
         .toast-container {
-
             position: fixed;
 
-            right: 22px;
+            top: 20px;
+            right: 20px;
 
-            bottom: 22px;
-
-            z-index: 20000;
+            z-index: 10000;
 
             display: flex;
 
             flex-direction: column;
 
-            gap: 9px;
+            gap: 10px;
         }
 
-
         .toast {
-
             min-width: 300px;
 
             max-width: 430px;
 
             background: white;
 
-            border:
-                1px solid #e3e7ed;
-
             border-radius: 11px;
 
             padding:
                 13px 15px;
 
-            box-shadow:
-                0 12px 35px
-                rgba(15, 23, 42, .15);
-
             display: flex;
 
-            align-items: flex-start;
+            align-items: center;
 
             gap: 11px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .14
+                );
+
+            border-left:
+                4px solid #1769d2;
 
             animation:
                 toastIn .25s ease;
         }
 
-
-        @keyframes toastIn {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(12px);
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-            }
-
+        .toast.success {
+            border-left-color: #20a35a;
         }
 
-
-        .toast-icon {
-
-            width: 28px;
-            height: 28px;
-
-            border-radius: 50%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
+        .toast.error {
+            border-left-color: #dc3545;
         }
 
-
-        .toast.success
-        .toast-icon {
-
-            background: #e9f8ef;
-
-            color: #198754;
+        .toast.warning {
+            border-left-color: #f0a000;
         }
 
+        .toast i {
+            font-size: 17px;
+        }
 
-        .toast.error
-        .toast-icon {
+        .toast.success i {
+            color: #20a35a;
+        }
 
-            background: #fff0f1;
-
+        .toast.error i {
             color: #dc3545;
         }
 
-
-        .toast.warning
-        .toast-icon {
-
-            background: #fff7df;
-
-            color: #d88a00;
+        .toast.warning i {
+            color: #f0a000;
         }
 
-
-        .toast-content {
-
-            flex: 1;
-        }
-
-
-        .toast-title {
-
+        .toast span {
             font-size: 12px;
-
-            font-weight: 750;
-
             color: #344054;
         }
 
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform:
+                    translateX(20px);
+            }
 
-        .toast-message {
-
-            margin-top: 2px;
-
-            font-size: 11px;
-
-            color: #7b8798;
-
-            line-height: 1.4;
+            to {
+                opacity: 1;
+                transform:
+                    translateX(0);
+            }
         }
 
 
-        /* =====================================================
-           LOADING
-        ====================================================== */
-
-        .loading {
-
-            padding: 55px;
-
-            text-align: center;
-
-            color: #8490a0;
-        }
-
-
-        .loading i {
-
-            font-size: 25px;
-
-            margin-bottom: 10px;
-
-            color: #0b5ed7;
-        }
-
-
-        /* =====================================================
+        /* =================================================
            RESPONSIVE
-        ====================================================== */
+        ================================================= */
 
-        @media (max-width: 1100px) {
+        @media (max-width: 1000px) {
 
             .stats-grid {
-
                 grid-template-columns:
-                    repeat(
-                        2,
-                        minmax(0, 1fr)
-                    );
+                    repeat(2, 1fr);
             }
-
-        }
-
-
-        @media (max-width: 700px) {
-
-            .page {
-
-                padding: 14px;
-            }
-
-
-            .page-header {
-
-                align-items: flex-start;
-
-                flex-direction: column;
-            }
-
-
-            .header-actions {
-
-                width: 100%;
-            }
-
-
-            .header-actions .btn {
-
-                flex: 1;
-            }
-
-
-            .stats-grid {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .toolbar {
-
-                align-items: stretch;
-            }
-
 
             .filters {
-
-                width: 100%;
+                grid-template-columns:
+                    1fr 1fr;
             }
-
 
             .search-box {
+                grid-column:
+                    1 / -1;
+            }
+        }
 
-                min-width: 100%;
+
+        @media (max-width: 650px) {
+
+            .page-header {
+                padding:
+                    18px;
             }
 
-
-            .form-grid {
-
-                grid-template-columns: 1fr;
+            .header-user {
+                display: none;
             }
 
+            .container {
+                margin:
+                    18px auto;
 
-            .form-group.full {
+                padding:
+                    0 12px;
+            }
 
+            .stats-grid {
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding:
+                    14px;
+
+                gap: 9px;
+            }
+
+            .stat-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .stat-info strong {
+                font-size: 18px;
+            }
+
+            .filters {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .search-box {
                 grid-column: auto;
             }
 
+            .card-header {
+                padding:
+                    17px;
+            }
 
             .table-footer {
-
-                flex-direction: column;
-
-                align-items: flex-start;
+                padding:
+                    13px 17px;
             }
 
+            .toast-container {
+                left: 12px;
+                right: 12px;
+                top: 12px;
+            }
 
             .toast {
-
-                min-width: auto;
-
-                width:
-                    calc(100vw - 30px);
+                min-width: 0;
+                width: 100%;
             }
-
         }
 
     </style>
-
 </head>
 
 
 <body>
 
 
-<div class="page">
-
-<div class="container">
-
-
     <!-- =====================================================
          HEADER
     ====================================================== -->
 
-    <div class="page-header">
-
+    <header class="page-header">
 
         <div class="header-left">
 
-
             <div class="header-icon">
-
                 <i class="fa-solid fa-users"></i>
-
             </div>
-
 
             <div class="header-title">
 
                 <h1>
-                    Gestion des utilisateurs
+                    Utilisateurs
                 </h1>
 
                 <p>
-                    Gestion des comptes utilisateurs et des rôles
+                    Consultation des utilisateurs du système
                 </p>
 
             </div>
@@ -1596,166 +1286,204 @@
         </div>
 
 
-        <div class="header-actions">
+        <div class="header-user">
 
+            <i class="fa-solid fa-user-circle"></i>
 
-            <button
-                class="btn btn-secondary"
-                onclick="loadUsers()"
-            >
-
-                <i class="fa-solid fa-rotate"></i>
-
-                Actualiser
-
-            </button>
-
-
-            <button
-                class="btn btn-primary"
-                onclick="openUserModal()"
-            >
-
-                <i class="fa-solid fa-user-plus"></i>
-
-                Nouvel utilisateur
-
-            </button>
+            <span id="currentUserName">
+                Chargement...
+            </span>
 
         </div>
 
-    </div>
+    </header>
 
-
-    <!-- =====================================================
-         STATS
-    ====================================================== -->
-
-    <div class="stats-grid">
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-users"></i>
-
-            </div>
-
-
-            <div>
-
-                <div class="stat-label">
-                    Total utilisateurs
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statTotal"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-user-check"></i>
-
-            </div>
-
-
-            <div>
-
-                <div class="stat-label">
-                    Utilisateurs actifs
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statActive"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-user-slash"></i>
-
-            </div>
-
-
-            <div>
-
-                <div class="stat-label">
-                    Utilisateurs inactifs
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statInactive"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-user-shield"></i>
-
-            </div>
-
-
-            <div>
-
-                <div class="stat-label">
-                    Avec rôle
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statRoles"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 
 
     <!-- =====================================================
          MAIN
     ====================================================== -->
 
-    <div class="main-card">
+    <main class="container">
 
 
-        <div class="toolbar">
+        <!-- BREADCRUMB -->
 
+        <div class="breadcrumb">
+
+            <span>
+                Administration
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span class="current">
+                Utilisateurs
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <div class="stats-grid">
+
+
+            <!-- TOTAL -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="totalUsers">
+                        0
+                    </strong>
+
+                    <span>
+                        Total utilisateurs
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIVE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <i class="fa-solid fa-user-check"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="activeUsers">
+                        0
+                    </strong>
+
+                    <span>
+                        Utilisateurs actifs
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- INACTIVE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+
+                    <i class="fa-solid fa-user-slash"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="inactiveUsers">
+                        0
+                    </strong>
+
+                    <span>
+                        Utilisateurs inactifs
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ROLES -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="rolesCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Rôles utilisés
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             USERS CARD
+        ================================================== -->
+
+        <div class="card">
+
+
+            <!-- CARD HEADER -->
+
+            <div class="card-header">
+
+                <div class="card-title">
+
+                    <div class="card-title-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Liste des utilisateurs
+                        </h2>
+
+                        <p>
+                            Consultation et suppression des comptes
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTERS
+            ================================================== -->
 
             <div class="filters">
 
+
+                <!-- SEARCH -->
 
                 <div class="search-box">
 
@@ -1764,369 +1492,24 @@
                     <input
                         type="text"
                         id="searchInput"
-                        placeholder="Rechercher par nom, utilisateur ou rôle..."
-                        oninput="applyFilters()"
-                    >
-
-                </div>
-
-
-                <select
-                    class="filter-select"
-                    id="statusFilter"
-                    onchange="applyFilters()"
-                >
-
-                    <option value="all">
-                        Tous les statuts
-                    </option>
-
-                    <option value="active">
-                        Actifs
-                    </option>
-
-                    <option value="inactive">
-                        Inactifs
-                    </option>
-
-                </select>
-
-
-                <select
-                    class="filter-select"
-                    id="roleFilter"
-                    onchange="applyFilters()"
-                >
-
-                    <option value="all">
-                        Tous les rôles
-                    </option>
-
-                </select>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             TABLE
-        ================================================== -->
-
-        <div class="table-wrapper">
-
-
-            <table>
-
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Utilisateur
-                        </th>
-
-                        <th>
-                            Rôle
-                        </th>
-
-                        <th>
-                            Statut
-                        </th>
-
-                        <th>
-                            Créé le
-                        </th>
-
-                        <th>
-                            Modifié le
-                        </th>
-
-                        <th style="width:165px;">
-                            Actions
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="usersTableBody">
-
-
-                    <tr>
-
-                        <td colspan="6">
-
-                            <div class="loading">
-
-                                <i
-                                    class="fa-solid fa-spinner fa-spin"
-                                ></i>
-
-                                <div>
-                                    Chargement des utilisateurs...
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <div class="table-footer">
-
-
-            <div
-                class="results-info"
-                id="resultsInfo"
-            >
-                0 utilisateur
-            </div>
-
-
-            <div
-                class="pagination"
-                id="pagination"
-            ></div>
-
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     USER MODAL
-========================================================== -->
-
-<div
-    class="modal-overlay"
-    id="userModal"
->
-
-
-    <div class="modal">
-
-
-        <div class="modal-header">
-
-
-            <div class="modal-title">
-
-
-                <div class="modal-title-icon">
-
-                    <i class="fa-solid fa-user"></i>
-
-                </div>
-
-
-                <div>
-
-                    <h2 id="userModalTitle">
-                        Nouvel utilisateur
-                    </h2>
-
-                    <p>
-                        Informations du compte utilisateur
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="close-btn"
-                onclick="closeUserModal()"
-            >
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-        </div>
-
-
-        <div class="modal-body">
-
-
-            <div
-                class="system-notice"
-                id="systemNotice"
-                style="display:none;"
-            >
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                <div>
-
-                    Le compte
-                    <strong>SYSTEM</strong>
-                    est un compte technique protégé.
-                    Il ne peut pas être modifié ou supprimé.
-
-                </div>
-
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <!-- USERNAME -->
-
-                <div class="form-group">
-
-                    <label class="form-label">
-
-                        Nom utilisateur
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="username"
-                        placeholder="Ex : SOUFIANE"
-                        autocomplete="off"
-                    >
-
-
-                    <span class="form-help">
-
-                        Identifiant utilisé pour la connexion.
-
-                    </span>
-
-                </div>
-
-
-                <!-- FULL NAME -->
-
-                <div class="form-group">
-
-                    <label class="form-label">
-
-                        Nom complet
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="fullName"
-                        placeholder="Ex : Soufiane Yahya"
+                        placeholder="Rechercher par nom, username..."
                         autocomplete="off"
                     >
 
                 </div>
 
-
-                <!-- PASSWORD -->
-
-                <div class="form-group">
-
-                    <label class="form-label">
-
-                        Mot de passe
-
-                        <span
-                            class="required"
-                            id="passwordRequired"
-                        >
-                            *
-                        </span>
-
-                    </label>
-
-
-                    <div class="password-wrapper">
-
-
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            placeholder="Mot de passe"
-                            autocomplete="new-password"
-                        >
-
-
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            onclick="togglePassword()"
-                        >
-
-                            <i
-                                class="fa-solid fa-eye"
-                                id="passwordIcon"
-                            ></i>
-
-                        </button>
-
-
-                    </div>
-
-
-                    <span
-                        class="form-help"
-                        id="passwordHelp"
-                    >
-                        Le mot de passe est obligatoire pour un nouveau compte.
-                    </span>
-
-                </div>
 
 
                 <!-- ROLE -->
 
-                <div class="form-group">
+                <div class="filter-box">
 
-                    <label class="form-label">
+                    <i class="fa-solid fa-user-shield"></i>
 
-                        Rôle
-
-                    </label>
-
-
-                    <select
-                        class="form-control"
-                        id="roleId"
-                    >
+                    <select id="roleFilter">
 
                         <option value="">
-                            — Aucun rôle —
+                            Tous les rôles
                         </option>
 
                     </select>
@@ -2134,31 +1517,197 @@
                 </div>
 
 
+
                 <!-- STATUS -->
 
-                <div class="form-group full">
+                <div class="filter-box">
 
-                    <label class="form-label">
-                        Statut
-                    </label>
+                    <i class="fa-solid fa-filter"></i>
+
+                    <select id="statusFilter">
+
+                        <option value="">
+                            Tous les statuts
+                        </option>
+
+                        <option value="active">
+                            Actifs
+                        </option>
+
+                        <option value="inactive">
+                            Inactifs
+                        </option>
+
+                        <option value="system">
+                            SYSTEM
+                        </option>
+
+                    </select>
+
+                </div>
 
 
-                    <div class="checkbox-row">
+            </div>
 
 
-                        <input
-                            type="checkbox"
-                            id="isActive"
-                            checked
-                        >
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Utilisateur
+                            </th>
+
+                            <th>
+                                Nom complet
+                            </th>
+
+                            <th>
+                                Rôle
+                            </th>
+
+                            <th>
+                                Statut
+                            </th>
+
+                            <th>
+                                Créé le
+                            </th>
+
+                            <th>
+                                Modifié le
+                            </th>
+
+                            <th style="text-align:center;">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
 
 
-                        <label for="isActive">
+                    <tbody id="usersTableBody">
 
-                            Utilisateur actif
+                        <tr class="loading-row">
 
-                        </label>
+                            <td colspan="7">
 
+                                <div class="spinner-small"></div>
+
+                                <span>
+                                    Chargement des utilisateurs...
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <div class="table-footer">
+
+                <span id="resultCount">
+                    Chargement...
+                </span>
+
+                <span>
+                    SMTG Abattoir
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         DELETE MODAL
+    ====================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="deleteModal"
+    >
+
+        <div class="delete-modal">
+
+
+            <div class="modal-header">
+
+                <div class="modal-danger-icon">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Supprimer l'utilisateur
+                    </h3>
+
+                    <p>
+                        Cette action est irréversible
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <p>
+                    Voulez-vous vraiment supprimer cet utilisateur ?
+                    Toutes les informations liées à son compte seront supprimées.
+                </p>
+
+
+                <div
+                    class="delete-user-preview"
+                    id="deleteUserPreview"
+                >
+
+                    <div
+                        class="avatar"
+                        id="deleteAvatar"
+                    >
+                        U
+                    </div>
+
+                    <div>
+
+                        <strong id="deleteUserName">
+                            -
+                        </strong>
+
+                        <span id="deleteUsername">
+                            -
+                        </span>
 
                     </div>
 
@@ -2166,2267 +1715,331 @@
 
             </div>
 
-        </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelDeleteBtn"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Annuler
+
+                </button>
 
 
-        <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmDeleteBtn"
+                >
 
+                    <i class="fa-solid fa-trash"></i>
 
-            <button
-                class="btn btn-secondary"
-                onclick="closeUserModal()"
-            >
+                    Supprimer
 
-                Annuler
+                </button>
 
-            </button>
+            </div>
 
-
-            <button
-                class="btn btn-primary"
-                id="saveUserBtn"
-                onclick="saveUser()"
-            >
-
-                <i class="fa-solid fa-floppy-disk"></i>
-
-                Enregistrer
-
-            </button>
 
         </div>
 
     </div>
 
-</div>
 
 
-<!-- =========================================================
-     TOAST
-========================================================== -->
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
 
-<div
-    class="toast-container"
-    id="toastContainer"
-></div>
-
-
-<script>
+    <div
+        class="toast-container"
+        id="toastContainer"
+    ></div>
 
 
-/* =========================================================
-   VARIABLES
-========================================================= */
 
-let allUsers = [];
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
-let filteredUsers = [];
-
-let allRoles = [];
-
-let editingUserId = null;
-
-let currentPageNumber = 1;
-
-const pageSize = 10;
+    <script>
 
 
-/* =========================================================
-   INITIALISATION
-========================================================= */
+        /* =================================================
+           GLOBAL VARIABLES
+        ================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
+        let currentUser = null;
 
-        try {
+        let users = [];
 
-            getSupabase();
+        let roles = [];
 
-            await checkSession();
+        let filteredUsers = [];
 
-            await loadRoles();
+        let userToDelete = null;
 
-            await loadUsers();
-
-        }
-        catch (error) {
-
-            console.error(error);
-
-            showToast(
-                "error",
-                "Erreur",
-                error.message ||
-                "Erreur d'initialisation."
-            );
-
-        }
-
-    }
-);
+        let isDeleting = false;
 
 
-/* =========================================================
-   SESSION
-========================================================= */
 
-async function checkSession() {
+        /* =================================================
+           GET CURRENT USER
+        ================================================= */
 
-    let user = null;
-
-
-    const sessionRaw =
-        sessionStorage.getItem(
-            "smtg_current_user"
-        );
-
-
-    const localRaw =
-        localStorage.getItem(
-            "smtg_current_user"
-        );
-
-
-    try {
-
-        if (sessionRaw) {
-
-            user =
-                JSON.parse(
-                    sessionRaw
-                );
-
-        }
-
-
-        if (!user && localRaw) {
-
-            user =
-                JSON.parse(
-                    localRaw
-                );
-
-        }
-
-    }
-    catch (error) {
-
-        console.error(
-            "Erreur lecture session:",
-            error
-        );
-
-    }
-
-
-    if (!user) {
-
-        const fallback =
-            sessionStorage.getItem(
-                "smtgUser"
-            ) ||
-            localStorage.getItem(
-                "smtgUser"
-            );
-
-
-        if (fallback) {
+        function getCurrentUser() {
 
             try {
 
-                user =
-                    JSON.parse(
+                const sessionUser =
+                    sessionStorage.getItem(
+                        "smtg_current_user"
+                    );
+
+                if (sessionUser) {
+
+                    return JSON.parse(
+                        sessionUser
+                    );
+
+                }
+
+
+                const localUser =
+                    localStorage.getItem(
+                        "smtg_current_user"
+                    );
+
+                if (localUser) {
+
+                    return JSON.parse(
+                        localUser
+                    );
+
+                }
+
+
+                const fallback =
+                    sessionStorage.getItem(
+                        "smtgUser"
+                    );
+
+                if (fallback) {
+
+                    return JSON.parse(
                         fallback
                     );
 
-            }
-            catch (error) {
+                }
 
-                console.error(error);
 
-            }
-
-        }
-
-    }
-
-
-    if (user && user.id) {
-
-        window.currentUser =
-            user;
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD ROLES
-========================================================= */
-
-async function loadRoles() {
-
-    try {
-
-        const supabase =
-            getSupabase();
-
-
-        const {
-            data,
-            error
-        } =
-            await supabase
-                .from("roles")
-                .select(`
-                    id,
-                    name,
-                    code,
-                    is_active
-                `)
-                .order(
-                    "name",
-                    {
-                        ascending: true
-                    }
-                );
-
-
-        if (error) {
-
-            throw error;
-
-        }
-
-
-        allRoles =
-            data || [];
-
-
-        fillRoleFilters();
-
-    }
-    catch (error) {
-
-        console.error(
-            "Erreur rôles:",
-            error
-        );
-
-        showToast(
-            "error",
-            "Erreur",
-            "Impossible de charger les rôles."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   ROLE FILTERS
-========================================================= */
-
-function fillRoleFilters() {
-
-    const filter =
-        document.getElementById(
-            "roleFilter"
-        );
-
-
-    const select =
-        document.getElementById(
-            "roleId"
-        );
-
-
-    filter.innerHTML = `
-
-        <option value="all">
-            Tous les rôles
-        </option>
-
-    `;
-
-
-    select.innerHTML = `
-
-        <option value="">
-            — Aucun rôle —
-        </option>
-
-    `;
-
-
-    allRoles
-        .filter(
-            role =>
-                role.is_active === true
-        )
-        .forEach(role => {
-
-
-            filter.innerHTML += `
-
-                <option value="${role.id}">
-
-                    ${escapeHtml(
-                        role.name
-                    )}
-
-                </option>
-
-            `;
-
-
-            select.innerHTML += `
-
-                <option value="${role.id}">
-
-                    ${escapeHtml(
-                        role.name
-                    )}
-
-                </option>
-
-            `;
-
-        });
-
-}
-
-
-/* =========================================================
-   LOAD USERS
-========================================================= */
-
-async function loadUsers() {
-
-    try {
-
-        const supabase =
-            getSupabase();
-
-
-        const {
-            data,
-            error
-        } =
-            await supabase
-                .from("users")
-                .select(`
-                    id,
-                    username,
-                    full_name,
-                    password,
-                    role_id,
-                    is_active,
-                    is_system,
-                    created_by,
-                    created_at,
-                    updated_by,
-                    updated_at
-                `)
-                .order(
-                    "full_name",
-                    {
-                        ascending: true
-                    }
-                );
-
-
-        if (error) {
-
-            throw error;
-
-        }
-
-
-        allUsers =
-            (data || []).map(
-                user => ({
-
-                    ...user,
-
-                    role:
-                        allRoles.find(
-                            role =>
-                                Number(role.id) ===
-                                Number(user.role_id)
-                        ) || null
-
-                })
-            );
-
-
-        updateStats();
-
-        applyFilters();
-
-    }
-    catch (error) {
-
-        console.error(
-            "Erreur chargement utilisateurs:",
-            error
-        );
-
-
-        document.getElementById(
-            "usersTableBody"
-        ).innerHTML = `
-
-            <tr>
-
-                <td colspan="6">
-
-                    <div class="empty-state">
-
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-
-                        <h3>
-                            Impossible de charger les utilisateurs
-                        </h3>
-
-                        <p>
-                            ${escapeHtml(
-                                error.message ||
-                                "Erreur Supabase"
-                            )}
-                        </p>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
-
-        showToast(
-            "error",
-            "Erreur",
-            "Impossible de charger les utilisateurs."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function updateStats() {
-
-    const total =
-        allUsers.length;
-
-
-    const active =
-        allUsers.filter(
-            user =>
-                user.is_active === true
-        ).length;
-
-
-    const inactive =
-        total - active;
-
-
-    const withRole =
-        allUsers.filter(
-            user =>
-                user.role_id !== null &&
-                user.role_id !== undefined
-        ).length;
-
-
-    document.getElementById(
-        "statTotal"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "statActive"
-    ).textContent =
-        active;
-
-
-    document.getElementById(
-        "statInactive"
-    ).textContent =
-        inactive;
-
-
-    document.getElementById(
-        "statRoles"
-    ).textContent =
-        withRole;
-
-}
-
-
-/* =========================================================
-   FILTERS
-========================================================= */
-
-function applyFilters() {
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    const status =
-        document.getElementById(
-            "statusFilter"
-        )
-        .value;
-
-
-    const roleId =
-        document.getElementById(
-            "roleFilter"
-        )
-        .value;
-
-
-    filteredUsers =
-        allUsers.filter(
-            user => {
-
-
-                const roleName =
-                    user.role
-                        ? user.role.name
-                        : "";
-
-
-                const roleCode =
-                    user.role
-                        ? user.role.code
-                        : "";
-
-
-                const matchesSearch =
-
-                    !search ||
-
-                    String(
-                        user.username || ""
-                    )
-                    .toLowerCase()
-                    .includes(search) ||
-
-                    String(
-                        user.full_name || ""
-                    )
-                    .toLowerCase()
-                    .includes(search) ||
-
-                    String(
-                        roleName || ""
-                    )
-                    .toLowerCase()
-                    .includes(search) ||
-
-                    String(
-                        roleCode || ""
-                    )
-                    .toLowerCase()
-                    .includes(search);
-
-
-                const matchesStatus =
-
-                    status === "all" ||
-
-                    (
-                        status === "active" &&
-                        user.is_active === true
-                    ) ||
-
-                    (
-                        status === "inactive" &&
-                        user.is_active === false
+                const fallbackLocal =
+                    localStorage.getItem(
+                        "smtgUser"
                     );
 
+                if (fallbackLocal) {
 
-                const matchesRole =
-
-                    roleId === "all" ||
-
-                    (
-                        roleId !== "all" &&
-                        Number(
-                            user.role_id
-                        ) ===
-                        Number(roleId)
+                    return JSON.parse(
+                        fallbackLocal
                     );
-
-
-                return (
-
-                    matchesSearch &&
-                    matchesStatus &&
-                    matchesRole
-
-                );
-
-            }
-        );
-
-
-    currentPageNumber = 1;
-
-
-    renderUsers();
-
-}
-
-
-/* =========================================================
-   RENDER USERS
-========================================================= */
-
-function renderUsers() {
-
-    const tbody =
-        document.getElementById(
-            "usersTableBody"
-        );
-
-
-    if (!filteredUsers.length) {
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td colspan="6">
-
-                    <div class="empty-state">
-
-                        <i class="fa-solid fa-users-slash"></i>
-
-                        <h3>
-                            Aucun utilisateur trouvé
-                        </h3>
-
-                        <p>
-                            Aucun utilisateur ne correspond à votre recherche.
-                        </p>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
-
-        updatePagination();
-
-        return;
-
-    }
-
-
-    const start =
-        (
-            currentPageNumber - 1
-        ) *
-        pageSize;
-
-
-    const end =
-        start +
-        pageSize;
-
-
-    const pageUsers =
-        filteredUsers.slice(
-            start,
-            end
-        );
-
-
-    tbody.innerHTML =
-        pageUsers
-            .map(
-                user => {
-
-
-                    const system =
-                        isSystemUser(
-                            user
-                        );
-
-
-                    const initials =
-                        getInitials(
-                            user.full_name ||
-                            user.username
-                        );
-
-
-                    return `
-
-                        <tr>
-
-
-                            <!-- USER -->
-
-                            <td>
-
-                                <div class="user-info">
-
-
-                                    <div class="user-avatar">
-
-                                        ${escapeHtml(
-                                            initials
-                                        )}
-
-                                    </div>
-
-
-                                    <div>
-
-                                        <div class="user-name">
-
-                                            ${escapeHtml(
-                                                user.full_name
-                                            )}
-
-                                            ${
-                                                system
-                                                    ? `
-                                                        <span
-                                                            class="badge badge-system"
-                                                            style="margin-left:6px;"
-                                                        >
-
-                                                            <i class="fa-solid fa-gear"></i>
-
-                                                            SYSTEM
-
-                                                        </span>
-                                                      `
-                                                    : ""
-                                            }
-
-                                        </div>
-
-
-                                        <div class="username">
-
-                                            @${escapeHtml(
-                                                user.username
-                                            )}
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <!-- ROLE -->
-
-                            <td>
-
-                                ${
-                                    user.role
-
-                                        ? `
-                                            <span class="role-badge">
-
-                                                <i class="fa-solid fa-shield-halved"></i>
-
-                                                ${escapeHtml(
-                                                    user.role.name
-                                                )}
-
-                                            </span>
-                                          `
-
-                                        : `
-                                            <span class="no-role">
-
-                                                Aucun rôle
-
-                                            </span>
-                                          `
-                                }
-
-                            </td>
-
-
-                            <!-- STATUS -->
-
-                            <td>
-
-                                ${
-                                    user.is_active
-
-                                        ? `
-                                            <span class="badge badge-active">
-
-                                                <i class="fa-solid fa-circle-check"></i>
-
-                                                Actif
-
-                                            </span>
-                                          `
-
-                                        : `
-                                            <span class="badge badge-inactive">
-
-                                                <i class="fa-solid fa-circle-xmark"></i>
-
-                                                Inactif
-
-                                            </span>
-                                          `
-                                }
-
-                            </td>
-
-
-                            <!-- CREATED -->
-
-                            <td>
-
-                                ${formatDate(
-                                    user.created_at
-                                )}
-
-                            </td>
-
-
-                            <!-- UPDATED -->
-
-                            <td>
-
-                                ${formatDate(
-                                    user.updated_at
-                                )}
-
-                            </td>
-
-
-                            <!-- ACTIONS -->
-
-                            <td>
-
-                                <div class="actions">
-
-
-                                    <!-- EDIT -->
-
-                                    <button
-                                        class="icon-btn"
-                                        title="Modifier"
-                                        onclick="editUser(${user.id})"
-                                        ${system ? "disabled" : ""}
-                                    >
-
-                                        <i class="fa-solid fa-pen"></i>
-
-                                    </button>
-
-
-                                    <!-- TOGGLE -->
-
-                                    <button
-                                        class="icon-btn"
-                                        title="${
-                                            user.is_active
-                                                ? "Désactiver"
-                                                : "Activer"
-                                        }"
-                                        onclick="toggleUser(${user.id})"
-                                        ${system ? "disabled" : ""}
-                                    >
-
-                                        <i class="fa-solid ${
-                                            user.is_active
-                                                ? "fa-toggle-on"
-                                                : "fa-toggle-off"
-                                        }"></i>
-
-                                    </button>
-
-
-                                    <!-- DELETE -->
-
-                                    <button
-                                        class="icon-btn delete"
-                                        title="Supprimer"
-                                        onclick="deleteUser(${user.id})"
-                                        ${system ? "disabled" : ""}
-                                    >
-
-                                        <i class="fa-solid fa-trash"></i>
-
-                                    </button>
-
-
-                                </div>
-
-                            </td>
-
-
-                        </tr>
-
-                    `;
 
                 }
-            )
-            .join("");
 
+            } catch (error) {
 
-    updatePagination();
-
-}
-
-
-/* =========================================================
-   PAGINATION
-========================================================= */
-
-function updatePagination() {
-
-    const total =
-        filteredUsers.length;
-
-
-    const totalPages =
-        Math.ceil(
-            total /
-            pageSize
-        );
-
-
-    const start =
-        total === 0
-
-            ? 0
-
-            : (
-                (
-                    currentPageNumber - 1
-                ) *
-                pageSize
-            ) + 1;
-
-
-    const end =
-        Math.min(
-            currentPageNumber *
-            pageSize,
-            total
-        );
-
-
-    document.getElementById(
-        "resultsInfo"
-    ).textContent =
-
-        `${start}–${end} sur ${total} utilisateur${total > 1 ? "s" : ""}`;
-
-
-    const pagination =
-        document.getElementById(
-            "pagination"
-        );
-
-
-    if (totalPages <= 1) {
-
-        pagination.innerHTML = "";
-
-        return;
-
-    }
-
-
-    let html = `
-
-        <button
-            class="page-btn"
-            onclick="changePage(${currentPageNumber - 1})"
-            ${currentPageNumber === 1 ? "disabled" : ""}
-        >
-
-            <i class="fa-solid fa-chevron-left"></i>
-
-        </button>
-
-    `;
-
-
-    for (
-        let i = 1;
-        i <= totalPages;
-        i++
-    ) {
-
-
-        if (
-
-            totalPages > 7 &&
-
-            i !== 1 &&
-
-            i !== totalPages &&
-
-            Math.abs(
-                i -
-                currentPageNumber
-            ) > 2
-
-        ) {
-
-
-            if (
-
-                i === 2 ||
-
-                i ===
-                totalPages - 1
-
-            ) {
-
-                html += `
-
-                    <span
-                        style="
-                            padding:8px 4px;
-                            color:#98a2b3;
-                        "
-                    >
-                        ...
-                    </span>
-
-                `;
-
-            }
-
-
-            continue;
-
-        }
-
-
-        html += `
-
-            <button
-                class="page-btn ${
-                    i === currentPageNumber
-                        ? "active"
-                        : ""
-                }"
-                onclick="changePage(${i})"
-            >
-
-                ${i}
-
-            </button>
-
-        `;
-
-    }
-
-
-    html += `
-
-        <button
-            class="page-btn"
-            onclick="changePage(${currentPageNumber + 1})"
-            ${
-                currentPageNumber === totalPages
-                    ? "disabled"
-                    : ""
-            }
-        >
-
-            <i class="fa-solid fa-chevron-right"></i>
-
-        </button>
-
-    `;
-
-
-    pagination.innerHTML =
-        html;
-
-}
-
-
-function changePage(page) {
-
-    const totalPages =
-        Math.ceil(
-            filteredUsers.length /
-            pageSize
-        );
-
-
-    if (
-        page < 1 ||
-        page > totalPages
-    ) {
-
-        return;
-
-    }
-
-
-    currentPageNumber =
-        page;
-
-
-    renderUsers();
-
-}
-
-
-/* =========================================================
-   OPEN MODAL
-========================================================= */
-
-function openUserModal(
-    user = null
-) {
-
-    editingUserId =
-        user
-            ? user.id
-            : null;
-
-
-    document.getElementById(
-        "userModalTitle"
-    ).textContent =
-
-        user
-            ? "Modifier l'utilisateur"
-            : "Nouvel utilisateur";
-
-
-    document.getElementById(
-        "username"
-    ).value =
-
-        user
-            ? user.username || ""
-            : "";
-
-
-    document.getElementById(
-        "fullName"
-    ).value =
-
-        user
-            ? user.full_name || ""
-            : "";
-
-
-    document.getElementById(
-        "password"
-    ).value = "";
-
-
-    document.getElementById(
-        "roleId"
-    ).value =
-
-        user &&
-        user.role_id
-            ? String(
-                user.role_id
-            )
-            : "";
-
-
-    document.getElementById(
-        "isActive"
-    ).checked =
-
-        user
-            ? user.is_active === true
-            : true;
-
-
-    const system =
-        user &&
-        isSystemUser(user);
-
-
-    document.getElementById(
-        "systemNotice"
-    ).style.display =
-
-        system
-            ? "flex"
-            : "none";
-
-
-    document.getElementById(
-        "passwordRequired"
-    ).style.display =
-
-        user
-            ? "none"
-            : "inline";
-
-
-    document.getElementById(
-        "passwordHelp"
-    ).textContent =
-
-        user
-            ? "Laissez vide pour conserver le mot de passe actuel."
-            : "Le mot de passe est obligatoire pour un nouveau compte.";
-
-
-    document.getElementById(
-        "userModal"
-    ).classList.add("show");
-
-
-    setTimeout(
-        () => {
-
-            document.getElementById(
-                "username"
-            ).focus();
-
-        },
-        100
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeUserModal() {
-
-    document.getElementById(
-        "userModal"
-    ).classList.remove("show");
-
-
-    editingUserId =
-        null;
-
-}
-
-
-/* =========================================================
-   EDIT USER
-========================================================= */
-
-function editUser(id) {
-
-    const user =
-        allUsers.find(
-            item =>
-                Number(item.id) ===
-                Number(id)
-        );
-
-
-    if (!user) {
-
-        return;
-
-    }
-
-
-    if (
-        isSystemUser(user)
-    ) {
-
-        showToast(
-            "warning",
-            "Compte protégé",
-            "Le compte SYSTEM ne peut pas être modifié."
-        );
-
-        return;
-
-    }
-
-
-    openUserModal(
-        user
-    );
-
-}
-
-
-/* =========================================================
-   SAVE USER
-========================================================= */
-
-async function saveUser() {
-
-    const username =
-        document.getElementById(
-            "username"
-        )
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    const fullName =
-        document.getElementById(
-            "fullName"
-        )
-        .value
-        .trim();
-
-
-    const password =
-        document.getElementById(
-            "password"
-        )
-        .value;
-
-
-    const roleValue =
-        document.getElementById(
-            "roleId"
-        )
-        .value;
-
-
-    const isActive =
-        document.getElementById(
-            "isActive"
-        ).checked;
-
-
-    /* =====================================================
-       VALIDATION
-    ====================================================== */
-
-    if (!username) {
-
-        showToast(
-            "warning",
-            "Champ obligatoire",
-            "Veuillez saisir le nom utilisateur."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !/^[A-Z0-9._-]+$/.test(
-            username
-        )
-    ) {
-
-        showToast(
-            "warning",
-            "Nom utilisateur invalide",
-            "Utilisez uniquement des lettres, chiffres, point, tiret ou underscore."
-        );
-
-        return;
-
-    }
-
-
-    if (!fullName) {
-
-        showToast(
-            "warning",
-            "Champ obligatoire",
-            "Veuillez saisir le nom complet."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !editingUserId &&
-        !password
-    ) {
-
-        showToast(
-            "warning",
-            "Mot de passe obligatoire",
-            "Veuillez saisir un mot de passe."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        password &&
-        password.length < 4
-    ) {
-
-        showToast(
-            "warning",
-            "Mot de passe",
-            "Le mot de passe doit contenir au moins 4 caractères."
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const supabase =
-            getSupabase();
-
-
-        const saveButton =
-            document.getElementById(
-                "saveUserBtn"
-            );
-
-
-        saveButton.disabled =
-            true;
-
-
-        saveButton.innerHTML = `
-
-            <i class="fa-solid fa-spinner fa-spin"></i>
-
-            Enregistrement...
-
-        `;
-
-
-        /* =================================================
-           CREATE
-        ================================================== */
-
-        if (!editingUserId) {
-
-
-            const payload = {
-
-                username:
-                    username,
-
-                full_name:
-                    fullName,
-
-                password:
-                    password,
-
-                role_id:
-                    roleValue
-                        ? Number(roleValue)
-                        : null,
-
-                is_active:
-                    isActive,
-
-                is_system:
-                    false,
-
-                created_by:
-                    getCurrentUserId(),
-
-                updated_by:
-                    getCurrentUserId()
-
-            };
-
-
-            const {
-                error
-            } =
-                await supabase
-                    .from("users")
-                    .insert(
-                        payload
-                    );
-
-
-            if (error) {
-
-                throw error;
-
-            }
-
-
-            showToast(
-                "success",
-                "Utilisateur créé",
-                "Le compte utilisateur a été créé avec succès."
-            );
-
-        }
-
-
-        /* =================================================
-           UPDATE
-        ================================================== */
-
-        else {
-
-
-            const existingUser =
-                allUsers.find(
-                    user =>
-                        Number(user.id) ===
-                        Number(editingUserId)
+                console.error(
+                    "Erreur session:",
+                    error
                 );
 
+            }
+
+            return null;
+        }
+
+
+
+        /* =================================================
+           ESCAPE HTML
+        ================================================= */
+
+        function escapeHtml(value) {
 
             if (
-                existingUser &&
-                isSystemUser(
-                    existingUser
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
                 )
-            ) {
 
-                throw new Error(
-                    "Le compte SYSTEM est protégé."
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
                 );
-
-            }
-
-
-            const payload = {
-
-                username:
-                    username,
-
-                full_name:
-                    fullName,
-
-                role_id:
-                    roleValue
-                        ? Number(roleValue)
-                        : null,
-
-                is_active:
-                    isActive,
-
-                updated_by:
-                    getCurrentUserId(),
-
-                updated_at:
-                    new Date().toISOString()
-
-            };
-
-
-            /*
-             * Le mot de passe n'est modifié
-             * que si un nouveau mot de passe
-             * a été saisi.
-             */
-
-            if (password) {
-
-                payload.password =
-                    password;
-
-            }
-
-
-            const {
-                error
-            } =
-                await supabase
-                    .from("users")
-                    .update(
-                        payload
-                    )
-                    .eq(
-                        "id",
-                        editingUserId
-                    );
-
-
-            if (error) {
-
-                throw error;
-
-            }
-
-
-            showToast(
-                "success",
-                "Utilisateur modifié",
-                "Le compte utilisateur a été modifié avec succès."
-            );
-
         }
 
 
-        closeUserModal();
+
+        /* =================================================
+           INITIALS
+        ================================================= */
+
+        function getInitials(name) {
+
+            if (!name) {
+
+                return "U";
+
+            }
 
 
-        await loadUsers();
+            const parts =
+                String(name)
+                    .trim()
+                    .split(/\s+/)
+                    .filter(Boolean);
 
 
-    }
-    catch (error) {
+            if (parts.length === 1) {
 
-        console.error(
-            "Erreur sauvegarde utilisateur:",
-            error
-        );
+                return parts[0]
+                    .substring(0, 2)
+                    .toUpperCase();
 
-
-        let message =
-            error.message ||
-            "Impossible d'enregistrer l'utilisateur.";
+            }
 
 
-        if (
+            return (
+                parts[0][0] +
+                parts[parts.length - 1][0]
+            ).toUpperCase();
+        }
 
-            message
-                .toLowerCase()
-                .includes("duplicate") ||
 
-            message
-                .toLowerCase()
-                .includes("unique")
 
+        /* =================================================
+           DATE FORMAT
+        ================================================= */
+
+        function formatDate(value) {
+
+            if (!value) {
+
+                return "-";
+
+            }
+
+
+            try {
+
+                return new Intl.DateTimeFormat(
+                    "fr-FR",
+                    {
+                        dateStyle: "medium",
+                        timeStyle: "short"
+                    }
+                ).format(
+                    new Date(value)
+                );
+
+            } catch {
+
+                return "-";
+
+            }
+        }
+
+
+
+        /* =================================================
+           TOAST
+        ================================================= */
+
+        function showToast(
+            message,
+            type = "success"
         ) {
 
-            message =
-                "Ce nom utilisateur existe déjà.";
-
-        }
-
-
-        showToast(
-            "error",
-            "Erreur",
-            message
-        );
-
-    }
-    finally {
-
-        const saveButton =
-            document.getElementById(
-                "saveUserBtn"
-            );
-
-
-        saveButton.disabled =
-            false;
-
-
-        saveButton.innerHTML = `
-
-            <i class="fa-solid fa-floppy-disk"></i>
-
-            Enregistrer
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   TOGGLE USER
-========================================================= */
-
-async function toggleUser(id) {
-
-    const user =
-        allUsers.find(
-            item =>
-                Number(item.id) ===
-                Number(id)
-        );
-
-
-    if (!user) {
-
-        return;
-
-    }
-
-
-    if (
-        isSystemUser(user)
-    ) {
-
-        showToast(
-            "warning",
-            "Compte protégé",
-            "Le compte SYSTEM ne peut pas être désactivé."
-        );
-
-        return;
-
-    }
-
-
-    const action =
-        user.is_active
-            ? "désactiver"
-            : "activer";
-
-
-    if (
-        !confirm(
-            `Voulez-vous ${action} le compte "${user.username}" ?`
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const supabase =
-            getSupabase();
-
-
-        const {
-            error
-        } =
-            await supabase
-                .from("users")
-                .update({
-
-                    is_active:
-                        !user.is_active,
-
-                    updated_by:
-                        getCurrentUserId(),
-
-                    updated_at:
-                        new Date().toISOString()
-
-                })
-                .eq(
-                    "id",
-                    id
+            const container =
+                document.getElementById(
+                    "toastContainer"
                 );
 
 
-        if (error) {
-
-            throw error;
-
-        }
-
-
-        showToast(
-            "success",
-            "Statut modifié",
-            `Le compte a été ${user.is_active ? "désactivé" : "activé"}.`
-        );
-
-
-        await loadUsers();
-
-    }
-    catch (error) {
-
-        console.error(error);
-
-
-        showToast(
-            "error",
-            "Erreur",
-            error.message ||
-            "Impossible de modifier le statut."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DELETE USER
-========================================================= */
-
-async function deleteUser(id) {
-
-    const user =
-        allUsers.find(
-            item =>
-                Number(item.id) ===
-                Number(id)
-        );
-
-
-    if (!user) {
-
-        return;
-
-    }
-
-
-    if (
-        isSystemUser(user)
-    ) {
-
-        showToast(
-            "warning",
-            "Compte protégé",
-            "Le compte SYSTEM ne peut pas être supprimé."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        Number(
-            getCurrentUserId()
-        ) ===
-        Number(user.id)
-    ) {
-
-        showToast(
-            "warning",
-            "Action impossible",
-            "Vous ne pouvez pas supprimer votre propre compte."
-        );
-
-        return;
-
-    }
-
-
-    const confirmation =
-        confirm(
-            `Voulez-vous vraiment supprimer l'utilisateur "${user.username}" ?\n\nCette action est irréversible.`
-        );
-
-
-    if (!confirmation) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const supabase =
-            getSupabase();
-
-
-        const {
-            error
-        } =
-            await supabase
-                .from("users")
-                .delete()
-                .eq(
-                    "id",
-                    id
+            const toast =
+                document.createElement(
+                    "div"
                 );
 
 
-        if (error) {
+            toast.className =
+                `toast ${type}`;
 
-            throw error;
 
-        }
+            let icon =
+                "fa-circle-check";
 
 
-        showToast(
-            "success",
-            "Utilisateur supprimé",
-            "Le compte a été supprimé avec succès."
-        );
+            if (type === "error") {
 
-
-        await loadUsers();
-
-    }
-    catch (error) {
-
-        console.error(
-            "Erreur suppression:",
-            error
-        );
-
-
-        showToast(
-            "error",
-            "Erreur",
-            error.message ||
-            "Impossible de supprimer l'utilisateur."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SYSTEM USER
-========================================================= */
-
-function isSystemUser(user) {
-
-    if (!user) {
-
-        return false;
-
-    }
-
-
-    return (
-
-        user.is_system === true
-
-        ||
-
-        String(
-            user.username || ""
-        )
-        .trim()
-        .toUpperCase() ===
-        "SYSTEM"
-
-    );
-
-}
-
-
-/* =========================================================
-   CURRENT USER ID
-========================================================= */
-
-function getCurrentUserId() {
-
-    if (
-
-        window.currentUser &&
-
-        window.currentUser.id
-
-    ) {
-
-        return Number(
-            window.currentUser.id
-        );
-
-    }
-
-
-    return 1;
-
-}
-
-
-/* =========================================================
-   INITIALS
-========================================================= */
-
-function getInitials(
-    name
-) {
-
-    const value =
-        String(
-            name || ""
-        )
-        .trim();
-
-
-    if (!value) {
-
-        return "U";
-
-    }
-
-
-    const parts =
-        value
-            .split(/\s+/)
-            .filter(Boolean);
-
-
-    if (parts.length === 1) {
-
-        return parts[0]
-            .substring(0, 2)
-            .toUpperCase();
-
-    }
-
-
-    return (
-
-        parts[0][0] +
-        parts[parts.length - 1][0]
-
-    )
-    .toUpperCase();
-
-}
-
-
-/* =========================================================
-   PASSWORD
-========================================================= */
-
-function togglePassword() {
-
-    const input =
-        document.getElementById(
-            "password"
-        );
-
-
-    const icon =
-        document.getElementById(
-            "passwordIcon"
-        );
-
-
-    if (
-        input.type ===
-        "password"
-    ) {
-
-        input.type =
-            "text";
-
-
-        icon.className =
-            "fa-solid fa-eye-slash";
-
-    }
-    else {
-
-        input.type =
-            "password";
-
-
-        icon.className =
-            "fa-solid fa-eye";
-
-    }
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function formatDate(
-    date
-) {
-
-    if (!date) {
-
-        return "—";
-
-    }
-
-
-    try {
-
-        return new Intl.DateTimeFormat(
-            "fr-FR",
-            {
-
-                day: "2-digit",
-
-                month: "2-digit",
-
-                year: "numeric",
-
-                hour: "2-digit",
-
-                minute: "2-digit"
+                icon =
+                    "fa-circle-xmark";
 
             }
-        ).format(
-            new Date(date)
-        );
-
-    }
-    catch {
-
-        return "—";
-
-    }
-
-}
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+            if (type === "warning") {
 
-function escapeHtml(
-    value
-) {
+                icon =
+                    "fa-triangle-exclamation";
 
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
+            }
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+            toast.innerHTML = `
 
-function showToast(
-    type,
-    title,
-    message
-) {
+                <i class="fa-solid ${icon}"></i>
 
-    const container =
-        document.getElementById(
-            "toastContainer"
-        );
+                <span>
+                    ${escapeHtml(message)}
+                </span>
+
+            `;
 
 
-    const icon =
-
-        type === "success"
-
-            ? "fa-circle-check"
-
-            : type === "warning"
-
-                ? "fa-triangle-exclamation"
-
-                : "fa-circle-xmark";
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-
-    toast.className =
-        `toast ${type}`;
-
-
-    toast.innerHTML = `
-
-        <div class="toast-icon">
-
-            <i
-                class="fa-solid ${icon}"
-            ></i>
-
-        </div>
-
-
-        <div class="toast-content">
-
-            <div class="toast-title">
-
-                ${escapeHtml(
-                    title
-                )}
-
-            </div>
-
-
-            <div class="toast-message">
-
-                ${escapeHtml(
-                    message
-                )}
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    container.appendChild(
-        toast
-    );
-
-
-    setTimeout(
-        () => {
-
-            toast.style.opacity =
-                "0";
-
-
-            toast.style.transform =
-                "translateY(10px)";
+            container.appendChild(
+                toast
+            );
 
 
             setTimeout(
@@ -4435,61 +2048,1191 @@ function showToast(
                     toast.remove();
 
                 },
-                250
+                4000
+            );
+        }
+
+
+
+        /* =================================================
+           LOAD ROLES
+        ================================================= */
+
+        async function loadRoles() {
+
+            const {
+                data,
+                error
+            } = await getSupabase()
+
+                .from("roles")
+
+                .select(`
+                    id,
+                    name,
+                    code,
+                    is_active
+                `)
+
+                .order(
+                    "name",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur rôles:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            roles =
+                data || [];
+
+
+            const roleFilter =
+                document.getElementById(
+                    "roleFilter"
+                );
+
+
+            roleFilter.innerHTML = `
+
+                <option value="">
+                    Tous les rôles
+                </option>
+
+            `;
+
+
+            roles
+                .filter(
+                    role =>
+                        role.is_active !== false
+                )
+                .forEach(
+                    role => {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            String(
+                                role.id
+                            );
+
+                        option.textContent =
+                            role.name;
+
+                        roleFilter.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+            document.getElementById(
+                "rolesCount"
+            ).textContent =
+                new Set(
+                    users
+                        .filter(
+                            user =>
+                                user.role_id
+                        )
+                        .map(
+                            user =>
+                                user.role_id
+                        )
+                ).size;
+        }
+
+
+
+        /* =================================================
+           LOAD USERS
+        ================================================= */
+
+        async function loadUsers() {
+
+            const {
+                data,
+                error
+            } = await getSupabase()
+
+                .from("users")
+
+                .select(`
+                    id,
+                    username,
+                    full_name,
+                    role_id,
+                    is_active,
+                    is_system,
+                    created_at,
+                    updated_at
+                `)
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur utilisateurs:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            users =
+                data || [];
+
+
+            updateStats();
+
+            applyFilters();
+        }
+
+
+
+        /* =================================================
+           UPDATE STATS
+        ================================================= */
+
+        function updateStats() {
+
+            const total =
+                users.length;
+
+
+            const active =
+                users.filter(
+                    user =>
+                        user.is_active === true
+                ).length;
+
+
+            const inactive =
+                users.filter(
+                    user =>
+                        user.is_active !== true
+                ).length;
+
+
+            const rolesUsed =
+                new Set(
+                    users
+                        .filter(
+                            user =>
+                                user.role_id
+                        )
+                        .map(
+                            user =>
+                                user.role_id
+                        )
+                ).size;
+
+
+            document.getElementById(
+                "totalUsers"
+            ).textContent =
+                total;
+
+
+            document.getElementById(
+                "activeUsers"
+            ).textContent =
+                active;
+
+
+            document.getElementById(
+                "inactiveUsers"
+            ).textContent =
+                inactive;
+
+
+            document.getElementById(
+                "rolesCount"
+            ).textContent =
+                rolesUsed;
+        }
+
+
+
+        /* =================================================
+           GET ROLE
+        ================================================= */
+
+        function getRoleById(
+            roleId
+        ) {
+
+            return roles.find(
+                role =>
+                    Number(role.id) ===
+                    Number(roleId)
+            );
+        }
+
+
+
+        /* =================================================
+           APPLY FILTERS
+        ================================================= */
+
+        function applyFilters() {
+
+            const search =
+                document.getElementById(
+                    "searchInput"
+                ).value
+                .trim()
+                .toLowerCase();
+
+
+            const roleId =
+                document.getElementById(
+                    "roleFilter"
+                ).value;
+
+
+            const status =
+                document.getElementById(
+                    "statusFilter"
+                ).value;
+
+
+            filteredUsers =
+                users.filter(
+                    user => {
+
+
+                        /* SEARCH */
+
+                        const matchesSearch =
+                            !search ||
+
+                            String(
+                                user.username || ""
+                            )
+                            .toLowerCase()
+                            .includes(search)
+
+                            ||
+
+                            String(
+                                user.full_name || ""
+                            )
+                            .toLowerCase()
+                            .includes(search);
+
+
+                        if (!matchesSearch) {
+
+                            return false;
+
+                        }
+
+
+                        /* ROLE */
+
+                        if (
+                            roleId &&
+                            String(
+                                user.role_id
+                            ) !==
+                            String(roleId)
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        /* STATUS */
+
+                        if (
+                            status === "active" &&
+                            user.is_active !== true
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        if (
+                            status === "inactive" &&
+                            user.is_active === true
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        if (
+                            status === "system" &&
+                            user.is_system !== true
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        return true;
+
+                    }
+                );
+
+
+            renderUsers();
+        }
+
+
+
+        /* =================================================
+           RENDER USERS
+        ================================================= */
+
+        function renderUsers() {
+
+            const tbody =
+                document.getElementById(
+                    "usersTableBody"
+                );
+
+
+            document.getElementById(
+                "resultCount"
+            ).textContent =
+                `${filteredUsers.length} utilisateur(s) affiché(s)`;
+
+
+            if (
+                filteredUsers.length === 0
+            ) {
+
+                tbody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            <div class="empty-state">
+
+                                <i class="fa-solid fa-users-slash"></i>
+
+                                <h3>
+                                    Aucun utilisateur trouvé
+                                </h3>
+
+                                <p>
+                                    Aucun utilisateur ne correspond aux critères de recherche.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+            }
+
+
+            tbody.innerHTML =
+                filteredUsers
+                    .map(
+                        user =>
+                            createUserRow(
+                                user
+                            )
+                    )
+                    .join("");
+        }
+
+
+
+        /* =================================================
+           CREATE USER ROW
+        ================================================= */
+
+        function createUserRow(
+            user
+        ) {
+
+            const role =
+                getRoleById(
+                    user.role_id
+                );
+
+
+            const roleName =
+                role
+                    ? role.name
+                    : "Aucun rôle";
+
+
+            const isSystem =
+                user.is_system === true;
+
+
+            let statusHtml;
+
+
+            if (isSystem) {
+
+                statusHtml = `
+
+                    <span class="status-badge system">
+
+                        <span class="status-dot"></span>
+
+                        SYSTEM
+
+                    </span>
+
+                `;
+
+            } else if (
+                user.is_active === true
+            ) {
+
+                statusHtml = `
+
+                    <span class="status-badge active">
+
+                        <span class="status-dot"></span>
+
+                        Actif
+
+                    </span>
+
+                `;
+
+            } else {
+
+                statusHtml = `
+
+                    <span class="status-badge inactive">
+
+                        <span class="status-dot"></span>
+
+                        Inactif
+
+                    </span>
+
+                `;
+            }
+
+
+            const deleteAction =
+                isSystem
+                    ? `
+
+                        <span class="protected-badge">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            Protégé
+
+                        </span>
+
+                    `
+                    : `
+
+                        <button
+                            type="button"
+                            class="delete-btn"
+                            title="Supprimer"
+                            onclick="openDeleteModal(${Number(user.id)})"
+                        >
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    `;
+
+
+            return `
+
+                <tr>
+
+                    <!-- USERNAME -->
+
+                    <td>
+
+                        <div class="user-cell">
+
+                            <div class="avatar ${isSystem ? "system" : ""}">
+
+                                ${escapeHtml(
+                                    getInitials(
+                                        user.full_name ||
+                                        user.username
+                                    )
+                                )}
+
+                            </div>
+
+                            <div class="user-main">
+
+                                <strong>
+                                    ${escapeHtml(
+                                        user.username || "-"
+                                    )}
+                                </strong>
+
+                                <span>
+                                    ID : ${escapeHtml(
+                                        user.id
+                                    )}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- FULL NAME -->
+
+                    <td>
+
+                        ${escapeHtml(
+                            user.full_name || "-"
+                        )}
+
+                    </td>
+
+
+                    <!-- ROLE -->
+
+                    <td>
+
+                        <span class="role-badge">
+
+                            <i class="fa-solid fa-user-shield"></i>
+
+                            ${escapeHtml(
+                                roleName
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        ${statusHtml}
+
+                    </td>
+
+
+                    <!-- CREATED -->
+
+                    <td>
+
+                        <span class="date-cell">
+
+                            ${formatDate(
+                                user.created_at
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- UPDATED -->
+
+                    <td>
+
+                        <span class="date-cell">
+
+                            ${formatDate(
+                                user.updated_at
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- ACTION -->
+
+                    <td style="text-align:center;">
+
+                        ${deleteAction}
+
+                    </td>
+
+                </tr>
+
+            `;
+        }
+
+
+
+        /* =================================================
+           OPEN DELETE MODAL
+        ================================================= */
+
+        function openDeleteModal(
+            userId
+        ) {
+
+            const user =
+                users.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(userId)
+                );
+
+
+            if (!user) {
+
+                showToast(
+                    "Utilisateur introuvable.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * SYSTEM PROTECTION
+             */
+
+            if (
+                user.is_system === true
+            ) {
+
+                showToast(
+                    "Le compte SYSTEM est protégé et ne peut pas être supprimé.",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * SELF PROTECTION
+             */
+
+            if (
+                currentUser &&
+                Number(currentUser.id) ===
+                Number(user.id)
+            ) {
+
+                showToast(
+                    "Vous ne pouvez pas supprimer votre propre compte.",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            userToDelete =
+                user;
+
+
+            document.getElementById(
+                "deleteUserName"
+            ).textContent =
+                user.full_name ||
+                "-";
+
+
+            document.getElementById(
+                "deleteUsername"
+            ).textContent =
+                user.username
+                    ? "@" + user.username
+                    : "-";
+
+
+            document.getElementById(
+                "deleteAvatar"
+            ).textContent =
+                getInitials(
+                    user.full_name ||
+                    user.username
+                );
+
+
+            document.getElementById(
+                "deleteModal"
+            ).classList.add(
+                "show"
+            );
+        }
+
+
+
+        /* =================================================
+           CLOSE DELETE MODAL
+        ================================================= */
+
+        function closeDeleteModal() {
+
+            document.getElementById(
+                "deleteModal"
+            ).classList.remove(
+                "show"
             );
 
-        },
-        4000
-    );
 
-}
+            userToDelete =
+                null;
 
 
-/* =========================================================
-   CLOSE OUTSIDE
-========================================================= */
-
-document.addEventListener(
-    "click",
-    event => {
+            isDeleting =
+                false;
 
 
-        if (
-            event.target.id ===
-            "userModal"
-        ) {
+            const button =
+                document.getElementById(
+                    "confirmDeleteBtn"
+                );
 
-            closeUserModal();
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML = `
+
+                <i class="fa-solid fa-trash"></i>
+
+                Supprimer
+
+            `;
+        }
+
+
+
+        /* =================================================
+           DELETE USER
+        ================================================= */
+
+        async function deleteUser() {
+
+            if (
+                isDeleting ||
+                !userToDelete
+            ) {
+
+                return;
+
+            }
+
+
+            const user =
+                userToDelete;
+
+
+            /*
+             * SYSTEM
+             */
+
+            if (
+                user.is_system === true
+            ) {
+
+                showToast(
+                    "Le compte SYSTEM ne peut pas être supprimé.",
+                    "warning"
+                );
+
+                closeDeleteModal();
+
+                return;
+
+            }
+
+
+            /*
+             * SELF
+             */
+
+            if (
+                currentUser &&
+                Number(currentUser.id) ===
+                Number(user.id)
+            ) {
+
+                showToast(
+                    "Vous ne pouvez pas supprimer votre propre compte.",
+                    "warning"
+                );
+
+                closeDeleteModal();
+
+                return;
+
+            }
+
+
+            isDeleting =
+                true;
+
+
+            const button =
+                document.getElementById(
+                    "confirmDeleteBtn"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.innerHTML = `
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                Suppression...
+
+            `;
+
+
+            try {
+
+                /*
+                 * On supprime uniquement
+                 * l'utilisateur sélectionné.
+                 */
+
+                const {
+                    error
+                } = await getSupabase()
+
+                    .from("users")
+
+                    .delete()
+
+                    .eq(
+                        "id",
+                        user.id
+                    );
+
+
+                if (error) {
+
+                    console.error(
+                        "Erreur suppression:",
+                        error
+                    );
+
+                    throw error;
+
+                }
+
+
+                showToast(
+                    "Utilisateur supprimé avec succès.",
+                    "success"
+                );
+
+
+                closeDeleteModal();
+
+
+                /*
+                 * Recharger depuis Supabase
+                 */
+
+                await loadUsers();
+
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showToast(
+                    error.message ||
+                    "Impossible de supprimer l'utilisateur.",
+                    "error"
+                );
+
+
+                button.disabled =
+                    false;
+
+
+                button.innerHTML = `
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Supprimer
+
+                `;
+
+
+                isDeleting =
+                    false;
+            }
+        }
+
+
+
+        /* =================================================
+           INIT
+        ================================================= */
+
+        async function init() {
+
+            try {
+
+                currentUser =
+                    getCurrentUser();
+
+
+                /*
+                 * Vérification session
+                 */
+
+                if (!currentUser) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                document.getElementById(
+                    "currentUserName"
+                ).textContent =
+                    currentUser.full_name ||
+                    currentUser.username ||
+                    "Utilisateur";
+
+
+                /*
+                 * Charger d'abord
+                 * les utilisateurs
+                 * et les rôles.
+                 */
+
+                const rolesPromise =
+                    loadRoles();
+
+
+                await loadUsers();
+
+
+                await rolesPromise;
+
+
+                /*
+                 * Re-render après
+                 * chargement des rôles.
+                 */
+
+                updateStats();
+
+                applyFilters();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Erreur initialisation:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "usersTableBody"
+                ).innerHTML = `
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            <div class="empty-state">
+
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                                <h3>
+                                    Erreur de chargement
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(
+                                        error.message ||
+                                        "Impossible de charger les utilisateurs."
+                                    )}
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                showToast(
+                    error.message ||
+                    "Erreur lors du chargement des utilisateurs.",
+                    "error"
+                );
+            }
 
         }
 
-    }
-);
 
 
-/* =========================================================
-   ESC
-========================================================= */
+        /* =================================================
+           EVENTS
+        ================================================= */
 
-document.addEventListener(
-    "keydown",
-    event => {
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .addEventListener(
+                "input",
+                applyFilters
+            );
 
-        if (
-            event.key ===
-            "Escape"
-        ) {
 
-            closeUserModal();
+        document
+            .getElementById(
+                "roleFilter"
+            )
+            .addEventListener(
+                "change",
+                applyFilters
+            );
 
-        }
 
-    }
-);
+        document
+            .getElementById(
+                "statusFilter"
+            )
+            .addEventListener(
+                "change",
+                applyFilters
+            );
 
-</script>
 
+        document
+            .getElementById(
+                "cancelDeleteBtn"
+            )
+            .addEventListener(
+                "click",
+                closeDeleteModal
+            );
+
+
+        document
+            .getElementById(
+                "confirmDeleteBtn"
+            )
+            .addEventListener(
+                "click",
+                deleteUser
+            );
+
+
+        /*
+         * Fermer avec ESC
+         */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closeDeleteModal();
+
+                }
+
+            }
+        );
+
+
+        /*
+         * Fermer en cliquant
+         * hors de la modal
+         */
+
+        document
+            .getElementById(
+                "deleteModal"
+            )
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeDeleteModal();
+
+                    }
+
+                }
+            );
+
+
+        /* =================================================
+           START
+        ================================================== */
+
+        init();
+
+    </script>
 
 </body>
-
 </html>
