@@ -100,6 +100,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+
             font-size: 13px;
             opacity: .9;
         }
@@ -195,6 +196,8 @@
             justify-content: center;
 
             font-size: 18px;
+
+            flex-shrink: 0;
         }
 
         .stat-icon.blue {
@@ -426,7 +429,7 @@
 
             border-collapse: collapse;
 
-            min-width: 950px;
+            min-width: 1050px;
         }
 
         thead th {
@@ -640,7 +643,7 @@
 
 
         /* =================================================
-           DATE
+           DATES
         ================================================= */
 
         .date-cell {
@@ -653,7 +656,59 @@
 
 
         /* =================================================
-           DELETE
+           ACTIONS
+        ================================================= */
+
+        .actions {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+        }
+
+
+        /* =================================================
+           EDIT BUTTON
+        ================================================= */
+
+        .edit-btn {
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #e9f2ff;
+
+            color: #1769d2;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .edit-btn:hover {
+            background: #1769d2;
+
+            color: white;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =================================================
+           DELETE BUTTON
         ================================================= */
 
         .delete-btn {
@@ -671,6 +726,7 @@
             display: inline-flex;
 
             align-items: center;
+
             justify-content: center;
 
             cursor: pointer;
@@ -680,18 +736,11 @@
 
         .delete-btn:hover {
             background: #dc3545;
+
             color: white;
 
-            transform: translateY(-1px);
-        }
-
-        .delete-btn:disabled {
-            background: #f0f2f5;
-            color: #a5adba;
-
-            cursor: not-allowed;
-
-            transform: none;
+            transform:
+                translateY(-1px);
         }
 
 
@@ -783,6 +832,7 @@
 
         .loading-row span {
             font-size: 12px;
+
             color: #7d8797;
         }
 
@@ -819,7 +869,7 @@
 
 
         /* =================================================
-           MODAL DELETE
+           DELETE MODAL
         ================================================= */
 
         .modal-overlay {
@@ -878,8 +928,10 @@
         }
 
         @keyframes modalIn {
+
             from {
                 opacity: 0;
+
                 transform:
                     translateY(10px)
                     scale(.98);
@@ -887,6 +939,7 @@
 
             to {
                 opacity: 1;
+
                 transform:
                     translateY(0)
                     scale(1);
@@ -920,27 +973,34 @@
             display: flex;
 
             align-items: center;
+
             justify-content: center;
         }
 
         .modal-header h3 {
             font-size: 17px;
+
             color: #1b2a41;
         }
 
         .modal-header p {
             font-size: 11px;
+
             color: #8993a4;
+
             margin-top: 3px;
         }
 
         .modal-body {
-            padding: 22px 24px;
+            padding:
+                22px 24px;
         }
 
         .modal-body > p {
             font-size: 13px;
+
             line-height: 1.6;
+
             color: #566174;
         }
 
@@ -1033,6 +1093,7 @@
 
         .btn-secondary {
             background: #eef1f5;
+
             color: #4c5667;
         }
 
@@ -1042,6 +1103,7 @@
 
         .btn-danger {
             background: #dc3545;
+
             color: white;
         }
 
@@ -1051,6 +1113,7 @@
 
         .btn-danger:disabled {
             opacity: .65;
+
             cursor: not-allowed;
         }
 
@@ -1063,6 +1126,7 @@
             position: fixed;
 
             top: 20px;
+
             right: 20px;
 
             z-index: 10000;
@@ -1109,15 +1173,18 @@
         }
 
         .toast.success {
-            border-left-color: #20a35a;
+            border-left-color:
+                #20a35a;
         }
 
         .toast.error {
-            border-left-color: #dc3545;
+            border-left-color:
+                #dc3545;
         }
 
         .toast.warning {
-            border-left-color: #f0a000;
+            border-left-color:
+                #f0a000;
         }
 
         .toast i {
@@ -1125,31 +1192,38 @@
         }
 
         .toast.success i {
-            color: #20a35a;
+            color:
+                #20a35a;
         }
 
         .toast.error i {
-            color: #dc3545;
+            color:
+                #dc3545;
         }
 
         .toast.warning i {
-            color: #f0a000;
+            color:
+                #f0a000;
         }
 
         .toast span {
             font-size: 12px;
+
             color: #344054;
         }
 
         @keyframes toastIn {
+
             from {
                 opacity: 0;
+
                 transform:
                     translateX(20px);
             }
 
             to {
                 opacity: 1;
+
                 transform:
                     translateX(0);
             }
@@ -1182,8 +1256,7 @@
         @media (max-width: 650px) {
 
             .page-header {
-                padding:
-                    18px;
+                padding: 18px;
             }
 
             .header-user {
@@ -1242,12 +1315,15 @@
 
             .toast-container {
                 left: 12px;
+
                 right: 12px;
+
                 top: 12px;
             }
 
             .toast {
                 min-width: 0;
+
                 width: 100%;
             }
         }
@@ -1268,7 +1344,9 @@
         <div class="header-left">
 
             <div class="header-icon">
+
                 <i class="fa-solid fa-users"></i>
+
             </div>
 
             <div class="header-title">
@@ -1465,7 +1543,7 @@
                         </h2>
 
                         <p>
-                            Consultation et suppression des comptes
+                            Consultation, modification et suppression des comptes
                         </p>
 
                     </div>
@@ -1588,7 +1666,7 @@
                             </th>
 
                             <th style="text-align:center;">
-                                Action
+                                Actions
                             </th>
 
                         </tr>
@@ -1683,7 +1761,7 @@
 
                 <p>
                     Voulez-vous vraiment supprimer cet utilisateur ?
-                    Toutes les informations liées à son compte seront supprimées.
+                    Cette action est irréversible.
                 </p>
 
 
@@ -1771,7 +1849,7 @@
 
 
         /* =================================================
-           GLOBAL VARIABLES
+           GLOBAL
         ================================================= */
 
         let currentUser = null;
@@ -1789,7 +1867,7 @@
 
 
         /* =================================================
-           GET CURRENT USER
+           CURRENT USER
         ================================================= */
 
         function getCurrentUser() {
@@ -1948,7 +2026,7 @@
 
 
         /* =================================================
-           DATE FORMAT
+           FORMAT DATE
         ================================================= */
 
         function formatDate(value) {
@@ -2010,7 +2088,9 @@
                 "fa-circle-check";
 
 
-            if (type === "error") {
+            if (
+                type === "error"
+            ) {
 
                 icon =
                     "fa-circle-xmark";
@@ -2018,7 +2098,9 @@
             }
 
 
-            if (type === "warning") {
+            if (
+                type === "warning"
+            ) {
 
                 icon =
                     "fa-triangle-exclamation";
@@ -2090,7 +2172,6 @@
                 );
 
                 throw error;
-
             }
 
 
@@ -2140,22 +2221,6 @@
 
                     }
                 );
-
-
-            document.getElementById(
-                "rolesCount"
-            ).textContent =
-                new Set(
-                    users
-                        .filter(
-                            user =>
-                                user.role_id
-                        )
-                        .map(
-                            user =>
-                                user.role_id
-                        )
-                ).size;
         }
 
 
@@ -2200,7 +2265,6 @@
                 );
 
                 throw error;
-
             }
 
 
@@ -2244,7 +2308,8 @@
                     users
                         .filter(
                             user =>
-                                user.role_id
+                                user.role_id !== null &&
+                                user.role_id !== undefined
                         )
                         .map(
                             user =>
@@ -2283,9 +2348,7 @@
            GET ROLE
         ================================================= */
 
-        function getRoleById(
-            roleId
-        ) {
+        function getRoleById(roleId) {
 
             return roles.find(
                 role =>
@@ -2329,28 +2392,29 @@
 
                         /* SEARCH */
 
-                        const matchesSearch =
-                            !search ||
-
+                        const username =
                             String(
                                 user.username || ""
                             )
-                            .toLowerCase()
-                            .includes(search)
+                            .toLowerCase();
 
-                            ||
 
+                        const fullName =
                             String(
                                 user.full_name || ""
                             )
-                            .toLowerCase()
-                            .includes(search);
+                            .toLowerCase();
+
+
+                        const matchesSearch =
+                            !search ||
+                            username.includes(search) ||
+                            fullName.includes(search);
 
 
                         if (!matchesSearch) {
 
                             return false;
-
                         }
 
 
@@ -2365,7 +2429,6 @@
                         ) {
 
                             return false;
-
                         }
 
 
@@ -2377,7 +2440,6 @@
                         ) {
 
                             return false;
-
                         }
 
 
@@ -2387,7 +2449,6 @@
                         ) {
 
                             return false;
-
                         }
 
 
@@ -2397,7 +2458,6 @@
                         ) {
 
                             return false;
-
                         }
 
 
@@ -2481,9 +2541,7 @@
            CREATE USER ROW
         ================================================= */
 
-        function createUserRow(
-            user
-        ) {
+        function createUserRow(user) {
 
             const role =
                 getRoleById(
@@ -2500,6 +2558,10 @@
             const isSystem =
                 user.is_system === true;
 
+
+            /* =============================================
+               STATUS
+            ============================================= */
 
             let statusHtml;
 
@@ -2550,20 +2612,48 @@
             }
 
 
-            const deleteAction =
-                isSystem
-                    ? `
+            /* =============================================
+               ACTIONS
+            ============================================= */
 
-                        <span class="protected-badge">
+            let actionsHtml;
 
-                            <i class="fa-solid fa-shield-halved"></i>
 
-                            Protégé
+            if (isSystem) {
 
-                        </span>
+                actionsHtml = `
 
-                    `
-                    : `
+                    <span class="protected-badge">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Protégé
+
+                    </span>
+
+                `;
+
+            } else {
+
+                actionsHtml = `
+
+                    <div class="actions">
+
+                        <!-- MODIFIER -->
+
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            title="Modifier"
+                            onclick="editUser(${Number(user.id)})"
+                        >
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+
+                        <!-- SUPPRIMER -->
 
                         <button
                             type="button"
@@ -2576,14 +2666,19 @@
 
                         </button>
 
-                    `;
+                    </div>
+
+                `;
+            }
 
 
             return `
 
                 <tr>
 
-                    <!-- USERNAME -->
+                    <!-- =================================
+                         UTILISATEUR
+                    ================================== -->
 
                     <td>
 
@@ -2600,18 +2695,24 @@
 
                             </div>
 
+
                             <div class="user-main">
 
                                 <strong>
+
                                     ${escapeHtml(
                                         user.username || "-"
                                     )}
+
                                 </strong>
 
                                 <span>
-                                    ID : ${escapeHtml(
+
+                                    ID :
+                                    ${escapeHtml(
                                         user.id
                                     )}
+
                                 </span>
 
                             </div>
@@ -2621,7 +2722,9 @@
                     </td>
 
 
-                    <!-- FULL NAME -->
+                    <!-- =================================
+                         NOM COMPLET
+                    ================================== -->
 
                     <td>
 
@@ -2632,7 +2735,9 @@
                     </td>
 
 
-                    <!-- ROLE -->
+                    <!-- =================================
+                         ROLE
+                    ================================== -->
 
                     <td>
 
@@ -2649,7 +2754,9 @@
                     </td>
 
 
-                    <!-- STATUS -->
+                    <!-- =================================
+                         STATUT
+                    ================================== -->
 
                     <td>
 
@@ -2658,7 +2765,9 @@
                     </td>
 
 
-                    <!-- CREATED -->
+                    <!-- =================================
+                         CREATED
+                    ================================== -->
 
                     <td>
 
@@ -2673,7 +2782,9 @@
                     </td>
 
 
-                    <!-- UPDATED -->
+                    <!-- =================================
+                         UPDATED
+                    ================================== -->
 
                     <td>
 
@@ -2688,11 +2799,13 @@
                     </td>
 
 
-                    <!-- ACTION -->
+                    <!-- =================================
+                         ACTIONS
+                    ================================== -->
 
                     <td style="text-align:center;">
 
-                        ${deleteAction}
+                        ${actionsHtml}
 
                     </td>
 
@@ -2704,12 +2817,21 @@
 
 
         /* =================================================
-           OPEN DELETE MODAL
+           EDIT USER
         ================================================= */
 
-        function openDeleteModal(
-            userId
-        ) {
+        function editUser(userId) {
+
+            if (!userId) {
+
+                showToast(
+                    "Identifiant utilisateur manquant.",
+                    "error"
+                );
+
+                return;
+            }
+
 
             const user =
                 users.find(
@@ -2727,7 +2849,6 @@
                 );
 
                 return;
-
             }
 
 
@@ -2740,17 +2861,158 @@
             ) {
 
                 showToast(
-                    "Le compte SYSTEM est protégé et ne peut pas être supprimé.",
+                    "Le compte SYSTEM est protégé et ne peut pas être modifié.",
                     "warning"
                 );
 
                 return;
+            }
+
+
+            /*
+             * ID → PAGE MODIFICATION
+             */
+
+            const target =
+                `user_edit.html?id=${encodeURIComponent(user.id)}`;
+
+
+            /*
+             * Si users.html est ouvert
+             * dans l'iframe de index.html,
+             * on demande au parent de naviguer.
+             */
+
+            try {
+
+                if (
+                    window.parent &&
+                    window.parent !== window &&
+                    typeof window.parent.navigateToPage ===
+                    "function"
+                ) {
+
+                    const page =
+                        window.parent.currentPages?.find(
+                            item =>
+                                item.page_code ===
+                                "USER_EDIT"
+                        );
+
+
+                    if (page) {
+
+                        window.parent.navigateToPage(
+                            page
+                        );
+
+
+                        /*
+                         * Ajouter l'ID après
+                         * navigation de la page.
+                         */
+
+                        setTimeout(
+                            () => {
+
+                                try {
+
+                                    const frame =
+                                        window.parent.document.getElementById(
+                                            "pageFrame"
+                                        );
+
+                                    if (frame) {
+
+                                        frame.src =
+                                            target;
+
+                                    }
+
+                                } catch (error) {
+
+                                    console.warn(
+                                        "Navigation iframe:",
+                                        error
+                                    );
+
+                                }
+
+                            },
+                            100
+                        );
+
+
+                        return;
+                    }
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "Navigation parent indisponible:",
+                    error
+                );
 
             }
 
 
             /*
-             * SELF PROTECTION
+             * Fallback :
+             * ouverture directe.
+             */
+
+            window.location.href =
+                target;
+        }
+
+
+
+        /* =================================================
+           OPEN DELETE MODAL
+        ================================================= */
+
+        function openDeleteModal(userId) {
+
+            const user =
+                users.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(userId)
+                );
+
+
+            if (!user) {
+
+                showToast(
+                    "Utilisateur introuvable.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /*
+             * SYSTEM
+             */
+
+            if (
+                user.is_system === true
+            ) {
+
+                showToast(
+                    "Le compte SYSTEM est protégé et ne peut pas être supprimé.",
+                    "warning"
+                );
+
+                return;
+            }
+
+
+            /*
+             * CURRENT USER
              */
 
             if (
@@ -2765,7 +3027,6 @@
                 );
 
                 return;
-
             }
 
 
@@ -2860,7 +3121,6 @@
             ) {
 
                 return;
-
             }
 
 
@@ -2884,12 +3144,11 @@
                 closeDeleteModal();
 
                 return;
-
             }
 
 
             /*
-             * SELF
+             * CURRENT USER
              */
 
             if (
@@ -2906,7 +3165,6 @@
                 closeDeleteModal();
 
                 return;
-
             }
 
 
@@ -2935,11 +3193,6 @@
 
             try {
 
-                /*
-                 * On supprime uniquement
-                 * l'utilisateur sélectionné.
-                 */
-
                 const {
                     error
                 } = await getSupabase()
@@ -2962,7 +3215,6 @@
                     );
 
                     throw error;
-
                 }
 
 
@@ -2974,10 +3226,6 @@
 
                 closeDeleteModal();
 
-
-                /*
-                 * Recharger depuis Supabase
-                 */
 
                 await loadUsers();
 
@@ -3028,17 +3276,12 @@
                     getCurrentUser();
 
 
-                /*
-                 * Vérification session
-                 */
-
                 if (!currentUser) {
 
                     window.location.href =
                         "login.html";
 
                     return;
-
                 }
 
 
@@ -3051,29 +3294,17 @@
 
 
                 /*
-                 * Charger d'abord
-                 * les utilisateurs
-                 * et les rôles.
+                 * Rôles d'abord
                  */
 
-                const rolesPromise =
-                    loadRoles();
-
-
-                await loadUsers();
-
-
-                await rolesPromise;
+                await loadRoles();
 
 
                 /*
-                 * Re-render après
-                 * chargement des rôles.
+                 * Utilisateurs
                  */
 
-                updateStats();
-
-                applyFilters();
+                await loadUsers();
 
 
             } catch (error) {
@@ -3182,7 +3413,7 @@
 
 
         /*
-         * Fermer avec ESC
+         * ESC
          */
 
         document.addEventListener(
@@ -3202,8 +3433,7 @@
 
 
         /*
-         * Fermer en cliquant
-         * hors de la modal
+         * Click خارج modal
          */
 
         document
