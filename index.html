@@ -121,7 +121,7 @@
 
 
         /* =====================================================
-           LOGO AREA
+           LOGO
         ===================================================== */
 
         .sidebar-header {
@@ -183,7 +183,7 @@
         .nav-section {
 
             margin:
-                0 10px 9px;
+                18px 10px 9px;
 
             color:
                 rgba(255, 255, 255, 0.45);
@@ -202,12 +202,19 @@
         }
 
 
+        .nav-section:first-child {
+
+            margin-top:
+                0;
+        }
+
+
         .nav-item {
 
             width:
                 100%;
 
-            height:
+            min-height:
                 43px;
 
             display:
@@ -330,6 +337,15 @@
 
             flex:
                 1;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
         }
 
 
@@ -340,6 +356,51 @@
 
             font-size:
                 13px;
+        }
+
+
+        /* =====================================================
+           LOADING / EMPTY NAV
+        ===================================================== */
+
+        .nav-loading {
+
+            padding:
+                15px 12px;
+
+            color:
+                rgba(255,255,255,0.55);
+
+            font-size:
+                11px;
+
+            text-align:
+                center;
+        }
+
+
+        .nav-error {
+
+            margin:
+                10px 4px;
+
+            padding:
+                12px;
+
+            border-radius:
+                8px;
+
+            background:
+                rgba(220,60,60,0.12);
+
+            color:
+                #ffd5d5;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.5;
         }
 
 
@@ -975,14 +1036,11 @@
 
             font-size:
                 11px;
-
-            cursor:
-                pointer;
         }
 
 
         /* =====================================================
-           STAT CARDS
+           STATS
         ===================================================== */
 
         .stats-grid {
@@ -1346,6 +1404,25 @@
         }
 
 
+        .quick-empty {
+
+            grid-column:
+                1 / -1;
+
+            padding:
+                30px;
+
+            text-align:
+                center;
+
+            color:
+                #95a4b0;
+
+            font-size:
+                10px;
+        }
+
+
         /* =====================================================
            ACTIVITY
         ===================================================== */
@@ -1419,7 +1496,6 @@
 
             stroke-width:
                 1.6;
-
         }
 
 
@@ -1679,498 +1755,21 @@
         </div>
 
 
-        <nav class="sidebar-nav">
+        <!--
+            IMPORTANT:
+            Navigation maintenant dynamique.
+            JavaScript va charger les pages depuis
+            v_user_effective_pages.
+        -->
 
+        <nav
+            class="sidebar-nav"
+            id="sidebarNav"
+        >
 
-            <!-- DASHBOARD -->
-
-            <div class="nav-section">
-                Général
+            <div class="nav-loading">
+                Chargement des accès...
             </div>
-
-
-            <button
-                class="nav-item active"
-                data-page="dashboard"
-            >
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <rect
-                            x="3"
-                            y="3"
-                            width="7"
-                            height="7"
-                            rx="1"
-                        ></rect>
-
-                        <rect
-                            x="14"
-                            y="3"
-                            width="7"
-                            height="7"
-                            rx="1"
-                        ></rect>
-
-                        <rect
-                            x="3"
-                            y="14"
-                            width="7"
-                            height="7"
-                            rx="1"
-                        ></rect>
-
-                        <rect
-                            x="14"
-                            y="14"
-                            width="7"
-                            height="7"
-                            rx="1"
-                        ></rect>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Tableau de bord
-                </span>
-
-            </button>
-
-
-            <!-- PRODUCTION -->
-
-            <div class="nav-section">
-                Production
-            </div>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M4 20V10"
-                        ></path>
-
-                        <path
-                            d="M9 20V4"
-                        ></path>
-
-                        <path
-                            d="M14 20v-7"
-                        ></path>
-
-                        <path
-                            d="M19 20V7"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Production
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M4 5h16"
-                        ></path>
-
-                        <path
-                            d="M7 3v4"
-                        ></path>
-
-                        <path
-                            d="M17 3v4"
-                        ></path>
-
-                        <rect
-                            x="4"
-                            y="5"
-                            width="16"
-                            height="15"
-                            rx="2"
-                        ></rect>
-
-                        <path
-                            d="M8 11h3"
-                        ></path>
-
-                        <path
-                            d="M13 11h3"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Planning
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M3 6h18"
-                        ></path>
-
-                        <path
-                            d="M3 12h18"
-                        ></path>
-
-                        <path
-                            d="M3 18h18"
-                        ></path>
-
-                        <circle
-                            cx="8"
-                            cy="6"
-                            r="2"
-                        ></circle>
-
-                        <circle
-                            cx="15"
-                            cy="12"
-                            r="2"
-                        ></circle>
-
-                        <circle
-                            cx="11"
-                            cy="18"
-                            r="2"
-                        ></circle>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Suivi de production
-                </span>
-
-            </button>
-
-
-            <!-- QUALITÉ -->
-
-            <div class="nav-section">
-                Qualité & HSE
-            </div>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"
-                        ></path>
-
-                        <path
-                            d="M9 12l2 2 4-4"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Qualité
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <circle
-                            cx="12"
-                            cy="12"
-                            r="8"
-                        ></circle>
-
-                        <path
-                            d="M12 8v4l3 2"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    HSE
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <!-- STOCK / LOGISTIQUE -->
-
-            <div class="nav-section">
-                Stock & Logistique
-            </div>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M3 7l9-4 9 4-9 4-9-4z"
-                        ></path>
-
-                        <path
-                            d="M3 12l9 4 9-4"
-                        ></path>
-
-                        <path
-                            d="M3 17l9 4 9-4"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Stock
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <rect
-                            x="3"
-                            y="6"
-                            width="13"
-                            height="10"
-                            rx="1"
-                        ></rect>
-
-                        <path
-                            d="M16 10h3l2 3v3h-5"
-                        ></path>
-
-                        <circle
-                            cx="7"
-                            cy="18"
-                            r="2"
-                        ></circle>
-
-                        <circle
-                            cx="18"
-                            cy="18"
-                            r="2"
-                        ></circle>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Expédition
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M4 4h16v16H4z"
-                        ></path>
-
-                        <path
-                            d="M8 8h8"
-                        ></path>
-
-                        <path
-                            d="M8 12h8"
-                        ></path>
-
-                        <path
-                            d="M8 16h5"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Réception
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <!-- ADMINISTRATION -->
-
-            <div class="nav-section">
-                Administration
-            </div>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <circle
-                            cx="12"
-                            cy="8"
-                            r="3"
-                        ></circle>
-
-                        <path
-                            d="M5 21c0-4 3-7 7-7s7 3 7 7"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Utilisateurs
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M12 3l2 2 3-.2.8 2.8 2.5 1.5-1.5 2.6.5 3-2.8 1-1 2.7-3-.8-2.7.8-1-2.7-2.8-1 .5-3L3 9.1l2.5-1.5.8-2.8 3 .2 2-2z"
-                        ></path>
-
-                        <circle
-                            cx="12"
-                            cy="12"
-                            r="3"
-                        ></circle>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Paramètres
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
-
-            <button class="nav-item">
-
-                <span class="nav-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <path
-                            d="M4 19V5"
-                        ></path>
-
-                        <path
-                            d="M4 18h16"
-                        ></path>
-
-                        <path
-                            d="M7 15l3-4 3 2 5-7"
-                        ></path>
-
-                    </svg>
-
-                </span>
-
-                <span class="nav-text">
-                    Rapports
-                </span>
-
-                <span class="nav-arrow">
-                    ›
-                </span>
-
-            </button>
-
 
         </nav>
 
@@ -2234,7 +1833,9 @@
     <main class="main">
 
 
-        <!-- TOPBAR -->
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
 
         <header class="topbar">
 
@@ -2262,7 +1863,10 @@
 
                 <div>
 
-                    <div class="page-title">
+                    <div
+                        class="page-title"
+                        id="pageTitle"
+                    >
                         Tableau de bord
                     </div>
 
@@ -2322,12 +1926,16 @@
         </header>
 
 
-        <!-- CONTENT -->
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
 
         <div class="content">
 
 
-            <!-- WELCOME -->
+            <!-- =================================================
+                 WELCOME
+            ================================================== -->
 
             <section class="welcome-card">
 
@@ -2412,7 +2020,9 @@
             </section>
 
 
-            <!-- STATS -->
+            <!-- =================================================
+                 STATS
+            ================================================== -->
 
             <div class="section-header">
 
@@ -2625,12 +2235,16 @@
             </section>
 
 
-            <!-- LOWER -->
+            <!-- =================================================
+                 LOWER GRID
+            ================================================== -->
 
             <section class="dashboard-grid">
 
 
-                <!-- QUICK ACCESS -->
+                <!-- =================================================
+                     QUICK ACCESS
+                ================================================== -->
 
                 <div class="panel">
 
@@ -2644,7 +2258,7 @@
                             </div>
 
                             <div class="panel-subtitle">
-                                Modules principaux
+                                Pages autorisées
                             </div>
 
                         </div>
@@ -2652,175 +2266,23 @@
                     </div>
 
 
-                    <div class="quick-grid">
+                    <div
+                        class="quick-grid"
+                        id="quickGrid"
+                    >
 
-
-                        <div class="quick-item">
-
-                            <svg viewBox="0 0 24 24">
-
-                                <path
-                                    d="M4 20V10"
-                                ></path>
-
-                                <path
-                                    d="M9 20V4"
-                                ></path>
-
-                                <path
-                                    d="M14 20v-7"
-                                ></path>
-
-                                <path
-                                    d="M19 20V7"
-                                ></path>
-
-                            </svg>
-
-                            <span>
-                                Production
-                            </span>
-
+                        <div class="quick-empty">
+                            Chargement des pages...
                         </div>
-
-
-                        <div class="quick-item">
-
-                            <svg viewBox="0 0 24 24">
-
-                                <path
-                                    d="M3 7l9-4 9 4-9 4-9-4z"
-                                ></path>
-
-                                <path
-                                    d="M3 12l9 4 9-4"
-                                ></path>
-
-                                <path
-                                    d="M3 17l9 4 9-4"
-                                ></path>
-
-                            </svg>
-
-                            <span>
-                                Stock
-                            </span>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <svg viewBox="0 0 24 24">
-
-                                <path
-                                    d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"
-                                ></path>
-
-                                <path
-                                    d="M9 12l2 2 4-4"
-                                ></path>
-
-                            </svg>
-
-                            <span>
-                                Qualité
-                            </span>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <svg viewBox="0 0 24 24">
-
-                                <rect
-                                    x="3"
-                                    y="6"
-                                    width="13"
-                                    height="10"
-                                    rx="1"
-                                ></rect>
-
-                                <path
-                                    d="M16 10h3l2 3v3h-5"
-                                ></path>
-
-                                <circle
-                                    cx="7"
-                                    cy="18"
-                                    r="2"
-                                ></circle>
-
-                                <circle
-                                    cx="18"
-                                    cy="18"
-                                    r="2"
-                                ></circle>
-
-                            </svg>
-
-                            <span>
-                                Expédition
-                            </span>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <svg viewBox="0 0 24 24">
-
-                                <circle
-                                    cx="12"
-                                    cy="8"
-                                    r="3"
-                                ></circle>
-
-                                <path
-                                    d="M5 21c0-4 3-7 7-7s7 3 7 7"
-                                ></path>
-
-                            </svg>
-
-                            <span>
-                                Utilisateurs
-                            </span>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <svg viewBox="0 0 24 24">
-
-                                <path
-                                    d="M4 19V5"
-                                ></path>
-
-                                <path
-                                    d="M4 18h16"
-                                ></path>
-
-                                <path
-                                    d="M7 15l3-4 3 2 5-7"
-                                ></path>
-
-                            </svg>
-
-                            <span>
-                                Rapports
-                            </span>
-
-                        </div>
-
 
                     </div>
 
                 </div>
 
 
-                <!-- ACTIVITY -->
+                <!-- =================================================
+                     ACTIVITY
+                ================================================== -->
 
                 <div class="panel">
 
@@ -2891,7 +2353,9 @@
         </div>
 
 
-        <!-- FOOTER -->
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
 
         <footer class="footer">
 
@@ -2933,56 +2397,50 @@
 
 
     /* =====================================================
-       SESSION
+       CONFIGURATION
     ===================================================== */
 
     const SESSION_KEY =
         "smtg_current_user";
 
 
-    const storedUser =
-        sessionStorage.getItem(
-            SESSION_KEY
-        );
-
-
-    /*
-     * إذا ماكايناش session
-     * رجع المستخدم للـLogin
-     */
-
-    if (!storedUser) {
-
-        window.location.href =
-            "login.html";
-
-    }
-
-
-    let currentUser = null;
-
-
-    try {
-
-        currentUser =
-            JSON.parse(
-                storedUser
-            );
-
-    } catch (error) {
-
-        sessionStorage.removeItem(
-            SESSION_KEY
-        );
-
-        window.location.href =
-            "login.html";
-    }
+    const LOGIN_PAGE =
+        "login.html";
 
 
     /* =====================================================
        ELEMENTS
     ===================================================== */
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+
+    const sidebarNav =
+        document.getElementById(
+            "sidebarNav"
+        );
+
+
+    const sidebarOverlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    const mobileMenu =
+        document.getElementById(
+            "mobileMenu"
+        );
+
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
 
     const userName =
         document.getElementById(
@@ -3026,22 +2484,107 @@
         );
 
 
+    const quickGrid =
+        document.getElementById(
+            "quickGrid"
+        );
+
+
+    const pageTitle =
+        document.getElementById(
+            "pageTitle"
+        );
+
+
     /* =====================================================
-       USER DATA
+       CURRENT USER
     ===================================================== */
 
-    if (currentUser) {
+    let currentUser = null;
+
+
+    const storedUser =
+        sessionStorage.getItem(
+            SESSION_KEY
+        )
+        ||
+        localStorage.getItem(
+            SESSION_KEY
+        );
+
+
+    if (!storedUser) {
+
+        window.location.href =
+            LOGIN_PAGE;
+
+    } else {
+
+        try {
+
+            currentUser =
+                JSON.parse(
+                    storedUser
+                );
+
+        } catch (error) {
+
+            console.error(
+                "Session invalide:",
+                error
+            );
+
+            sessionStorage.removeItem(
+                SESSION_KEY
+            );
+
+            localStorage.removeItem(
+                SESSION_KEY
+            );
+
+            window.location.href =
+                LOGIN_PAGE;
+        }
+
+    }
+
+
+    /* =====================================================
+       NORMALIZE USER ID
+    ===================================================== */
+
+    if (
+        currentUser &&
+        currentUser.id
+    ) {
+
+        currentUser.id =
+            Number(
+                currentUser.id
+            );
+
+    }
+
+
+    /* =====================================================
+       INITIAL USER DISPLAY
+    ===================================================== */
+
+    function displayCurrentUser() {
+
+
+        if (!currentUser) {
+
+            return;
+        }
 
 
         const fullName =
-            currentUser.full_name ||
-            currentUser.username ||
+            currentUser.full_name
+            ||
+            currentUser.username
+            ||
             "Utilisateur";
-
-
-        const username =
-            currentUser.username ||
-            "";
 
 
         userName.textContent =
@@ -3053,9 +2596,9 @@
             fullName;
 
 
-        /*
-         * Initiales
-         */
+        /* -------------------------------------------------
+           INITIALS
+        ------------------------------------------------- */
 
         const initials =
             fullName
@@ -3064,7 +2607,8 @@
                 .slice(0, 2)
                 .map(
                     word =>
-                        word.charAt(0)
+                        word
+                            .charAt(0)
                             .toUpperCase()
                 )
                 .join("");
@@ -3075,39 +2619,36 @@
             "U";
 
 
-        /*
-         * Role temporaire
-         */
-
         userRole.textContent =
             "Chargement du rôle...";
-
-
-        loadUserRole(
-            currentUser.role_id
-        );
 
     }
 
 
+    displayCurrentUser();
+
+
     /* =====================================================
-       LOAD ROLE
+       LOAD USER ROLE
     ===================================================== */
 
-    async function loadUserRole(
-        roleId
-    ) {
+    async function loadUserRole() {
 
-        if (!roleId) {
+
+        if (
+            !currentUser ||
+            !currentUser.role_id
+        ) {
 
             userRole.textContent =
                 "Utilisateur";
 
-            return;
+            return null;
         }
 
 
         try {
+
 
             const client =
                 getSupabase();
@@ -3117,54 +2658,1275 @@
                 data,
                 error
             } = await client
+
                 .from("roles")
+
                 .select(
-                    "name, code"
+                    "id, name, code"
                 )
+
                 .eq(
                     "id",
-                    roleId
+                    currentUser.role_id
                 )
+
                 .maybeSingle();
 
 
             if (error) {
 
                 console.error(
-                    "Erreur role:",
+                    "Erreur chargement rôle:",
                     error
                 );
 
                 userRole.textContent =
                     "Utilisateur";
 
-                return;
+                return null;
             }
 
 
-            if (data) {
-
-                userRole.textContent =
-                    data.name ||
-                    data.code ||
-                    "Utilisateur";
-
-            } else {
+            if (!data) {
 
                 userRole.textContent =
                     "Utilisateur";
+
+                return null;
             }
+
+
+            userRole.textContent =
+                data.name
+                ||
+                data.code
+                ||
+                "Utilisateur";
+
+
+            return data;
 
 
         } catch (error) {
 
             console.error(
+                "Erreur rôle:",
                 error
             );
 
             userRole.textContent =
                 "Utilisateur";
+
+            return null;
         }
+
+    }
+
+
+    /* =====================================================
+       ICONS
+       -----------------------------------------------------
+       Les pages peuvent avoir icon dans DB.
+       Si l'icône DB n'est pas un SVG valide,
+       on utilise une icône générique.
+    ===================================================== */
+
+    const DEFAULT_ICON = `
+
+        <svg viewBox="0 0 24 24">
+
+            <rect
+                x="4"
+                y="4"
+                width="16"
+                height="16"
+                rx="2"
+            ></rect>
+
+            <path
+                d="M8 9h8"
+            ></path>
+
+            <path
+                d="M8 13h8"
+            ></path>
+
+            <path
+                d="M8 17h5"
+            ></path>
+
+        </svg>
+
+    `;
+
+
+    const ICONS = {
+
+        dashboard: `
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            </svg>
+        `,
+
+        production: `
+            <svg viewBox="0 0 24 24">
+                <path d="M4 20V10"></path>
+                <path d="M9 20V4"></path>
+                <path d="M14 20v-7"></path>
+                <path d="M19 20V7"></path>
+            </svg>
+        `,
+
+        planning: `
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5h16"></path>
+                <path d="M7 3v4"></path>
+                <path d="M17 3v4"></path>
+                <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+                <path d="M8 11h3"></path>
+                <path d="M13 11h3"></path>
+            </svg>
+        `,
+
+        quality: `
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+        `,
+
+        hse: `
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M12 8v4l3 2"></path>
+            </svg>
+        `,
+
+        stock: `
+            <svg viewBox="0 0 24 24">
+                <path d="M3 7l9-4 9 4-9 4-9-4z"></path>
+                <path d="M3 12l9 4 9-4"></path>
+                <path d="M3 17l9 4 9-4"></path>
+            </svg>
+        `,
+
+        expedition: `
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="6" width="13" height="10" rx="1"></rect>
+                <path d="M16 10h3l2 3v3h-5"></path>
+                <circle cx="7" cy="18" r="2"></circle>
+                <circle cx="18" cy="18" r="2"></circle>
+            </svg>
+        `,
+
+        reception: `
+            <svg viewBox="0 0 24 24">
+                <path d="M4 4h16v16H4z"></path>
+                <path d="M8 8h8"></path>
+                <path d="M8 12h8"></path>
+                <path d="M8 16h5"></path>
+            </svg>
+        `,
+
+        users: `
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3"></circle>
+                <path d="M5 21c0-4 3-7 7-7s7 3 7 7"></path>
+            </svg>
+        `,
+
+        settings: `
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3l2 2 3-.2.8 2.8 2.5 1.5-1.5 2.6.5 3-2.8 1-1 2.7-3-.8-2.7.8-1-2.7-2.8-1 .5-3L3 9.1l2.5-1.5.8-2.8 3 .2 2-2z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+        `,
+
+        reports: `
+            <svg viewBox="0 0 24 24">
+                <path d="M4 19V5"></path>
+                <path d="M4 18h16"></path>
+                <path d="M7 15l3-4 3 2 5-7"></path>
+            </svg>
+        `,
+
+        rh: `
+            <svg viewBox="0 0 24 24">
+                <circle cx="9" cy="8" r="3"></circle>
+                <circle cx="17" cy="9" r="2.5"></circle>
+                <path d="M3 21c0-4 2.5-7 6-7s6 3 6 7"></path>
+                <path d="M14 15c3 0 5 2 6 6"></path>
+            </svg>
+        `,
+
+        finance: `
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 6v12"></path>
+                <path d="M15 9c-.8-1-2-1.5-3-1.5-1.7 0-3 1-3 2.3 0 3.5 6 1.4 6 4.6 0 1.4-1.3 2.4-3 2.4-1.2 0-2.4-.5-3.2-1.5"></path>
+            </svg>
+        `,
+
+        achats: `
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5h16"></path>
+                <path d="M6 5l1 14h10l1-14"></path>
+                <path d="M9 9h6"></path>
+                <path d="M9 13h6"></path>
+            </svg>
+        `,
+
+        maintenance: `
+            <svg viewBox="0 0 24 24">
+                <path d="M14 6a5 5 0 0 0-6 6l-5 5 3 3 5-5a5 5 0 0 0 6-6l-3 3-3-3z"></path>
+            </svg>
+        `,
+
+        it: `
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="5" width="16" height="11" rx="2"></rect>
+                <path d="M8 20h8"></path>
+                <path d="M12 16v4"></path>
+            </svg>
+        `
+
+    };
+
+
+    /* =====================================================
+       GET ICON
+    ===================================================== */
+
+    function getPageIcon(
+        page
+    ) {
+
+        const code =
+            String(
+                page.code || ""
+            ).toUpperCase();
+
+
+        const module =
+            String(
+                page.module || ""
+            ).toUpperCase();
+
+
+        if (
+            code === "DASHBOARD"
+            ||
+            code === "HOME"
+        ) {
+
+            return ICONS.dashboard;
+        }
+
+
+        if (
+            module === "ABATTAGE"
+            ||
+            module === "DECOUPE"
+            ||
+            module === "FROID"
+        ) {
+
+            return ICONS.production;
+        }
+
+
+        if (
+            module === "RECEPTION_ANIMAUX"
+            ||
+            module === "RECEPTION"
+        ) {
+
+            return ICONS.reception;
+        }
+
+
+        if (
+            module === "STOCK"
+        ) {
+
+            return ICONS.stock;
+        }
+
+
+        if (
+            module === "EXPEDITION"
+            ||
+            module === "LOGISTIQUE"
+        ) {
+
+            return ICONS.expedition;
+        }
+
+
+        if (
+            module === "QUALITE"
+        ) {
+
+            return ICONS.quality;
+        }
+
+
+        if (
+            module === "HSE"
+        ) {
+
+            return ICONS.hse;
+        }
+
+
+        if (
+            module === "RH"
+        ) {
+
+            return ICONS.rh;
+        }
+
+
+        if (
+            module === "ACHATS"
+        ) {
+
+            return ICONS.achats;
+        }
+
+
+        if (
+            module === "FINANCE"
+        ) {
+
+            return ICONS.finance;
+        }
+
+
+        if (
+            module === "MAINTENANCE"
+        ) {
+
+            return ICONS.maintenance;
+        }
+
+
+        if (
+            module === "IT"
+        ) {
+
+            return ICONS.it;
+        }
+
+
+        if (
+            module === "REPORTING"
+        ) {
+
+            return ICONS.reports;
+        }
+
+
+        if (
+            module === "ADMINISTRATION"
+        ) {
+
+            return ICONS.users;
+        }
+
+
+        if (
+            code.includes("SETTING")
+            ||
+            code.includes("PARAM")
+        ) {
+
+            return ICONS.settings;
+        }
+
+
+        return DEFAULT_ICON;
+
+    }
+
+
+    /* =====================================================
+       MODULE LABEL
+    ===================================================== */
+
+    function getModuleLabel(
+        module
+    ) {
+
+        const labels = {
+
+            GENERAL:
+                "Général",
+
+            ADMINISTRATION:
+                "Administration",
+
+            RH:
+                "Ressources humaines",
+
+            RECEPTION_ANIMAUX:
+                "Réception animaux",
+
+            ABATTAGE:
+                "Abattage",
+
+            DECOUPE:
+                "Découpe",
+
+            FROID:
+                "Froid",
+
+            STOCK:
+                "Stock",
+
+            EXPEDITION:
+                "Expédition",
+
+            RECEPTION:
+                "Réception",
+
+            ACHATS:
+                "Achats",
+
+            FINANCE:
+                "Finance",
+
+            COMMERCIAL:
+                "Commercial",
+
+            QUALITE:
+                "Qualité",
+
+            HSE:
+                "HSE",
+
+            MAINTENANCE:
+                "Maintenance",
+
+            IT:
+                "Informatique",
+
+            REPORTING:
+                "Reporting"
+
+        };
+
+
+        return labels[
+            String(
+                module || "GENERAL"
+            ).toUpperCase()
+        ]
+        ||
+        module
+        ||
+        "Général";
+
+    }
+
+
+    /* =====================================================
+       PAGE URL
+       -----------------------------------------------------
+       path est récupéré directement depuis DB.
+       ===================================================== */
+
+    function getPagePath(
+        page
+    ) {
+
+        const path =
+            String(
+                page.page_path
+                ||
+                ""
+            ).trim();
+
+
+        if (!path) {
+
+            return null;
+        }
+
+
+        if (
+            page.page_code === "DASHBOARD"
+            ||
+            page.page_code === "HOME"
+        ) {
+
+            return "index.html";
+        }
+
+
+        return path;
+
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    function navigateToPage(
+        page
+    ) {
+
+        const path =
+            getPagePath(
+                page
+            );
+
+
+        if (!path) {
+
+            console.warn(
+                "Cette page n'a pas de path:",
+                page
+            );
+
+            return;
+        }
+
+
+        window.location.href =
+            path;
+
+    }
+
+
+    /* =====================================================
+       CREATE NAV ITEM
+    ===================================================== */
+
+    function createNavItem(
+        page
+    ) {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.type =
+            "button";
+
+
+        button.className =
+            "nav-item";
+
+
+        button.dataset.pageId =
+            page.page_id;
+
+
+        button.dataset.pageCode =
+            page.page_code;
+
+
+        const icon =
+            document.createElement(
+                "span"
+            );
+
+
+        icon.className =
+            "nav-icon";
+
+
+        icon.innerHTML =
+            getPageIcon(
+                page
+            );
+
+
+        const text =
+            document.createElement(
+                "span"
+            );
+
+
+        text.className =
+            "nav-text";
+
+
+        text.textContent =
+            page.page_name
+            ||
+            page.page_code
+            ||
+            "Page";
+
+
+        button.appendChild(
+            icon
+        );
+
+
+        button.appendChild(
+            text
+        );
+
+
+        const path =
+            getPagePath(
+                page
+            );
+
+
+        if (path) {
+
+            const arrow =
+                document.createElement(
+                    "span"
+                );
+
+
+            arrow.className =
+                "nav-arrow";
+
+
+            arrow.textContent =
+                "›";
+
+
+            button.appendChild(
+                arrow
+            );
+
+        }
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                setActiveNav(
+                    button
+                );
+
+
+                navigateToPage(
+                    page
+                );
+
+            }
+        );
+
+
+        return button;
+
+    }
+
+
+    /* =====================================================
+       ACTIVE NAV
+    ===================================================== */
+
+    function setActiveNav(
+        activeButton
+    ) {
+
+        const items =
+            sidebarNav.querySelectorAll(
+                ".nav-item"
+            );
+
+
+        items.forEach(
+            item =>
+                item.classList.remove(
+                    "active"
+                )
+        );
+
+
+        if (activeButton) {
+
+            activeButton.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CURRENT PAGE CODE
+    ===================================================== */
+
+    function getCurrentPageCode() {
+
+        const currentPath =
+            window.location.pathname
+                .split("/")
+                .pop()
+                .toLowerCase();
+
+
+        if (
+            currentPath === ""
+            ||
+            currentPath === "index.html"
+        ) {
+
+            return "DASHBOARD";
+        }
+
+
+        return null;
+
+    }
+
+
+    /* =====================================================
+       RENDER SIDEBAR
+    ===================================================== */
+
+    function renderSidebar(
+        pages
+    ) {
+
+        sidebarNav.innerHTML =
+            "";
+
+
+        if (
+            !pages ||
+            pages.length === 0
+        ) {
+
+            sidebarNav.innerHTML = `
+
+                <div class="nav-error">
+
+                    Aucun accès aux pages.
+                    <br><br>
+                    Contactez l'administrateur.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /*
+         * Grouper les pages par module
+         */
+
+        const groups =
+            new Map();
+
+
+        pages.forEach(
+            page => {
+
+                const module =
+                    String(
+                        page.module
+                        ||
+                        "GENERAL"
+                    ).toUpperCase();
+
+
+                if (
+                    !groups.has(
+                        module
+                    )
+                ) {
+
+                    groups.set(
+                        module,
+                        []
+                    );
+
+                }
+
+
+                groups
+                    .get(module)
+                    .push(page);
+
+            }
+        );
+
+
+        /*
+         * Trier les groupes
+         * GENERAL en premier
+         */
+
+        const sortedGroups =
+            Array.from(
+                groups.entries()
+            ).sort(
+                function (
+                    a,
+                    b
+                ) {
+
+                    if (
+                        a[0] === "GENERAL"
+                    ) {
+
+                        return -1;
+                    }
+
+
+                    if (
+                        b[0] === "GENERAL"
+                    ) {
+
+                        return 1;
+                    }
+
+
+                    return a[0]
+                        .localeCompare(
+                            b[0]
+                        );
+
+                }
+            );
+
+
+        const currentCode =
+            getCurrentPageCode();
+
+
+        sortedGroups.forEach(
+            function (
+                [
+                    module,
+                    modulePages
+                ]
+            ) {
+
+
+                /*
+                 * Section
+                 */
+
+                const section =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                section.className =
+                    "nav-section";
+
+
+                section.textContent =
+                    getModuleLabel(
+                        module
+                    );
+
+
+                sidebarNav.appendChild(
+                    section
+                );
+
+
+                /*
+                 * Sort pages
+                 */
+
+                modulePages.sort(
+                    function (
+                        a,
+                        b
+                    ) {
+
+                        const orderA =
+                            Number(
+                                a.sort_order
+                                ||
+                                0
+                            );
+
+
+                        const orderB =
+                            Number(
+                                b.sort_order
+                                ||
+                                0
+                            );
+
+
+                        if (
+                            orderA !==
+                            orderB
+                        ) {
+
+                            return (
+                                orderA -
+                                orderB
+                            );
+
+                        }
+
+
+                        return String(
+                            a.page_name
+                            ||
+                            ""
+                        ).localeCompare(
+                            String(
+                                b.page_name
+                                ||
+                                ""
+                            ),
+                            "fr"
+                        );
+
+                    }
+                );
+
+
+                modulePages.forEach(
+                    function (
+                        page
+                    ) {
+
+                        const item =
+                            createNavItem(
+                                page
+                            );
+
+
+                        if (
+                            currentCode
+                            &&
+                            String(
+                                page.page_code
+                                ||
+                                ""
+                            ).toUpperCase()
+                            ===
+                            currentCode
+                        ) {
+
+                            item.classList.add(
+                                "active"
+                            );
+
+                        }
+
+
+                        sidebarNav.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       LOAD EFFECTIVE PAGES
+       ===================================================== */
+
+    async function loadUserPages() {
+
+
+        if (
+            !currentUser ||
+            !currentUser.id
+        ) {
+
+            console.error(
+                "User ID manquant."
+            );
+
+            sidebarNav.innerHTML = `
+
+                <div class="nav-error">
+
+                    Session utilisateur invalide.
+
+                </div>
+
+            `;
+
+            return [];
+
+        }
+
+
+        try {
+
+
+            const client =
+                getSupabase();
+
+
+            console.log(
+                "Chargement des pages pour user_id:",
+                currentUser.id
+            );
+
+
+            const {
+                data,
+                error
+            } = await client
+
+                .from(
+                    "v_user_effective_pages"
+                )
+
+                .select(
+                    "*"
+                )
+
+                .eq(
+                    "user_id",
+                    currentUser.id
+                )
+
+                .eq(
+                    "can_view",
+                    true
+                )
+
+                .order(
+                    "sort_order",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Erreur pages:",
+                    error
+                );
+
+
+                sidebarNav.innerHTML = `
+
+                    <div class="nav-error">
+
+                        Impossible de charger
+                        les pages autorisées.
+
+                        <br><br>
+
+                        Vérifiez la connexion
+                        Supabase.
+
+                    </div>
+
+                `;
+
+
+                quickGrid.innerHTML = `
+
+                    <div class="quick-empty">
+
+                        Impossible de charger
+                        les accès.
+
+                    </div>
+
+                `;
+
+
+                return [];
+
+            }
+
+
+            console.log(
+                "Pages autorisées:",
+                data
+            );
+
+
+            renderSidebar(
+                data
+            );
+
+
+            renderQuickAccess(
+                data
+            );
+
+
+            return data || [];
+
+
+        } catch (error) {
+
+            console.error(
+                "Erreur chargement pages:",
+                error
+            );
+
+
+            sidebarNav.innerHTML = `
+
+                <div class="nav-error">
+
+                    Erreur système lors du
+                    chargement des accès.
+
+                </div>
+
+            `;
+
+
+            return [];
+
+        }
+
+    }
+
+
+    /* =====================================================
+       QUICK ACCESS
+       -----------------------------------------------------
+       Affiche uniquement les pages autorisées.
+    ===================================================== */
+
+    function renderQuickAccess(
+        pages
+    ) {
+
+
+        quickGrid.innerHTML =
+            "";
+
+
+        if (
+            !pages ||
+            pages.length === 0
+        ) {
+
+            quickGrid.innerHTML = `
+
+                <div class="quick-empty">
+
+                    Aucune page disponible.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /*
+         * On limite l'accès rapide
+         * aux 6 premières pages.
+         */
+
+        const quickPages =
+            pages
+                .slice(
+                    0,
+                    6
+                );
+
+
+        quickPages.forEach(
+            function (
+                page
+            ) {
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "quick-item";
+
+
+                item.title =
+                    page.page_name
+                    ||
+                    page.page_code
+                    ||
+                    "Page";
+
+
+                const icon =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                icon.innerHTML =
+                    getPageIcon(
+                        page
+                    );
+
+
+                const label =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                label.textContent =
+                    page.page_name
+                    ||
+                    page.page_code
+                    ||
+                    "Page";
+
+
+                item.appendChild(
+                    icon
+                );
+
+
+                item.appendChild(
+                    label
+                );
+
+
+                item.addEventListener(
+                    "click",
+                    function () {
+
+                        navigateToPage(
+                            page
+                        );
+
+                    }
+                );
+
+
+                quickGrid.appendChild(
+                    item
+                );
+
+            }
+        );
 
     }
 
@@ -3205,7 +3967,8 @@
 
         const dateCapitalized =
             date.charAt(0)
-                .toUpperCase() +
+                .toUpperCase()
+            +
             date.slice(1);
 
 
@@ -3219,6 +3982,7 @@
 
         welcomeTime.textContent =
             time;
+
     }
 
 
@@ -3234,12 +3998,6 @@
     /* =====================================================
        LOGOUT
     ===================================================== */
-
-    const logoutButton =
-        document.getElementById(
-            "logoutButton"
-        );
-
 
     logoutButton.addEventListener(
         "click",
@@ -3263,8 +4021,13 @@
             );
 
 
+            localStorage.removeItem(
+                SESSION_KEY
+            );
+
+
             window.location.href =
-                "login.html";
+                LOGIN_PAGE;
 
         }
     );
@@ -3273,24 +4036,6 @@
     /* =====================================================
        SIDEBAR MOBILE
     ===================================================== */
-
-    const sidebar =
-        document.getElementById(
-            "sidebar"
-        );
-
-
-    const sidebarOverlay =
-        document.getElementById(
-            "sidebarOverlay"
-        );
-
-
-    const mobileMenu =
-        document.getElementById(
-            "mobileMenu"
-        );
-
 
     function openSidebar() {
 
@@ -3301,6 +4046,7 @@
         sidebarOverlay.classList.add(
             "show"
         );
+
     }
 
 
@@ -3313,6 +4059,7 @@
         sidebarOverlay.classList.remove(
             "show"
         );
+
     }
 
 
@@ -3329,51 +4076,35 @@
 
 
     /* =====================================================
-       NAVIGATION UI
+       START APPLICATION
     ===================================================== */
 
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
+    async function initializeApplication() {
 
 
-    navItems.forEach(
-        function (item) {
+        if (!currentUser) {
 
-            item.addEventListener(
-                "click",
-                function () {
-
-
-                    navItems.forEach(
-                        function (nav) {
-
-                            nav.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                    item.classList.add(
-                        "active"
-                    );
-
-
-                    if (
-                        window.innerWidth <= 800
-                    ) {
-
-                        closeSidebar();
-                    }
-
-                }
-            );
-
+            return;
         }
-    );
+
+
+        /*
+         * 1. Afficher le rôle
+         */
+
+        await loadUserRole();
+
+
+        /*
+         * 2. Charger les pages autorisées
+         */
+
+        await loadUserPages();
+
+    }
+
+
+    initializeApplication();
 
 
 </script>
