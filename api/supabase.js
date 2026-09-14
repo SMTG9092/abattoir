@@ -9,7 +9,7 @@
  * مثال:
  * https://xxxxxxxxxxxx.supabase.co
  */
-const SUPABASE_URL = "TON_SUPABASE_URL";
+const SUPABASE_URL = "https://bosliivjsmhpuietbcim.supabase.co";
 
 
 /*
@@ -17,7 +17,7 @@ const SUPABASE_URL = "TON_SUPABASE_URL";
  *
  * ⚠️ ممنوع تحط service_role key هنا
  */
-const SUPABASE_ANON_KEY = "TON_SUPABASE_ANON_KEY";
+const SUPABASE_ANON_KEY = "sb_publishable_dg7EBn5bAcr8VIcsbhopGA_ewJsG9iS";
 
 
 /* =========================================================
