@@ -17,7 +17,7 @@ const SUPABASE_URL = "https://bosliivjsmhpuietbcim.supabase.co";
  *
  * ⚠️ ممنوع تحط service_role key هنا
  */
-const SUPABASE_ANON_KEY = "sb_publishable_dg7EBn5bAcr8VIcsbhopGA_ewJsG9iS";
+const SUPABASE_ANON_KEY = "sb_secret_VPwl2AD03tkVc47p81p9wg_YxzYDYQ4";
 
 
 /* =========================================================
