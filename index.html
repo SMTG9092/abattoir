@@ -5195,45 +5195,303 @@
 
     /* =====================================================
        LOGOUT
+       -----------------------------------------------------
+       Déconnexion complète :
+       - Ferme la session ACTIVE dans Supabase
+       - Met à jour login_history
+       - Écrit les logs si disponibles
+       - Nettoie le navigateur
+       - Retourne vers login.html
     ===================================================== */
 
     logoutButton.addEventListener(
         "click",
-        function() {
-
+        async function() {
 
             const confirmLogout =
                 confirm(
                     "Voulez-vous vraiment vous déconnecter ?"
                 );
 
-
             if (!confirmLogout) {
-
                 return;
             }
 
+            logoutButton.disabled = true;
+            logoutButton.style.opacity = "0.6";
 
-            sessionStorage.removeItem(
-                SESSION_KEY
-            );
+            try {
+
+                const client = getSupabase();
+
+                /*
+                 * Récupérer le session_id actuel.
+                 *
+                 * Priorité :
+                 * 1. sessionStorage
+                 * 2. currentUser.session_id
+                 */
+                const currentSessionId =
+                    sessionStorage.getItem(
+                        "smtg_session_id"
+                    )
+                    ||
+                    (
+                        currentUser &&
+                        currentUser.session_id
+                        ?
+                        currentUser.session_id
+                        :
+                        null
+                    );
+
+                console.log(
+                    "Déconnexion de la session:",
+                    currentSessionId
+                );
 
 
-            localStorage.removeItem(
-                SESSION_KEY
-            );
+                /* =================================================
+                   1. FERMER LA SESSION DANS DATABASE
+                ================================================= */
+
+                if (currentSessionId) {
+
+                    const {
+                        error: sessionError
+                    } = await client
+                        .from("sessions")
+                        .update({
+                            status:
+                                "LOGGED_OUT",
+
+                            logout_at:
+                                new Date().toISOString(),
+
+                            updated_at:
+                                new Date().toISOString()
+                        })
+                        .eq(
+                            "session_id",
+                            currentSessionId
+                        )
+                        .eq(
+                            "status",
+                            "ACTIVE"
+                        );
+
+                    if (sessionError) {
+
+                        console.error(
+                            "Erreur fermeture session:",
+                            sessionError
+                        );
+
+                    } else {
+
+                        console.log(
+                            "Session fermée avec succès."
+                        );
+
+                    }
+
+                } else {
+
+                    console.warn(
+                        "Aucun session_id trouvé."
+                    );
+
+                }
 
 
-            /*
-             * Nettoyer iframe
-             */
+                /* =================================================
+                   2. UPDATE LOGIN HISTORY
+                ================================================= */
 
-            pageFrame.src =
-                "about:blank";
+                if (currentSessionId) {
+
+                    const {
+                        error: historyError
+                    } = await client
+                        .from("login_history")
+                        .update({
+                            logout_at:
+                                new Date().toISOString()
+                        })
+                        .eq(
+                            "session_id",
+                            currentSessionId
+                        )
+                        .is(
+                            "logout_at",
+                            null
+                        );
+
+                    if (historyError) {
+
+                        console.error(
+                            "Erreur login_history:",
+                            historyError
+                        );
+
+                    }
+
+                }
 
 
-            window.location.href =
-                LOGIN_PAGE;
+                /* =================================================
+                   3. ACTIVITY LOG
+                ================================================= */
+
+                try {
+
+                    if (
+                        window.SMTG &&
+                        typeof window.SMTG.logActivity ===
+                        "function"
+                    ) {
+
+                        await window.SMTG.logActivity(
+                            "LOGOUT",
+                            "AUTHENTICATION",
+                            "index.html",
+                            "Déconnexion utilisateur",
+                            "SESSION",
+                            null,
+                            {
+                                session_id:
+                                    currentSessionId
+                            }
+                        );
+
+                    }
+
+                } catch (activityError) {
+
+                    console.error(
+                        "Erreur activity log:",
+                        activityError
+                    );
+
+                }
+
+
+                /* =================================================
+                   4. SYSTEM LOG
+                ================================================= */
+
+                try {
+
+                    if (
+                        window.SMTG &&
+                        typeof window.SMTG.logSystem ===
+                        "function"
+                    ) {
+
+                        await window.SMTG.logSystem(
+                            "INFO",
+                            "AUTHENTICATION",
+                            "index.html",
+                            "LOGOUT",
+                            "Déconnexion utilisateur",
+                            null,
+                            {
+                                session_id:
+                                    currentSessionId,
+
+                                username:
+                                    currentUser
+                                    ?
+                                    currentUser.username
+                                    :
+                                    null
+                            }
+                        );
+
+                    }
+
+                } catch (systemError) {
+
+                    console.error(
+                        "Erreur system log:",
+                        systemError
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                /*
+                 * Même si une opération DB/log échoue,
+                 * on nettoie toujours le navigateur.
+                 */
+                console.error(
+                    "Erreur pendant la déconnexion:",
+                    error
+                );
+
+            } finally {
+
+                /* =================================================
+                   5. NETTOYAGE DU NAVIGATEUR
+                ================================================= */
+
+                sessionStorage.removeItem(
+                    "smtg_current_user"
+                );
+
+                sessionStorage.removeItem(
+                    "smtg_session_id"
+                );
+
+                localStorage.removeItem(
+                    "smtg_current_user"
+                );
+
+                localStorage.removeItem(
+                    "smtg_session_id"
+                );
+
+                /*
+                 * Ancienne clé éventuelle
+                 */
+                sessionStorage.removeItem(
+                    "smtgUser"
+                );
+
+                localStorage.removeItem(
+                    "smtgUser"
+                );
+
+
+                /* =================================================
+                   6. NETTOYER L'IFRAME
+                ================================================= */
+
+                try {
+
+                    pageFrame.src =
+                        "about:blank";
+
+                } catch (e) {
+
+                    console.warn(
+                        "Impossible de nettoyer iframe:",
+                        e
+                    );
+
+                }
+
+
+                /* =================================================
+                   7. RETOUR LOGIN
+                ================================================= */
+
+                window.location.href =
+                    LOGIN_PAGE;
+
+            }
 
         }
     );
