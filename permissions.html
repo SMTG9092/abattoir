@@ -10,10 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        Permissions - SMTG Abattoir
-    </title>
-
+    <title>Permissions - SMTG Abattoir</title>
 
     <!-- =====================================================
          SUPABASE
@@ -42,25 +39,18 @@
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
-
 
         html,
         body {
-
             width: 100%;
             min-width: 0;
             min-height: 100%;
-
             margin: 0;
             padding: 0;
         }
 
-
         body {
-
             font-family:
                 "Segoe UI",
                 Arial,
@@ -73,17 +63,13 @@
             overflow-x: hidden;
         }
 
-
         button,
         input,
         select {
-
             font-family: inherit;
         }
 
-
         button {
-
             cursor: pointer;
         }
 
@@ -93,30 +79,22 @@
         ====================================================== */
 
         .page {
-
             width: 100% !important;
-
             max-width: none !important;
-
             min-width: 0;
 
             min-height: 100vh;
 
             padding:
-                clamp(14px, 1.5vw, 28px);
+                clamp(16px, 1.5vw, 28px);
         }
 
-
         .container {
-
             width: 100% !important;
-
             max-width: none !important;
-
             min-width: 0;
 
             margin: 0 !important;
-
             padding: 0 !important;
         }
 
@@ -126,13 +104,10 @@
         ====================================================== */
 
         .page-header {
-
             width: 100%;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 20px;
@@ -140,30 +115,23 @@
             margin-bottom: 18px;
         }
 
-
         .header-left {
+            min-width: 0;
 
             display: flex;
-
             align-items: center;
 
             gap: 13px;
-
-            min-width: 0;
         }
 
-
         .header-icon {
-
             width: 48px;
             height: 48px;
 
-            flex-shrink: 0;
+            flex: 0 0 48px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             border-radius: 12px;
@@ -172,53 +140,46 @@
                 linear-gradient(
                     135deg,
                     #315bd6,
-                    #183a91
+                    #193a8e
                 );
 
-            color: white;
+            color: #fff;
 
             font-size: 20px;
 
             box-shadow:
-                0 7px 18px
+                0 8px 20px
                 rgba(49, 91, 214, .20);
         }
 
-
         .header-title {
-
             min-width: 0;
         }
 
-
         .header-title h1 {
+            margin: 0;
+
+            color: #17233b;
 
             font-size:
-                clamp(19px, 1.35vw, 26px);
+                clamp(20px, 1.35vw, 27px);
 
             font-weight: 750;
 
             line-height: 1.2;
-
-            color: #152238;
         }
 
-
         .header-title p {
+            margin: 4px 0 0;
 
-            margin-top: 4px;
-
-            color: #7b8798;
+            color: #7d899a;
 
             font-size:
                 clamp(9px, .65vw, 12px);
         }
 
-
         .header-actions {
-
             display: flex;
-
             align-items: center;
 
             gap: 8px;
@@ -228,110 +189,93 @@
 
 
         /* =====================================================
-           BUTTON
+           BUTTONS
         ====================================================== */
 
         .btn {
-
             min-height: 38px;
 
             padding:
                 0 14px;
 
-            border: none;
+            border: 0;
 
             border-radius: 8px;
 
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
 
             gap: 7px;
 
-            font-size: 11px;
+            font-size: 10px;
 
             font-weight: 700;
 
             white-space: nowrap;
 
-            transition: .2s;
+            transition:
+                background .2s,
+                transform .2s,
+                box-shadow .2s;
         }
 
-
         .btn:hover {
-
             transform:
                 translateY(-1px);
         }
 
-
         .btn-primary {
-
-            color: white;
-
             background: #315bd6;
+            color: #fff;
 
             box-shadow:
-                0 5px 12px
+                0 5px 14px
                 rgba(49, 91, 214, .18);
         }
 
-
         .btn-primary:hover {
-
-            background: #264dbb;
+            background: #274dbb;
         }
-
 
         .btn-secondary {
-
-            color: #344054;
-
             background: #eef2f7;
+            color: #344054;
         }
-
 
         .btn-secondary:hover {
-
-            background: #e2e8f0;
+            background: #e3e8ef;
         }
-
 
         .btn-success {
-
-            color: white;
-
             background: #198754;
+            color: #fff;
+
+            box-shadow:
+                0 5px 14px
+                rgba(25, 135, 84, .16);
         }
 
-
         .btn-success:hover {
-
             background: #157347;
         }
 
-
         .btn:disabled {
-
-            opacity: .5;
-
+            opacity: .45;
             cursor: not-allowed;
-
             transform: none;
+            box-shadow: none;
         }
 
 
         /* =====================================================
-           ROLE SELECT CARD
+           ROLE CARD
         ====================================================== */
 
         .role-card {
-
             width: 100%;
 
-            background: white;
+            background: #fff;
 
             border:
                 1px solid #e5eaf0;
@@ -339,71 +283,56 @@
             border-radius: 13px;
 
             padding:
-                clamp(14px, 1.2vw, 20px);
+                16px 18px;
 
-            margin-bottom: 15px;
+            margin-bottom: 14px;
 
             box-shadow:
                 0 5px 18px
                 rgba(15, 23, 42, .035);
         }
 
-
         .role-card-inner {
-
             display: flex;
-
             align-items: center;
 
-            gap: 15px;
-
-            flex-wrap: wrap;
+            gap: 16px;
         }
-
 
         .role-info {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            flex: 1 1 300px;
+            flex: 1 1 auto;
 
             min-width: 0;
-        }
-
-
-        .role-info-icon {
-
-            width: 42px;
-
-            height: 42px;
-
-            border-radius: 10px;
-
-            flex-shrink: 0;
 
             display: flex;
-
             align-items: center;
 
+            gap: 11px;
+        }
+
+        .role-icon {
+            width: 42px;
+            height: 42px;
+
+            flex: 0 0 42px;
+
+            display: flex;
+            align-items: center;
             justify-content: center;
+
+            border-radius: 10px;
 
             background: #edf3ff;
 
             color: #315bd6;
         }
 
-
-        .role-info-text {
-
+        .role-text {
             min-width: 0;
         }
 
-
-        .role-info-text h2 {
+        .role-text h2 {
+            margin: 0;
 
             color: #182337;
 
@@ -412,52 +341,43 @@
             font-weight: 750;
         }
 
-
-        .role-info-text p {
+        .role-text p {
+            margin: 3px 0 0;
 
             color: #98a2b3;
 
             font-size: 9px;
-
-            margin-top: 3px;
         }
-
 
         .role-select-wrap {
-
             flex:
-                0 1 330px;
+                0 1 390px;
 
-            min-width: 230px;
+            min-width: 260px;
         }
 
-
         .role-select {
-
             width: 100%;
-
             height: 40px;
+
+            padding:
+                0 12px;
 
             border:
                 1px solid #dce2e9;
 
             border-radius: 8px;
 
-            padding:
-                0 11px;
-
-            outline: none;
+            background: #fff;
 
             color: #344054;
 
-            background: white;
-
             font-size: 11px;
+
+            outline: none;
         }
 
-
         .role-select:focus {
-
             border-color: #315bd6;
 
             box-shadow:
@@ -467,11 +387,40 @@
 
 
         /* =====================================================
+           SELECTED ROLE BADGE
+        ====================================================== */
+
+        .selected-role {
+            display: none;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding:
+                6px 9px;
+
+            border-radius: 20px;
+
+            background: #edf3ff;
+
+            color: #315bd6;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+        .selected-role.visible {
+            display: inline-flex;
+        }
+
+
+        /* =====================================================
            STATS
         ====================================================== */
 
         .stats {
-
             width: 100%;
 
             display: grid;
@@ -482,112 +431,87 @@
                     minmax(0, 1fr)
                 );
 
-            gap: 12px;
+            gap: 11px;
 
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
-
         .stat {
-
             min-width: 0;
 
-            background: white;
+            background: #fff;
 
             border:
                 1px solid #e5eaf0;
 
             border-radius: 11px;
 
-            padding: 13px;
+            padding:
+                12px 14px;
 
             display: flex;
-
             align-items: center;
 
             gap: 10px;
         }
 
-
         .stat-icon {
-
             width: 36px;
-
             height: 36px;
 
-            border-radius: 9px;
-
-            flex-shrink: 0;
+            flex: 0 0 36px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
+
+            border-radius: 9px;
 
             background: #edf3ff;
 
             color: #315bd6;
         }
 
-
-        .stat:nth-child(2)
-        .stat-icon {
-
+        .stat:nth-child(2) .stat-icon {
             background: #eaf8f0;
-
             color: #198754;
         }
 
-
-        .stat:nth-child(3)
-        .stat-icon {
-
+        .stat:nth-child(3) .stat-icon {
             background: #fff7df;
-
             color: #d89400;
         }
 
-
-        .stat:nth-child(4)
-        .stat-icon {
-
-            background: #fff0f1;
-
-            color: #dc3545;
-        }
-
-
-        .stat:nth-child(5)
-        .stat-icon {
-
+        .stat:nth-child(4) .stat-icon {
             background: #f1edff;
-
             color: #7048d9;
         }
 
+        .stat:nth-child(5) .stat-icon {
+            background: #fff0f1;
+            color: #dc3545;
+        }
+
+        .stat-info {
+            min-width: 0;
+        }
 
         .stat-label {
-
             color: #8993a4;
 
-            font-size: 9px;
+            font-size: 8px;
 
             white-space: nowrap;
-
             overflow: hidden;
-
             text-overflow: ellipsis;
         }
 
-
         .stat-value {
-
             margin-top: 2px;
 
             color: #182337;
 
-            font-size: 19px;
+            font-size: 18px;
 
             font-weight: 750;
         }
@@ -598,12 +522,12 @@
         ====================================================== */
 
         .main-card {
-
-            width: 100%;
+            width: 100% !important;
+            max-width: none !important;
 
             min-width: 0;
 
-            background: white;
+            background: #fff;
 
             border:
                 1px solid #e5eaf0;
@@ -623,17 +547,15 @@
         ====================================================== */
 
         .toolbar {
-
             width: 100%;
 
             padding:
-                14px 16px;
+                13px 15px;
 
             display: flex;
-
             align-items: center;
 
-            gap: 9px;
+            gap: 8px;
 
             flex-wrap: wrap;
 
@@ -641,24 +563,19 @@
                 1px solid #edf0f4;
         }
 
-
-        .search-box {
-
+        .search {
             position: relative;
 
             flex:
-                1 1 360px;
+                1 1 400px;
 
             min-width: 220px;
         }
 
-
-        .search-box i {
-
+        .search i {
             position: absolute;
 
             left: 12px;
-
             top: 50%;
 
             transform:
@@ -666,52 +583,47 @@
 
             color: #98a2b3;
 
-            font-size: 11px;
+            font-size: 10px;
 
             pointer-events: none;
         }
 
-
-        .search-box input {
-
+        .search input {
             width: 100%;
-
             height: 38px;
 
             padding:
-                0 12px 0 34px;
+                0 12px 0 33px;
 
             border:
                 1px solid #dfe4eb;
 
             border-radius: 8px;
 
-            outline: none;
+            background: #fff;
 
             color: #344054;
 
-            font-size: 11px;
+            font-size: 10px;
+
+            outline: none;
         }
 
-
-        .search-box input:focus {
-
+        .search input:focus {
             border-color: #315bd6;
 
             box-shadow:
                 0 0 0 3px
-                rgba(49, 91, 214, .08);
+                rgba(49, 91, 214, .07);
         }
 
-
         .filter {
+            height: 38px;
 
             flex:
                 0 1 190px;
 
             min-width: 150px;
-
-            height: 38px;
 
             padding:
                 0 10px;
@@ -721,13 +633,17 @@
 
             border-radius: 8px;
 
-            outline: none;
+            background: #fff;
 
             color: #344054;
 
-            background: white;
+            font-size: 10px;
 
-            font-size: 11px;
+            outline: none;
+        }
+
+        .filter:focus {
+            border-color: #315bd6;
         }
 
 
@@ -736,7 +652,6 @@
         ====================================================== */
 
         .table-container {
-
             width: 100%;
 
             overflow-x: auto;
@@ -744,36 +659,28 @@
             -webkit-overflow-scrolling: touch;
         }
 
-
         table {
-
             width: 100%;
 
             min-width: 1050px;
 
             border-collapse: collapse;
+
+            table-layout: fixed;
         }
-
-
-        thead {
-
-            background: #f8fafc;
-        }
-
 
         th {
-
             padding:
-                11px 13px;
+                11px 12px;
+
+            background: #f8fafc;
 
             border-bottom:
                 1px solid #e6eaf0;
 
-            text-align: left;
-
             color: #667085;
 
-            font-size: 9px;
+            font-size: 8px;
 
             font-weight: 750;
 
@@ -781,29 +688,121 @@
 
             letter-spacing: .3px;
 
+            text-align: left;
+
             white-space: nowrap;
         }
 
-
         td {
-
             padding:
-                11px 13px;
+                11px 12px;
 
             border-bottom:
                 1px solid #edf0f3;
 
             color: #344054;
 
-            font-size: 10px;
+            font-size: 9px;
 
             vertical-align: middle;
         }
 
-
         tbody tr:hover {
-
             background: #fafbfd;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+
+        /* =====================================================
+           COLUMN WIDTHS
+        ====================================================== */
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 29%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 14%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5),
+        th:nth-child(6),
+        td:nth-child(6),
+        th:nth-child(7),
+        td:nth-child(7) {
+            width: 8%;
+            text-align: center;
+        }
+
+        th:nth-child(8),
+        td:nth-child(8) {
+            width: 15%;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        .page-cell {
+            min-width: 0;
+        }
+
+        .page-name {
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+
+            color: #182337;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .page-name i {
+            width: 17px;
+
+            flex-shrink: 0;
+
+            color: #315bd6;
+
+            text-align: center;
+        }
+
+        .page-code {
+            margin-top: 3px;
+
+            color: #98a2b3;
+
+            font-family:
+                Consolas,
+                monospace;
+
+            font-size: 7px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
         }
 
 
@@ -812,10 +811,10 @@
         ====================================================== */
 
         .module {
-
             display: inline-flex;
-
             align-items: center;
+
+            max-width: 100%;
 
             padding:
                 5px 8px;
@@ -826,45 +825,15 @@
 
             color: #596579;
 
-            font-size: 8px;
+            font-size: 7px;
 
             font-weight: 750;
 
             white-space: nowrap;
-        }
 
+            overflow: hidden;
 
-        /* =====================================================
-           PAGE INFO
-        ====================================================== */
-
-        .page-info {
-
-            min-width: 250px;
-        }
-
-
-        .page-name {
-
-            color: #182337;
-
-            font-weight: 700;
-
-            font-size: 10px;
-        }
-
-
-        .page-code {
-
-            margin-top: 3px;
-
-            color: #98a2b3;
-
-            font-size: 8px;
-
-            font-family:
-                Consolas,
-                monospace;
+            text-overflow: ellipsis;
         }
 
 
@@ -872,163 +841,112 @@
            PERMISSION SWITCH
         ====================================================== */
 
-        .permission {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
+        .permission-cell {
+            text-align: center;
         }
 
+        .switch {
+            position: relative;
 
-        .permission input {
+            display: inline-block;
 
+            width: 32px;
+            height: 19px;
+        }
+
+        .switch input {
             display: none;
         }
 
+        .switch-slider {
+            position: absolute;
 
-        .permission label {
-
-            width: 32px;
-
-            height: 22px;
+            inset: 0;
 
             border-radius: 20px;
 
-            background: #dce2e9;
-
-            position: relative;
-
-            cursor: pointer;
+            background: #d9dee6;
 
             transition: .2s;
+
+            cursor: pointer;
         }
 
-
-        .permission label::after {
-
+        .switch-slider::after {
             content: "";
 
             position: absolute;
 
-            width: 16px;
+            width: 13px;
+            height: 13px;
 
-            height: 16px;
+            top: 3px;
+            left: 3px;
 
             border-radius: 50%;
 
-            background: white;
-
-            top: 3px;
-
-            left: 3px;
+            background: #fff;
 
             box-shadow:
-                0 1px 4px
-                rgba(0,0,0,.15);
+                0 1px 3px
+                rgba(0,0,0,.16);
 
             transition: .2s;
         }
 
-
-        .permission input:checked + label {
-
+        .switch input:checked + .switch-slider {
             background: #315bd6;
         }
 
-
-        .permission input:checked + label::after {
-
-            left: 13px;
+        .switch input:checked + .switch-slider::after {
+            left: 16px;
         }
 
-
-        .permission input:disabled + label {
-
+        .switch input:disabled + .switch-slider {
             opacity: .35;
-
             cursor: not-allowed;
         }
 
 
         /* =====================================================
-           PROTECTED
+           STATE BADGES
         ====================================================== */
 
-        .protected {
-
+        .badge {
             display: inline-flex;
-
             align-items: center;
 
             gap: 5px;
 
             padding:
-                4px 7px;
+                5px 8px;
 
             border-radius: 20px;
 
+            font-size: 7px;
+
+            font-weight: 750;
+
+            white-space: nowrap;
+        }
+
+        .badge i {
+            font-size: 6px;
+        }
+
+        .badge.allowed {
+            background: #eaf8f0;
+            color: #16834b;
+        }
+
+        .badge.denied {
+            background: #f1f3f5;
+            color: #68707d;
+        }
+
+        .badge.protected {
             background: #fff7df;
-
             color: #956c00;
-
-            font-size: 8px;
-
-            font-weight: 700;
-        }
-
-
-        /* =====================================================
-           EMPTY / LOADING / ERROR
-        ====================================================== */
-
-        .state {
-
-            padding:
-                65px 20px;
-
-            text-align: center;
-        }
-
-
-        .state i {
-
-            font-size: 30px;
-
-            margin-bottom: 10px;
-
-            color: #b8c0cb;
-        }
-
-
-        .state.loading i {
-
-            color: #315bd6;
-        }
-
-
-        .state.error i {
-
-            color: #dc3545;
-        }
-
-
-        .state h3 {
-
-            color: #475467;
-
-            font-size: 13px;
-
-            margin-bottom: 4px;
-        }
-
-
-        .state p {
-
-            color: #98a2b3;
-
-            font-size: 10px;
         }
 
 
@@ -1037,16 +955,13 @@
         ====================================================== */
 
         .table-footer {
-
-            min-height: 52px;
+            min-height: 48px;
 
             padding:
-                10px 14px;
+                9px 13px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 10px;
@@ -1055,10 +970,66 @@
                 1px solid #edf0f3;
         }
 
-
         .results {
-
             color: #8993a4;
+
+            font-size: 8px;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ====================================================== */
+
+        .state {
+            padding:
+                65px 20px;
+
+            text-align: center;
+        }
+
+        .state-icon {
+            width: 52px;
+            height: 52px;
+
+            margin:
+                0 auto 12px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f1f4f8;
+
+            color: #a4adba;
+
+            font-size: 20px;
+        }
+
+        .state.loading .state-icon {
+            background: #edf3ff;
+            color: #315bd6;
+        }
+
+        .state.error .state-icon {
+            background: #fff0f1;
+            color: #dc3545;
+        }
+
+        .state h3 {
+            margin: 0 0 5px;
+
+            color: #475467;
+
+            font-size: 12px;
+        }
+
+        .state p {
+            margin: 0;
+
+            color: #98a2b3;
 
             font-size: 9px;
         }
@@ -1069,122 +1040,90 @@
         ====================================================== */
 
         .toast-container {
-
             position: fixed;
 
             right: 18px;
-
             bottom: 18px;
 
             z-index: 99999;
 
             display: flex;
-
             flex-direction: column;
 
             gap: 8px;
         }
 
-
         .toast {
+            min-width: 290px;
+            max-width: 400px;
 
-            min-width: 280px;
+            padding: 11px;
 
-            max-width: 390px;
+            display: flex;
+            align-items: flex-start;
 
-            background: white;
+            gap: 9px;
+
+            background: #fff;
 
             border:
                 1px solid #e1e6ec;
 
             border-radius: 9px;
 
-            padding: 11px;
-
-            display: flex;
-
-            align-items: flex-start;
-
-            gap: 9px;
-
             box-shadow:
                 0 12px 35px
-                rgba(15, 23, 42, .15);
+                rgba(15,23,42,.15);
 
             animation:
                 toastIn .2s ease;
         }
 
-
         @keyframes toastIn {
 
             from {
-
                 opacity: 0;
-
                 transform:
                     translateY(8px);
             }
 
-
             to {
-
                 opacity: 1;
-
                 transform:
                     translateY(0);
             }
 
         }
 
-
         .toast-icon {
-
             width: 28px;
-
             height: 28px;
+
+            flex: 0 0 28px;
 
             border-radius: 50%;
 
-            flex-shrink: 0;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
         }
 
-
-        .toast.success
-        .toast-icon {
-
+        .toast.success .toast-icon {
             background: #eaf8f0;
-
             color: #198754;
         }
 
-
-        .toast.error
-        .toast-icon {
-
+        .toast.error .toast-icon {
             background: #fff0f1;
-
             color: #dc3545;
         }
 
-
-        .toast.warning
-        .toast-icon {
-
+        .toast.warning .toast-icon {
             background: #fff7df;
-
             color: #d89400;
         }
 
-
         .toast-title {
-
             color: #344054;
 
             font-size: 10px;
@@ -1192,9 +1131,7 @@
             font-weight: 750;
         }
 
-
         .toast-message {
-
             margin-top: 2px;
 
             color: #7b8798;
@@ -1209,10 +1146,9 @@
            RESPONSIVE
         ====================================================== */
 
-        @media (max-width: 1250px) {
+        @media (max-width: 1200px) {
 
             .stats {
-
                 grid-template-columns:
                     repeat(
                         3,
@@ -1225,8 +1161,21 @@
 
         @media (max-width: 900px) {
 
-            .stats {
+            .role-card-inner {
+                align-items: stretch;
 
+                flex-direction: column;
+            }
+
+            .role-select-wrap {
+                width: 100%;
+
+                min-width: 0;
+
+                flex-basis: auto;
+            }
+
+            .stats {
                 grid-template-columns:
                     repeat(
                         2,
@@ -1234,29 +1183,11 @@
                     );
             }
 
-
-            .role-card-inner {
-
-                align-items: stretch;
-            }
-
-
-            .role-select-wrap {
-
-                flex-basis: 100%;
-
-                min-width: 0;
-            }
-
-
-            .search-box {
-
+            .search {
                 flex-basis: 100%;
             }
-
 
             .filter {
-
                 flex: 1 1 180px;
             }
 
@@ -1266,80 +1197,52 @@
         @media (max-width: 600px) {
 
             .page {
-
                 padding: 10px;
             }
 
-
             .page-header {
-
-                align-items: flex-start;
-
                 flex-direction: column;
+                align-items: flex-start;
             }
 
-
             .header-actions {
-
                 width: 100%;
             }
 
-
             .header-actions .btn {
-
                 flex: 1;
             }
 
-
             .stats {
-
                 grid-template-columns: 1fr;
             }
 
-
             .toolbar {
-
-                flex-direction: column;
-
                 align-items: stretch;
+                flex-direction: column;
             }
 
-
+            .search,
             .filter {
-
                 width: 100%;
+                min-width: 0;
             }
 
-
-            .role-card {
-
-                padding: 12px;
+            .table-footer {
+                align-items: flex-start;
+                flex-direction: column;
             }
-
-
-            .role-select-wrap {
-
-                width: 100%;
-            }
-
 
             .toast-container {
-
                 left: 10px;
-
                 right: 10px;
-
                 bottom: 10px;
             }
 
-
             .toast {
-
-                min-width: 0;
-
-                max-width: none;
-
                 width: 100%;
+                min-width: 0;
+                max-width: none;
             }
 
         }
@@ -1354,470 +1257,475 @@
 
 <div class="page">
 
-<div class="container">
+    <div class="container">
 
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+        <!-- =================================================
+             HEADER
+        ================================================== -->
 
-    <div class="page-header">
+        <div class="page-header">
 
+            <div class="header-left">
 
-        <div class="header-left">
+                <div class="header-icon">
 
-
-            <div class="header-icon">
-
-                <i class="fa-solid fa-key"></i>
-
-            </div>
-
-
-            <div class="header-title">
-
-                <h1>
-                    Gestion des permissions
-                </h1>
-
-                <p>
-                    Gestion des droits d'accès aux pages et fonctionnalités
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="header-actions">
-
-
-            <button
-                class="btn btn-secondary"
-                onclick="loadAll()"
-            >
-
-                <i class="fa-solid fa-rotate"></i>
-
-                Actualiser
-
-            </button>
-
-
-            <button
-                class="btn btn-success"
-                id="saveAllBtn"
-                onclick="saveAllPermissions()"
-                disabled
-            >
-
-                <i class="fa-solid fa-floppy-disk"></i>
-
-                Enregistrer
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         ROLE
-    ====================================================== -->
-
-    <div class="role-card">
-
-
-        <div class="role-card-inner">
-
-
-            <div class="role-info">
-
-
-                <div class="role-info-icon">
-
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <i class="fa-solid fa-key"></i>
 
                 </div>
 
 
-                <div class="role-info-text">
+                <div class="header-title">
 
-                    <h2>
-                        Rôle à configurer
-                    </h2>
+                    <h1>
+                        Permissions
+                    </h1>
 
                     <p>
-                        Sélectionnez un rôle pour gérer ses permissions
+                        Gestion des droits d'accès aux pages et fonctionnalités
                     </p>
 
                 </div>
 
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="refreshPage()"
+                >
+
+                    <i class="fa-solid fa-rotate"></i>
+
+                    Actualiser
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    id="saveButton"
+                    onclick="savePermissions()"
+                    disabled
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Enregistrer
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ROLE
+        ================================================== -->
+
+        <div class="role-card">
+
+            <div class="role-card-inner">
+
+
+                <div class="role-info">
+
+                    <div class="role-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+
+                    <div class="role-text">
+
+                        <h2>
+                            Rôle
+                        </h2>
+
+                        <p>
+                            Sélectionnez le rôle dont vous souhaitez gérer les permissions.
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        class="selected-role"
+                        id="selectedRoleBadge"
+                    >
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span id="selectedRoleName">
+                            -
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+                <div class="role-select-wrap">
+
+                    <select
+                        id="roleSelect"
+                        class="role-select"
+                    >
+
+                        <option value="">
+                            Sélectionner un rôle...
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <div class="stat-label">
+                        Pages
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statPages"
+                    >
+                        0
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <div class="role-select-wrap">
+            <div class="stat">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <div class="stat-label">
+                        Voir
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statView"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <div class="stat-label">
+                        Créer
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statCreate"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <div class="stat-label">
+                        Modifier
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statEdit"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </div>
+
+                <div class="stat-info">
+
+                    <div class="stat-label">
+                        Supprimer
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statDelete"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MAIN CARD
+        ================================================== -->
+
+        <div class="main-card">
+
+
+            <!-- =================================================
+                 TOOLBAR
+            ================================================== -->
+
+            <div class="toolbar">
+
+
+                <div class="search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Rechercher une page, un code ou un module..."
+                        autocomplete="off"
+                    >
+
+                </div>
 
 
                 <select
-                    class="role-select"
-                    id="roleSelect"
+                    id="moduleFilter"
+                    class="filter"
                 >
 
-                    <option value="">
-                        Sélectionner un rôle...
+                    <option value="all">
+                        Tous les modules
                     </option>
 
                 </select>
 
 
+                <select
+                    id="accessFilter"
+                    class="filter"
+                >
+
+                    <option value="all">
+                        Toutes les pages
+                    </option>
+
+                    <option value="allowed">
+                        Pages autorisées
+                    </option>
+
+                    <option value="denied">
+                        Pages non autorisées
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="resetFilters()"
+                >
+
+                    <i class="fa-solid fa-rotate-left"></i>
+
+                    Réinitialiser
+
+                </button>
+
+
             </div>
 
-        </div>
 
-    </div>
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Page
+                            </th>
+
+                            <th>
+                                Module
+                            </th>
+
+                            <th style="text-align:center;">
+                                Voir
+                            </th>
+
+                            <th style="text-align:center;">
+                                Créer
+                            </th>
+
+                            <th style="text-align:center;">
+                                Modifier
+                            </th>
+
+                            <th style="text-align:center;">
+                                Supprimer
+                            </th>
+
+                            <th style="text-align:center;">
+                                Exporter
+                            </th>
+
+                            <th>
+                                État
+                            </th>
+
+                        </tr>
+
+                    </thead>
 
 
-    <!-- =====================================================
-         STATS
-    ====================================================== -->
+                    <tbody id="permissionsBody">
 
-    <div class="stats">
+                        <tr>
 
+                            <td colspan="8">
 
-        <div class="stat">
+                                <div class="state">
 
-            <div class="stat-icon">
+                                    <div class="state-icon">
 
-                <i class="fa-solid fa-file-lines"></i>
+                                        <i class="fa-solid fa-shield-halved"></i>
+
+                                    </div>
+
+                                    <h3>
+                                        Sélectionnez un rôle
+                                    </h3>
+
+                                    <p>
+                                        Choisissez un rôle ci-dessus pour afficher ses permissions.
+                                    </p>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
 
             </div>
 
-            <div>
 
-                <div class="stat-label">
-                    Pages
-                </div>
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <div class="table-footer">
 
                 <div
-                    class="stat-value"
-                    id="statPages"
+                    class="results"
+                    id="resultsInfo"
                 >
-                    0
+                    Aucun rôle sélectionné
                 </div>
 
-            </div>
 
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-eye"></i>
-
-            </div>
-
-            <div>
-
-                <div class="stat-label">
-                    Consultation
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statView"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-plus"></i>
-
-            </div>
-
-            <div>
-
-                <div class="stat-label">
-                    Création
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statCreate"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-pen"></i>
-
-            </div>
-
-            <div>
-
-                <div class="stat-label">
-                    Modification
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statEdit"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-trash"></i>
-
-            </div>
-
-            <div>
-
-                <div class="stat-label">
-                    Suppression
-                </div>
-
-                <div
-                    class="stat-value"
-                    id="statDelete"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
-
-    <div class="main-card">
-
-
-        <!-- =================================================
-             TOOLBAR
-        ================================================== -->
-
-        <div class="toolbar">
-
-
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Rechercher une page, un code ou un module..."
-                    autocomplete="off"
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="selectAllButton"
+                    onclick="selectAllVisible()"
+                    disabled
                 >
 
+                    <i class="fa-solid fa-check-double"></i>
+
+                    Tout sélectionner
+
+                </button>
+
             </div>
 
-
-            <select
-                class="filter"
-                id="moduleFilter"
-            >
-
-                <option value="all">
-                    Tous les modules
-                </option>
-
-            </select>
-
-
-            <select
-                class="filter"
-                id="viewFilter"
-            >
-
-                <option value="all">
-                    Toutes les pages
-                </option>
-
-                <option value="allowed">
-                    Pages autorisées
-                </option>
-
-                <option value="denied">
-                    Pages non autorisées
-                </option>
-
-            </select>
-
-
-            <button
-                class="btn btn-secondary"
-                onclick="resetFilters()"
-            >
-
-                <i class="fa-solid fa-rotate-left"></i>
-
-                Réinitialiser
-
-            </button>
-
-        </div>
-
-
-        <!-- =================================================
-             TABLE
-        ================================================== -->
-
-        <div class="table-container">
-
-
-            <table>
-
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Page
-                        </th>
-
-                        <th>
-                            Module
-                        </th>
-
-                        <th style="text-align:center;">
-                            Voir
-                        </th>
-
-                        <th style="text-align:center;">
-                            Créer
-                        </th>
-
-                        <th style="text-align:center;">
-                            Modifier
-                        </th>
-
-                        <th style="text-align:center;">
-                            Supprimer
-                        </th>
-
-                        <th style="text-align:center;">
-                            Exporter
-                        </th>
-
-                        <th>
-                            État
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="permissionsBody">
-
-
-                    <tr>
-
-                        <td colspan="8">
-
-
-                            <div class="state loading">
-
-                                <i
-                                    class="fa-solid fa-spinner fa-spin"
-                                ></i>
-
-                                <h3>
-                                    Chargement...
-                                </h3>
-
-                                <p>
-                                    Chargement des permissions
-                                </p>
-
-                            </div>
-
-
-                        </td>
-
-                    </tr>
-
-
-                </tbody>
-
-
-            </table>
-
-
-        </div>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <div class="table-footer">
-
-
-            <div
-                class="results"
-                id="resultsInfo"
-            >
-                Aucun rôle sélectionné
-            </div>
-
-
-            <button
-                class="btn btn-secondary"
-                onclick="selectAllVisible(true)"
-                id="selectAllBtn"
-                disabled
-            >
-
-                <i class="fa-solid fa-check-double"></i>
-
-                Tout sélectionner
-
-            </button>
 
         </div>
 
 
     </div>
-
-
-</div>
 
 </div>
 
@@ -1835,18 +1743,16 @@
 <script>
 
 /* =========================================================
-   VARIABLES
+   GLOBAL VARIABLES
 ========================================================= */
 
-let supabaseClient = null;
+let db = null;
 
 let roles = [];
 
 let pages = [];
 
-let permissions = [];
-
-let originalPermissions = [];
+let rolePermissions = [];
 
 let selectedRoleId = null;
 
@@ -1863,25 +1769,21 @@ document.addEventListener(
 
         try {
 
-            supabaseClient =
-                getSupabase();
-
-
-            await loadRoles();
+            db = getSupabase();
 
             setupEvents();
+
+            await loadRoles();
 
         }
         catch (error) {
 
             console.error(
+                "INIT ERROR:",
                 error
             );
 
-
-            showToast(
-                "error",
-                "Erreur",
+            showError(
                 error.message ||
                 "Impossible d'initialiser la page."
             );
@@ -1898,51 +1800,16 @@ document.addEventListener(
 
 function setupEvents() {
 
-
     document
-        .getElementById(
-            "roleSelect"
-        )
+        .getElementById("roleSelect")
         .addEventListener(
             "change",
-            async function () {
-
-                selectedRoleId =
-                    this.value
-                        ? Number(
-                            this.value
-                        )
-                        : null;
-
-
-                hasChanges =
-                    false;
-
-
-                updateSaveButton();
-
-
-                if (
-                    selectedRoleId
-                ) {
-
-                    await loadPermissions();
-
-                }
-                else {
-
-                    showSelectRole();
-
-                }
-
-            }
+            handleRoleChange
         );
 
 
     document
-        .getElementById(
-            "searchInput"
-        )
+        .getElementById("searchInput")
         .addEventListener(
             "input",
             renderPermissions
@@ -1950,9 +1817,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "moduleFilter"
-        )
+        .getElementById("moduleFilter")
         .addEventListener(
             "change",
             renderPermissions
@@ -1960,9 +1825,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "viewFilter"
-        )
+        .getElementById("accessFilter")
         .addEventListener(
             "change",
             renderPermissions
@@ -1980,32 +1843,25 @@ async function loadRoles() {
     const {
         data,
         error
-    } =
-        await supabaseClient
-
-            .from("roles")
-
-            .select(
-                "id,name,code,is_active"
-            )
-
-            .order(
-                "name",
-                {
-                    ascending: true
-                }
-            );
+    } = await db
+        .from("roles")
+        .select(
+            "id,name,code,is_active"
+        )
+        .order(
+            "name",
+            {
+                ascending: true
+            }
+        );
 
 
     if (error) {
-
         throw error;
-
     }
 
 
-    roles =
-        data || [];
+    roles = data || [];
 
 
     const select =
@@ -2023,88 +1879,90 @@ async function loadRoles() {
     `;
 
 
-    roles.forEach(
-        function (role) {
+    roles
+        .filter(
+            role =>
+                role.is_active !== false
+        )
+        .forEach(
+            role => {
 
-            if (
-                role.is_active === false
-            ) {
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-                return;
+                option.value =
+                    String(
+                        role.id
+                    );
+
+                option.textContent =
+                    role.name;
+
+                select.appendChild(
+                    option
+                );
 
             }
+        );
 
 
-            select.innerHTML += `
+    if (selectedRoleId) {
 
-                <option
-                    value="${Number(role.id)}"
-                >
+        select.value =
+            String(
+                selectedRoleId
+            );
 
-                    ${escapeHtml(
-                        role.name
-                    )}
-
-                </option>
-
-            `;
-
-        }
-    );
+    }
 
 }
 
 
 /* =========================================================
-   LOAD ALL
+   ROLE CHANGE
 ========================================================= */
 
-async function loadAll() {
+async function handleRoleChange() {
 
-    try {
-
-        await loadRoles();
-
-
-        if (
-            selectedRoleId
-        ) {
-
-            document.getElementById(
-                "roleSelect"
-            ).value =
-                String(
-                    selectedRoleId
-                );
+    const value =
+        document.getElementById(
+            "roleSelect"
+        ).value;
 
 
-            await loadPermissions();
-
-        }
-
-
-        showToast(
-            "success",
-            "Actualisé",
-            "Les données ont été actualisées."
-        );
-
-    }
-    catch (error) {
-
-        console.error(
-            error
-        );
+    selectedRoleId =
+        value
+            ? Number(value)
+            : null;
 
 
-        showToast(
-            "error",
-            "Erreur",
-            error.message ||
-            "Impossible d'actualiser."
-        );
+    hasChanges = false;
+
+    updateButtons();
+
+
+    if (!selectedRoleId) {
+
+        rolePermissions = [];
+
+        updateStats();
+
+        hideSelectedRole();
+
+        showSelectRole();
+
+        return;
 
     }
+
+
+    showLoading();
+
+    showSelectedRole();
+
+    await loadRolePermissions();
 
 }
 
@@ -2113,55 +1971,49 @@ async function loadAll() {
    LOAD PAGES + ROLE PERMISSIONS
 ========================================================= */
 
-async function loadPermissions() {
-
-    showLoading();
-
+async function loadRolePermissions() {
 
     try {
 
         /* =================================================
-           LOAD PAGES
+           PAGES
         ================================================== */
 
         const {
             data: pageData,
             error: pageError
-        } =
-            await supabaseClient
+        } = await db
 
-                .from("pages")
+            .from("pages")
 
-                .select(`
-                    id,
-                    name,
-                    code,
-                    path,
-                    module,
-                    icon,
-                    description,
-                    sort_order,
-                    is_menu,
-                    is_active
-                `)
+            .select(`
+                id,
+                name,
+                code,
+                path,
+                module,
+                icon,
+                description,
+                sort_order,
+                is_menu,
+                is_active
+            `)
 
-                .eq(
-                    "is_active",
-                    true
-                )
+            .eq(
+                "is_active",
+                true
+            )
 
-                .order(
-                    "sort_order",
-                    {
-                        ascending: true
-                    }
-                );
+            .order(
+                "sort_order",
+                {
+                    ascending: true
+                }
+            );
 
 
         if (pageError) {
-
             throw pageError;
-
         }
 
 
@@ -2170,65 +2022,59 @@ async function loadPermissions() {
 
 
         /* =================================================
-           LOAD ROLE PAGES
+           ROLE PAGES
         ================================================== */
 
         const {
-            data: roleData,
-            error: roleError
-        } =
-            await supabaseClient
+            data: permissionData,
+            error: permissionError
+        } = await db
 
-                .from("role_pages")
+            .from("role_pages")
 
-                .select(`
-                    id,
-                    role_id,
-                    page_id,
-                    can_view,
-                    can_create,
-                    can_edit,
-                    can_delete,
-                    can_export
-                `)
+            .select(`
+                id,
+                role_id,
+                page_id,
+                can_view,
+                can_create,
+                can_edit,
+                can_delete,
+                can_export
+            `)
 
-                .eq(
-                    "role_id",
-                    selectedRoleId
-                );
+            .eq(
+                "role_id",
+                selectedRoleId
+            );
 
 
-        if (roleError) {
-
-            throw roleError;
-
+        if (permissionError) {
+            throw permissionError;
         }
 
 
         const existing =
-            roleData || [];
+            permissionData || [];
 
 
         /* =================================================
-           CREATE LOCAL MATRIX
+           BUILD MATRIX
         ================================================== */
 
-        permissions =
+        rolePermissions =
             pages.map(
-                function (page) {
+                page => {
 
                     const found =
                         existing.find(
-                            function (item) {
-
-                                return Number(
+                            item =>
+                                Number(
                                     item.page_id
                                 ) ===
                                 Number(
                                     page.id
-                                );
-
-                            }
+                                )
                         );
 
 
@@ -2243,7 +2089,9 @@ async function loadPermissions() {
                             selectedRoleId,
 
                         page_id:
-                            page.id,
+                            Number(
+                                page.id
+                            ),
 
                         can_view:
                             found
@@ -2286,33 +2134,61 @@ async function loadPermissions() {
             );
 
 
-        originalPermissions =
-            JSON.parse(
-                JSON.stringify(
-                    permissions
-                )
-            );
+        /* =================================================
+           SUPER ADMINISTRATEUR
+           Always visually/all enabled.
+        ================================================== */
+
+        const selectedRole =
+            getSelectedRole();
 
 
-        hasChanges =
-            false;
+        if (
+            isSuperAdministrator(
+                selectedRole
+            )
+        ) {
 
+            rolePermissions =
+                rolePermissions.map(
+                    permission => ({
+
+                        ...permission,
+
+                        can_view: true,
+
+                        can_create: true,
+
+                        can_edit: true,
+
+                        can_delete: true,
+
+                        can_export: true
+
+                    })
+                );
+
+        }
+
+
+        hasChanges = false;
+
+
+        buildModuleFilter();
 
         updateStats();
 
         renderPermissions();
 
-        updateSaveButton();
-
+        updateButtons();
 
     }
     catch (error) {
 
         console.error(
-            "Permissions error:",
+            "LOAD PERMISSIONS ERROR:",
             error
         );
-
 
         showError(
             error.message ||
@@ -2336,11 +2212,21 @@ function renderPermissions() {
         );
 
 
-    if (
-        !selectedRoleId
-    ) {
+    if (!selectedRoleId) {
 
         showSelectRole();
+
+        return;
+
+    }
+
+
+    if (!pages.length) {
+
+        showEmpty(
+            "Aucune page",
+            "Aucune page active n'est disponible."
+        );
 
         return;
 
@@ -2363,81 +2249,64 @@ function renderPermissions() {
         .value;
 
 
-    const view =
+    const access =
         document.getElementById(
-            "viewFilter"
+            "accessFilter"
         )
         .value;
 
 
-    buildModuleFilter();
-
-
-    const rows =
-        permissions.filter(
-            function (permission) {
+    const filtered =
+        rolePermissions.filter(
+            permission => {
 
                 const page =
-                    pages.find(
-                        function (item) {
-
-                            return Number(
-                                item.id
-                            ) ===
-                            Number(
-                                permission.page_id
-                            );
-
-                        }
+                    getPage(
+                        permission.page_id
                     );
 
 
                 if (!page) {
-
                     return false;
-
                 }
 
 
-                const pageName =
+                const name =
                     String(
                         page.name || ""
-                    )
-                    .toLowerCase();
+                    ).toLowerCase();
 
 
-                const pageCode =
+                const code =
                     String(
                         page.code || ""
-                    )
-                    .toLowerCase();
+                    ).toLowerCase();
 
 
-                const pageModule =
+                const moduleName =
                     String(
                         page.module || ""
-                    )
-                    .toLowerCase();
+                    ).toLowerCase();
 
 
-                const matchesSearch =
+                const searchMatch =
 
                     !search ||
 
-                    pageName.includes(
+                    name.includes(
                         search
                     ) ||
 
-                    pageCode.includes(
+                    code.includes(
                         search
                     ) ||
 
-                    pageModule.includes(
+                    moduleName.includes(
                         search
                     );
 
 
-                const matchesModule =
+                const moduleMatch =
 
                     module === "all" ||
 
@@ -2446,73 +2315,42 @@ function renderPermissions() {
                     ) === module;
 
 
-                const allowed =
-                    permission.can_view;
+                const accessMatch =
 
-
-                const matchesView =
-
-                    view === "all" ||
+                    access === "all" ||
 
                     (
-                        view === "allowed" &&
-                        allowed
+                        access === "allowed" &&
+                        permission.can_view
                     ) ||
 
                     (
-                        view === "denied" &&
-                        !allowed
+                        access === "denied" &&
+                        !permission.can_view
                     );
 
 
                 return (
-
-                    matchesSearch &&
-                    matchesModule &&
-                    matchesView
-
+                    searchMatch &&
+                    moduleMatch &&
+                    accessMatch
                 );
 
             }
         );
 
 
-    if (
-        !rows.length
-    ) {
+    if (!filtered.length) {
 
-        body.innerHTML = `
-
-            <tr>
-
-                <td colspan="8">
-
-                    <div class="state">
-
-                        <i class="fa-solid fa-file-circle-xmark"></i>
-
-                        <h3>
-                            Aucune page trouvée
-                        </h3>
-
-                        <p>
-                            Aucun résultat ne correspond aux filtres.
-                        </p>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
+        showEmpty(
+            "Aucun résultat",
+            "Aucune page ne correspond aux critères sélectionnés."
+        );
 
         document.getElementById(
             "resultsInfo"
         ).textContent =
             "0 page";
-
 
         return;
 
@@ -2520,22 +2358,21 @@ function renderPermissions() {
 
 
     body.innerHTML =
-        rows.map(
-            function (permission) {
-
-                return renderRow(
-                    permission
-                );
-
-            }
-        ).join("");
+        filtered
+            .map(
+                permission =>
+                    renderRow(
+                        permission
+                    )
+            )
+            .join("");
 
 
     document.getElementById(
         "resultsInfo"
     ).textContent =
 
-        `${rows.length} page${rows.length > 1 ? "s" : ""} affichée${rows.length > 1 ? "s" : ""}`;
+        `${filtered.length} page${filtered.length > 1 ? "s" : ""} affichée${filtered.length > 1 ? "s" : ""}`;
 
 }
 
@@ -2549,43 +2386,40 @@ function renderRow(
 ) {
 
     const page =
-        pages.find(
-            function (item) {
-
-                return Number(
-                    item.id
-                ) ===
-                Number(
-                    permission.page_id
-                );
-
-            }
+        getPage(
+            permission.page_id
         );
 
 
     if (!page) {
-
         return "";
-
     }
 
 
-    const protectedPage =
+    const isDashboard =
         String(
             page.code || ""
-        )
-        .toUpperCase() ===
+        ).toUpperCase() ===
         "DASHBOARD";
+
+
+    const isSuperAdmin =
+        isSuperAdministrator(
+            getSelectedRole()
+        );
+
+
+    const protectedPage =
+        isDashboard;
 
 
     return `
 
         <tr>
 
-
             <td>
 
-                <div class="page-info">
+                <div class="page-cell">
 
                     <div class="page-name">
 
@@ -2594,15 +2428,19 @@ function renderRow(
                                 page.icon ||
                                 "fa-solid fa-file"
                             )}"
-                            style="
-                                margin-right:6px;
-                                color:#315bd6;
-                            "
                         ></i>
 
-                        ${escapeHtml(
-                            page.name
-                        )}
+                        <span
+                            title="${escapeHtml(
+                                page.name
+                            )}"
+                        >
+
+                            ${escapeHtml(
+                                page.name
+                            )}
+
+                        </span>
 
                     </div>
 
@@ -2634,56 +2472,61 @@ function renderRow(
             </td>
 
 
-            <td>
+            <td class="permission-cell">
 
-                ${permissionSwitch(
+                ${createSwitch(
                     permission,
                     "can_view",
-                    protectedPage
+                    protectedPage,
+                    isSuperAdmin
                 )}
 
             </td>
 
 
-            <td>
+            <td class="permission-cell">
 
-                ${permissionSwitch(
+                ${createSwitch(
                     permission,
                     "can_create",
-                    protectedPage
+                    protectedPage,
+                    isSuperAdmin
                 )}
 
             </td>
 
 
-            <td>
+            <td class="permission-cell">
 
-                ${permissionSwitch(
+                ${createSwitch(
                     permission,
                     "can_edit",
-                    protectedPage
+                    protectedPage,
+                    isSuperAdmin
                 )}
 
             </td>
 
 
-            <td>
+            <td class="permission-cell">
 
-                ${permissionSwitch(
+                ${createSwitch(
                     permission,
                     "can_delete",
-                    protectedPage
+                    protectedPage,
+                    isSuperAdmin
                 )}
 
             </td>
 
 
-            <td>
+            <td class="permission-cell">
 
-                ${permissionSwitch(
+                ${createSwitch(
                     permission,
                     "can_export",
-                    protectedPage
+                    protectedPage,
+                    isSuperAdmin
                 )}
 
             </td>
@@ -2696,7 +2539,7 @@ function renderRow(
 
                         ? `
 
-                            <span class="protected">
+                            <span class="badge protected">
 
                                 <i class="fa-solid fa-lock"></i>
 
@@ -2710,13 +2553,7 @@ function renderRow(
 
                             ? `
 
-                                <span
-                                    class="protected"
-                                    style="
-                                        background:#eaf8f0;
-                                        color:#16834b;
-                                    "
-                                >
+                                <span class="badge allowed">
 
                                     <i class="fa-solid fa-circle-check"></i>
 
@@ -2728,13 +2565,7 @@ function renderRow(
 
                             : `
 
-                                <span
-                                    class="protected"
-                                    style="
-                                        background:#f1f3f5;
-                                        color:#68707d;
-                                    "
-                                >
+                                <span class="badge denied">
 
                                     <i class="fa-solid fa-circle-xmark"></i>
 
@@ -2748,7 +2579,6 @@ function renderRow(
 
             </td>
 
-
         </tr>
 
     `;
@@ -2757,29 +2587,44 @@ function renderRow(
 
 
 /* =========================================================
-   PERMISSION SWITCH
+   SWITCH
 ========================================================= */
 
-function permissionSwitch(
+function createSwitch(
     permission,
     field,
-    disabled
+    disabled,
+    isSuperAdmin
 ) {
 
-    const id =
+    const inputId =
+        `perm_${permission.page_id}_${field}`;
 
-        `permission_${permission.page_id}_${field}`;
+
+    const checked =
+        permission[field]
+            ? "checked"
+            : "";
+
+
+    const disabledAttr =
+        disabled
+            ? "disabled"
+            : "";
 
 
     return `
 
-        <div class="permission">
+        <label
+            class="switch"
+            title="${field}"
+        >
 
             <input
                 type="checkbox"
-                id="${id}"
-                ${permission[field] ? "checked" : ""}
-                ${disabled ? "disabled" : ""}
+                id="${inputId}"
+                ${checked}
+                ${disabledAttr}
                 onchange="
                     changePermission(
                         ${permission.page_id},
@@ -2789,12 +2634,9 @@ function permissionSwitch(
                 "
             >
 
-            <label
-                for="${id}"
-                title="${field}"
-            ></label>
+            <span class="switch-slider"></span>
 
-        </div>
+        </label>
 
     `;
 
@@ -2812,21 +2654,76 @@ function changePermission(
 ) {
 
     const permission =
-        permissions.find(
-            function (item) {
-
-                return Number(
+        rolePermissions.find(
+            item =>
+                Number(
                     item.page_id
                 ) ===
                 Number(
                     pageId
-                );
-
-            }
+                )
         );
 
 
     if (!permission) {
+        return;
+    }
+
+
+    const selectedRole =
+        getSelectedRole();
+
+
+    /* =====================================================
+       SUPER ADMIN
+       Always all permissions.
+    ====================================================== */
+
+    if (
+        isSuperAdministrator(
+            selectedRole
+        )
+    ) {
+
+        permission.can_view =
+            true;
+
+        permission.can_create =
+            true;
+
+        permission.can_edit =
+            true;
+
+        permission.can_delete =
+            true;
+
+        permission.can_export =
+            true;
+
+        renderPermissions();
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       DASHBOARD
+    ====================================================== */
+
+    const page =
+        getPage(
+            pageId
+        );
+
+
+    if (
+        page &&
+        String(
+            page.code || ""
+        ).toUpperCase() ===
+        "DASHBOARD"
+    ) {
 
         return;
 
@@ -2839,11 +2736,10 @@ function changePermission(
         );
 
 
-    /*
-     * Si Voir = false,
-     * les autres droits sont automatiquement
-     * désactivés.
-     */
+    /* =====================================================
+       IF VIEW = FALSE
+       Remove other permissions.
+    ====================================================== */
 
     if (
         field === "can_view" &&
@@ -2865,17 +2761,14 @@ function changePermission(
     }
 
 
-    /*
-     * Si une autre permission est activée,
-     * Voir doit être activé automatiquement.
-     */
+    /* =====================================================
+       OTHER PERMISSION = TRUE
+       Automatically enable VIEW.
+    ====================================================== */
 
     if (
-
         value === true &&
-
         field !== "can_view"
-
     ) {
 
         permission.can_view =
@@ -2892,20 +2785,18 @@ function changePermission(
 
     renderPermissions();
 
-    updateSaveButton();
+    updateButtons();
 
 }
 
 
 /* =========================================================
-   SAVE ALL
+   SAVE
 ========================================================= */
 
-async function saveAllPermissions() {
+async function savePermissions() {
 
-    if (
-        !selectedRoleId
-    ) {
+    if (!selectedRoleId) {
 
         showToast(
             "warning",
@@ -2918,9 +2809,20 @@ async function saveAllPermissions() {
     }
 
 
+    if (!rolePermissions.length) {
+
+        return;
+
+    }
+
+
+    const selectedRole =
+        getSelectedRole();
+
+
     const button =
         document.getElementById(
-            "saveAllBtn"
+            "saveButton"
         );
 
 
@@ -2943,103 +2845,136 @@ async function saveAllPermissions() {
             getCurrentUserId();
 
 
-        const payload =
-            permissions.map(
-                function (permission) {
-
-                    return {
-
-                        role_id:
-                            selectedRoleId,
-
-                        page_id:
-                            permission.page_id,
-
-                        can_view:
-                            permission.can_view,
-
-                        can_create:
-                            permission.can_create,
-
-                        can_edit:
-                            permission.can_edit,
-
-                        can_delete:
-                            permission.can_delete,
-
-                        can_export:
-                            permission.can_export,
-
-                        updated_by:
-                            actorId,
-
-                        updated_at:
-                            new Date().toISOString()
-
-                    };
-
-                }
-            );
-
+        /* =================================================
+           SUPER ADMIN
+           Force all true before save.
+        ================================================== */
 
         if (
-            payload.length
+            isSuperAdministrator(
+                selectedRole
+            )
         ) {
 
-            const {
-                error
-            } =
-                await supabaseClient
+            rolePermissions =
+                rolePermissions.map(
+                    permission => ({
 
-                    .from("role_pages")
+                        ...permission,
 
-                    .upsert(
-                        payload,
-                        {
-                            onConflict:
-                                "role_id,page_id"
-                        }
-                    );
+                        can_view: true,
 
+                        can_create: true,
 
-            if (error) {
+                        can_edit: true,
 
-                throw error;
+                        can_delete: true,
 
-            }
+                        can_export: true
+
+                    })
+                );
 
         }
 
 
-        originalPermissions =
-            JSON.parse(
-                JSON.stringify(
-                    permissions
-                )
+        const payload =
+            rolePermissions.map(
+                permission => ({
+
+                    role_id:
+                        Number(
+                            selectedRoleId
+                        ),
+
+                    page_id:
+                        Number(
+                            permission.page_id
+                        ),
+
+                    can_view:
+                        Boolean(
+                            permission.can_view
+                        ),
+
+                    can_create:
+                        Boolean(
+                            permission.can_create
+                        ),
+
+                    can_edit:
+                        Boolean(
+                            permission.can_edit
+                        ),
+
+                    can_delete:
+                        Boolean(
+                            permission.can_delete
+                        ),
+
+                    can_export:
+                        Boolean(
+                            permission.can_export
+                        ),
+
+                    updated_by:
+                        Number(
+                            actorId
+                        ),
+
+                    updated_at:
+                        new Date()
+                            .toISOString()
+
+                })
             );
+
+
+        const {
+            error
+        } = await db
+
+            .from("role_pages")
+
+            .upsert(
+                payload,
+                {
+                    onConflict:
+                        "role_id,page_id"
+                }
+            );
+
+
+        if (error) {
+            throw error;
+        }
 
 
         hasChanges =
             false;
 
 
-        updateSaveButton();
-
-
         showToast(
             "success",
-            "Permissions enregistrées",
-            "Les permissions du rôle ont été mises à jour."
+            "Enregistrement réussi",
+            "Les permissions ont été enregistrées avec succès."
         );
 
 
-        await loadPermissions();
+        updateButtons();
+
+
+        /*
+         * Reload pour vérifier les données
+         */
+
+        await loadRolePermissions();
 
     }
     catch (error) {
 
         console.error(
-            "Save permissions error:",
+            "SAVE ERROR:",
             error
         );
 
@@ -3054,7 +2989,7 @@ async function saveAllPermissions() {
     }
     finally {
 
-        updateSaveButton();
+        updateButtons();
 
     }
 
@@ -3062,177 +2997,183 @@ async function saveAllPermissions() {
 
 
 /* =========================================================
-   SELECT ALL
+   SELECT ALL VISIBLE
 ========================================================= */
 
-function selectAllVisible(
-    value
-) {
+function selectAllVisible() {
 
-    if (
-        !selectedRoleId
-    ) {
-
+    if (!selectedRoleId) {
         return;
-
     }
 
 
-    const search =
-        document.getElementById(
-            "searchInput"
+    const selectedRole =
+        getSelectedRole();
+
+
+    if (
+        isSuperAdministrator(
+            selectedRole
         )
-        .value
-        .trim()
-        .toLowerCase();
+    ) {
+
+        rolePermissions =
+            rolePermissions.map(
+                permission => ({
+
+                    ...permission,
+
+                    can_view: true,
+
+                    can_create: true,
+
+                    can_edit: true,
+
+                    can_delete: true,
+
+                    can_export: true
+
+                })
+            );
+
+    }
+    else {
+
+        const search =
+            document.getElementById(
+                "searchInput"
+            )
+            .value
+            .trim()
+            .toLowerCase();
 
 
-    const module =
-        document.getElementById(
-            "moduleFilter"
-        )
-        .value;
+        const module =
+            document.getElementById(
+                "moduleFilter"
+            )
+            .value;
 
 
-    const view =
-        document.getElementById(
-            "viewFilter"
-        )
-        .value;
+        const access =
+            document.getElementById(
+                "accessFilter"
+            )
+            .value;
 
 
-    permissions.forEach(
-        function (permission) {
+        rolePermissions.forEach(
+            permission => {
 
-            const page =
-                pages.find(
-                    function (item) {
-
-                        return Number(
-                            item.id
-                        ) ===
-                        Number(
-                            permission.page_id
-                        );
-
-                    }
-                );
+                const page =
+                    getPage(
+                        permission.page_id
+                    );
 
 
-            if (!page) {
-
-                return;
-
-            }
-
-
-            const pageName =
-                String(
-                    page.name || ""
-                )
-                .toLowerCase();
-
-
-            const pageCode =
-                String(
-                    page.code || ""
-                )
-                .toLowerCase();
-
-
-            const pageModule =
-                String(
-                    page.module || ""
-                )
-                .toLowerCase();
-
-
-            const matchesSearch =
-
-                !search ||
-
-                pageName.includes(
-                    search
-                ) ||
-
-                pageCode.includes(
-                    search
-                ) ||
-
-                pageModule.includes(
-                    search
-                );
-
-
-            const matchesModule =
-
-                module === "all" ||
-
-                String(
-                    page.module || ""
-                ) === module;
-
-
-            const matchesView =
-
-                view === "all" ||
-
-                (
-                    view === "allowed" &&
-                    permission.can_view
-                ) ||
-
-                (
-                    view === "denied" &&
-                    !permission.can_view
-                );
-
-
-            if (
-
-                matchesSearch &&
-                matchesModule &&
-                matchesView
-
-            ) {
-
-                const protectedPage =
-
-                    String(
-                        page.code || ""
-                    )
-                    .toUpperCase() ===
-                    "DASHBOARD";
-
-
-                if (
-                    protectedPage
-                ) {
-
+                if (!page) {
                     return;
-
                 }
 
 
-                permission.can_view =
-                    value;
+                const isDashboard =
+                    String(
+                        page.code || ""
+                    ).toUpperCase() ===
+                    "DASHBOARD";
 
-                permission.can_create =
-                    value;
 
-                permission.can_edit =
-                    value;
+                if (isDashboard) {
+                    return;
+                }
 
-                permission.can_delete =
-                    value;
 
-                permission.can_export =
-                    value;
+                const name =
+                    String(
+                        page.name || ""
+                    ).toLowerCase();
+
+
+                const code =
+                    String(
+                        page.code || ""
+                    ).toLowerCase();
+
+
+                const moduleName =
+                    String(
+                        page.module || ""
+                    ).toLowerCase();
+
+
+                const searchMatch =
+
+                    !search ||
+
+                    name.includes(
+                        search
+                    ) ||
+
+                    code.includes(
+                        search
+                    ) ||
+
+                    moduleName.includes(
+                        search
+                    );
+
+
+                const moduleMatch =
+
+                    module === "all" ||
+
+                    String(
+                        page.module || ""
+                    ) === module;
+
+
+                const accessMatch =
+
+                    access === "all" ||
+
+                    (
+                        access === "allowed" &&
+                        permission.can_view
+                    ) ||
+
+                    (
+                        access === "denied" &&
+                        !permission.can_view
+                    );
+
+
+                if (
+                    searchMatch &&
+                    moduleMatch &&
+                    accessMatch
+                ) {
+
+                    permission.can_view =
+                        true;
+
+                    permission.can_create =
+                        true;
+
+                    permission.can_edit =
+                        true;
+
+                    permission.can_delete =
+                        true;
+
+                    permission.can_export =
+                        true;
+
+                }
 
             }
+        );
 
-        }
-    );
+    }
 
 
     hasChanges =
@@ -3243,13 +3184,13 @@ function selectAllVisible(
 
     renderPermissions();
 
-    updateSaveButton();
+    updateButtons();
 
 }
 
 
 /* =========================================================
-   BUILD MODULE FILTER
+   MODULE FILTER
 ========================================================= */
 
 function buildModuleFilter() {
@@ -3264,21 +3205,26 @@ function buildModuleFilter() {
         select.value;
 
 
-    const modules =
+    const moduleList =
         [
             ...new Set(
                 pages
                     .map(
-                        function (page) {
-
-                            return page.module;
-
-                        }
+                        page =>
+                            page.module
                     )
-                    .filter(Boolean)
+                    .filter(
+                        Boolean
+                    )
             )
         ]
-        .sort();
+        .sort(
+            (a, b) =>
+                String(a)
+                    .localeCompare(
+                        String(b)
+                    )
+        );
 
 
     select.innerHTML = `
@@ -3290,33 +3236,42 @@ function buildModuleFilter() {
     `;
 
 
-    modules.forEach(
-        function (module) {
+    moduleList.forEach(
+        module => {
 
-            select.innerHTML += `
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-                <option
-                    value="${escapeHtml(module)}"
-                >
+            option.value =
+                module;
 
-                    ${escapeHtml(module)}
+            option.textContent =
+                module;
 
-                </option>
-
-            `;
+            select.appendChild(
+                option
+            );
 
         }
     );
 
 
     if (
-        modules.includes(
+        moduleList.includes(
             current
         )
     ) {
 
         select.value =
             current;
+
+    }
+    else {
+
+        select.value =
+            "all";
 
     }
 
@@ -3332,101 +3287,286 @@ function updateStats() {
     document.getElementById(
         "statPages"
     ).textContent =
-        permissions.length;
+        rolePermissions.length;
 
 
     document.getElementById(
         "statView"
     ).textContent =
-        permissions.filter(
-            function (item) {
-
-                return item.can_view;
-
-            }
+        rolePermissions.filter(
+            permission =>
+                permission.can_view
         ).length;
 
 
     document.getElementById(
         "statCreate"
     ).textContent =
-        permissions.filter(
-            function (item) {
-
-                return item.can_create;
-
-            }
+        rolePermissions.filter(
+            permission =>
+                permission.can_create
         ).length;
 
 
     document.getElementById(
         "statEdit"
     ).textContent =
-        permissions.filter(
-            function (item) {
-
-                return item.can_edit;
-
-            }
+        rolePermissions.filter(
+            permission =>
+                permission.can_edit
         ).length;
 
 
     document.getElementById(
         "statDelete"
     ).textContent =
-        permissions.filter(
-            function (item) {
-
-                return item.can_delete;
-
-            }
+        rolePermissions.filter(
+            permission =>
+                permission.can_delete
         ).length;
 
 }
 
 
 /* =========================================================
-   SAVE BUTTON
+   SELECTED ROLE
 ========================================================= */
 
-function updateSaveButton() {
+function getSelectedRole() {
 
-    const button =
-        document.getElementById(
-            "saveAllBtn"
-        );
+    return roles.find(
+        role =>
+            Number(
+                role.id
+            ) ===
+            Number(
+                selectedRoleId
+            )
+    ) || null;
+
+}
 
 
-    const selectAll =
-        document.getElementById(
-            "selectAllBtn"
-        );
+/* =========================================================
+   SUPER ADMIN
+========================================================= */
+
+function isSuperAdministrator(
+    role
+) {
+
+    if (!role) {
+        return false;
+    }
 
 
-    button.disabled =
+    const name =
+        String(
+            role.name || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    const code =
+        String(
+            role.code || ""
+        )
+        .trim()
+        .toUpperCase();
+
+
+    return (
+
+        name ===
+        "super administrateur"
+
+        ||
+
+        code ===
+        "SUPER_ADMINISTRATEUR"
+
+    );
+
+}
+
+
+/* =========================================================
+   GET PAGE
+========================================================= */
+
+function getPage(
+    pageId
+) {
+
+    return pages.find(
+        page =>
+            Number(
+                page.id
+            ) ===
+            Number(
+                pageId
+            )
+    ) || null;
+
+}
+
+
+/* =========================================================
+   SELECT ROLE DISPLAY
+========================================================= */
+
+function showSelectedRole() {
+
+    const role =
+        getSelectedRole();
+
+
+    if (!role) {
+        return;
+    }
+
+
+    document.getElementById(
+        "selectedRoleName"
+    ).textContent =
+        role.name;
+
+
+    document.getElementById(
+        "selectedRoleBadge"
+    )
+    .classList
+    .add(
+        "visible"
+    );
+
+}
+
+
+function hideSelectedRole() {
+
+    document.getElementById(
+        "selectedRoleBadge"
+    )
+    .classList
+    .remove(
+        "visible"
+    );
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+function updateButtons() {
+
+    document.getElementById(
+        "saveButton"
+    ).disabled =
         !selectedRoleId ||
         !hasChanges;
 
 
-    selectAll.disabled =
+    document.getElementById(
+        "selectAllButton"
+    ).disabled =
         !selectedRoleId;
 
 }
 
 
 /* =========================================================
-   SELECT ROLE
+   REFRESH
+========================================================= */
+
+async function refreshPage() {
+
+    try {
+
+        await loadRoles();
+
+
+        if (
+            selectedRoleId
+        ) {
+
+            document.getElementById(
+                "roleSelect"
+            ).value =
+                String(
+                    selectedRoleId
+                );
+
+
+            await loadRolePermissions();
+
+        }
+
+
+        showToast(
+            "success",
+            "Actualisé",
+            "Les données ont été actualisées."
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            "error",
+            "Erreur",
+            error.message ||
+            "Impossible d'actualiser."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET FILTERS
+========================================================= */
+
+function resetFilters() {
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "moduleFilter"
+    ).value = "all";
+
+
+    document.getElementById(
+        "accessFilter"
+    ).value = "all";
+
+
+    renderPermissions();
+
+}
+
+
+/* =========================================================
+   STATES
 ========================================================= */
 
 function showSelectRole() {
 
-    const body =
-        document.getElementById(
-            "permissionsBody"
-        );
-
-
-    body.innerHTML = `
+    document.getElementById(
+        "permissionsBody"
+    ).innerHTML = `
 
         <tr>
 
@@ -3434,7 +3574,11 @@ function showSelectRole() {
 
                 <div class="state">
 
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <div class="state-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
 
                     <h3>
                         Sélectionnez un rôle
@@ -3459,41 +3603,10 @@ function showSelectRole() {
         "Aucun rôle sélectionné";
 
 
-    document.getElementById(
-        "statPages"
-    ).textContent =
-        "0";
-
-
-    document.getElementById(
-        "statView"
-    ).textContent =
-        "0";
-
-
-    document.getElementById(
-        "statCreate"
-    ).textContent =
-        "0";
-
-
-    document.getElementById(
-        "statEdit"
-    ).textContent =
-        "0";
-
-
-    document.getElementById(
-        "statDelete"
-    ).textContent =
-        "0";
+    updateStats();
 
 }
 
-
-/* =========================================================
-   LOADING
-========================================================= */
 
 function showLoading() {
 
@@ -3507,7 +3620,11 @@ function showLoading() {
 
                 <div class="state loading">
 
-                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <div class="state-icon">
+
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    </div>
 
                     <h3>
                         Chargement des permissions
@@ -3528,9 +3645,45 @@ function showLoading() {
 }
 
 
-/* =========================================================
-   ERROR
-========================================================= */
+function showEmpty(
+    title,
+    message
+) {
+
+    document.getElementById(
+        "permissionsBody"
+    ).innerHTML = `
+
+        <tr>
+
+            <td colspan="8">
+
+                <div class="state">
+
+                    <div class="state-icon">
+
+                        <i class="fa-solid fa-file-circle-xmark"></i>
+
+                    </div>
+
+                    <h3>
+                        ${escapeHtml(title)}
+                    </h3>
+
+                    <p>
+                        ${escapeHtml(message)}
+                    </p>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
 
 function showError(
     message
@@ -3546,16 +3699,18 @@ function showError(
 
                 <div class="state error">
 
-                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div class="state-icon">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    </div>
 
                     <h3>
                         Impossible de charger les permissions
                     </h3>
 
                     <p>
-                        ${escapeHtml(
-                            message
-                        )}
+                        ${escapeHtml(message)}
                     </p>
 
                 </div>
@@ -3565,6 +3720,12 @@ function showError(
         </tr>
 
     `;
+
+
+    document.getElementById(
+        "resultsInfo"
+    ).textContent =
+        "Erreur de chargement";
 
 }
 
@@ -3576,11 +3737,8 @@ function showError(
 function getCurrentUser() {
 
     const keys = [
-
         "smtg_current_user",
-
         "smtgUser"
-
     ];
 
 
@@ -3594,9 +3752,7 @@ function getCurrentUser() {
             );
 
 
-        if (
-            sessionValue
-        ) {
+        if (sessionValue) {
 
             try {
 
@@ -3618,9 +3774,7 @@ function getCurrentUser() {
             );
 
 
-        if (
-            localValue
-        ) {
+        if (localValue) {
 
             try {
 
@@ -3671,7 +3825,7 @@ function getCurrentUserId() {
 
 
 /* =========================================================
-   ESCAPE HTML
+   ESCAPE
 ========================================================= */
 
 function escapeHtml(
@@ -3799,7 +3953,7 @@ function showToast(
 
 
     setTimeout(
-        function () {
+        () => {
 
             toast.style.opacity =
                 "0";
@@ -3809,7 +3963,7 @@ function showToast(
 
 
             setTimeout(
-                function () {
+                () => {
 
                     toast.remove();
 
@@ -3825,42 +3979,14 @@ function showToast(
 
 
 /* =========================================================
-   RESET FILTERS
-========================================================= */
-
-function resetFilters() {
-
-    document.getElementById(
-        "searchInput"
-    ).value = "";
-
-
-    document.getElementById(
-        "moduleFilter"
-    ).value = "all";
-
-
-    document.getElementById(
-        "viewFilter"
-    ).value = "all";
-
-
-    renderPermissions();
-
-}
-
-
-/* =========================================================
-   BEFORE UNLOAD
+   UNSAVED CHANGES
 ========================================================= */
 
 window.addEventListener(
     "beforeunload",
     function (event) {
 
-        if (
-            hasChanges
-        ) {
+        if (hasChanges) {
 
             event.preventDefault();
 
@@ -3872,7 +3998,6 @@ window.addEventListener(
 );
 
 </script>
-
 
 </body>
 
