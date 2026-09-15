@@ -20,10 +20,6 @@
 
     <style>
 
-        /* =====================================================
-           RESET
-        ===================================================== */
-
         * {
             margin: 0;
             padding: 0;
@@ -46,10 +42,6 @@
             overflow: hidden;
         }
 
-
-        /* =====================================================
-           BACKGROUND
-        ===================================================== */
 
         body {
 
@@ -82,10 +74,6 @@
         }
 
 
-        /* =====================================================
-           LOGIN CONTAINER
-        ===================================================== */
-
         .login-container {
 
             position:
@@ -110,10 +98,6 @@
                 10;
         }
 
-
-        /* =====================================================
-           LOGIN CARD
-        ===================================================== */
 
         .login-card {
 
@@ -151,10 +135,6 @@
         }
 
 
-        /* =====================================================
-           LOGO
-        ===================================================== */
-
         .logo-container {
 
             text-align:
@@ -183,10 +163,6 @@
                 0 auto;
         }
 
-
-        /* =====================================================
-           TITLE
-        ===================================================== */
 
         .login-title {
 
@@ -236,10 +212,6 @@
         }
 
 
-        /* =====================================================
-           INPUT GROUP
-        ===================================================== */
-
         .input-group {
 
             width:
@@ -286,10 +258,6 @@
         }
 
 
-        /* =====================================================
-           INPUT ICON
-        ===================================================== */
-
         .input-icon {
 
             width:
@@ -332,10 +300,6 @@
         }
 
 
-        /* =====================================================
-           INPUT
-        ===================================================== */
-
         .input-group input {
 
             width:
@@ -370,10 +334,6 @@
                 #8094a8;
         }
 
-
-        /* =====================================================
-           PASSWORD TOGGLE
-        ===================================================== */
 
         .password-toggle {
 
@@ -428,10 +388,6 @@
                 currentColor;
         }
 
-
-        /* =====================================================
-           OPTIONS
-        ===================================================== */
 
         .options {
 
@@ -509,10 +465,6 @@
                 underline;
         }
 
-
-        /* =====================================================
-           LOGIN BUTTON
-        ===================================================== */
 
         .login-button {
 
@@ -612,10 +564,6 @@
         }
 
 
-        /* =====================================================
-           MESSAGE
-        ===================================================== */
-
         .message {
 
             min-height:
@@ -669,10 +617,6 @@
         }
 
 
-        /* =====================================================
-           CARD BOTTOM
-        ===================================================== */
-
         .card-bottom {
 
             text-align:
@@ -719,10 +663,6 @@
         }
 
 
-        /* =====================================================
-           DATE / TIME
-        ===================================================== */
-
         .date-time {
 
             position:
@@ -752,10 +692,6 @@
         }
 
 
-        /* =====================================================
-           VERSION
-        ===================================================== */
-
         .version {
 
             position:
@@ -784,10 +720,6 @@
                 20;
         }
 
-
-        /* =====================================================
-           SPINNER
-        ===================================================== */
 
         .spinner {
 
@@ -821,10 +753,6 @@
             }
         }
 
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
 
         @media (max-width: 600px) {
 
@@ -869,10 +797,6 @@
             }
         }
 
-
-        /* =====================================================
-           SMALL HEIGHT
-        ===================================================== */
 
         @media (max-height: 650px) {
 
@@ -949,17 +873,10 @@
 <body>
 
 
-    <!-- =====================================================
-         LOGIN CONTAINER
-    ====================================================== -->
-
     <main class="login-container">
-
 
         <section class="login-card">
 
-
-            <!-- LOGO -->
 
             <div class="logo-container">
 
@@ -972,8 +889,6 @@
             </div>
 
 
-            <!-- TITLE -->
-
             <div class="login-title">
 
                 <span>
@@ -982,8 +897,6 @@
 
             </div>
 
-
-            <!-- LOGIN FORM -->
 
             <form
                 id="loginForm"
@@ -994,7 +907,6 @@
                 <!-- USERNAME -->
 
                 <div class="input-group">
-
 
                     <div class="input-icon">
 
@@ -1036,7 +948,6 @@
                 <!-- PASSWORD -->
 
                 <div class="input-group">
-
 
                     <div class="input-icon">
 
@@ -1114,7 +1025,6 @@
 
                 <div class="options">
 
-
                     <label class="remember">
 
                         <input
@@ -1140,7 +1050,7 @@
                 </div>
 
 
-                <!-- LOGIN BUTTON -->
+                <!-- LOGIN -->
 
                 <button
                     type="submit"
@@ -1179,8 +1089,6 @@
                 </button>
 
 
-                <!-- MESSAGE -->
-
                 <div
                     id="message"
                     class="message"
@@ -1189,8 +1097,6 @@
 
             </form>
 
-
-            <!-- CARD BOTTOM -->
 
             <div class="card-bottom">
 
@@ -1210,10 +1116,6 @@
     </main>
 
 
-    <!-- =====================================================
-         DATE / TIME
-    ====================================================== -->
-
     <div
         class="date-time"
         id="dateTime"
@@ -1222,17 +1124,13 @@
     </div>
 
 
-    <!-- =====================================================
-         VERSION
-    ====================================================== -->
-
     <div class="version">
         v1.0.0
     </div>
 
 
     <!-- =====================================================
-         SUPABASE JS
+         SUPABASE
     ====================================================== -->
 
     <script
@@ -1240,72 +1138,76 @@
     ></script>
 
 
-    <!-- =====================================================
-         SUPABASE CONNECTION
-    ====================================================== -->
-
     <script
         src="api/supabase.js"
     ></script>
 
 
-    <!-- =====================================================
-         LOGIN JAVASCRIPT
-    ====================================================== -->
-
     <script>
-
 
         /* =====================================================
            ELEMENTS
         ===================================================== */
 
         const loginForm =
-            document.getElementById("loginForm");
-
+            document.getElementById(
+                "loginForm"
+            );
 
         const usernameInput =
-            document.getElementById("username");
-
+            document.getElementById(
+                "username"
+            );
 
         const passwordInput =
-            document.getElementById("password");
-
+            document.getElementById(
+                "password"
+            );
 
         const rememberInput =
-            document.getElementById("remember");
-
+            document.getElementById(
+                "remember"
+            );
 
         const togglePassword =
-            document.getElementById("togglePassword");
-
+            document.getElementById(
+                "togglePassword"
+            );
 
         const eyeIcon =
-            document.getElementById("eyeIcon");
-
+            document.getElementById(
+                "eyeIcon"
+            );
 
         const loginButton =
-            document.getElementById("loginButton");
-
+            document.getElementById(
+                "loginButton"
+            );
 
         const loginIcon =
-            document.getElementById("loginIcon");
-
+            document.getElementById(
+                "loginIcon"
+            );
 
         const loginText =
-            document.getElementById("loginText");
-
+            document.getElementById(
+                "loginText"
+            );
 
         const message =
-            document.getElementById("message");
-
+            document.getElementById(
+                "message"
+            );
 
         const forgotPassword =
-            document.getElementById("forgotPassword");
-
+            document.getElementById(
+                "forgotPassword"
+            );
 
         const dateTime =
-            document.getElementById("dateTime");
+            document.getElementById(
+                "dateTime"
+            );
 
 
         /* =====================================================
@@ -1317,28 +1219,38 @@
             const now =
                 new Date();
 
-
             const date =
                 now.toLocaleDateString(
                     "fr-FR",
                     {
-                        weekday: "long",
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric"
+                        weekday:
+                            "long",
+
+                        day:
+                            "2-digit",
+
+                        month:
+                            "long",
+
+                        year:
+                            "numeric"
                     }
                 );
-
 
             const time =
                 now.toLocaleTimeString(
                     "fr-FR",
                     {
-                        hour: "2-digit",
-                        minute: "2-digit"
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit",
+
+                        second:
+                            "2-digit"
                     }
                 );
-
 
             dateTime.textContent =
                 date.charAt(0).toUpperCase() +
@@ -1358,7 +1270,7 @@
 
 
         /* =====================================================
-           SHOW / HIDE PASSWORD
+           PASSWORD SHOW / HIDE
         ===================================================== */
 
         togglePassword.addEventListener(
@@ -1366,7 +1278,8 @@
             function () {
 
                 const isPassword =
-                    passwordInput.type === "password";
+                    passwordInput.type ===
+                    "password";
 
 
                 if (isPassword) {
@@ -1377,7 +1290,9 @@
 
                     eyeIcon.innerHTML = `
 
-                        <path d="M3 3l18 18"></path>
+                        <path
+                            d="M3 3l18 18"
+                        ></path>
 
                         <path
                             d="M10.58 10.58
@@ -1405,6 +1320,11 @@
 
                     `;
 
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Masquer le mot de passe"
+                    );
+
                 } else {
 
                     passwordInput.type =
@@ -1426,6 +1346,11 @@
                         ></circle>
 
                     `;
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Afficher le mot de passe"
+                    );
                 }
 
             }
@@ -1445,7 +1370,8 @@
                 text;
 
             message.className =
-                "message show " + type;
+                "message show " +
+                type;
         }
 
 
@@ -1489,7 +1415,6 @@
 
                 event.preventDefault();
 
-
                 showMessage(
                     "Veuillez contacter l'administrateur système.",
                     "info"
@@ -1497,6 +1422,116 @@
 
             }
         );
+
+
+        /* =====================================================
+           FAILED LOGIN
+        ===================================================== */
+
+        async function registerFailedLogin(
+            client,
+            username,
+            reason
+        ) {
+
+            try {
+
+                const browser =
+                    SMTG.getBrowserInfo();
+
+                const sessionId =
+                    SMTG.generateSessionId();
+
+
+                /* LOGIN HISTORY */
+
+                await client
+                    .from("login_history")
+                    .insert({
+
+                        user_id:
+                            null,
+
+                        username:
+                            username,
+
+                        full_name:
+                            null,
+
+                        login_at:
+                            new Date()
+                                .toISOString(),
+
+                        status:
+                            "FAILED",
+
+                        ip_address:
+                            null,
+
+                        user_agent:
+                            browser.userAgent,
+
+                        session_id:
+                            sessionId,
+
+                        failure_reason:
+                            reason,
+
+                        metadata: {
+
+                            source:
+                                "LOGIN",
+
+                            page:
+                                "login.html"
+
+                        }
+
+                    });
+
+
+                /* SYSTEM LOG */
+
+                await SMTG.logSystem({
+
+                    level:
+                        "WARNING",
+
+                    source:
+                        "AUTHENTICATION",
+
+                    module:
+                        "AUTHENTICATION",
+
+                    page:
+                        "login.html",
+
+                    event:
+                        "LOGIN_FAILED",
+
+                    message:
+                        "Échec de connexion",
+
+                    details:
+                        reason,
+
+                    metadata: {
+
+                        username:
+                            username
+
+                    }
+
+                });
+
+            } catch (error) {
+
+                console.error(
+                    "Erreur login failed:",
+                    error
+                );
+            }
+        }
 
 
         /* =====================================================
@@ -1509,7 +1544,6 @@
 
                 event.preventDefault();
 
-
                 clearMessage();
 
 
@@ -1520,10 +1554,6 @@
                 const password =
                     passwordInput.value;
 
-
-                /* =================================================
-                   VALIDATION
-                ================================================= */
 
                 if (
                     !username ||
@@ -1539,25 +1569,22 @@
                 }
 
 
-                /* =================================================
-                   LOADING
-                ================================================= */
+                /* LOADING */
 
                 loginButton.disabled =
                     true;
 
-
                 loginText.textContent =
                     "Connexion...";
-
 
                 loginIcon.style.display =
                     "none";
 
 
                 const spinner =
-                    document.createElement("span");
-
+                    document.createElement(
+                        "span"
+                    );
 
                 spinner.className =
                     "spinner";
@@ -1571,100 +1598,185 @@
 
                 try {
 
-
-                    /* =================================================
-                       SUPABASE CLIENT
-                    ================================================= */
-
                     const client =
                         getSupabase();
 
 
                     /* =================================================
-                       SEARCH USER
+                       NEW SESSION ID
+                    ================================================= */
+
+                    const newSessionId =
+                        SMTG.generateSessionId();
+
+
+                    /* =================================================
+                       SECURE LOGIN FUNCTION
                     ================================================= */
 
                     const {
                         data,
                         error
                     } = await client
-                        .from("users")
-                        .select(`
-                            id,
-                            username,
-                            full_name,
-                            password,
-                            role_id,
-                            is_active,
-                            is_system
-                        `)
-                        .eq(
-                            "username",
-                            username
-                        )
-                        .eq(
-                            "is_active",
-                            true
-                        )
-                        .eq(
-                            "is_system",
-                            false
-                        )
-                        .maybeSingle();
+                        .rpc(
+                            "smtg_login",
+                            {
 
+                                p_username:
+                                    username,
 
-                    /* =================================================
-                       DATABASE ERROR
-                    ================================================= */
+                                p_password:
+                                    password,
+
+                                p_session_id:
+                                    newSessionId
+                            }
+                        );
+
 
                     if (error) {
 
                         console.error(
-                            "Supabase:",
+                            "RPC Login:",
                             error
                         );
+
+
+                        await SMTG.logError(
+                            "LOGIN_RPC_ERROR",
+                            error.message,
+                            {
+
+                                source:
+                                    "AUTHENTICATION",
+
+                                module:
+                                    "AUTHENTICATION",
+
+                                page:
+                                    "login.html"
+                            }
+                        );
+
 
                         throw error;
                     }
 
 
                     /* =================================================
-                       USER NOT FOUND
+                       RPC RESULT
                     ================================================= */
 
-                    if (!data) {
+                    const result =
+                        Array.isArray(data)
+                            ? data[0]
+                            : data;
 
-                        showMessage(
-                            "Nom d'utilisateur ou mot de passe incorrect.",
-                            "error"
+
+                    if (!result) {
+
+                        throw new Error(
+                            "Réponse Login vide."
                         );
-
-                        return;
                     }
 
 
                     /* =================================================
-                       PASSWORD
-                       
-                       TEMPORAIRE
+                       ALREADY CONNECTED
                     ================================================= */
 
                     if (
-                        data.password !==
-                        password
+                        result.error_code ===
+                        "ALREADY_CONNECTED"
                     ) {
 
+                        await registerFailedLogin(
+                            client,
+                            username,
+                            "Utilisateur déjà connecté"
+                        );
+
+
                         showMessage(
-                            "Nom d'utilisateur ou mot de passe incorrect.",
+                            "Ce compte est déjà connecté depuis un autre appareil ou emplacement.",
                             "error"
                         );
+
 
                         return;
                     }
 
 
                     /* =================================================
-                       REMEMBER USERNAME
+                       INVALID CREDENTIALS
+                    ================================================= */
+
+                    if (
+                        !result.success
+                    ) {
+
+                        await registerFailedLogin(
+                            client,
+                            username,
+                            result.error_message ||
+                                "Identifiants incorrects"
+                        );
+
+
+                        showMessage(
+                            result.error_message ||
+                                "Nom d'utilisateur ou mot de passe incorrect.",
+                            "error"
+                        );
+
+
+                        return;
+                    }
+
+
+                    /* =================================================
+                       SAVE USER
+                    ================================================= */
+
+                    const sessionUser = {
+
+                        id:
+                            result.user_id,
+
+                        username:
+                            result.username,
+
+                        full_name:
+                            result.full_name,
+
+                        role_id:
+                            result.role_id,
+
+                        login_at:
+                            new Date()
+                                .toISOString(),
+
+                        session_id:
+                            result.session_id
+                    };
+
+
+                    sessionStorage.setItem(
+                        "smtg_current_user",
+                        JSON.stringify(
+                            sessionUser
+                        )
+                    );
+
+
+                    sessionStorage.setItem(
+                        "smtg_session_id",
+                        result.session_id
+                    );
+
+
+                    /* =================================================
+                       REMEMBER
                     ================================================= */
 
                     if (
@@ -1685,35 +1797,114 @@
 
 
                     /* =================================================
-                       SESSION
+                       LOGIN HISTORY
+                       NOTE:
+                       smtg_login already created the DB session.
+                       Here we only add the history/log records.
                     ================================================= */
 
-                    const sessionUser = {
-
-                        id:
-                            data.id,
+                    await SMTG.logLogin({
 
                         username:
-                            data.username,
+                            result.username,
 
-                        full_name:
-                            data.full_name,
+                        status:
+                            "SUCCESS",
 
-                        role_id:
-                            data.role_id,
+                        metadata: {
 
-                        login_at:
-                            new Date()
-                                .toISOString()
-                    };
+                            source:
+                                "LOGIN",
+
+                            page:
+                                "login.html",
+
+                            session_id:
+                                result.session_id
+
+                        }
+
+                    });
 
 
-                    sessionStorage.setItem(
-                        "smtg_current_user",
-                        JSON.stringify(
-                            sessionUser
-                        )
-                    );
+                    /* =================================================
+                       ACTIVITY
+                    ================================================= */
+
+                    await SMTG.logActivity({
+
+                        action:
+                            "LOGIN",
+
+                        module:
+                            "AUTHENTICATION",
+
+                        page:
+                            "login.html",
+
+                        page_code:
+                            "LOGIN",
+
+                        description:
+                            "Connexion utilisateur réussie",
+
+                        entity_type:
+                            "USER",
+
+                        entity_id:
+                            result.user_id,
+
+                        metadata: {
+
+                            username:
+                                result.username,
+
+                            session_id:
+                                result.session_id
+
+                        }
+
+                    });
+
+
+                    /* =================================================
+                       SYSTEM LOG
+                    ================================================= */
+
+                    await SMTG.logSystem({
+
+                        level:
+                            "INFO",
+
+                        source:
+                            "AUTHENTICATION",
+
+                        module:
+                            "AUTHENTICATION",
+
+                        page:
+                            "login.html",
+
+                        event:
+                            "LOGIN_SUCCESS",
+
+                        message:
+                            "Connexion utilisateur réussie",
+
+                        metadata: {
+
+                            user_id:
+                                result.user_id,
+
+                            username:
+                                result.username,
+
+                            session_id:
+                                result.session_id
+
+                        }
+
+                    });
 
 
                     /* =================================================
@@ -1725,6 +1916,10 @@
                         "success"
                     );
 
+
+                    /* =================================================
+                       REDIRECT
+                    ================================================= */
 
                     setTimeout(
                         function () {
@@ -1739,29 +1934,25 @@
 
                 } catch (error) {
 
-
                     console.error(
-                        "Erreur Login :",
+                        "Erreur Login:",
                         error
                     );
 
 
                     showMessage(
-                        "Erreur de connexion à la base de données.",
+                        "Erreur de connexion au système.",
                         "error"
                     );
 
 
                 } finally {
 
-
                     loginButton.disabled =
                         false;
 
-
                     loginText.textContent =
                         "Se connecter";
-
 
                     loginIcon.style.display =
                         "block";
@@ -1771,7 +1962,6 @@
 
                         spinner.remove();
                     }
-
                 }
 
             }
@@ -1792,7 +1982,6 @@
 
             usernameInput.focus();
         }
-
 
     </script>
 
