@@ -1,11 +1,7 @@
 /* =========================================================
    SMTG ABATTOIR
-   SUPABASE CONFIGURATION + CENTRAL LOGGING
-   ========================================================= */
-
-
-/* =========================================================
    SUPABASE CONFIGURATION
+   CENTRAL SESSION + LOGGING
    ========================================================= */
 
 const SUPABASE_URL =
@@ -32,7 +28,6 @@ if (typeof window.supabase === "undefined") {
             SUPABASE_URL,
             SUPABASE_ANON_KEY
         );
-
 }
 
 
@@ -47,7 +42,6 @@ function getSupabase() {
         throw new Error(
             "Supabase n'est pas initialisé."
         );
-
     }
 
     return window.smtgSupabase;
@@ -55,7 +49,7 @@ function getSupabase() {
 
 
 /* =========================================================
-   SESSION KEYS
+   STORAGE KEYS
    ========================================================= */
 
 const SMTG_USER_KEY =
@@ -66,7 +60,7 @@ const SMTG_SESSION_KEY =
 
 
 /* =========================================================
-   GET CURRENT USER
+   CURRENT USER
    ========================================================= */
 
 function getCurrentUser() {
@@ -83,16 +77,14 @@ function getCurrentUser() {
             return JSON.parse(
                 sessionUser
             );
-
         }
 
     } catch (error) {
 
         console.warn(
-            "Erreur lecture sessionStorage:",
+            "Erreur sessionStorage:",
             error
         );
-
     }
 
 
@@ -108,20 +100,18 @@ function getCurrentUser() {
             return JSON.parse(
                 localUser
             );
-
         }
 
     } catch (error) {
 
         console.warn(
-            "Erreur lecture localStorage:",
+            "Erreur localStorage:",
             error
         );
-
     }
 
 
-    /* Compatibilité ancienne clé */
+    /* Ancienne clé compatible */
 
     try {
 
@@ -135,20 +125,45 @@ function getCurrentUser() {
             return JSON.parse(
                 oldUser
             );
-
         }
 
     } catch (error) {
 
         console.warn(
-            "Erreur lecture ancienne session:",
+            "Erreur ancienne session:",
             error
         );
-
     }
 
 
     return null;
+}
+
+
+/* =========================================================
+   GENERATE SESSION ID
+   ========================================================= */
+
+function generateSessionId() {
+
+    if (
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+            "function"
+    ) {
+
+        return window.crypto.randomUUID();
+    }
+
+
+    return (
+        "SMTG-" +
+        Date.now().toString(36) +
+        "-" +
+        Math.random()
+            .toString(36)
+            .substring(2, 14)
+    );
 }
 
 
@@ -173,38 +188,10 @@ function getSessionId() {
             SMTG_SESSION_KEY,
             sessionId
         );
-
     }
 
 
     return sessionId;
-}
-
-
-/* =========================================================
-   GENERATE SESSION ID
-   ========================================================= */
-
-function generateSessionId() {
-
-    if (
-        window.crypto &&
-        crypto.randomUUID
-    ) {
-
-        return crypto.randomUUID();
-
-    }
-
-
-    return (
-        "SMTG-" +
-        Date.now().toString(36) +
-        "-" +
-        Math.random()
-            .toString(36)
-            .substring(2, 12)
-    );
 }
 
 
@@ -228,98 +215,76 @@ function getBrowserInfo() {
         "Desktop";
 
 
-    /* -------------------------
-       BROWSER
-       ------------------------- */
+    /* BROWSER */
 
-    if (
-        ua.includes("Edg/")
-    ) {
+    if (ua.includes("Edg/")) {
 
-        browser = "Microsoft Edge";
+        browser =
+            "Microsoft Edge";
 
-    } else if (
-        ua.includes("OPR/")
-    ) {
+    } else if (ua.includes("OPR/")) {
 
-        browser = "Opera";
+        browser =
+            "Opera";
 
-    } else if (
-        ua.includes("Chrome/")
-    ) {
+    } else if (ua.includes("Chrome/")) {
 
-        browser = "Google Chrome";
+        browser =
+            "Google Chrome";
 
-    } else if (
-        ua.includes("Firefox/")
-    ) {
+    } else if (ua.includes("Firefox/")) {
 
-        browser = "Mozilla Firefox";
+        browser =
+            "Mozilla Firefox";
 
-    } else if (
-        ua.includes("Safari/")
-    ) {
+    } else if (ua.includes("Safari/")) {
 
-        browser = "Safari";
-
+        browser =
+            "Safari";
     }
 
 
-    /* -------------------------
-       OS
-       ------------------------- */
+    /* OS */
 
-    if (
-        ua.includes("Windows NT")
-    ) {
+    if (ua.includes("Windows NT")) {
 
         operatingSystem =
             "Windows";
 
-    } else if (
-        ua.includes("Android")
-    ) {
+    } else if (ua.includes("Android")) {
 
         operatingSystem =
             "Android";
 
     } else if (
-        ua.includes("iPhone")
-        ||
+        ua.includes("iPhone") ||
         ua.includes("iPad")
     ) {
 
         operatingSystem =
             "iOS";
 
-    } else if (
-        ua.includes("Mac OS X")
-    ) {
+    } else if (ua.includes("Mac OS X")) {
 
         operatingSystem =
             "macOS";
 
-    } else if (
-        ua.includes("Linux")
-    ) {
+    } else if (ua.includes("Linux")) {
 
         operatingSystem =
             "Linux";
-
     }
 
 
-    /* -------------------------
-       DEVICE
-       ------------------------- */
+    /* DEVICE */
 
     if (
         /Mobile|Android|iPhone|iPad/i
             .test(ua)
     ) {
 
-        device = "Mobile";
-
+        device =
+            "Mobile";
     }
 
 
@@ -336,9 +301,7 @@ function getBrowserInfo() {
 
         userAgent:
             ua
-
     };
-
 }
 
 
@@ -356,8 +319,8 @@ function getCurrentPageInfo() {
 
     if (!page) {
 
-        page = "index.html";
-
+        page =
+            "index.html";
     }
 
 
@@ -366,7 +329,7 @@ function getCurrentPageInfo() {
 
 
 /* =========================================================
-   GET CURRENT USER DATA
+   AUDIT USER
    ========================================================= */
 
 function getAuditUserData() {
@@ -379,14 +342,15 @@ function getAuditUserData() {
 
         return {
 
-            user_id: null,
+            user_id:
+                null,
 
-            username: null,
+            username:
+                null,
 
-            full_name: null
-
+            full_name:
+                null
         };
-
     }
 
 
@@ -400,36 +364,28 @@ function getAuditUserData() {
 
         full_name:
             user.full_name || null
-
     };
-
 }
 
 
 /* =========================================================
-   LOG ACTIVITY
+   ACTIVITY LOG
    ========================================================= */
 
-async function logActivity(options = {}) {
+async function logActivity(
+    options = {}
+) {
 
     try {
 
         const supabase =
             getSupabase();
 
-
         const user =
             getAuditUserData();
 
-
-        const page =
-            options.page ||
-            getCurrentPageInfo();
-
-
         const browser =
             getBrowserInfo();
-
 
         const data = {
 
@@ -451,7 +407,8 @@ async function logActivity(options = {}) {
                 null,
 
             page:
-                page,
+                options.page ||
+                getCurrentPageInfo(),
 
             page_code:
                 options.page_code ||
@@ -480,7 +437,6 @@ async function logActivity(options = {}) {
             metadata:
                 options.metadata ||
                 null
-
         };
 
 
@@ -494,12 +450,11 @@ async function logActivity(options = {}) {
         if (error) {
 
             console.error(
-                "Erreur Activity Log:",
+                "Activity Log:",
                 error
             );
 
             return false;
-
         }
 
 
@@ -508,40 +463,33 @@ async function logActivity(options = {}) {
     } catch (error) {
 
         console.error(
-            "Erreur logActivity:",
+            "logActivity:",
             error
         );
 
         return false;
-
     }
-
 }
 
 
 /* =========================================================
-   LOG SYSTEM
+   SYSTEM LOG
    ========================================================= */
 
-async function logSystem(options = {}) {
+async function logSystem(
+    options = {}
+) {
 
     try {
 
         const supabase =
             getSupabase();
 
-
         const user =
             getAuditUserData();
 
-
         const browser =
             getBrowserInfo();
-
-
-        const page =
-            options.page ||
-            getCurrentPageInfo();
 
 
         const data = {
@@ -559,7 +507,8 @@ async function logSystem(options = {}) {
                 null,
 
             page:
-                page,
+                options.page ||
+                getCurrentPageInfo(),
 
             event:
                 options.event ||
@@ -596,7 +545,6 @@ async function logSystem(options = {}) {
             metadata:
                 options.metadata ||
                 null
-
         };
 
 
@@ -610,12 +558,11 @@ async function logSystem(options = {}) {
         if (error) {
 
             console.error(
-                "Erreur System Log:",
+                "System Log:",
                 error
             );
 
             return false;
-
         }
 
 
@@ -624,126 +571,83 @@ async function logSystem(options = {}) {
     } catch (error) {
 
         console.error(
-            "Erreur logSystem:",
+            "logSystem:",
             error
         );
 
         return false;
-
     }
-
-}
-
-
-/* =========================================================
-   LOG BOTH
-   ACTIVITY + SYSTEM
-   ========================================================= */
-
-async function logEvent(options = {}) {
-
-    const activityResult =
-        await logActivity(
-            options
-        );
-
-
-    const systemResult =
-        await logSystem(
-            options
-        );
-
-
-    return {
-
-        activity:
-            activityResult,
-
-        system:
-            systemResult,
-
-        success:
-            activityResult &&
-            systemResult
-
-    };
-
 }
 
 
 /* =========================================================
    LOGIN HISTORY
-   ========================================================= */
+========================================================= */
 
-async function logLogin(options = {}) {
+async function logLogin(
+    options = {}
+) {
 
     try {
 
         const supabase =
             getSupabase();
 
-
         const user =
             getCurrentUser();
 
-
         const browser =
             getBrowserInfo();
-
 
         const sessionId =
             getSessionId();
 
 
-        const data = {
-
-            user_id:
-                user?.id || null,
-
-            username:
-                options.username ||
-                user?.username ||
-                null,
-
-            full_name:
-                user?.full_name ||
-                null,
-
-            login_at:
-                new Date()
-                    .toISOString(),
-
-            status:
-                options.status ||
-                "SUCCESS",
-
-            ip_address:
-                options.ip_address ||
-                null,
-
-            user_agent:
-                browser.userAgent,
-
-            session_id:
-                sessionId,
-
-            failure_reason:
-                options.failure_reason ||
-                null,
-
-            metadata:
-                options.metadata ||
-                null
-
-        };
-
-
         const {
-            data: result,
+            data,
             error
         } = await supabase
             .from("login_history")
-            .insert(data)
+            .insert({
+
+                user_id:
+                    user?.id || null,
+
+                username:
+                    options.username ||
+                    user?.username ||
+                    null,
+
+                full_name:
+                    user?.full_name ||
+                    null,
+
+                login_at:
+                    new Date()
+                        .toISOString(),
+
+                status:
+                    options.status ||
+                    "SUCCESS",
+
+                ip_address:
+                    null,
+
+                user_agent:
+                    browser.userAgent,
+
+                session_id:
+                    sessionId,
+
+                failure_reason:
+                    options.failure_reason ||
+                    null,
+
+                metadata:
+                    options.metadata ||
+                    null
+
+            })
             .select()
             .single();
 
@@ -751,34 +655,31 @@ async function logLogin(options = {}) {
         if (error) {
 
             console.error(
-                "Erreur Login History:",
+                "Login History:",
                 error
             );
 
             return null;
-
         }
 
 
-        return result;
+        return data;
 
     } catch (error) {
 
         console.error(
-            "Erreur logLogin:",
+            "logLogin:",
             error
         );
 
         return null;
-
     }
-
 }
 
 
 /* =========================================================
-   CREATE ACTIVE SESSION
-   ========================================================= */
+   CREATE SESSION
+========================================================= */
 
 async function createUserSession() {
 
@@ -787,90 +688,81 @@ async function createUserSession() {
         const supabase =
             getSupabase();
 
-
         const user =
             getCurrentUser();
-
 
         if (!user) {
 
             return null;
-
         }
 
 
         const browser =
             getBrowserInfo();
 
-
         const sessionId =
             getSessionId();
 
 
-        const data = {
-
-            user_id:
-                user.id || null,
-
-            username:
-                user.username || null,
-
-            full_name:
-                user.full_name || null,
-
-            session_id:
-                sessionId,
-
-            status:
-                "ACTIVE",
-
-            login_at:
-                new Date()
-                    .toISOString(),
-
-            last_activity_at:
-                new Date()
-                    .toISOString(),
-
-            logout_at:
-                null,
-
-            expires_at:
-                null,
-
-            ip_address:
-                null,
-
-            user_agent:
-                browser.userAgent,
-
-            device:
-                browser.device,
-
-            browser:
-                browser.browser,
-
-            operating_system:
-                browser.operatingSystem,
-
-            metadata:
-                null
-
-        };
-
-
         const {
-            data: result,
+            data,
             error
         } = await supabase
             .from("sessions")
-            .upsert(
-                data,
-                {
-                    onConflict:
-                        "session_id"
+            .insert({
+
+                user_id:
+                    user.id,
+
+                username:
+                    user.username,
+
+                full_name:
+                    user.full_name,
+
+                session_id:
+                    sessionId,
+
+                status:
+                    "ACTIVE",
+
+                login_at:
+                    new Date()
+                        .toISOString(),
+
+                last_activity_at:
+                    new Date()
+                        .toISOString(),
+
+                logout_at:
+                    null,
+
+                expires_at:
+                    null,
+
+                ip_address:
+                    null,
+
+                user_agent:
+                    browser.userAgent,
+
+                device:
+                    browser.device,
+
+                browser:
+                    browser.browser,
+
+                operating_system:
+                    browser.operatingSystem,
+
+                metadata: {
+
+                    single_login:
+                        true
+
                 }
-            )
+
+            })
             .select()
             .single();
 
@@ -878,34 +770,31 @@ async function createUserSession() {
         if (error) {
 
             console.error(
-                "Erreur création session:",
+                "Create Session:",
                 error
             );
 
             return null;
-
         }
 
 
-        return result;
+        return data;
 
     } catch (error) {
 
         console.error(
-            "Erreur createUserSession:",
+            "createUserSession:",
             error
         );
 
         return null;
-
     }
-
 }
 
 
 /* =========================================================
    UPDATE SESSION ACTIVITY
-   ========================================================= */
+========================================================= */
 
 async function updateSessionActivity() {
 
@@ -913,7 +802,6 @@ async function updateSessionActivity() {
 
         const supabase =
             getSupabase();
-
 
         const sessionId =
             sessionStorage.getItem(
@@ -924,7 +812,6 @@ async function updateSessionActivity() {
         if (!sessionId) {
 
             return false;
-
         }
 
 
@@ -956,12 +843,11 @@ async function updateSessionActivity() {
         if (error) {
 
             console.error(
-                "Erreur mise à jour session:",
+                "Session Activity:",
                 error
             );
 
             return false;
-
         }
 
 
@@ -970,20 +856,18 @@ async function updateSessionActivity() {
     } catch (error) {
 
         console.error(
-            "Erreur updateSessionActivity:",
+            "updateSessionActivity:",
             error
         );
 
         return false;
-
     }
-
 }
 
 
 /* =========================================================
    LOGOUT
-   ========================================================= */
+========================================================= */
 
 async function logLogout() {
 
@@ -992,27 +876,22 @@ async function logLogout() {
         const supabase =
             getSupabase();
 
-
         const sessionId =
             sessionStorage.getItem(
                 SMTG_SESSION_KEY
             );
-
 
         const now =
             new Date()
                 .toISOString();
 
 
-        /* -------------------------
-           UPDATE SESSION
-           ------------------------- */
-
         if (sessionId) {
 
-            const {
-                error
-            } = await supabase
+
+            /* SESSION */
+
+            await supabase
                 .from("sessions")
                 .update({
 
@@ -1035,24 +914,9 @@ async function logLogout() {
                 );
 
 
-            if (error) {
+            /* LOGIN HISTORY */
 
-                console.error(
-                    "Erreur fermeture session:",
-                    error
-                );
-
-            }
-
-
-            /* -------------------------
-               LOGIN HISTORY
-               ------------------------- */
-
-            const {
-                error:
-                    historyError
-            } = await supabase
+            await supabase
                 .from("login_history")
                 .update({
 
@@ -1068,23 +932,10 @@ async function logLogout() {
                     "logout_at",
                     null
                 );
-
-
-            if (historyError) {
-
-                console.error(
-                    "Erreur logout history:",
-                    historyError
-                );
-
-            }
-
         }
 
 
-        /* -------------------------
-           ACTIVITY LOG
-           ------------------------- */
+        /* ACTIVITY */
 
         await logActivity({
 
@@ -1107,15 +958,11 @@ async function logLogout() {
 
                 session_id:
                     sessionId
-
             }
-
         });
 
 
-        /* -------------------------
-           SYSTEM LOG
-           ------------------------- */
+        /* SYSTEM */
 
         await logSystem({
 
@@ -1141,10 +988,18 @@ async function logLogout() {
 
                 session_id:
                     sessionId
-
             }
-
         });
+
+
+        sessionStorage.removeItem(
+            SMTG_SESSION_KEY
+        );
+
+
+        sessionStorage.removeItem(
+            SMTG_USER_KEY
+        );
 
 
         return true;
@@ -1152,20 +1007,18 @@ async function logLogout() {
     } catch (error) {
 
         console.error(
-            "Erreur logLogout:",
+            "logLogout:",
             error
         );
 
         return false;
-
     }
-
 }
 
 
 /* =========================================================
-   GENERIC CRUD LOG
-   ========================================================= */
+   CRUD LOG
+========================================================= */
 
 async function logCrudAction(
     action,
@@ -1176,7 +1029,7 @@ async function logCrudAction(
     metadata = null
 ) {
 
-    return await logEvent({
+    await logActivity({
 
         action:
             action,
@@ -1195,15 +1048,35 @@ async function logCrudAction(
 
         metadata:
             metadata
-
     });
 
+
+    await logSystem({
+
+        level:
+            "INFO",
+
+        source:
+            "WEB",
+
+        module:
+            module,
+
+        event:
+            action,
+
+        message:
+            description,
+
+        metadata:
+            metadata
+    });
 }
 
 
 /* =========================================================
-   LOG ERROR
-   ========================================================= */
+   ERROR LOG
+========================================================= */
 
 async function logError(
     event,
@@ -1241,15 +1114,13 @@ async function logError(
         metadata:
             options.metadata ||
             null
-
     });
-
 }
 
 
 /* =========================================================
-   LOG WARNING
-   ========================================================= */
+   WARNING LOG
+========================================================= */
 
 async function logWarning(
     event,
@@ -1280,50 +1151,16 @@ async function logWarning(
         message:
             message,
 
-        details:
-            options.details ||
-            null,
-
         metadata:
             options.metadata ||
             null
-
     });
-
 }
 
 
 /* =========================================================
-   AUTOMATIC SESSION ACTIVITY
-   ========================================================= */
-
-document.addEventListener(
-    "click",
-    function () {
-
-        updateSessionActivity();
-
-    }
-);
-
-
-/* =========================================================
-   PERIODIC SESSION ACTIVITY
-   ========================================================= */
-
-setInterval(
-    function () {
-
-        updateSessionActivity();
-
-    },
-    5 * 60 * 1000
-);
-
-
-/* =========================================================
-   GLOBAL EXPORT
-   ========================================================= */
+   EXPORT
+========================================================= */
 
 window.SMTG = {
 
@@ -1332,6 +1169,9 @@ window.SMTG = {
 
     getCurrentUser:
         getCurrentUser,
+
+    generateSessionId:
+        generateSessionId,
 
     getSessionId:
         getSessionId,
@@ -1344,9 +1184,6 @@ window.SMTG = {
 
     logSystem:
         logSystem,
-
-    logEvent:
-        logEvent,
 
     logLogin:
         logLogin,
@@ -1368,5 +1205,26 @@ window.SMTG = {
 
     logWarning:
         logWarning
-
 };
+
+
+/* =========================================================
+   SESSION HEARTBEAT
+========================================================= */
+
+setInterval(
+    function () {
+
+        if (
+            getCurrentUser() &&
+            sessionStorage.getItem(
+                SMTG_SESSION_KEY
+            )
+        ) {
+
+            updateSessionActivity();
+        }
+
+    },
+    5 * 60 * 1000
+);
