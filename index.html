@@ -1754,6 +1754,204 @@
         }
 
 
+
+        /* =====================================================
+           PAGE SEARCH
+           -----------------------------------------------------
+           Recherche uniquement dans les noms des pages
+        ===================================================== */
+
+        .page-search {
+            position: relative;
+            width: 270px;
+        }
+
+        .page-search-input-wrap {
+            height: 38px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 11px;
+            background: #f8fafc;
+            border: 1px solid #dfe7ed;
+            border-radius: 9px;
+            transition: 0.2s ease;
+        }
+
+        .page-search-input-wrap:focus-within {
+            background: white;
+            border-color: #8db9d8;
+            box-shadow: 0 0 0 3px rgba(8, 117, 200, 0.08);
+        }
+
+        .page-search-icon {
+            width: 16px;
+            height: 16px;
+            flex: 0 0 16px;
+            stroke: #71879a;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .page-search-input {
+            width: 100%;
+            min-width: 0;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #244765;
+            font-size: 11px;
+        }
+
+        .page-search-input::placeholder {
+            color: #9aa9b5;
+        }
+
+        .page-search-results {
+            position: absolute;
+            top: calc(100% + 7px);
+            left: 0;
+            right: 0;
+            max-height: 330px;
+            overflow-y: auto;
+            display: none;
+            padding: 6px;
+            background: white;
+            border: 1px solid #e0e8ee;
+            border-radius: 10px;
+            box-shadow: 0 10px 28px rgba(25, 60, 90, 0.14);
+            z-index: 1000;
+        }
+
+        .page-search-results.show {
+            display: block;
+        }
+
+        .page-search-result {
+            width: 100%;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 9px;
+            border: none;
+            border-radius: 7px;
+            background: transparent;
+            color: #315574;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .page-search-result:hover {
+            background: #f1f7fc;
+        }
+
+        .page-search-result-icon {
+            width: 25px;
+            height: 25px;
+            min-width: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            background: #edf5fb;
+            color: #0874c5;
+        }
+
+        .page-search-result-icon svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .page-search-result-name {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .page-search-empty {
+            padding: 18px 10px;
+            text-align: center;
+            color: #94a3af;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           NOTIFICATIONS BUTTON
+        ===================================================== */
+
+        .notification-button {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dfe7ed;
+            border-radius: 9px;
+            background: #fafcfd;
+            color: #587187;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .notification-button:hover {
+            background: #f1f7fc;
+            border-color: #c9dfef;
+            color: #0874c5;
+        }
+
+        .notification-button svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            border-radius: 20px;
+            background: #e74c3c;
+            color: white;
+            font-size: 8px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .notification-badge.show {
+            display: flex;
+        }
+
+        @media (max-width: 1100px) {
+            .page-search {
+                width: 220px;
+            }
+        }
+
         /* =====================================================
            RESPONSIVE
         ===================================================== */
@@ -1777,6 +1975,10 @@
 
 
         @media (max-width: 800px) {
+
+            .page-search {
+                width: min(300px, 42vw);
+            }
 
             .sidebar {
 
@@ -1852,6 +2054,15 @@
 
 
         @media (max-width: 550px) {
+
+            .page-search {
+                width: 150px;
+            }
+
+            .notification-button {
+                width: 36px;
+                height: 36px;
+            }
 
             .stats-grid {
 
@@ -2051,7 +2262,73 @@
             </div>
 
 
+            <!-- =================================================
+                 RECHERCHE DES PAGES
+                 Recherche uniquement par nom de page
+            ================================================== -->
+
+            <div class="page-search" id="pageSearch">
+
+                <div class="page-search-input-wrap">
+
+                    <svg
+                        class="page-search-icon"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="M20 20l-4-4"></path>
+                    </svg>
+
+                    <input
+                        type="text"
+                        class="page-search-input"
+                        id="pageSearchInput"
+                        placeholder="Recherche"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+                </div>
+
+                <div
+                    class="page-search-results"
+                    id="pageSearchResults"
+                ></div>
+
+            </div>
+
+
             <div class="topbar-right">
+
+
+                <!-- =================================================
+                     NOTIFICATIONS
+                ================================================== -->
+
+                <button
+                    type="button"
+                    class="notification-button"
+                    id="notificationButton"
+                    title="Notifications"
+                    aria-label="Notifications"
+                >
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                        ></path>
+
+                        <path d="M10 21h4"></path>
+
+                    </svg>
+
+                    <span
+                        class="notification-badge"
+                        id="notificationBadge"
+                    >0</span>
+
+                </button>
 
 
                 <div
@@ -2693,6 +2970,36 @@
     const pageTitle =
         document.getElementById(
             "pageTitle"
+        );
+
+
+    const pageSearchInput =
+        document.getElementById(
+            "pageSearchInput"
+        );
+
+
+    const pageSearchResults =
+        document.getElementById(
+            "pageSearchResults"
+        );
+
+
+    const pageSearch =
+        document.getElementById(
+            "pageSearch"
+        );
+
+
+    const notificationButton =
+        document.getElementById(
+            "notificationButton"
+        );
+
+
+    const notificationBadge =
+        document.getElementById(
+            "notificationBadge"
         );
 
 
@@ -4470,6 +4777,347 @@
 
 
     /* =====================================================
+       PAGE SEARCH
+       -----------------------------------------------------
+       Recherche UNIQUEMENT dans page_name.
+       Aucun filtrage par module, code ou path.
+    ===================================================== */
+
+    function searchPagesByName(searchText) {
+
+        const query =
+            String(searchText || "")
+                .trim()
+                .toLocaleLowerCase("fr");
+
+        if (!window.allowedPages || !Array.isArray(window.allowedPages)) {
+            return [];
+        }
+
+        if (!query) {
+            return [];
+        }
+
+        return window.allowedPages
+            .filter(function(page) {
+
+                const pageName =
+                    String(page.page_name || "")
+                        .trim()
+                        .toLocaleLowerCase("fr");
+
+                return pageName.includes(query);
+
+            })
+            .sort(function(a, b) {
+
+                return String(a.page_name || "")
+                    .localeCompare(
+                        String(b.page_name || ""),
+                        "fr"
+                    );
+
+            })
+            .slice(0, 12);
+    }
+
+
+    function renderPageSearchResults(searchText) {
+
+        const query =
+            String(searchText || "").trim();
+
+        pageSearchResults.innerHTML = "";
+
+        if (!query) {
+            pageSearchResults.classList.remove("show");
+            return;
+        }
+
+        const results =
+            searchPagesByName(query);
+
+        if (results.length === 0) {
+
+            pageSearchResults.innerHTML = `
+                <div class="page-search-empty">
+                    Aucune page trouvée
+                </div>
+            `;
+
+            pageSearchResults.classList.add("show");
+            return;
+        }
+
+        results.forEach(function(page) {
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+            button.className = "page-search-result";
+
+            const icon =
+                document.createElement("span");
+
+            icon.className =
+                "page-search-result-icon";
+
+            icon.innerHTML =
+                getPageIcon(page);
+
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "page-search-result-name";
+
+            name.textContent =
+                page.page_name ||
+                page.page_code ||
+                "Page";
+
+            button.appendChild(icon);
+            button.appendChild(name);
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    pageSearchInput.value =
+                        page.page_name || "";
+
+                    pageSearchResults.classList.remove(
+                        "show"
+                    );
+
+                    navigateToPage(page);
+
+                }
+            );
+
+            pageSearchResults.appendChild(button);
+
+        });
+
+        pageSearchResults.classList.add("show");
+    }
+
+
+    pageSearchInput.addEventListener(
+        "input",
+        function() {
+
+            renderPageSearchResults(
+                pageSearchInput.value
+            );
+
+        }
+    );
+
+
+    pageSearchInput.addEventListener(
+        "focus",
+        function() {
+
+            if (pageSearchInput.value.trim()) {
+
+                renderPageSearchResults(
+                    pageSearchInput.value
+                );
+
+            }
+
+        }
+    );
+
+
+    pageSearchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                pageSearchResults.classList.remove(
+                    "show"
+                );
+
+                pageSearchInput.blur();
+
+                return;
+            }
+
+            if (event.key === "Enter") {
+
+                const results =
+                    searchPagesByName(
+                        pageSearchInput.value
+                    );
+
+                if (results.length > 0) {
+
+                    pageSearchInput.value =
+                        results[0].page_name || "";
+
+                    pageSearchResults.classList.remove(
+                        "show"
+                    );
+
+                    navigateToPage(results[0]);
+
+                }
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                pageSearch &&
+                !pageSearch.contains(event.target)
+            ) {
+
+                pageSearchResults.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       NOTIFICATIONS
+       -----------------------------------------------------
+       Le bouton ouvre la page NOTIFICATIONS autorisée.
+       Le compteur utilise notifications.is_read.
+    ===================================================== */
+
+    function openNotificationsPage() {
+
+        const notificationPage =
+            findAllowedPage("NOTIFICATIONS");
+
+        if (!notificationPage) {
+
+            console.warn(
+                "Page NOTIFICATIONS non autorisée."
+            );
+
+            return;
+        }
+
+        navigateToPage(notificationPage);
+    }
+
+
+    notificationButton.addEventListener(
+        "click",
+        function() {
+
+            openNotificationsPage();
+
+        }
+    );
+
+
+    async function loadUnreadNotificationsCount() {
+
+        if (!currentUser || !currentUser.id) {
+
+            notificationBadge.classList.remove("show");
+
+            return;
+        }
+
+        try {
+
+            const client =
+                getSupabase();
+
+            const {
+                count,
+                error
+            } = await client
+                .from("notifications")
+                .select(
+                    "id",
+                    {
+                        count: "exact",
+                        head: true
+                    }
+                )
+                .eq("user_id", currentUser.id)
+                .eq("is_read", false);
+
+            if (error) {
+
+                /*
+                 * La table peut être créée plus tard.
+                 * Dans ce cas, le dashboard continue normalement.
+                 */
+
+                console.warn(
+                    "Compteur notifications indisponible:",
+                    error.message
+                );
+
+                notificationBadge.classList.remove("show");
+
+                return;
+            }
+
+            const unreadCount =
+                Number(count || 0);
+
+            if (unreadCount <= 0) {
+
+                notificationBadge.classList.remove("show");
+                notificationBadge.textContent = "0";
+
+                return;
+            }
+
+            notificationBadge.textContent =
+                unreadCount > 99
+                    ? "99+"
+                    : String(unreadCount);
+
+            notificationBadge.classList.add("show");
+
+        } catch (error) {
+
+            console.warn(
+                "Erreur notifications:",
+                error
+            );
+
+            notificationBadge.classList.remove("show");
+
+        }
+
+    }
+
+
+    /* =====================================================
+       REFRESH NOTIFICATIONS
+    ===================================================== */
+
+    loadUnreadNotificationsCount();
+
+    setInterval(
+        loadUnreadNotificationsCount,
+        30000
+    );
+
+
+    /* =====================================================
        DATE / TIME
        ===================================================== */
 
@@ -4719,6 +5367,13 @@
          */
 
         await loadUserPages();
+
+
+        /*
+         * Notifications non lues
+         */
+
+        await loadUnreadNotificationsCount();
 
 
         /*
