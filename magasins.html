@@ -1,0 +1,4434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Magasins - SMTG</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Configuration SMTG -->
+    <script src="api/supabase.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f7f5;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            padding: 22px;
+            max-width: 1800px;
+            margin: auto;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-title-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #145a1f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            box-shadow: 0 5px 16px rgba(20, 90, 31, .18);
+        }
+
+        .page-title h1 {
+            font-size: 25px;
+            color: #16351c;
+            margin-bottom: 3px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .btn {
+            border: none;
+            border-radius: 9px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: #145a1f;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0f4818;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #374151;
+            border: 1px solid #d8ded9;
+        }
+
+        .btn-secondary:hover {
+            background: #f7faf8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-warning {
+            background: #d97706;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 7px 10px;
+            font-size: 12px;
+            border-radius: 7px;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e2e8e4;
+            border-radius: 13px;
+            padding: 17px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .035);
+        }
+
+        .stat-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 11px;
+            background: #edf6ef;
+            color: #145a1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .stat-info {
+            min-width: 0;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #17251a;
+        }
+
+        /* =========================
+           TOOLBAR
+           ========================= */
+
+        .toolbar {
+            background: white;
+            border: 1px solid #e2e8e4;
+            border-radius: 13px;
+            padding: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b9490;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #d8ded9;
+            border-radius: 8px;
+            padding: 0 12px 0 37px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            border-color: #145a1f;
+            box-shadow: 0 0 0 3px rgba(20, 90, 31, .08);
+        }
+
+        .filter-select {
+            height: 40px;
+            min-width: 160px;
+            border: 1px solid #d8ded9;
+            border-radius: 8px;
+            padding: 0 11px;
+            background: white;
+            outline: none;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        /* =========================
+           TABLE
+           ========================= */
+
+        .table-card {
+            background: white;
+            border: 1px solid #e2e8e4;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .035);
+        }
+
+        .table-header {
+            padding: 15px 17px;
+            border-bottom: 1px solid #e5e9e6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .table-header h2 {
+            font-size: 15px;
+            color: #1f3523;
+        }
+
+        .table-count {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1050px;
+        }
+
+        thead th {
+            background: #f7f9f7;
+            color: #536159;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            padding: 12px 13px;
+            text-align: left;
+            white-space: nowrap;
+            border-bottom: 1px solid #e2e7e3;
+        }
+
+        tbody td {
+            padding: 12px 13px;
+            border-bottom: 1px solid #edf0ee;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #fafcfb;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .code-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 8px;
+            background: #eef7f0;
+            color: #145a1f;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .status.active {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .status.inactive {
+            color: #991b1b;
+            background: #fee2e2;
+        }
+
+        .capacity {
+            font-weight: 600;
+        }
+
+        .capacity small {
+            display: block;
+            color: #89938d;
+            font-size: 10px;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .icon-btn {
+            width: 31px;
+            height: 31px;
+            border: 1px solid #dce2de;
+            background: white;
+            border-radius: 7px;
+            cursor: pointer;
+            color: #526058;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s;
+        }
+
+        .icon-btn:hover {
+            background: #f3f7f4;
+            color: #145a1f;
+            border-color: #bfcfc3;
+        }
+
+        .icon-btn.edit:hover {
+            color: #2563eb;
+        }
+
+        .icon-btn.delete:hover {
+            color: #dc2626;
+        }
+
+        .icon-btn.location:hover {
+            color: #7c3aed;
+        }
+
+        /* =========================
+           EMPTY / LOADING
+           ========================= */
+
+        .state {
+            padding: 55px 20px;
+            text-align: center;
+            color: #7b8580;
+        }
+
+        .state i {
+            font-size: 38px;
+            margin-bottom: 12px;
+            color: #b4c0b7;
+        }
+
+        .state h3 {
+            font-size: 15px;
+            color: #59655d;
+            margin-bottom: 5px;
+        }
+
+        .state p {
+            font-size: 12px;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #dce8df;
+            border-top-color: #145a1f;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================
+           MODAL
+           ========================= */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 18, .48);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            width: min(700px, 100%);
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0,0,0,.22);
+        }
+
+        .modal-header {
+            padding: 17px 20px;
+            border-bottom: 1px solid #e6ebe7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h2 {
+            font-size: 17px;
+            color: #1b3520;
+        }
+
+        .modal-close {
+            width: 33px;
+            height: 33px;
+            border: none;
+            background: #f2f5f3;
+            color: #58625b;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-close:hover {
+            background: #e9eeeb;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 14px 20px;
+            border-top: 1px solid #e6ebe7;
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+        }
+
+        /* =========================
+           FORM
+           ========================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #445048;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 41px;
+            border: 1px solid #d5ddd7;
+            border-radius: 8px;
+            padding: 0 11px;
+            outline: none;
+            font-size: 13px;
+            background: white;
+            color: #27332b;
+        }
+
+        textarea.form-control {
+            height: 85px;
+            padding: 10px 11px;
+            resize: vertical;
+        }
+
+        .form-control:focus {
+            border-color: #145a1f;
+            box-shadow: 0 0 0 3px rgba(20,90,31,.08);
+        }
+
+        .help-text {
+            color: #7b857f;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .switch-row {
+            border: 1px solid #e0e6e2;
+            background: #fafcfb;
+            border-radius: 9px;
+            min-height: 41px;
+            padding: 7px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .switch-text strong {
+            display: block;
+            font-size: 12px;
+            color: #334238;
+        }
+
+        .switch-text span {
+            display: block;
+            font-size: 10px;
+            color: #7b857f;
+            margin-top: 2px;
+        }
+
+        .switch {
+            position: relative;
+            width: 42px;
+            height: 23px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: #cbd5ce;
+            border-radius: 30px;
+            transition: .2s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 17px;
+            height: 17px;
+            left: 3px;
+            top: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: .2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,.18);
+        }
+
+        .switch input:checked + .slider {
+            background: #145a1f;
+        }
+
+        .switch input:checked + .slider:before {
+            transform: translateX(19px);
+        }
+
+        .capacity-info {
+            grid-column: 1 / -1;
+            background: #f1f7f2;
+            border: 1px solid #dceade;
+            border-radius: 9px;
+            padding: 11px 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+        }
+
+        .capacity-info i {
+            color: #145a1f;
+            margin-top: 2px;
+        }
+
+        .capacity-info div {
+            font-size: 11px;
+            color: #536158;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           EMPLACEMENTS MODAL
+           ========================= */
+
+        .store-summary {
+            background: #f5f8f6;
+            border: 1px solid #e0e7e1;
+            border-radius: 10px;
+            padding: 13px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .store-summary strong {
+            color: #19351f;
+        }
+
+        .store-summary small {
+            color: #6b756e;
+        }
+
+        .emplacement-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .emplacement-toolbar h3 {
+            font-size: 14px;
+            color: #304036;
+        }
+
+        .emplacement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .emplacement-item {
+            border: 1px solid #e0e6e2;
+            border-radius: 10px;
+            padding: 12px;
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr .8fr .9fr auto;
+            gap: 9px;
+            align-items: center;
+            background: white;
+        }
+
+        .emp-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .emp-field label {
+            font-size: 9px;
+            color: #7a857e;
+            text-transform: uppercase;
+        }
+
+        .emp-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: #334238;
+        }
+
+        .emp-actions {
+            display: flex;
+            gap: 5px;
+            justify-content: flex-end;
+        }
+
+        .empty-emplacements {
+            text-align: center;
+            padding: 35px 15px;
+            color: #7b857f;
+            border: 1px dashed #d7dfd9;
+            border-radius: 10px;
+        }
+
+        .empty-emplacements i {
+            font-size: 28px;
+            color: #bdc8c0;
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           TOAST
+           ========================= */
+
+        .toast-container {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: min(380px, calc(100vw - 40px));
+        }
+
+        .toast {
+            background: white;
+            border: 1px solid #dfe6e1;
+            border-left: 4px solid #145a1f;
+            border-radius: 10px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.13);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            animation: toastIn .25s ease;
+        }
+
+        .toast.success {
+            border-left-color: #16a34a;
+        }
+
+        .toast.error {
+            border-left-color: #dc2626;
+        }
+
+        .toast.warning {
+            border-left-color: #d97706;
+        }
+
+        .toast-icon {
+            font-size: 17px;
+            margin-top: 1px;
+        }
+
+        .toast.success .toast-icon {
+            color: #16a34a;
+        }
+
+        .toast.error .toast-icon {
+            color: #dc2626;
+        }
+
+        .toast.warning .toast-icon {
+            color: #d97706;
+        }
+
+        .toast-content strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .toast-content span {
+            color: #66716a;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           CONFIRM
+           ========================= */
+
+        .confirm-box {
+            width: min(430px, 100%);
+        }
+
+        .confirm-content {
+            text-align: center;
+            padding: 25px 20px 15px;
+        }
+
+        .confirm-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            margin: 0 auto 13px;
+            background: #fff3f3;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .confirm-content h3 {
+            font-size: 17px;
+            margin-bottom: 7px;
+            color: #29362d;
+        }
+
+        .confirm-content p {
+            color: #6b756e;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .page {
+                padding: 14px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full,
+            .capacity-info {
+                grid-column: auto;
+            }
+
+            .emplacement-item {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .emp-actions {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title h1 {
+                font-size: 21px;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions .btn {
+                flex: 1;
+            }
+
+            .toolbar {
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .filter-select {
+                flex: 1;
+            }
+
+            .modal-overlay {
+                padding: 8px;
+            }
+
+            .modal-body {
+                padding: 15px;
+            }
+
+            .modal-footer {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+            <div class="page-title-icon">
+                <i class="fa-solid fa-warehouse"></i>
+            </div>
+
+            <div>
+                <h1>Magasins</h1>
+                <p>Gestion des magasins, emplacements et capacités de stockage</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                class="btn btn-secondary"
+                id="btnRefresh"
+                type="button"
+            >
+                <i class="fa-solid fa-rotate"></i>
+                Actualiser
+            </button>
+
+            <button
+                class="btn btn-primary"
+                id="btnAddMagasin"
+                type="button"
+            >
+                <i class="fa-solid fa-plus"></i>
+                Nouveau magasin
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         STATS
+    ========================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-warehouse"></i>
+            </div>
+
+            <div class="stat-info">
+                <div class="stat-label">Total magasins</div>
+                <div class="stat-value" id="statTotal">0</div>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="stat-info">
+                <div class="stat-label">Magasins actifs</div>
+                <div class="stat-value" id="statActive">0</div>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+
+            <div class="stat-info">
+                <div class="stat-label">Emplacements</div>
+                <div class="stat-value" id="statEmplacements">0</div>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+
+            <div class="stat-info">
+                <div class="stat-label">Capacité palettes</div>
+                <div class="stat-value" id="statPalettes">0</div>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-weight-hanging"></i>
+            </div>
+
+            <div class="stat-info">
+                <div class="stat-label">Capacité tonnage</div>
+                <div class="stat-value" id="statTonnage">0</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TOOLBAR
+    ========================== -->
+
+    <div class="toolbar">
+
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Rechercher par code, nom, type..."
+                autocomplete="off"
+            >
+        </div>
+
+
+        <select id="filterEmplacements" class="filter-select">
+
+            <option value="ALL">
+                Tous
+            </option>
+
+            <option value="YES">
+                Avec emplacements
+            </option>
+
+            <option value="NO">
+                Sans emplacements
+            </option>
+
+        </select>
+
+
+        <select id="filterStatus" class="filter-select">
+
+            <option value="ALL">
+                Tous les statuts
+            </option>
+
+            <option value="ACTIVE">
+                Actifs
+            </option>
+
+            <option value="INACTIVE">
+                Inactifs
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- =========================
+         TABLE
+    ========================== -->
+
+    <div class="table-card">
+
+        <div class="table-header">
+
+            <h2>
+                <i class="fa-solid fa-list"></i>
+                Liste des magasins
+            </h2>
+
+            <div class="table-count" id="tableCount">
+                0 magasin
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <div id="tableState">
+
+                <div class="state">
+
+                    <div class="spinner"></div>
+
+                    <h3>Chargement...</h3>
+
+                    <p>
+                        Chargement des magasins
+                    </p>
+
+                </div>
+
+            </div>
+
+            <table id="magasinsTable" style="display:none;">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Code</th>
+
+                        <th>Nom</th>
+
+                        <th>Type</th>
+
+                        <th>Emplacements</th>
+
+                        <th>Capacité palettes</th>
+
+                        <th>Capacité tonnage</th>
+
+                        <th>Statut</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="magasinsBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL MAGASIN
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="magasinModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="magasinModalTitle">
+                Nouveau magasin
+            </h2>
+
+            <button
+                class="modal-close"
+                id="closeMagasinModal"
+                type="button"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <form id="magasinForm">
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="magasinId"
+                >
+
+
+                <div class="form-grid">
+
+                    <!-- CODE -->
+
+                    <div class="form-group">
+
+                        <label for="magasinCode">
+                            Code <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="magasinCode"
+                            maxlength="50"
+                            required
+                            placeholder="Ex : AB07"
+                        >
+
+                    </div>
+
+
+                    <!-- NOM -->
+
+                    <div class="form-group">
+
+                        <label for="magasinName">
+                            Nom <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="magasinName"
+                            maxlength="150"
+                            required
+                            placeholder="Ex : Magasin AB07"
+                        >
+
+                    </div>
+
+
+                    <!-- TYPE -->
+
+                    <div class="form-group">
+
+                        <label for="magasinType">
+                            Type
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="magasinType"
+                            maxlength="100"
+                            placeholder="Ex : Congelé, Sec..."
+                        >
+
+                    </div>
+
+
+                    <!-- STATUT -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Statut
+                        </label>
+
+                        <div class="switch-row">
+
+                            <div class="switch-text">
+
+                                <strong>
+                                    Magasin actif
+                                </strong>
+
+                                <span>
+                                    Disponible dans l'application
+                                </span>
+
+                            </div>
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    id="magasinActive"
+                                    checked
+                                >
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label for="magasinDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="magasinDescription"
+                            maxlength="500"
+                            placeholder="Description du magasin..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- HAS EMP -->
+
+                    <div class="form-group full">
+
+                        <div class="switch-row">
+
+                            <div class="switch-text">
+
+                                <strong>
+                                    Gestion par emplacements
+                                </strong>
+
+                                <span>
+                                    Activer si le magasin possède des emplacements/chambres
+                                </span>
+
+                            </div>
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    id="magasinHasEmplacements"
+                                >
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CAPACITY INFO -->
+
+                    <div class="capacity-info">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <div>
+
+                            Si le magasin possède des emplacements,
+                            les capacités peuvent être définies directement
+                            au niveau de chaque emplacement.
+
+                            <br>
+
+                            Sinon, la capacité ci-dessous correspond directement
+                            à la capacité du magasin.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MAX PALETTES -->
+
+                    <div class="form-group">
+
+                        <label for="magasinMaxPalettes">
+                            Capacité maximale palettes
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="magasinMaxPalettes"
+                            min="0"
+                            step="1"
+                            value="0"
+                            placeholder="0"
+                        >
+
+                        <div class="help-text">
+                            Nombre maximal de palettes.
+                        </div>
+
+                    </div>
+
+
+                    <!-- MAX TONNAGE -->
+
+                    <div class="form-group">
+
+                        <label for="magasinMaxTonnage">
+                            Capacité maximale tonnage (KG)
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="magasinMaxTonnage"
+                            min="0"
+                            step="0.001"
+                            value="0"
+                            placeholder="0.000"
+                        >
+
+                        <div class="help-text">
+                            Capacité maximale en kilogrammes.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelMagasin"
+                >
+                    Annuler
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveMagasin"
+                >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Enregistrer
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL EMPLACEMENTS
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="emplacementModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>
+                <i class="fa-solid fa-location-dot"></i>
+                Emplacements
+            </h2>
+
+            <button
+                class="modal-close"
+                id="closeEmplacementModal"
+                type="button"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="store-summary">
+
+                <div>
+
+                    <strong id="empStoreName">
+                        -
+                    </strong>
+
+                    <br>
+
+                    <small id="empStoreCode">
+                        -
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <span
+                        class="code-badge"
+                        id="empStoreCount"
+                    >
+                        0 emplacements
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="emplacement-toolbar">
+
+                <h3>
+                    Liste des emplacements
+                </h3>
+
+                <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    id="btnAddEmplacement"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    Ajouter
+                </button>
+
+            </div>
+
+
+            <div
+                class="emplacement-list"
+                id="emplacementList"
+            ></div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="closeEmplacementFooter"
+            >
+                Fermer
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL EMPLACEMENT FORM
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="emplacementFormModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="emplacementFormTitle">
+                Nouvel emplacement
+            </h2>
+
+            <button
+                class="modal-close"
+                id="closeEmpFormModal"
+                type="button"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <form id="emplacementForm">
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="emplacementId"
+                >
+
+                <input
+                    type="hidden"
+                    id="emplacementMagasinId"
+                >
+
+
+                <div class="form-grid">
+
+                    <!-- CODE -->
+
+                    <div class="form-group">
+
+                        <label for="emplacementCode">
+                            Code <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="emplacementCode"
+                            maxlength="50"
+                            required
+                            placeholder="Ex : A407"
+                        >
+
+                    </div>
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="emplacementName">
+                            Nom
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="emplacementName"
+                            maxlength="150"
+                            placeholder="Ex : Chambre A407"
+                        >
+
+                    </div>
+
+
+                    <!-- TYPE -->
+
+                    <div class="form-group">
+
+                        <label for="emplacementType">
+                            Type
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="emplacementType"
+                            maxlength="100"
+                            placeholder="Ex : Chambre, Zone..."
+                        >
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Statut
+                        </label>
+
+                        <div class="switch-row">
+
+                            <div class="switch-text">
+
+                                <strong>
+                                    Emplacement actif
+                                </strong>
+
+                            </div>
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    id="emplacementActive"
+                                    checked
+                                >
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label for="emplacementDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="emplacementDescription"
+                            maxlength="500"
+                            placeholder="Description..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PALETTES -->
+
+                    <div class="form-group">
+
+                        <label for="emplacementMaxPalettes">
+                            Capacité palettes
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="emplacementMaxPalettes"
+                            min="0"
+                            step="1"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <!-- TONNAGE -->
+
+                    <div class="form-group">
+
+                        <label for="emplacementMaxTonnage">
+                            Capacité tonnage (KG)
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="emplacementMaxTonnage"
+                            min="0"
+                            step="0.001"
+                            value="0"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelEmpForm"
+                >
+                    Annuler
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveEmplacement"
+                >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Enregistrer
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIRM DELETE
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="confirmModal"
+>
+
+    <div class="modal confirm-box">
+
+        <div class="confirm-content">
+
+            <div class="confirm-icon">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </div>
+
+            <h3 id="confirmTitle">
+                Supprimer le magasin ?
+            </h3>
+
+            <p id="confirmMessage">
+                Cette action est irréversible.
+            </p>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="confirmCancel"
+            >
+                Annuler
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-danger"
+                id="confirmDelete"
+            >
+                <i class="fa-solid fa-trash"></i>
+                Supprimer
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="toast-container"
+    id="toastContainer"
+></div>
+
+
+<script>
+
+"use strict";
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let client = null;
+
+let magasins = [];
+let filteredMagasins = [];
+
+let emplacements = [];
+
+let currentMagasinId = null;
+
+let editingMagasinId = null;
+let editingEmplacementId = null;
+
+let deleteType = null;
+let deleteId = null;
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    try {
+
+        client = getSupabase();
+
+        bindEvents();
+
+        await loadMagasins();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showErrorState(
+            "Impossible d'initialiser la page.",
+            error.message
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function bindEvents() {
+
+    document
+        .getElementById("btnRefresh")
+        .addEventListener("click", loadMagasins);
+
+
+    document
+        .getElementById("btnAddMagasin")
+        .addEventListener("click", openNewMagasinModal);
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("input", applyFilters);
+
+
+    document
+        .getElementById("filterEmplacements")
+        .addEventListener("change", applyFilters);
+
+
+    document
+        .getElementById("filterStatus")
+        .addEventListener("change", applyFilters);
+
+
+    document
+        .getElementById("magasinForm")
+        .addEventListener("submit", saveMagasin);
+
+
+    document
+        .getElementById("emplacementForm")
+        .addEventListener("submit", saveEmplacement);
+
+
+    document
+        .getElementById("magasinHasEmplacements")
+        .addEventListener("change", updateCapacityFields);
+
+
+    document
+        .getElementById("closeMagasinModal")
+        .addEventListener("click", closeMagasinModal);
+
+
+    document
+        .getElementById("cancelMagasin")
+        .addEventListener("click", closeMagasinModal);
+
+
+    document
+        .getElementById("closeEmplacementModal")
+        .addEventListener("click", closeEmplacementModal);
+
+
+    document
+        .getElementById("closeEmplacementFooter")
+        .addEventListener("click", closeEmplacementModal);
+
+
+    document
+        .getElementById("btnAddEmplacement")
+        .addEventListener("click", openNewEmplacementModal);
+
+
+    document
+        .getElementById("closeEmpFormModal")
+        .addEventListener("click", closeEmplacementFormModal);
+
+
+    document
+        .getElementById("cancelEmpForm")
+        .addEventListener("click", closeEmplacementFormModal);
+
+
+    document
+        .getElementById("confirmCancel")
+        .addEventListener("click", closeConfirmModal);
+
+
+    document
+        .getElementById("confirmDelete")
+        .addEventListener("click", executeDelete);
+
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+
+            closeMagasinModal();
+            closeEmplacementFormModal();
+            closeConfirmModal();
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   LOAD MAGASINS
+========================================================= */
+
+async function loadMagasins() {
+
+    setLoadingState();
+
+    try {
+
+        const { data, error } = await client
+            .from("v_magasins")
+            .select("*")
+            .order("code", { ascending: true });
+
+        if (error) {
+
+            /*
+             * Fallback direct table.
+             * Permet de continuer à fonctionner même si la vue
+             * n'est pas encore disponible.
+             */
+
+            console.warn(
+                "v_magasins indisponible, fallback sur magasins:",
+                error.message
+            );
+
+            const fallback = await client
+                .from("magasins")
+                .select("*")
+                .order("code", { ascending: true });
+
+            if (fallback.error) {
+                throw fallback.error;
+            }
+
+            magasins = (fallback.data || []).map(row => ({
+                ...row,
+                emplacement_count: 0
+            }));
+
+        } else {
+
+            magasins = data || [];
+
+        }
+
+
+        updateStats();
+
+        applyFilters();
+
+    } catch (error) {
+
+        console.error(
+            "Erreur loadMagasins:",
+            error
+        );
+
+        showErrorState(
+            "Erreur de chargement",
+            getSupabaseError(error)
+        );
+
+        showToast(
+            "Erreur",
+            getSupabaseError(error),
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function applyFilters() {
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const emplacementFilter =
+        document.getElementById("filterEmplacements").value;
+
+
+    const statusFilter =
+        document.getElementById("filterStatus").value;
+
+
+    filteredMagasins = magasins.filter(magasin => {
+
+        const code =
+            String(magasin.code || "").toLowerCase();
+
+        const name =
+            String(magasin.name || "").toLowerCase();
+
+        const type =
+            String(magasin.type || "").toLowerCase();
+
+        const description =
+            String(magasin.description || "").toLowerCase();
+
+
+        const matchesSearch =
+            !search ||
+            code.includes(search) ||
+            name.includes(search) ||
+            type.includes(search) ||
+            description.includes(search);
+
+
+        const hasEmplacements =
+            magasin.has_emplacements === true;
+
+
+        const matchesEmplacement =
+            emplacementFilter === "ALL" ||
+            (
+                emplacementFilter === "YES" &&
+                hasEmplacements
+            ) ||
+            (
+                emplacementFilter === "NO" &&
+                !hasEmplacements
+            );
+
+
+        const isActive =
+            magasin.is_active === true;
+
+
+        const matchesStatus =
+            statusFilter === "ALL" ||
+            (
+                statusFilter === "ACTIVE" &&
+                isActive
+            ) ||
+            (
+                statusFilter === "INACTIVE" &&
+                !isActive
+            );
+
+
+        return (
+            matchesSearch &&
+            matchesEmplacement &&
+            matchesStatus
+        );
+
+    });
+
+
+    renderTable();
+
+}
+
+
+/* =========================================================
+   RENDER TABLE
+========================================================= */
+
+function renderTable() {
+
+    const table =
+        document.getElementById("magasinsTable");
+
+    const state =
+        document.getElementById("tableState");
+
+    const body =
+        document.getElementById("magasinsBody");
+
+
+    document.getElementById("tableCount").textContent =
+        `${filteredMagasins.length} magasin${filteredMagasins.length > 1 ? "s" : ""}`;
+
+
+    if (!filteredMagasins.length) {
+
+        table.style.display = "none";
+
+        state.style.display = "block";
+
+        state.innerHTML = `
+
+            <div class="state">
+
+                <i class="fa-solid fa-warehouse"></i>
+
+                <h3>
+                    Aucun magasin trouvé
+                </h3>
+
+                <p>
+                    Aucun magasin ne correspond aux critères.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    state.style.display = "none";
+
+    table.style.display = "table";
+
+
+    body.innerHTML = filteredMagasins
+        .map(renderMagasinRow)
+        .join("");
+
+
+    body
+        .querySelectorAll("[data-action]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                handleTableAction
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   MAGASIN ROW
+========================================================= */
+
+function renderMagasinRow(magasin) {
+
+    const emplacementCount =
+        Number(
+            magasin.emplacement_count ??
+            magasin.emplacements_count ??
+            0
+        );
+
+
+    const palettes =
+        Number(
+            magasin.max_palettes || 0
+        );
+
+
+    const tonnage =
+        Number(
+            magasin.max_tonnage_kg || 0
+        );
+
+
+    const active =
+        magasin.is_active === true;
+
+
+    return `
+
+        <tr>
+
+            <td>
+
+                <span class="code-badge">
+
+                    ${escapeHtml(magasin.code || "-")}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${escapeHtml(magasin.name || "-")}
+                </strong>
+
+                ${
+                    magasin.description
+                    ?
+                    `
+                    <div
+                        style="
+                            font-size:10px;
+                            color:#7b857f;
+                            margin-top:3px;
+                        "
+                    >
+                        ${escapeHtml(magasin.description)}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+            </td>
+
+
+            <td>
+                ${escapeHtml(magasin.type || "-")}
+            </td>
+
+
+            <td>
+
+                ${
+                    magasin.has_emplacements
+                    ?
+                    `
+                    <span class="status active">
+                        <i class="fa-solid fa-location-dot"></i>
+                        ${emplacementCount}
+                    </span>
+                    `
+                    :
+                    `
+                    <span
+                        style="
+                            color:#8a948d;
+                            font-size:11px;
+                        "
+                    >
+                        Direct
+                    </span>
+                    `
+                }
+
+            </td>
+
+
+            <td>
+
+                <div class="capacity">
+                    ${formatNumber(palettes)}
+                    <small>palettes</small>
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <div class="capacity">
+                    ${formatKg(tonnage)}
+                    <small>KG</small>
+                </div>
+
+            </td>
+
+
+            <td>
+
+                ${
+                    active
+                    ?
+                    `
+                    <span class="status active">
+                        <i class="fa-solid fa-circle"></i>
+                        Actif
+                    </span>
+                    `
+                    :
+                    `
+                    <span class="status inactive">
+                        <i class="fa-solid fa-circle"></i>
+                        Inactif
+                    </span>
+                    `
+                }
+
+            </td>
+
+
+            <td>
+
+                <div class="action-buttons">
+
+                    ${
+                        magasin.has_emplacements
+                        ?
+                        `
+                        <button
+                            type="button"
+                            class="icon-btn location"
+                            title="Emplacements"
+                            data-action="emplacements"
+                            data-id="${magasin.id}"
+                        >
+                            <i class="fa-solid fa-location-dot"></i>
+                        </button>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <button
+                        type="button"
+                        class="icon-btn edit"
+                        title="Modifier"
+                        data-action="edit"
+                        data-id="${magasin.id}"
+                    >
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="icon-btn delete"
+                        title="Supprimer"
+                        data-action="delete"
+                        data-id="${magasin.id}"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TABLE ACTION
+========================================================= */
+
+function handleTableAction(event) {
+
+    const button =
+        event.currentTarget;
+
+    const action =
+        button.dataset.action;
+
+    const id =
+        Number(button.dataset.id);
+
+
+    const magasin =
+        magasins.find(
+            item => Number(item.id) === id
+        );
+
+
+    if (!magasin) {
+        return;
+    }
+
+
+    if (action === "edit") {
+
+        openEditMagasinModal(magasin);
+
+    }
+
+
+    if (action === "delete") {
+
+        askDeleteMagasin(magasin);
+
+    }
+
+
+    if (action === "emplacements") {
+
+        openEmplacementsModal(magasin);
+
+    }
+
+}
+
+
+/* =========================================================
+   NEW MAGASIN
+========================================================= */
+
+function openNewMagasinModal() {
+
+    editingMagasinId = null;
+
+
+    document
+        .getElementById("magasinModalTitle")
+        .textContent = "Nouveau magasin";
+
+
+    document
+        .getElementById("magasinForm")
+        .reset();
+
+
+    document
+        .getElementById("magasinId")
+        .value = "";
+
+
+    document
+        .getElementById("magasinActive")
+        .checked = true;
+
+
+    document
+        .getElementById("magasinHasEmplacements")
+        .checked = false;
+
+
+    document
+        .getElementById("magasinMaxPalettes")
+        .value = "0";
+
+
+    document
+        .getElementById("magasinMaxTonnage")
+        .value = "0";
+
+
+    updateCapacityFields();
+
+
+    document
+        .getElementById("magasinModal")
+        .classList.add("show");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("magasinCode")
+            .focus();
+
+    }, 100);
+
+}
+
+
+/* =========================================================
+   EDIT MAGASIN
+========================================================= */
+
+function openEditMagasinModal(magasin) {
+
+    editingMagasinId =
+        Number(magasin.id);
+
+
+    document
+        .getElementById("magasinModalTitle")
+        .textContent = "Modifier le magasin";
+
+
+    document
+        .getElementById("magasinId")
+        .value = magasin.id;
+
+
+    document
+        .getElementById("magasinCode")
+        .value = magasin.code || "";
+
+
+    document
+        .getElementById("magasinName")
+        .value = magasin.name || "";
+
+
+    document
+        .getElementById("magasinType")
+        .value = magasin.type || "";
+
+
+    document
+        .getElementById("magasinDescription")
+        .value = magasin.description || "";
+
+
+    document
+        .getElementById("magasinHasEmplacements")
+        .checked =
+        magasin.has_emplacements === true;
+
+
+    document
+        .getElementById("magasinMaxPalettes")
+        .value =
+        magasin.max_palettes ?? 0;
+
+
+    document
+        .getElementById("magasinMaxTonnage")
+        .value =
+        magasin.max_tonnage_kg ?? 0;
+
+
+    document
+        .getElementById("magasinActive")
+        .checked =
+        magasin.is_active !== false;
+
+
+    updateCapacityFields();
+
+
+    document
+        .getElementById("magasinModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   CAPACITY FIELDS
+========================================================= */
+
+function updateCapacityFields() {
+
+    const hasEmplacements =
+        document
+            .getElementById("magasinHasEmplacements")
+            .checked;
+
+
+    const palettes =
+        document
+            .getElementById("magasinMaxPalettes");
+
+
+    const tonnage =
+        document
+            .getElementById("magasinMaxTonnage");
+
+
+    /*
+     * On ne désactive PAS les champs.
+     *
+     * Le magasin peut avoir une capacité globale
+     * même s'il possède des emplacements.
+     */
+
+    if (hasEmplacements) {
+
+        palettes.parentElement
+            .querySelector(".help-text")
+            .textContent =
+            "Capacité globale indicative du magasin. Les capacités détaillées sont définies par emplacement.";
+
+
+        tonnage.parentElement
+            .querySelector(".help-text")
+            .textContent =
+            "Capacité globale indicative en KG. Les capacités détaillées sont définies par emplacement.";
+
+    } else {
+
+        palettes.parentElement
+            .querySelector(".help-text")
+            .textContent =
+            "Nombre maximal de palettes du magasin.";
+
+
+        tonnage.parentElement
+            .querySelector(".help-text")
+            .textContent =
+            "Capacité maximale du magasin en kilogrammes.";
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE MAGASIN
+========================================================= */
+
+async function saveMagasin(event) {
+
+    event.preventDefault();
+
+
+    const currentUser =
+        getCurrentUserSafe();
+
+
+    if (!currentUser) {
+
+        showToast(
+            "Session",
+            "Utilisateur non connecté.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const code =
+        document
+            .getElementById("magasinCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const name =
+        document
+            .getElementById("magasinName")
+            .value
+            .trim();
+
+
+    const type =
+        document
+            .getElementById("magasinType")
+            .value
+            .trim();
+
+
+    const description =
+        document
+            .getElementById("magasinDescription")
+            .value
+            .trim();
+
+
+    const hasEmplacements =
+        document
+            .getElementById("magasinHasEmplacements")
+            .checked;
+
+
+    const maxPalettes =
+        parseInt(
+            document
+                .getElementById("magasinMaxPalettes")
+                .value || "0",
+            10
+        );
+
+
+    const maxTonnage =
+        parseFloat(
+            document
+                .getElementById("magasinMaxTonnage")
+                .value || "0"
+        );
+
+
+    const isActive =
+        document
+            .getElementById("magasinActive")
+            .checked;
+
+
+    if (!code) {
+
+        showToast(
+            "Validation",
+            "Le code magasin est obligatoire.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (!name) {
+
+        showToast(
+            "Validation",
+            "Le nom du magasin est obligatoire.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (maxPalettes < 0 || maxTonnage < 0) {
+
+        showToast(
+            "Validation",
+            "Les capacités ne peuvent pas être négatives.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById("saveMagasin");
+
+
+    setButtonLoading(
+        button,
+        true,
+        "Enregistrement..."
+    );
+
+
+    try {
+
+        let result;
+
+
+        if (editingMagasinId) {
+
+            result = await client
+                .from("magasins")
+                .update({
+                    code: code,
+                    name: name,
+                    description: description || null,
+                    type: type || null,
+                    has_emplacements: hasEmplacements,
+                    max_palettes: maxPalettes,
+                    max_tonnage_kg: maxTonnage,
+                    is_active: isActive,
+                    updated_by: currentUser.id,
+                    updated_at: new Date().toISOString()
+                })
+                .eq("id", editingMagasinId);
+
+        } else {
+
+            result = await client
+                .from("magasins")
+                .insert({
+                    code: code,
+                    name: name,
+                    description: description || null,
+                    type: type || null,
+                    has_emplacements: hasEmplacements,
+                    max_palettes: maxPalettes,
+                    max_tonnage_kg: maxTonnage,
+                    is_active: isActive,
+                    created_by: currentUser.id,
+                    updated_by: currentUser.id
+                });
+
+        }
+
+
+        if (result.error) {
+            throw result.error;
+        }
+
+
+        await logCrud(
+            editingMagasinId
+                ? "UPDATE"
+                : "CREATE",
+            "MAGASINS",
+            "magasins",
+            editingMagasinId || code,
+            editingMagasinId
+                ? `Modification du magasin ${code}`
+                : `Création du magasin ${code}`
+        );
+
+
+        closeMagasinModal();
+
+
+        showToast(
+            "Succès",
+            editingMagasinId
+                ? "Magasin modifié avec succès."
+                : "Magasin créé avec succès.",
+            "success"
+        );
+
+
+        await loadMagasins();
+
+
+    } catch (error) {
+
+        console.error(
+            "Erreur saveMagasin:",
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            getSupabaseError(error),
+            "error"
+        );
+
+    } finally {
+
+        setButtonLoading(
+            button,
+            false,
+            "Enregistrer"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE MAGASIN
+========================================================= */
+
+function askDeleteMagasin(magasin) {
+
+    deleteType = "magasin";
+
+    deleteId = Number(magasin.id);
+
+
+    document
+        .getElementById("confirmTitle")
+        .textContent =
+        "Supprimer le magasin ?";
+
+
+    document
+        .getElementById("confirmMessage")
+        .textContent =
+        `Le magasin "${magasin.code} - ${magasin.name}" sera supprimé ainsi que ses emplacements associés. Cette action est irréversible.`;
+
+
+    document
+        .getElementById("confirmModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   EMPLACEMENTS MODAL
+========================================================= */
+
+async function openEmplacementsModal(magasin) {
+
+    currentMagasinId =
+        Number(magasin.id);
+
+
+    document
+        .getElementById("empStoreName")
+        .textContent =
+        magasin.name || "-";
+
+
+    document
+        .getElementById("empStoreCode")
+        .textContent =
+        magasin.code || "-";
+
+
+    document
+        .getElementById("emplacementModal")
+        .classList.add("show");
+
+
+    await loadEmplacements(
+        currentMagasinId
+    );
+
+}
+
+
+/* =========================================================
+   LOAD EMPLACEMENTS
+========================================================= */
+
+async function loadEmplacements(magasinId) {
+
+    const container =
+        document.getElementById("emplacementList");
+
+
+    container.innerHTML = `
+
+        <div class="state">
+
+            <div class="spinner"></div>
+
+            <p>
+                Chargement des emplacements...
+            </p>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const { data, error } =
+            await client
+                .from("emplacements")
+                .select("*")
+                .eq("magasin_id", magasinId)
+                .order("code", {
+                    ascending: true
+                });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        emplacements = data || [];
+
+
+        document
+            .getElementById("empStoreCount")
+            .textContent =
+            `${emplacements.length} emplacement${emplacements.length > 1 ? "s" : ""}`;
+
+
+        renderEmplacements();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        container.innerHTML = `
+
+            <div class="empty-emplacements">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <div>
+                    Impossible de charger les emplacements.
+                </div>
+
+                <small>
+                    ${escapeHtml(getSupabaseError(error))}
+                </small>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER EMPLACEMENTS
+========================================================= */
+
+function renderEmplacements() {
+
+    const container =
+        document.getElementById("emplacementList");
+
+
+    if (!emplacements.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-emplacements">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <div>
+                    Aucun emplacement
+                </div>
+
+                <small>
+                    Cliquez sur "Ajouter" pour créer le premier emplacement.
+                </small>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        emplacements
+            .map(renderEmplacement)
+            .join("");
+
+
+    container
+        .querySelectorAll("[data-emp-action]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                handleEmplacementAction
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   EMPLACEMENT CARD
+========================================================= */
+
+function renderEmplacement(emp) {
+
+    return `
+
+        <div class="emplacement-item">
+
+            <div class="emp-field">
+
+                <label>Code</label>
+
+                <div class="emp-value">
+                    ${escapeHtml(emp.code || "-")}
+                </div>
+
+            </div>
+
+
+            <div class="emp-field">
+
+                <label>Nom</label>
+
+                <div class="emp-value">
+                    ${escapeHtml(emp.name || "-")}
+                </div>
+
+            </div>
+
+
+            <div class="emp-field">
+
+                <label>Palettes</label>
+
+                <div class="emp-value">
+                    ${formatNumber(emp.max_palettes || 0)}
+                </div>
+
+            </div>
+
+
+            <div class="emp-field">
+
+                <label>Tonnage</label>
+
+                <div class="emp-value">
+                    ${formatKg(emp.max_tonnage_kg || 0)} KG
+                </div>
+
+            </div>
+
+
+            <div class="emp-actions">
+
+                <button
+                    type="button"
+                    class="icon-btn edit"
+                    title="Modifier"
+                    data-emp-action="edit"
+                    data-id="${emp.id}"
+                >
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="icon-btn delete"
+                    title="Supprimer"
+                    data-emp-action="delete"
+                    data-id="${emp.id}"
+                >
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   EMPLACEMENT ACTION
+========================================================= */
+
+function handleEmplacementAction(event) {
+
+    const action =
+        event.currentTarget.dataset.empAction;
+
+    const id =
+        Number(
+            event.currentTarget.dataset.id
+        );
+
+
+    const emp =
+        emplacements.find(
+            item => Number(item.id) === id
+        );
+
+
+    if (!emp) {
+        return;
+    }
+
+
+    if (action === "edit") {
+
+        openEditEmplacementModal(emp);
+
+    }
+
+
+    if (action === "delete") {
+
+        askDeleteEmplacement(emp);
+
+    }
+
+}
+
+
+/* =========================================================
+   NEW EMPLACEMENT
+========================================================= */
+
+function openNewEmplacementModal() {
+
+    if (!currentMagasinId) {
+
+        showToast(
+            "Erreur",
+            "Aucun magasin sélectionné.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    editingEmplacementId = null;
+
+
+    document
+        .getElementById("emplacementFormTitle")
+        .textContent =
+        "Nouvel emplacement";
+
+
+    document
+        .getElementById("emplacementForm")
+        .reset();
+
+
+    document
+        .getElementById("emplacementId")
+        .value = "";
+
+
+    document
+        .getElementById("emplacementMagasinId")
+        .value =
+        currentMagasinId;
+
+
+    document
+        .getElementById("emplacementActive")
+        .checked = true;
+
+
+    document
+        .getElementById("emplacementMaxPalettes")
+        .value = "0";
+
+
+    document
+        .getElementById("emplacementMaxTonnage")
+        .value = "0";
+
+
+    document
+        .getElementById("emplacementFormModal")
+        .classList.add("show");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("emplacementCode")
+            .focus();
+
+    }, 100);
+
+}
+
+
+/* =========================================================
+   EDIT EMPLACEMENT
+========================================================= */
+
+function openEditEmplacementModal(emp) {
+
+    editingEmplacementId =
+        Number(emp.id);
+
+
+    document
+        .getElementById("emplacementFormTitle")
+        .textContent =
+        "Modifier l'emplacement";
+
+
+    document
+        .getElementById("emplacementId")
+        .value =
+        emp.id;
+
+
+    document
+        .getElementById("emplacementMagasinId")
+        .value =
+        emp.magasin_id;
+
+
+    document
+        .getElementById("emplacementCode")
+        .value =
+        emp.code || "";
+
+
+    document
+        .getElementById("emplacementName")
+        .value =
+        emp.name || "";
+
+
+    document
+        .getElementById("emplacementType")
+        .value =
+        emp.type || "";
+
+
+    document
+        .getElementById("emplacementDescription")
+        .value =
+        emp.description || "";
+
+
+    document
+        .getElementById("emplacementMaxPalettes")
+        .value =
+        emp.max_palettes ?? 0;
+
+
+    document
+        .getElementById("emplacementMaxTonnage")
+        .value =
+        emp.max_tonnage_kg ?? 0;
+
+
+    document
+        .getElementById("emplacementActive")
+        .checked =
+        emp.is_active !== false;
+
+
+    document
+        .getElementById("emplacementFormModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   SAVE EMPLACEMENT
+========================================================= */
+
+async function saveEmplacement(event) {
+
+    event.preventDefault();
+
+
+    const currentUser =
+        getCurrentUserSafe();
+
+
+    if (!currentUser) {
+
+        showToast(
+            "Session",
+            "Utilisateur non connecté.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const magasinId =
+        Number(
+            document
+                .getElementById("emplacementMagasinId")
+                .value
+        );
+
+
+    const code =
+        document
+            .getElementById("emplacementCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const name =
+        document
+            .getElementById("emplacementName")
+            .value
+            .trim();
+
+
+    const type =
+        document
+            .getElementById("emplacementType")
+            .value
+            .trim();
+
+
+    const description =
+        document
+            .getElementById("emplacementDescription")
+            .value
+            .trim();
+
+
+    const maxPalettes =
+        parseInt(
+            document
+                .getElementById("emplacementMaxPalettes")
+                .value || "0",
+            10
+        );
+
+
+    const maxTonnage =
+        parseFloat(
+            document
+                .getElementById("emplacementMaxTonnage")
+                .value || "0"
+        );
+
+
+    const isActive =
+        document
+            .getElementById("emplacementActive")
+            .checked;
+
+
+    if (!magasinId) {
+
+        showToast(
+            "Validation",
+            "Magasin obligatoire.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (!code) {
+
+        showToast(
+            "Validation",
+            "Le code emplacement est obligatoire.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (maxPalettes < 0 || maxTonnage < 0) {
+
+        showToast(
+            "Validation",
+            "Les capacités ne peuvent pas être négatives.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById("saveEmplacement");
+
+
+    setButtonLoading(
+        button,
+        true,
+        "Enregistrement..."
+    );
+
+
+    try {
+
+        let result;
+
+
+        if (editingEmplacementId) {
+
+            result = await client
+                .from("emplacements")
+                .update({
+                    magasin_id: magasinId,
+                    code: code,
+                    name: name || null,
+                    description: description || null,
+                    type: type || null,
+                    max_palettes: maxPalettes,
+                    max_tonnage_kg: maxTonnage,
+                    is_active: isActive,
+                    updated_by: currentUser.id,
+                    updated_at: new Date().toISOString()
+                })
+                .eq("id", editingEmplacementId);
+
+        } else {
+
+            result = await client
+                .from("emplacements")
+                .insert({
+                    magasin_id: magasinId,
+                    code: code,
+                    name: name || null,
+                    description: description || null,
+                    type: type || null,
+                    max_palettes: maxPalettes,
+                    max_tonnage_kg: maxTonnage,
+                    is_active: isActive,
+                    created_by: currentUser.id,
+                    updated_by: currentUser.id
+                });
+
+        }
+
+
+        if (result.error) {
+            throw result.error;
+        }
+
+
+        await logCrud(
+            editingEmplacementId
+                ? "UPDATE"
+                : "CREATE",
+            "MAGASINS",
+            "emplacements",
+            editingEmplacementId || code,
+            editingEmplacementId
+                ? `Modification de l'emplacement ${code}`
+                : `Création de l'emplacement ${code}`
+        );
+
+
+        closeEmplacementFormModal();
+
+
+        showToast(
+            "Succès",
+            editingEmplacementId
+                ? "Emplacement modifié avec succès."
+                : "Emplacement créé avec succès.",
+            "success"
+        );
+
+
+        await loadEmplacements(
+            currentMagasinId
+        );
+
+
+        await loadMagasins();
+
+
+    } catch (error) {
+
+        console.error(
+            "Erreur saveEmplacement:",
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            getSupabaseError(error),
+            "error"
+        );
+
+    } finally {
+
+        setButtonLoading(
+            button,
+            false,
+            "Enregistrer"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE EMPLACEMENT
+========================================================= */
+
+function askDeleteEmplacement(emp) {
+
+    deleteType = "emplacement";
+
+    deleteId = Number(emp.id);
+
+
+    document
+        .getElementById("confirmTitle")
+        .textContent =
+        "Supprimer l'emplacement ?";
+
+
+    document
+        .getElementById("confirmMessage")
+        .textContent =
+        `L'emplacement "${emp.code} - ${emp.name || ""}" sera supprimé. Cette action est irréversible.`;
+
+
+    document
+        .getElementById("confirmModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   EXECUTE DELETE
+========================================================= */
+
+async function executeDelete() {
+
+    if (!deleteType || !deleteId) {
+        return;
+    }
+
+
+    const button =
+        document.getElementById("confirmDelete");
+
+
+    setButtonLoading(
+        button,
+        true,
+        "Suppression..."
+    );
+
+
+    try {
+
+        const currentUser =
+            getCurrentUserSafe();
+
+
+        if (!currentUser) {
+            throw new Error(
+                "Utilisateur non connecté."
+            );
+        }
+
+
+        if (deleteType === "magasin") {
+
+            const magasin =
+                magasins.find(
+                    item =>
+                        Number(item.id) === deleteId
+                );
+
+
+            const result =
+                await client
+                    .from("magasins")
+                    .delete()
+                    .eq("id", deleteId);
+
+
+            if (result.error) {
+                throw result.error;
+            }
+
+
+            await logCrud(
+                "DELETE",
+                "MAGASINS",
+                "magasins",
+                deleteId,
+                `Suppression du magasin ${magasin?.code || deleteId}`
+            );
+
+
+            showToast(
+                "Succès",
+                "Magasin supprimé avec succès.",
+                "success"
+            );
+
+        }
+
+
+        if (deleteType === "emplacement") {
+
+            const emp =
+                emplacements.find(
+                    item =>
+                        Number(item.id) === deleteId
+                );
+
+
+            const result =
+                await client
+                    .from("emplacements")
+                    .delete()
+                    .eq("id", deleteId);
+
+
+            if (result.error) {
+                throw result.error;
+            }
+
+
+            await logCrud(
+                "DELETE",
+                "MAGASINS",
+                "emplacements",
+                deleteId,
+                `Suppression de l'emplacement ${emp?.code || deleteId}`
+            );
+
+
+            showToast(
+                "Succès",
+                "Emplacement supprimé avec succès.",
+                "success"
+            );
+
+        }
+
+
+        closeConfirmModal();
+
+
+        if (deleteType === "magasin") {
+
+            await loadMagasins();
+
+        } else {
+
+            await loadEmplacements(
+                currentMagasinId
+            );
+
+            await loadMagasins();
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Erreur delete:",
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            getSupabaseError(error),
+            "error"
+        );
+
+    } finally {
+
+        setButtonLoading(
+            button,
+            false,
+            "Supprimer"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
+
+function closeMagasinModal() {
+
+    document
+        .getElementById("magasinModal")
+        .classList.remove("show");
+
+}
+
+
+function closeEmplacementsModal() {
+
+    document
+        .getElementById("emplacementModal")
+        .classList.remove("show");
+
+    currentMagasinId = null;
+
+}
+
+
+function closeEmplacementFormModal() {
+
+    document
+        .getElementById("emplacementFormModal")
+        .classList.remove("show");
+
+}
+
+
+function closeConfirmModal() {
+
+    document
+        .getElementById("confirmModal")
+        .classList.remove("show");
+
+    deleteType = null;
+    deleteId = null;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats() {
+
+    const total =
+        magasins.length;
+
+
+    const active =
+        magasins.filter(
+            item => item.is_active === true
+        ).length;
+
+
+    const emplacementCount =
+        magasins.reduce(
+            (total, item) =>
+                total +
+                Number(
+                    item.emplacement_count ??
+                    item.emplacements_count ??
+                    0
+                ),
+            0
+        );
+
+
+    const palettes =
+        magasins.reduce(
+            (total, item) =>
+                total +
+                Number(item.max_palettes || 0),
+            0
+        );
+
+
+    const tonnage =
+        magasins.reduce(
+            (total, item) =>
+                total +
+                Number(item.max_tonnage_kg || 0),
+            0
+        );
+
+
+    document
+        .getElementById("statTotal")
+        .textContent =
+        formatNumber(total);
+
+
+    document
+        .getElementById("statActive")
+        .textContent =
+        formatNumber(active);
+
+
+    document
+        .getElementById("statEmplacements")
+        .textContent =
+        formatNumber(emplacementCount);
+
+
+    document
+        .getElementById("statPalettes")
+        .textContent =
+        formatNumber(palettes);
+
+
+    document
+        .getElementById("statTonnage")
+        .textContent =
+        formatKg(tonnage);
+
+}
+
+
+/* =========================================================
+   STATES
+========================================================= */
+
+function setLoadingState() {
+
+    const table =
+        document.getElementById("magasinsTable");
+
+    const state =
+        document.getElementById("tableState");
+
+
+    table.style.display = "none";
+
+    state.style.display = "block";
+
+
+    state.innerHTML = `
+
+        <div class="state">
+
+            <div class="spinner"></div>
+
+            <h3>
+                Chargement...
+            </h3>
+
+            <p>
+                Chargement des magasins
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+function showErrorState(title, message) {
+
+    const table =
+        document.getElementById("magasinsTable");
+
+    const state =
+        document.getElementById("tableState");
+
+
+    table.style.display = "none";
+
+    state.style.display = "block";
+
+
+    state.innerHTML = `
+
+        <div class="state">
+
+            <i
+                class="fa-solid fa-triangle-exclamation"
+                style="color:#dc2626;"
+            ></i>
+
+            <h3>
+                ${escapeHtml(title)}
+            </h3>
+
+            <p>
+                ${escapeHtml(message || "")}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+function getCurrentUserSafe() {
+
+    try {
+
+        const raw =
+            sessionStorage.getItem(
+                "smtg_current_user"
+            ) ||
+            sessionStorage.getItem(
+                "smtgUser"
+            ) ||
+            localStorage.getItem(
+                "smtg_current_user"
+            ) ||
+            localStorage.getItem(
+                "smtgUser"
+            );
+
+
+        if (!raw) {
+            return null;
+        }
+
+
+        return JSON.parse(raw);
+
+    } catch (error) {
+
+        console.error(
+            "Erreur utilisateur:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   CRUD LOG
+========================================================= */
+
+async function logCrud(
+    action,
+    module,
+    entityType,
+    entityId,
+    description
+) {
+
+    try {
+
+        if (
+            window.SMTG &&
+            typeof window.SMTG.logCrudAction === "function"
+        ) {
+
+            await window.SMTG.logCrudAction(
+                action,
+                module,
+                entityType,
+                entityId,
+                description
+            );
+
+            return;
+
+        }
+
+
+        if (
+            window.SMTG &&
+            typeof window.SMTG.logActivity === "function"
+        ) {
+
+            await window.SMTG.logActivity(
+                action,
+                module,
+                "magasins.html",
+                "MAGASINS",
+                description,
+                entityType,
+                entityId
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Logging ignoré:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BUTTON LOADING
+========================================================= */
+
+function setButtonLoading(
+    button,
+    loading,
+    text
+) {
+
+    if (!button) {
+        return;
+    }
+
+
+    if (loading) {
+
+        button.dataset.originalHtml =
+            button.innerHTML;
+
+        button.disabled = true;
+
+        button.innerHTML = `
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            ${escapeHtml(text)}
+
+        `;
+
+    } else {
+
+        button.disabled = false;
+
+        button.innerHTML =
+            button.dataset.originalHtml ||
+            `
+            <i class="fa-solid fa-floppy-disk"></i>
+            ${escapeHtml(text)}
+            `;
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    title,
+    message,
+    type = "success"
+) {
+
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
+
+
+    const icon =
+        type === "error"
+            ? "fa-circle-xmark"
+            : type === "warning"
+                ? "fa-triangle-exclamation"
+                : "fa-circle-check";
+
+
+    const toast =
+        document.createElement("div");
+
+
+    toast.className =
+        `toast ${type}`;
+
+
+    toast.innerHTML = `
+
+        <div class="toast-icon">
+
+            <i class="fa-solid ${icon}"></i>
+
+        </div>
+
+
+        <div class="toast-content">
+
+            <strong>
+                ${escapeHtml(title)}
+            </strong>
+
+            <span>
+                ${escapeHtml(message)}
+            </span>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(toast);
+
+
+    setTimeout(() => {
+
+        toast.remove();
+
+    }, 4500);
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function formatNumber(value) {
+
+    return Number(value || 0)
+        .toLocaleString(
+            "fr-FR",
+            {
+                maximumFractionDigits: 0
+            }
+        );
+
+}
+
+
+function formatKg(value) {
+
+    return Number(value || 0)
+        .toLocaleString(
+            "fr-FR",
+            {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 3
+            }
+        );
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function getSupabaseError(error) {
+
+    if (!error) {
+        return "Erreur inconnue.";
+    }
+
+
+    return (
+        error.message ||
+        error.details ||
+        error.hint ||
+        "Une erreur est survenue."
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE WHEN CLICK OUTSIDE
+========================================================= */
+
+document.addEventListener("click", event => {
+
+    if (
+        event.target ===
+        document.getElementById("magasinModal")
+    ) {
+
+        closeMagasinModal();
+
+    }
+
+
+    if (
+        event.target ===
+        document.getElementById("emplacementModal")
+    ) {
+
+        closeEmplacementsModal();
+
+    }
+
+
+    if (
+        event.target ===
+        document.getElementById("emplacementFormModal")
+    ) {
+
+        closeEmplacementFormModal();
+
+    }
+
+
+    if (
+        event.target ===
+        document.getElementById("confirmModal")
+    ) {
+
+        closeConfirmModal();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
