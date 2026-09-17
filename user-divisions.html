@@ -8,7 +8,6 @@
 
     <title>Utilisateurs — Divisions | SMTG</title>
 
-    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -39,13 +38,12 @@
         ===================================================== */
 
         .page-header {
-            background: #ffffff;
+            background: #fff;
             border-radius: 14px;
             padding: 20px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,.06);
             margin-bottom: 18px;
         }
@@ -61,7 +59,7 @@
             height: 48px;
             border-radius: 12px;
             background: #145a1f;
-            color: #ffffff;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -92,7 +90,7 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: #fff;
             border-radius: 14px;
             padding: 18px;
             box-shadow: 0 2px 10px rgba(0,0,0,.05);
@@ -137,7 +135,7 @@
         }
 
         .card {
-            background: #ffffff;
+            background: #fff;
             border-radius: 14px;
             box-shadow: 0 2px 10px rgba(0,0,0,.05);
             overflow: hidden;
@@ -197,7 +195,7 @@
             border-radius: 9px;
             outline: none;
             font-size: 13px;
-            background: #ffffff;
+            background: #fff;
         }
 
         .search-box input:focus {
@@ -235,7 +233,7 @@
         }
 
         .user-item.system {
-            cursor: not-allowed;
+            cursor: pointer;
         }
 
         .user-main {
@@ -250,7 +248,7 @@
             min-width: 40px;
             border-radius: 50%;
             background: #145a1f;
-            color: #ffffff;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -372,7 +370,7 @@
 
         .division-toolbar button {
             border: 1px solid #d8dee4;
-            background: #ffffff;
+            background: #fff;
             color: #374151;
             height: 36px;
             padding: 0 11px;
@@ -494,7 +492,7 @@
 
         .btn-primary {
             background: #145a1f;
-            color: #ffffff;
+            color: #fff;
         }
 
         .btn-primary:hover {
@@ -516,7 +514,7 @@
         }
 
         /* =====================================================
-           EMPTY / LOADING
+           EMPTY
         ===================================================== */
 
         .empty {
@@ -539,9 +537,13 @@
 
         .empty small {
             display: block;
-            margin-top: 5px;
+            margin-top: 6px;
             font-size: 11px;
         }
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
 
         .loading {
             text-align: center;
@@ -556,9 +558,11 @@
         }
 
         @keyframes spin {
+
             to {
                 transform: rotate(360deg);
             }
+
         }
 
         /* =====================================================
@@ -577,7 +581,7 @@
             max-width: 420px;
             padding: 13px 15px;
             border-radius: 10px;
-            background: #ffffff;
+            background: #fff;
             box-shadow: 0 8px 30px rgba(0,0,0,.15);
             margin-bottom: 10px;
             display: flex;
@@ -686,7 +690,7 @@
 
     <!-- =====================================================
          HEADER
-    ====================================================== -->
+    ===================================================== -->
 
     <div class="page-header">
 
@@ -715,7 +719,7 @@
 
     <!-- =====================================================
          STATS
-    ====================================================== -->
+    ===================================================== -->
 
     <div class="stats">
 
@@ -809,7 +813,7 @@
 
     <!-- =====================================================
          CONTENT
-    ====================================================== -->
+    ===================================================== -->
 
     <div class="content-grid">
 
@@ -836,7 +840,6 @@
 
             <div class="card-body">
 
-
                 <div class="search-box">
 
                     <i class="fa-solid fa-search"></i>
@@ -851,7 +854,10 @@
                 </div>
 
 
-                <div id="usersList" class="users-list">
+                <div
+                    id="usersList"
+                    class="users-list"
+                >
 
                     <div class="loading">
 
@@ -862,7 +868,6 @@
                     </div>
 
                 </div>
-
 
             </div>
 
@@ -905,7 +910,7 @@
             <div class="card-body">
 
 
-                <!-- SELECTED USER -->
+                <!-- USER SELECTED -->
 
                 <div
                     id="selectedUserBox"
@@ -914,8 +919,8 @@
                 >
 
                     <div
-                        class="avatar"
                         id="selectedAvatar"
+                        class="avatar"
                     >
                         —
                     </div>
@@ -944,8 +949,11 @@
                         type="button"
                         id="btnSelectAll"
                     >
+
                         <i class="fa-solid fa-check-double"></i>
+
                         Tout sélectionner
+
                     </button>
 
 
@@ -953,8 +961,11 @@
                         type="button"
                         id="btnClearAll"
                     >
+
                         <i class="fa-solid fa-xmark"></i>
+
                         Tout désélectionner
+
                     </button>
 
 
@@ -962,14 +973,17 @@
                         type="button"
                         id="btnReload"
                     >
+
                         <i class="fa-solid fa-rotate"></i>
+
                         Actualiser
+
                     </button>
 
                 </div>
 
 
-                <!-- DIVISIONS LIST -->
+                <!-- DIVISIONS -->
 
                 <div
                     id="divisionsList"
@@ -999,8 +1013,11 @@
                         id="btnCancel"
                         disabled
                     >
+
                         <i class="fa-solid fa-rotate-left"></i>
+
                         Annuler
+
                     </button>
 
 
@@ -1010,12 +1027,14 @@
                         id="btnSave"
                         disabled
                     >
+
                         <i class="fa-solid fa-floppy-disk"></i>
+
                         Enregistrer
+
                     </button>
 
                 </div>
-
 
             </div>
 
@@ -1027,7 +1046,9 @@
 </div>
 
 
-<!-- TOAST -->
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
 <div
     id="toastContainer"
@@ -1035,43 +1056,44 @@
 ></div>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SUPABASE JS
-========================================================= -->
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-<!-- =========================================================
-     SMTG SUPABASE CONFIG
-========================================================= -->
+<!-- =====================================================
+     SMTG CONFIG
+===================================================== -->
 
 <script src="./api/supabase.js"></script>
 
 
 <script>
 
-    /* =========================================================
+    /* =====================================================
        SUPABASE CLIENT
 
        IMPORTANT:
-       api/supabase.js crée:
-       window.smtgSupabase
+       On utilise db pour éviter tout conflit
+       avec window.supabase
+    ===================================================== */
 
-       On ne fait PAS:
-       import { supabase } ...
-    ========================================================= */
-
-    const supabase = window.smtgSupabase;
+    const db =
+        window.smtgSupabase;
 
 
-    if (!supabase) {
+    if (!db) {
 
         console.error(
             "Supabase client non initialisé."
         );
 
-        document.getElementById("usersList").innerHTML = `
+        document.getElementById(
+            "usersList"
+        ).innerHTML = `
+
             <div class="empty">
 
                 <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1081,10 +1103,11 @@
                 </p>
 
                 <small>
-                    Vérifiez le chargement de api/supabase.js
+                    Vérifiez api/supabase.js
                 </small>
 
             </div>
+
         `;
 
         throw new Error(
@@ -1093,9 +1116,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        VARIABLES
-    ========================================================= */
+    ===================================================== */
 
     let users = [];
 
@@ -1107,14 +1130,16 @@
 
     let selectedUser = null;
 
-    let originalDivisionIds = new Set();
+    let originalDivisionIds =
+        new Set();
 
-    let selectedDivisionIds = new Set();
+    let selectedDivisionIds =
+        new Set();
 
 
-    /* =========================================================
+    /* =====================================================
        DOM
-    ========================================================= */
+    ===================================================== */
 
     const usersList =
         document.getElementById(
@@ -1187,30 +1212,30 @@
         );
 
 
-    /* =========================================================
+    /* =====================================================
        CURRENT USER
-    ========================================================= */
+    ===================================================== */
 
     function getCurrentUser() {
 
         try {
 
-            const sessionUser =
+            const value =
                 sessionStorage.getItem(
                     "smtg_current_user"
                 );
 
-            if (sessionUser) {
+            if (value) {
 
                 return JSON.parse(
-                    sessionUser
+                    value
                 );
             }
 
         } catch (error) {
 
             console.warn(
-                "Erreur sessionStorage:",
+                "Session user error:",
                 error
             );
         }
@@ -1218,22 +1243,22 @@
 
         try {
 
-            const localUser =
+            const value =
                 localStorage.getItem(
                     "smtg_current_user"
                 );
 
-            if (localUser) {
+            if (value) {
 
                 return JSON.parse(
-                    localUser
+                    value
                 );
             }
 
         } catch (error) {
 
             console.warn(
-                "Erreur localStorage:",
+                "Local user error:",
                 error
             );
         }
@@ -1241,22 +1266,22 @@
 
         try {
 
-            const oldUser =
+            const value =
                 sessionStorage.getItem(
                     "smtgUser"
                 );
 
-            if (oldUser) {
+            if (value) {
 
                 return JSON.parse(
-                    oldUser
+                    value
                 );
             }
 
         } catch (error) {
 
             console.warn(
-                "Erreur ancienne session:",
+                "Old session error:",
                 error
             );
         }
@@ -1270,36 +1295,45 @@
         getCurrentUser();
 
 
-    /* =========================================================
+    /* =====================================================
        ESCAPE HTML
-    ========================================================= */
+    ===================================================== */
 
-    function escapeHtml(value) {
+    function escapeHtml(
+        value
+    ) {
 
         if (
             value === null ||
             value === undefined
         ) {
+
             return "";
         }
 
+
         return String(value)
+
             .replace(
                 /&/g,
                 "&amp;"
             )
+
             .replace(
                 /</g,
                 "&lt;"
             )
+
             .replace(
                 />/g,
                 "&gt;"
             )
+
             .replace(
                 /"/g,
                 "&quot;"
             )
+
             .replace(
                 /'/g,
                 "&#039;"
@@ -1307,16 +1341,19 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        INITIALS
-    ========================================================= */
+    ===================================================== */
 
-    function getInitials(name) {
+    function getInitials(
+        name
+    ) {
 
         if (!name) {
 
             return "?";
         }
+
 
         const parts =
             String(name)
@@ -1325,10 +1362,15 @@
                 .filter(Boolean);
 
 
-        if (parts.length === 1) {
+        if (
+            parts.length === 1
+        ) {
 
             return parts[0]
-                .substring(0, 2)
+                .substring(
+                    0,
+                    2
+                )
                 .toUpperCase();
         }
 
@@ -1340,9 +1382,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        TOAST
-    ========================================================= */
+    ===================================================== */
 
     function showToast(
         message,
@@ -1354,10 +1396,12 @@
                 "toastContainer"
             );
 
+
         const toast =
             document.createElement(
                 "div"
             );
+
 
         toast.className =
             `toast ${type}`;
@@ -1367,14 +1411,18 @@
             "fa-circle-check";
 
 
-        if (type === "error") {
+        if (
+            type === "error"
+        ) {
 
             icon =
                 "fa-circle-exclamation";
         }
 
 
-        if (type === "warning") {
+        if (
+            type === "warning"
+        ) {
 
             icon =
                 "fa-triangle-exclamation";
@@ -1398,15 +1446,19 @@
 
 
         setTimeout(
-            () => toast.remove(),
+            () => {
+
+                toast.remove();
+
+            },
             3500
         );
     }
 
 
-    /* =========================================================
+    /* =====================================================
        LOAD ROLES
-    ========================================================= */
+    ===================================================== */
 
     async function loadRoles() {
 
@@ -1415,15 +1467,13 @@
             const {
                 data,
                 error
-            } = await supabase
+            } = await db
 
                 .from("roles")
 
-                .select(`
-                    id,
-                    name,
-                    code
-                `)
+                .select(
+                    "id,name,code"
+                )
 
                 .order(
                     "name",
@@ -1445,8 +1495,8 @@
 
         } catch (error) {
 
-            console.error(
-                "Erreur roles:",
+            console.warn(
+                "Impossible de charger les rôles:",
                 error
             );
 
@@ -1455,9 +1505,9 @@
     }
 
 
-    /* =========================================================
-       GET ROLE NAME
-    ========================================================= */
+    /* =====================================================
+       ROLE NAME
+    ===================================================== */
 
     function getRoleName(
         roleId
@@ -1491,9 +1541,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        LOAD USERS
-    ========================================================= */
+    ===================================================== */
 
     async function loadUsers() {
 
@@ -1515,7 +1565,7 @@
             const {
                 data,
                 error
-            } = await supabase
+            } = await db
 
                 .from("users")
 
@@ -1599,9 +1649,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        LOAD DIVISIONS
-    ========================================================= */
+    ===================================================== */
 
     async function loadDivisions() {
 
@@ -1610,7 +1660,7 @@
             const {
                 data,
                 error
-            } = await supabase
+            } = await db
 
                 .from("divisions")
 
@@ -1673,9 +1723,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        LOAD ASSIGNMENTS
-    ========================================================= */
+    ===================================================== */
 
     async function loadAssignments() {
 
@@ -1684,7 +1734,7 @@
             const {
                 data,
                 error
-            } = await supabase
+            } = await db
 
                 .from("user_divisions")
 
@@ -1723,9 +1773,9 @@
                         assignments
 
                             .filter(
-                                x =>
+                                item =>
                                     Number(
-                                        x.user_id
+                                        item.user_id
                                     ) ===
                                     Number(
                                         selectedUser.id
@@ -1733,9 +1783,9 @@
                             )
 
                             .map(
-                                x =>
+                                item =>
                                     Number(
-                                        x.division_id
+                                        item.division_id
                                     )
                             )
                     );
@@ -1759,7 +1809,7 @@
         } catch (error) {
 
             console.error(
-                "Erreur affectations:",
+                "Erreur user_divisions:",
                 error
             );
 
@@ -1772,9 +1822,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        RENDER USERS
-    ========================================================= */
+    ===================================================== */
 
     function renderUsers() {
 
@@ -1788,13 +1838,17 @@
             users.filter(
                 user => {
 
-                    const text =
-                        `
+                    const text = `
+
                         ${user.full_name || ""}
+
                         ${user.username || ""}
-                        ${getRoleName(user.role_id)}
-                        `
-                            .toLowerCase();
+
+                        ${getRoleName(
+                            user.role_id
+                        )}
+
+                    `.toLowerCase();
 
 
                     return text.includes(
@@ -1804,7 +1858,9 @@
             );
 
 
-        if (!filtered.length) {
+        if (
+            !filtered.length
+        ) {
 
             usersList.innerHTML = `
 
@@ -1830,19 +1886,19 @@
                 .map(
                     user => {
 
-                        const userAssignments =
+                        const count =
                             assignments.filter(
-                                x =>
+                                item =>
                                     Number(
-                                        x.user_id
+                                        item.user_id
                                     ) ===
                                     Number(
                                         user.id
                                     )
-                            );
+                            ).length;
 
 
-                        const isSelected =
+                        const active =
                             selectedUser &&
                             Number(
                                 selectedUser.id
@@ -1863,7 +1919,7 @@
                             <div
                                 class="
                                     user-item
-                                    ${isSelected ? "active" : ""}
+                                    ${active ? "active" : ""}
                                     ${user.is_system ? "system" : ""}
                                 "
                                 data-user-id="${user.id}"
@@ -1871,25 +1927,39 @@
 
                                 <div class="user-main">
 
+
                                     <div
                                         class="
                                             avatar
                                             ${user.is_system ? "system" : ""}
                                         "
                                     >
+
                                         ${
                                             user.is_system
-                                            ? '<i class="fa-solid fa-shield-halved"></i>'
-                                            : escapeHtml(
+
+                                            ?
+
+                                            '<i class="fa-solid fa-shield-halved"></i>'
+
+                                            :
+
+                                            escapeHtml(
                                                 getInitials(
                                                     user.full_name
                                                 )
                                             )
                                         }
+
                                     </div>
 
 
-                                    <div style="flex:1; min-width:0;">
+                                    <div
+                                        style="
+                                            flex:1;
+                                            min-width:0;
+                                        "
+                                    >
 
                                         <div class="user-name">
 
@@ -1914,6 +1984,7 @@
 
 
                                 <div class="user-meta">
+
 
                                     ${
                                         user.is_system
@@ -1980,16 +2051,16 @@
 
                                         <i class="fa-solid fa-code-branch"></i>
 
-                                        ${userAssignments.length}
+                                        ${count}
 
                                     </span>
+
 
                                 </div>
 
                             </div>
 
                         `;
-
                     }
                 )
                 .join("");
@@ -2022,9 +2093,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        SELECT USER
-    ========================================================= */
+    ===================================================== */
 
     function selectUser(
         userId
@@ -2032,9 +2103,13 @@
 
         const user =
             users.find(
-                x =>
-                    Number(x.id) ===
-                    Number(userId)
+                item =>
+                    Number(
+                        item.id
+                    ) ===
+                    Number(
+                        userId
+                    )
             );
 
 
@@ -2054,9 +2129,9 @@
                 assignments
 
                     .filter(
-                        x =>
+                        item =>
                             Number(
-                                x.user_id
+                                item.user_id
                             ) ===
                             Number(
                                 user.id
@@ -2064,9 +2139,9 @@
                     )
 
                     .map(
-                        x =>
+                        item =>
                             Number(
-                                x.division_id
+                                item.division_id
                             )
                     )
             );
@@ -2096,7 +2171,7 @@
 
             ?
 
-            `<i class="fa-solid fa-shield-halved"></i>`
+            '<i class="fa-solid fa-shield-halved"></i>'
 
             :
 
@@ -2116,24 +2191,14 @@
             `@${user.username || "—"}`;
 
 
-        selectedLabel.textContent =
-            user.is_system
-
-            ?
-
-            "Compte technique SYSTEM"
-
-            :
-
-            `${selectedDivisionIds.size} division(s) affectée(s)`;
-
-
         document.getElementById(
             "statSelected"
         ).textContent =
             user.username ||
             "—";
 
+
+        updateSelectedCount();
 
         renderUsers();
 
@@ -2143,9 +2208,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        RENDER DIVISIONS
-    ========================================================= */
+    ===================================================== */
 
     function renderDivisions() {
 
@@ -2169,7 +2234,11 @@
         }
 
 
-        if (selectedUser.is_system) {
+        /* SYSTEM */
+
+        if (
+            selectedUser.is_system
+        ) {
 
             divisionsList.innerHTML = `
 
@@ -2348,15 +2417,15 @@
                             }
 
 
-                            const parent =
+                            const item =
                                 checkbox.closest(
                                     ".division-item"
                                 );
 
 
-                            if (parent) {
+                            if (item) {
 
-                                parent.classList.toggle(
+                                item.classList.toggle(
                                     "selected",
                                     checkbox.checked
                                 );
@@ -2366,6 +2435,7 @@
                             updateSelectedCount();
 
                             updateButtons();
+
                         }
                     );
                 }
@@ -2376,9 +2446,9 @@
     }
 
 
-    /* =========================================================
-       UPDATE SELECTED COUNT
-    ========================================================= */
+    /* =====================================================
+       UPDATE COUNT
+    ===================================================== */
 
     function updateSelectedCount() {
 
@@ -2410,18 +2480,18 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        SET COMPARISON
-    ========================================================= */
+    ===================================================== */
 
     function setsEqual(
-        a,
-        b
+        first,
+        second
     ) {
 
         if (
-            a.size !==
-            b.size
+            first.size !==
+            second.size
         ) {
 
             return false;
@@ -2429,11 +2499,11 @@
 
 
         for (
-            const value of a
+            const value of first
         ) {
 
             if (
-                !b.has(value)
+                !second.has(value)
             ) {
 
                 return false;
@@ -2445,9 +2515,9 @@
     }
 
 
-    /* =========================================================
-       BUTTON STATE
-    ========================================================= */
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
 
     function updateButtons() {
 
@@ -2463,7 +2533,9 @@
         }
 
 
-        if (selectedUser.is_system) {
+        if (
+            selectedUser.is_system
+        ) {
 
             btnSave.disabled =
                 true;
@@ -2491,9 +2563,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        SELECT ALL
-    ========================================================= */
+    ===================================================== */
 
     btnSelectAll.addEventListener(
         "click",
@@ -2527,9 +2599,9 @@
     );
 
 
-    /* =========================================================
+    /* =====================================================
        CLEAR ALL
-    ========================================================= */
+    ===================================================== */
 
     btnClearAll.addEventListener(
         "click",
@@ -2554,9 +2626,9 @@
     );
 
 
-    /* =========================================================
+    /* =====================================================
        CANCEL
-    ========================================================= */
+    ===================================================== */
 
     btnCancel.addEventListener(
         "click",
@@ -2587,9 +2659,9 @@
     );
 
 
-    /* =========================================================
+    /* =====================================================
        SAVE
-    ========================================================= */
+    ===================================================== */
 
     btnSave.addEventListener(
         "click",
@@ -2605,7 +2677,9 @@
         }
 
 
-        if (selectedUser.is_system) {
+        if (
+            selectedUser.is_system
+        ) {
 
             showToast(
                 "Le compte SYSTEM ne peut pas être modifié.",
@@ -2651,7 +2725,7 @@
 
 
             /* =============================================
-               SUPPRESSION
+               IDS À SUPPRIMER
             ============================================= */
 
             const toDelete =
@@ -2669,7 +2743,7 @@
 
                 const {
                     error
-                } = await supabase
+                } = await db
 
                     .from(
                         "user_divisions"
@@ -2696,7 +2770,7 @@
 
 
             /* =============================================
-               INSERTION
+               IDS À AJOUTER
             ============================================= */
 
             const toInsert =
@@ -2713,18 +2787,28 @@
                         divisionId => ({
 
                             user_id:
-                                selectedUser.id,
+                                Number(
+                                    selectedUser.id
+                                ),
 
                             division_id:
-                                divisionId,
+                                Number(
+                                    divisionId
+                                ),
 
                             created_by:
-                                currentUser?.id ||
-                                1,
+                                currentUser?.id
+                                ? Number(
+                                    currentUser.id
+                                )
+                                : 1,
 
                             updated_by:
-                                currentUser?.id ||
-                                1
+                                currentUser?.id
+                                ? Number(
+                                    currentUser.id
+                                )
+                                : 1
 
                         })
                     );
@@ -2736,7 +2820,7 @@
 
                 const {
                     error
-                } = await supabase
+                } = await db
 
                     .from(
                         "user_divisions"
@@ -2772,6 +2856,16 @@
 
             /* =============================================
                ACTIVITY LOG
+               
+               Signature réelle de api/supabase.js:
+               logCrudAction(
+                   action,
+                   module,
+                   entityType,
+                   entityId,
+                   description,
+                   metadata
+               )
             ============================================= */
 
             try {
@@ -2785,18 +2879,30 @@
 
                     await
                     window.SMTG.logCrudAction(
+
                         "UPDATE",
-                        "user_divisions",
+
+                        "ADMINISTRATION",
+
+                        "USER_DIVISIONS",
+
                         selectedUser.id,
+
+                        "Mise à jour des divisions affectées à l'utilisateur",
+
                         {
 
                             user_id:
                                 selectedUser.id,
 
+                            username:
+                                selectedUser.username,
+
                             division_ids:
                                 newIds
 
                         }
+
                     );
                 }
 
@@ -2805,7 +2911,7 @@
             ) {
 
                 console.warn(
-                    "Activity log non disponible:",
+                    "Activity log:",
                     logError
                 );
             }
@@ -2866,7 +2972,7 @@
             ) {
 
                 console.warn(
-                    "System log non disponible:",
+                    "System log:",
                     logError
                 );
             }
@@ -2881,7 +2987,7 @@
         } catch (error) {
 
             console.error(
-                "Erreur sauvegarde divisions:",
+                "Erreur sauvegarde:",
                 error
             );
 
@@ -2902,26 +3008,29 @@
             renderDivisions();
 
             updateButtons();
+
         }
+
     }
 
 
-    /* =========================================================
+    /* =====================================================
        SEARCH
-    ========================================================= */
+    ===================================================== */
 
     userSearch.addEventListener(
         "input",
         () => {
 
             renderUsers();
+
         }
     );
 
 
-    /* =========================================================
+    /* =====================================================
        RELOAD
-    ========================================================= */
+    ===================================================== */
 
     btnReload.addEventListener(
         "click",
@@ -2963,13 +3072,14 @@
                 btnReload.disabled =
                     false;
             }
+
         }
     );
 
 
-    /* =========================================================
-       INITIALISATION
-    ========================================================= */
+    /* =====================================================
+       INIT
+    ===================================================== */
 
     async function init() {
 
@@ -2987,7 +3097,6 @@
 
             ]);
 
-
         } catch (error) {
 
             console.error(
@@ -3004,9 +3113,9 @@
     }
 
 
-    /* =========================================================
+    /* =====================================================
        START
-    ========================================================= */
+    ===================================================== */
 
     init();
 
