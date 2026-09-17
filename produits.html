@@ -1,0 +1,3743 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Produits - SMTG</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="api/supabase.js"></script>
+
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f3f6f4;
+    color:#1f2937;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+    width:100%;
+    max-width:1800px;
+    margin:auto;
+    padding:20px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.title-box{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.title-icon{
+    width:50px;
+    height:50px;
+    border-radius:13px;
+    background:#145a1f;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    box-shadow:0 5px 16px rgba(20,90,31,.18);
+}
+
+.title-text h1{
+    font-size:24px;
+    color:#18351d;
+}
+
+.title-text p{
+    margin-top:3px;
+    color:#707b74;
+    font-size:12px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+    min-height:39px;
+    padding:0 14px;
+    border:0;
+    border-radius:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:600;
+    transition:.15s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-primary{
+    background:#145a1f;
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:#0e4517;
+}
+
+.btn-secondary{
+    background:#fff;
+    color:#344139;
+    border:1px solid #d4ddd7;
+}
+
+.btn-secondary:hover{
+    background:#f7faf8;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:#fff;
+}
+
+.btn-danger:hover{
+    background:#b91c1c;
+}
+
+.btn-small{
+    min-height:32px;
+    padding:0 10px;
+    font-size:10px;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.stat{
+    background:#fff;
+    border:1px solid #e0e7e2;
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.stat-icon{
+    width:40px;
+    height:40px;
+    flex:none;
+    border-radius:10px;
+    background:#edf6ef;
+    color:#145a1f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.stat-label{
+    font-size:10px;
+    color:#768079;
+}
+
+.stat-value{
+    margin-top:2px;
+    font-size:19px;
+    font-weight:700;
+    color:#203126;
+}
+
+
+/* =========================================================
+   FILTER CARD
+========================================================= */
+
+.filter-card{
+    background:#fff;
+    border:1px solid #dfe6e1;
+    border-radius:14px;
+    margin-bottom:15px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.035);
+}
+
+.filter-head{
+    padding:13px 16px;
+    background:#f8faf8;
+    border-bottom:1px solid #e4e9e5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.filter-head strong{
+    color:#24362a;
+    font-size:13px;
+}
+
+.filter-body{
+    padding:15px;
+}
+
+.filter-grid{
+    display:grid;
+    grid-template-columns:2fr repeat(5,1fr);
+    gap:10px;
+}
+
+.filter input,
+.filter select{
+    width:100%;
+    height:38px;
+    padding:0 10px;
+    border:1px solid #ccd6cf;
+    border-radius:8px;
+    background:#fff;
+    outline:none;
+    font-size:11px;
+    color:#28342c;
+}
+
+.filter input:focus,
+.filter select:focus{
+    border-color:#145a1f;
+    box-shadow:0 0 0 3px rgba(20,90,31,.08);
+}
+
+.filter-actions{
+    margin-top:11px;
+    display:flex;
+    justify-content:flex-end;
+    gap:7px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-card{
+    background:#fff;
+    border:1px solid #dfe6e1;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.035);
+}
+
+.table-head{
+    min-height:52px;
+    padding:10px 15px;
+    border-bottom:1px solid #e5eae6;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.table-title{
+    color:#293a2e;
+    font-size:13px;
+    font-weight:700;
+}
+
+.table-title i{
+    color:#145a1f;
+    margin-right:5px;
+}
+
+.table-count{
+    color:#77817b;
+    font-size:10px;
+}
+
+.table-wrap{
+    width:100%;
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    min-width:1250px;
+    border-collapse:collapse;
+}
+
+thead th{
+    padding:11px 12px;
+    background:#f7f9f7;
+    border-bottom:1px solid #e0e6e2;
+    color:#5b665f;
+    font-size:10px;
+    text-align:left;
+    text-transform:uppercase;
+    white-space:nowrap;
+}
+
+tbody td{
+    padding:10px 12px;
+    border-bottom:1px solid #edf0ee;
+    font-size:11px;
+    vertical-align:middle;
+}
+
+tbody tr:hover{
+    background:#fafcfb;
+}
+
+.article-code{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:6px;
+    background:#edf6ef;
+    color:#145a1f;
+    font-weight:700;
+}
+
+.designation{
+    font-weight:600;
+    color:#29382f;
+}
+
+.sub{
+    color:#87918a;
+    font-size:9px;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    border-radius:20px;
+    padding:5px 9px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.status-active{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status-inactive{
+    background:#f1f5f9;
+    color:#64748b;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions-cell{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.icon-btn{
+    width:31px;
+    height:31px;
+    border:1px solid #d8e0da;
+    border-radius:7px;
+    background:#fff;
+    color:#435149;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.icon-btn:hover{
+    background:#f2f6f3;
+}
+
+.icon-btn.edit{
+    color:#145a1f;
+}
+
+.icon-btn.delete{
+    color:#dc2626;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY
+========================================================= */
+
+.loading{
+    display:none;
+    padding:55px;
+    text-align:center;
+    color:#69756e;
+    font-size:11px;
+}
+
+.loading.show{
+    display:block;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+    margin:0 auto 10px;
+    border:3px solid #dfe8e1;
+    border-top-color:#145a1f;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+.empty{
+    display:none;
+    padding:55px 20px;
+    text-align:center;
+}
+
+.empty i{
+    color:#bdc8c0;
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.empty h3{
+    color:#5d6861;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.empty p{
+    color:#818b85;
+    font-size:11px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:rgba(10,20,13,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-bg.show{
+    display:flex;
+}
+
+.modal{
+    width:min(760px,100%);
+    max-height:92vh;
+    overflow:auto;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.modal-head{
+    padding:15px 18px;
+    border-bottom:1px solid #e4e9e5;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-head h3{
+    color:#19351e;
+    font-size:15px;
+}
+
+.close{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:8px;
+    background:#f1f4f2;
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    color:#465149;
+    font-size:11px;
+    font-weight:600;
+}
+
+.form-group label span{
+    color:#dc2626;
+}
+
+.form-group input,
+.form-group select{
+    height:40px;
+    width:100%;
+    padding:0 10px;
+    border:1px solid #ccd6cf;
+    border-radius:8px;
+    outline:none;
+    background:#fff;
+    font-size:12px;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#145a1f;
+    box-shadow:0 0 0 3px rgba(20,90,31,.08);
+}
+
+.modal-footer{
+    margin-top:20px;
+    padding-top:15px;
+    border-top:1px solid #e5eae6;
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+}
+
+
+/* =========================================================
+   CONFIRM
+========================================================= */
+
+.confirm-box{
+    width:min(430px,100%);
+}
+
+.confirm-content{
+    padding:25px;
+    text-align:center;
+}
+
+.confirm-icon{
+    width:55px;
+    height:55px;
+    margin:0 auto 12px;
+    border-radius:50%;
+    background:#fee2e2;
+    color:#dc2626;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.confirm-content h3{
+    color:#27352c;
+    font-size:15px;
+    margin-bottom:6px;
+}
+
+.confirm-content p{
+    color:#707b74;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.confirm-actions{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toasts{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:min(390px,calc(100vw - 36px));
+    z-index:15000;
+}
+
+.toast{
+    background:#fff;
+    border:1px solid #dfe6e1;
+    border-left:4px solid #145a1f;
+    border-radius:9px;
+    padding:11px 13px;
+    margin-top:7px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.toast.error{
+    border-left-color:#dc2626;
+}
+
+.toast.warning{
+    border-left-color:#d97706;
+}
+
+.toast strong{
+    display:block;
+    font-size:11px;
+    margin-bottom:3px;
+}
+
+.toast span{
+    color:#68736c;
+    font-size:10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1250px){
+
+    .filter-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .filter-grid .search-main{
+        grid-column:1/-1;
+    }
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .page{
+        padding:13px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .filter-grid{
+        grid-template-columns:1fr;
+    }
+
+    .filter-grid .search-main{
+        grid-column:auto;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+}
+
+
+@media(max-width:480px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .header .btn{
+        width:100%;
+    }
+
+    .filter-actions{
+        justify-content:stretch;
+    }
+
+    .filter-actions .btn{
+        flex:1;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<div class="header">
+
+
+    <div class="title-box">
+
+        <div class="title-icon">
+
+            <i class="fa-solid fa-boxes-stacked"></i>
+
+        </div>
+
+
+        <div class="title-text">
+
+            <h1>
+                Produits
+            </h1>
+
+            <p>
+                Gestion des produits et articles
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <button
+        id="btnAdd"
+        class="btn btn-primary"
+        type="button"
+    >
+
+        <i class="fa-solid fa-plus"></i>
+
+        Ajouter un produit
+
+    </button>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<div class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-box"></i>
+
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Total produits
+            </div>
+
+            <div
+                id="statTotal"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Actifs
+            </div>
+
+            <div
+                id="statActive"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-circle-xmark"></i>
+
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Inactifs
+            </div>
+
+            <div
+                id="statInactive"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-layer-group"></i>
+
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Types
+            </div>
+
+            <div
+                id="statTypes"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-warehouse"></i>
+
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Divisions
+            </div>
+
+            <div
+                id="statDivisions"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     FILTERS
+========================================================= -->
+
+<div class="filter-card">
+
+
+    <div class="filter-head">
+
+        <strong>
+
+            <i class="fa-solid fa-filter"></i>
+
+            Recherche et filtres
+
+        </strong>
+
+
+        <button
+            id="btnReset"
+            class="btn btn-secondary btn-small"
+            type="button"
+        >
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+            Réinitialiser
+
+        </button>
+
+    </div>
+
+
+
+    <div class="filter-body">
+
+
+        <div class="filter-grid filter">
+
+
+            <input
+                id="search"
+                class="search-main"
+                type="text"
+                placeholder="Rechercher article ou désignation..."
+                autocomplete="off"
+            >
+
+
+            <select id="filterType">
+
+                <option value="">
+                    Tous les types
+                </option>
+
+            </select>
+
+
+            <select id="filterGroupe">
+
+                <option value="">
+                    Tous les groupes
+                </option>
+
+            </select>
+
+
+            <select id="filterUnite">
+
+                <option value="">
+                    Toutes les unités
+                </option>
+
+            </select>
+
+
+            <select id="filterDivision">
+
+                <option value="">
+                    Toutes les divisions
+                </option>
+
+            </select>
+
+
+            <select id="filterStatut">
+
+                <option value="">
+                    Tous les statuts
+                </option>
+
+                <option value="ACTIF">
+                    Actif
+                </option>
+
+                <option value="INACTIF">
+                    Inactif
+                </option>
+
+            </select>
+
+
+        </div>
+
+
+        <div class="filter-actions">
+
+            <button
+                id="btnRefresh"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-rotate"></i>
+
+                Actualiser
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TABLE
+========================================================= -->
+
+<div class="table-card">
+
+
+    <div class="table-head">
+
+        <div class="table-title">
+
+            <i class="fa-solid fa-list"></i>
+
+            Liste des produits
+
+        </div>
+
+
+        <div
+            id="tableCount"
+            class="table-count"
+        >
+            0 produit
+        </div>
+
+    </div>
+
+
+
+    <div
+        id="loading"
+        class="loading"
+    >
+
+        <div class="spinner"></div>
+
+        Chargement des produits...
+
+    </div>
+
+
+
+    <div
+        id="empty"
+        class="empty"
+    >
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>
+            Aucun produit
+        </h3>
+
+        <p>
+            Aucun produit ne correspond aux critères.
+        </p>
+
+    </div>
+
+
+
+    <div
+        id="tableWrap"
+        class="table-wrap"
+        style="display:none;"
+    >
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Article
+                    </th>
+
+                    <th>
+                        Désignation
+                    </th>
+
+                    <th>
+                        Type
+                    </th>
+
+                    <th>
+                        Groupe
+                    </th>
+
+                    <th>
+                        Unité
+                    </th>
+
+                    <th>
+                        Division
+                    </th>
+
+                    <th>
+                        Statut
+                    </th>
+
+                    <th>
+                        Date limite vente
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="productsBody"
+            ></tbody>
+
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     PRODUCT MODAL
+========================================================= -->
+
+<div
+    id="productModal"
+    class="modal-bg"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-head">
+
+            <h3 id="modalTitle">
+
+                <i class="fa-solid fa-box"></i>
+
+                Ajouter un produit
+
+            </h3>
+
+
+            <button
+                id="closeProductModal"
+                class="close"
+                type="button"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <div class="modal-body">
+
+
+            <form id="productForm">
+
+
+                <input
+                    id="productId"
+                    type="hidden"
+                >
+
+
+                <div class="form-grid">
+
+
+                    <!-- ARTICLE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Article <span>*</span>
+                        </label>
+
+                        <input
+                            id="formArticle"
+                            type="text"
+                            maxlength="100"
+                            required
+                            autocomplete="off"
+                            placeholder="Ex : 220000284"
+                        >
+
+                    </div>
+
+
+
+                    <!-- DESIGNATION -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Désignation <span>*</span>
+                        </label>
+
+                        <input
+                            id="formDesignation"
+                            type="text"
+                            maxlength="255"
+                            required
+                            autocomplete="off"
+                            placeholder="Désignation du produit"
+                        >
+
+                    </div>
+
+
+
+                    <!-- TYPE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Type
+                        </label>
+
+                        <input
+                            id="formType"
+                            type="text"
+                            maxlength="100"
+                            autocomplete="off"
+                            placeholder="Ex : Congelé"
+                        >
+
+                    </div>
+
+
+
+                    <!-- GROUPE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Groupe
+                        </label>
+
+                        <input
+                            id="formGroupe"
+                            type="text"
+                            maxlength="100"
+                            autocomplete="off"
+                            placeholder="Groupe marchandises"
+                        >
+
+                    </div>
+
+
+
+                    <!-- UNITE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Unité
+                        </label>
+
+                        <input
+                            id="formUnite"
+                            type="text"
+                            maxlength="50"
+                            autocomplete="off"
+                            placeholder="Ex : KG / PCE"
+                        >
+
+                    </div>
+
+
+
+                    <!-- DIVISION -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Division
+                        </label>
+
+                        <input
+                            id="formDivision"
+                            type="text"
+                            maxlength="100"
+                            autocomplete="off"
+                            placeholder="Ex : AB01"
+                        >
+
+                    </div>
+
+
+
+                    <!-- STATUT -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Statut <span>*</span>
+                        </label>
+
+                        <select
+                            id="formStatut"
+                            required
+                        >
+
+                            <option value="ACTIF">
+                                Actif
+                            </option>
+
+                            <option value="INACTIF">
+                                Inactif
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- DATE LIMITE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Date limite vente
+                        </label>
+
+                        <input
+                            id="formDateLimite"
+                            type="date"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="modal-footer">
+
+
+                    <button
+                        id="btnCancelProduct"
+                        class="btn btn-secondary"
+                        type="button"
+                    >
+
+                        Annuler
+
+                    </button>
+
+
+                    <button
+                        id="btnSaveProduct"
+                        class="btn btn-primary"
+                        type="submit"
+                    >
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Enregistrer
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     DELETE MODAL
+========================================================= -->
+
+<div
+    id="deleteModal"
+    class="modal-bg"
+>
+
+
+    <div class="modal confirm-box">
+
+
+        <div class="modal-head">
+
+            <h3>
+
+                <i class="fa-solid fa-trash"></i>
+
+                Supprimer le produit
+
+            </h3>
+
+
+            <button
+                id="closeDeleteModal"
+                class="close"
+                type="button"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <div class="confirm-content">
+
+
+            <div class="confirm-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+
+            <h3>
+                Confirmer la suppression
+            </h3>
+
+
+            <p id="deleteMessage">
+                Voulez-vous vraiment supprimer ce produit ?
+            </p>
+
+
+            <div class="confirm-actions">
+
+
+                <button
+                    id="btnCancelDelete"
+                    class="btn btn-secondary"
+                    type="button"
+                >
+
+                    Annuler
+
+                </button>
+
+
+                <button
+                    id="btnConfirmDelete"
+                    class="btn btn-danger"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Supprimer
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    id="toasts"
+    class="toasts"
+></div>
+
+
+
+<script>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+"use strict";
+
+
+let client = null;
+
+let products = [];
+
+let filteredProducts = [];
+
+let editingId = null;
+
+let deletingProduct = null;
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        try{
+
+            client =
+                getSupabase();
+
+
+            bindEvents();
+
+
+            await loadProducts();
+
+        }
+        catch(error){
+
+            console.error(
+                "INIT:",
+                error
+            );
+
+
+            showToast(
+                "Erreur",
+                getError(error),
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function bindEvents(){
+
+
+    document
+        .getElementById(
+            "btnAdd"
+        )
+        .addEventListener(
+            "click",
+            openAddModal
+        );
+
+
+    document
+        .getElementById(
+            "closeProductModal"
+        )
+        .addEventListener(
+            "click",
+            closeProductModal
+        );
+
+
+    document
+        .getElementById(
+            "btnCancelProduct"
+        )
+        .addEventListener(
+            "click",
+            closeProductModal
+        );
+
+
+    document
+        .getElementById(
+            "productForm"
+        )
+        .addEventListener(
+            "submit",
+            saveProduct
+        );
+
+
+    document
+        .getElementById(
+            "btnReset"
+        )
+        .addEventListener(
+            "click",
+            resetFilters
+        );
+
+
+    document
+        .getElementById(
+            "btnRefresh"
+        )
+        .addEventListener(
+            "click",
+            loadProducts
+        );
+
+
+    document
+        .getElementById(
+            "search"
+        )
+        .addEventListener(
+            "input",
+            applyFilters
+        );
+
+
+    document
+        .getElementById(
+            "filterType"
+        )
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById(
+            "filterGroupe"
+        )
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById(
+            "filterUnite"
+        )
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById(
+            "filterDivision"
+        )
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById(
+            "filterStatut"
+        )
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById(
+            "closeDeleteModal"
+        )
+        .addEventListener(
+            "click",
+            closeDeleteModal
+        );
+
+
+    document
+        .getElementById(
+            "btnCancelDelete"
+        )
+        .addEventListener(
+            "click",
+            closeDeleteModal
+        );
+
+
+    document
+        .getElementById(
+            "btnConfirmDelete"
+        )
+        .addEventListener(
+            "click",
+            confirmDelete
+        );
+
+
+    document
+        .getElementById(
+            "productModal"
+        )
+        .addEventListener(
+            "click",
+            function(event){
+
+                if(
+                    event.target.id ===
+                    "productModal"
+                ){
+
+                    closeProductModal();
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "deleteModal"
+        )
+        .addEventListener(
+            "click",
+            function(event){
+
+                if(
+                    event.target.id ===
+                    "deleteModal"
+                ){
+
+                    closeDeleteModal();
+
+                }
+
+            }
+        );
+
+
+    document.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key ===
+                "Escape"
+            ){
+
+                closeProductModal();
+
+                closeDeleteModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
+
+async function loadProducts(){
+
+    setLoading(true);
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await client
+                .from("produits")
+                .select("*")
+                .order(
+                    "article",
+                    {
+                        ascending:true
+                    }
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        products =
+            data || [];
+
+
+        buildFilterOptions();
+
+
+        applyFilters();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "LOAD PRODUCTS:",
+            error
+        );
+
+
+        products = [];
+
+        filteredProducts = [];
+
+
+        renderProducts();
+
+
+        showToast(
+            "Erreur",
+            getError(error),
+            "error"
+        );
+
+    }
+    finally{
+
+        setLoading(false);
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER OPTIONS
+========================================================= */
+
+function buildFilterOptions(){
+
+    fillSelect(
+        "filterType",
+        uniqueFieldValues(
+            "type"
+        ),
+        "Tous les types"
+    );
+
+
+    fillSelect(
+        "filterGroupe",
+        uniqueFieldValues(
+            "groupe"
+        ),
+        "Tous les groupes"
+    );
+
+
+    fillSelect(
+        "filterUnite",
+        uniqueFieldValues(
+            "unite"
+        ),
+        "Toutes les unités"
+    );
+
+
+    fillSelect(
+        "filterDivision",
+        uniqueFieldValues(
+            "division"
+        ),
+        "Toutes les divisions"
+    );
+
+}
+
+
+function uniqueFieldValues(
+    field
+){
+
+    const values =
+        products
+            .map(
+                p =>
+                    p[field]
+            )
+            .filter(
+                value =>
+                    value !== null &&
+                    value !== undefined &&
+                    String(value).trim() !== ""
+            )
+            .map(
+                value =>
+                    String(value).trim()
+            );
+
+
+    return [
+        ...new Set(
+            values
+        )
+    ]
+    .sort(
+        (a,b) =>
+            a.localeCompare(
+                b,
+                "fr"
+            )
+    );
+
+}
+
+
+function fillSelect(
+    id,
+    values,
+    firstLabel
+){
+
+    const select =
+        document.getElementById(
+            id
+        );
+
+
+    const oldValue =
+        select.value;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            ${escapeHtml(firstLabel)}
+        </option>
+
+    `;
+
+
+    values.forEach(
+        value => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                value;
+
+
+            option.textContent =
+                value;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if(
+        values.includes(
+            oldValue
+        )
+    ){
+
+        select.value =
+            oldValue;
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function applyFilters(){
+
+    const search =
+        normalize(
+            document
+                .getElementById(
+                    "search"
+                )
+                .value
+        );
+
+
+    const type =
+        document
+            .getElementById(
+                "filterType"
+            )
+            .value;
+
+
+    const groupe =
+        document
+            .getElementById(
+                "filterGroupe"
+            )
+            .value;
+
+
+    const unite =
+        document
+            .getElementById(
+                "filterUnite"
+            )
+            .value;
+
+
+    const division =
+        document
+            .getElementById(
+                "filterDivision"
+            )
+            .value;
+
+
+    const statut =
+        document
+            .getElementById(
+                "filterStatut"
+            )
+            .value;
+
+
+    filteredProducts =
+        products.filter(
+            product => {
+
+
+                /* SEARCH */
+
+                if(search){
+
+                    const article =
+                        normalize(
+                            product.article
+                        );
+
+
+                    const designation =
+                        normalize(
+                            product.designation
+                        );
+
+
+                    if(
+                        !article.includes(search) &&
+                        !designation.includes(search)
+                    ){
+
+                        return false;
+
+                    }
+
+                }
+
+
+                /* TYPE */
+
+                if(
+                    type &&
+                    String(
+                        product.type || ""
+                    ) !==
+                    type
+                ){
+
+                    return false;
+
+                }
+
+
+                /* GROUPE */
+
+                if(
+                    groupe &&
+                    String(
+                        product.groupe || ""
+                    ) !==
+                    groupe
+                ){
+
+                    return false;
+
+                }
+
+
+                /* UNITE */
+
+                if(
+                    unite &&
+                    String(
+                        product.unite || ""
+                    ) !==
+                    unite
+                ){
+
+                    return false;
+
+                }
+
+
+                /* DIVISION */
+
+                if(
+                    division &&
+                    String(
+                        product.division || ""
+                    ) !==
+                    division
+                ){
+
+                    return false;
+
+                }
+
+
+                /* STATUT */
+
+                if(
+                    statut &&
+                    String(
+                        product.statut || ""
+                    ) !==
+                    statut
+                ){
+
+                    return false;
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    updateStats();
+
+    renderProducts();
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderProducts(){
+
+    const body =
+        document.getElementById(
+            "productsBody"
+        );
+
+
+    const table =
+        document.getElementById(
+            "tableWrap"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    document.getElementById(
+        "tableCount"
+    ).textContent =
+        `${formatNumber(filteredProducts.length)} produit${filteredProducts.length > 1 ? "s" : ""}`;
+
+
+    if(
+        filteredProducts.length === 0
+    ){
+
+        body.innerHTML =
+            "";
+
+
+        table.style.display =
+            "none";
+
+
+        empty.style.display =
+            "block";
+
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    table.style.display =
+        "block";
+
+
+    body.innerHTML =
+        filteredProducts
+            .map(
+                productRow
+            )
+            .join("");
+
+
+    body
+        .querySelectorAll(
+            "[data-edit]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function(event){
+
+                        event.stopPropagation();
+
+                        openEditModal(
+                            Number(
+                                button.dataset.edit
+                            )
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    body
+        .querySelectorAll(
+            "[data-delete]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function(event){
+
+                        event.stopPropagation();
+
+                        openDeleteModal(
+                            Number(
+                                button.dataset.delete
+                            )
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   PRODUCT ROW
+========================================================= */
+
+function productRow(
+    product
+){
+
+    const active =
+        String(
+            product.statut || "ACTIF"
+        ) ===
+        "ACTIF";
+
+
+    return `
+
+        <tr>
+
+
+            <td>
+
+                <span class="article-code">
+
+                    ${escapeHtml(
+                        product.article || "-"
+                    )}
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                <div class="designation">
+
+                    ${escapeHtml(
+                        product.designation || "-"
+                    )}
+
+                </div>
+
+
+                <div class="sub">
+
+                    ID :
+                    ${escapeHtml(
+                        String(
+                            product.id
+                        )
+                    )}
+
+                </div>
+
+            </td>
+
+
+
+            <td>
+
+                ${escapeHtml(
+                    product.type || "-"
+                )}
+
+            </td>
+
+
+
+            <td>
+
+                ${escapeHtml(
+                    product.groupe || "-"
+                )}
+
+            </td>
+
+
+
+            <td>
+
+                ${escapeHtml(
+                    product.unite || "-"
+                )}
+
+            </td>
+
+
+
+            <td>
+
+                ${escapeHtml(
+                    product.division || "-"
+                )}
+
+            </td>
+
+
+
+            <td>
+
+                ${
+                    active
+
+                    ?
+
+                    `
+                    <span class="status status-active">
+
+                        <i class="fa-solid fa-circle"></i>
+
+                        Actif
+
+                    </span>
+                    `
+
+                    :
+
+                    `
+                    <span class="status status-inactive">
+
+                        <i class="fa-solid fa-circle"></i>
+
+                        Inactif
+
+                    </span>
+                    `
+                }
+
+            </td>
+
+
+
+            <td>
+
+                ${
+                    product.date_limite_vente
+
+                    ?
+
+                    formatDate(
+                        product.date_limite_vente
+                    )
+
+                    :
+
+                    "-"
+                }
+
+            </td>
+
+
+
+            <td>
+
+                <div class="actions-cell">
+
+
+                    <button
+                        class="icon-btn edit"
+                        title="Modifier"
+                        data-edit="${product.id}"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+
+
+                    <button
+                        class="icon-btn delete"
+                        title="Supprimer"
+                        data-delete="${product.id}"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+
+                </div>
+
+            </td>
+
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+    const total =
+        products.length;
+
+
+    const active =
+        products.filter(
+            p =>
+                p.statut ===
+                "ACTIF"
+        ).length;
+
+
+    const inactive =
+        products.filter(
+            p =>
+                p.statut ===
+                "INACTIF"
+        ).length;
+
+
+    const types =
+        new Set(
+            products
+                .map(
+                    p =>
+                        p.type
+                )
+                .filter(Boolean)
+        ).size;
+
+
+    const divisions =
+        new Set(
+            products
+                .map(
+                    p =>
+                        p.division
+                )
+                .filter(Boolean)
+        ).size;
+
+
+    setText(
+        "statTotal",
+        formatNumber(total)
+    );
+
+
+    setText(
+        "statActive",
+        formatNumber(active)
+    );
+
+
+    setText(
+        "statInactive",
+        formatNumber(inactive)
+    );
+
+
+    setText(
+        "statTypes",
+        formatNumber(types)
+    );
+
+
+    setText(
+        "statDivisions",
+        formatNumber(divisions)
+    );
+
+}
+
+
+/* =========================================================
+   ADD MODAL
+========================================================= */
+
+function openAddModal(){
+
+    editingId =
+        null;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerHTML = `
+
+        <i class="fa-solid fa-box"></i>
+
+        Ajouter un produit
+
+    `;
+
+
+    clearForm();
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function(){
+
+            document.getElementById(
+                "formArticle"
+            ).focus();
+
+        },
+        100
+    );
+
+}
+
+
+/* =========================================================
+   EDIT MODAL
+========================================================= */
+
+function openEditModal(
+    id
+){
+
+    const product =
+        products.find(
+            p =>
+                Number(p.id) ===
+                Number(id)
+        );
+
+
+    if(!product){
+
+        showToast(
+            "Erreur",
+            "Produit introuvable.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    editingId =
+        product.id;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerHTML = `
+
+        <i class="fa-solid fa-pen"></i>
+
+        Modifier le produit
+
+    `;
+
+
+    document.getElementById(
+        "productId"
+    ).value =
+        product.id;
+
+
+    document.getElementById(
+        "formArticle"
+    ).value =
+        product.article || "";
+
+
+    document.getElementById(
+        "formDesignation"
+    ).value =
+        product.designation || "";
+
+
+    document.getElementById(
+        "formType"
+    ).value =
+        product.type || "";
+
+
+    document.getElementById(
+        "formGroupe"
+    ).value =
+        product.groupe || "";
+
+
+    document.getElementById(
+        "formUnite"
+    ).value =
+        product.unite || "";
+
+
+    document.getElementById(
+        "formDivision"
+    ).value =
+        product.division || "";
+
+
+    document.getElementById(
+        "formStatut"
+    ).value =
+        product.statut || "ACTIF";
+
+
+    document.getElementById(
+        "formDateLimite"
+    ).value =
+        product.date_limite_vente || "";
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearForm(){
+
+    document.getElementById(
+        "productForm"
+    ).reset();
+
+
+    document.getElementById(
+        "productId"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "formStatut"
+    ).value =
+        "ACTIF";
+
+}
+
+
+/* =========================================================
+   CLOSE PRODUCT MODAL
+========================================================= */
+
+function closeProductModal(){
+
+    document.getElementById(
+        "productModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    editingId =
+        null;
+
+}
+
+
+/* =========================================================
+   SAVE PRODUCT
+========================================================= */
+
+async function saveProduct(
+    event
+){
+
+    event.preventDefault();
+
+
+    const article =
+        document.getElementById(
+            "formArticle"
+        ).value
+        .trim();
+
+
+    const designation =
+        document.getElementById(
+            "formDesignation"
+        ).value
+        .trim();
+
+
+    const type =
+        document.getElementById(
+            "formType"
+        ).value
+        .trim();
+
+
+    const groupe =
+        document.getElementById(
+            "formGroupe"
+        ).value
+        .trim();
+
+
+    const unite =
+        document.getElementById(
+            "formUnite"
+        ).value
+        .trim();
+
+
+    const division =
+        document.getElementById(
+            "formDivision"
+        ).value
+        .trim();
+
+
+    const statut =
+        document.getElementById(
+            "formStatut"
+        ).value;
+
+
+    const dateLimite =
+        document.getElementById(
+            "formDateLimite"
+        ).value || null;
+
+
+    if(
+        !article ||
+        !designation
+    ){
+
+        showToast(
+            "Attention",
+            "Article et Désignation sont obligatoires.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const currentUser =
+        getCurrentUserSafe();
+
+
+    const userId =
+        currentUser?.id ||
+        null;
+
+
+    const payload = {
+
+        article:
+            article,
+
+        designation:
+            designation,
+
+        type:
+            type || null,
+
+        groupe:
+            groupe || null,
+
+        unite:
+            unite || null,
+
+        division:
+            division || null,
+
+        statut:
+            statut,
+
+        date_limite_vente:
+            dateLimite
+
+    };
+
+
+    try{
+
+        setSaveLoading(true);
+
+
+        /* ==========================================
+           UPDATE
+        ========================================== */
+
+        if(
+            editingId
+        ){
+
+            payload.updated_by =
+                userId;
+
+
+            const {
+                data,
+                error
+            } =
+                await client
+                    .from("produits")
+                    .update(
+                        payload
+                    )
+                    .eq(
+                        "id",
+                        editingId
+                    )
+                    .select()
+                    .single();
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            await logActivitySafe(
+                "UPDATE",
+                "PRODUITS",
+                "produits.html",
+                `Modification du produit ${article}`,
+                "PRODUIT",
+                editingId
+            );
+
+
+            showToast(
+                "Succès",
+                "Produit modifié avec succès."
+            );
+
+        }
+
+
+        /* ==========================================
+           INSERT
+        ========================================== */
+
+        else{
+
+            payload.created_by =
+                userId;
+
+            payload.updated_by =
+                userId;
+
+
+            const {
+                data,
+                error
+            } =
+                await client
+                    .from("produits")
+                    .insert(
+                        payload
+                    )
+                    .select()
+                    .single();
+
+
+            if(error){
+
+                if(
+                    error.code ===
+                    "23505"
+                ){
+
+                    throw new Error(
+                        "Cet article existe déjà."
+                    );
+
+                }
+
+                throw error;
+
+            }
+
+
+            await logActivitySafe(
+                "CREATE",
+                "PRODUITS",
+                "produits.html",
+                `Création du produit ${article}`,
+                "PRODUIT",
+                data?.id
+            );
+
+
+            showToast(
+                "Succès",
+                "Produit ajouté avec succès."
+            );
+
+        }
+
+
+        closeProductModal();
+
+
+        await loadProducts();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "SAVE PRODUCT:",
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            getError(error),
+            "error"
+        );
+
+    }
+    finally{
+
+        setSaveLoading(false);
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE MODAL
+========================================================= */
+
+function openDeleteModal(
+    id
+){
+
+    const product =
+        products.find(
+            p =>
+                Number(p.id) ===
+                Number(id)
+        );
+
+
+    if(!product){
+
+        return;
+
+    }
+
+
+    deletingProduct =
+        product;
+
+
+    document.getElementById(
+        "deleteMessage"
+    ).innerHTML = `
+
+        Voulez-vous vraiment supprimer
+        <strong>
+            ${escapeHtml(
+                product.article
+            )}
+        </strong>
+        -
+        ${escapeHtml(
+            product.designation
+        )}
+        ?
+
+    `;
+
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE DELETE
+========================================================= */
+
+function closeDeleteModal(){
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    deletingProduct =
+        null;
+
+}
+
+
+/* =========================================================
+   CONFIRM DELETE
+========================================================= */
+
+async function confirmDelete(){
+
+    if(
+        !deletingProduct
+    ){
+
+        return;
+
+    }
+
+
+    const product =
+        deletingProduct;
+
+
+    try{
+
+        const {
+            error
+        } =
+            await client
+                .from("produits")
+                .delete()
+                .eq(
+                    "id",
+                    product.id
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        await logActivitySafe(
+            "DELETE",
+            "PRODUITS",
+            "produits.html",
+            `Suppression du produit ${product.article}`,
+            "PRODUIT",
+            product.id
+        );
+
+
+        closeDeleteModal();
+
+
+        showToast(
+            "Succès",
+            "Produit supprimé avec succès."
+        );
+
+
+        await loadProducts();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "DELETE PRODUCT:",
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            getError(error),
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE LOADING
+========================================================= */
+
+function setSaveLoading(
+    loading
+){
+
+    const button =
+        document.getElementById(
+            "btnSaveProduct"
+        );
+
+
+    if(loading){
+
+        button.disabled =
+            true;
+
+        button.innerHTML = `
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            Enregistrement...
+
+        `;
+
+    }
+    else{
+
+        button.disabled =
+            false;
+
+        button.innerHTML = `
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            Enregistrer
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLE LOADING
+========================================================= */
+
+function setLoading(
+    loading
+){
+
+    const element =
+        document.getElementById(
+            "loading"
+        );
+
+
+    if(loading){
+
+        element.classList.add(
+            "show"
+        );
+
+    }
+    else{
+
+        element.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET FILTERS
+========================================================= */
+
+function resetFilters(){
+
+    document.getElementById(
+        "search"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterType"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterGroupe"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterUnite"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterDivision"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterStatut"
+    ).value =
+        "";
+
+
+    applyFilters();
+
+}
+
+
+/* =========================================================
+   SAFE CURRENT USER
+========================================================= */
+
+function getCurrentUserSafe(){
+
+    try{
+
+        if(
+            typeof getCurrentUser ===
+            "function"
+        ){
+
+            const user =
+                getCurrentUser();
+
+            if(user){
+
+                return user;
+
+            }
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "getCurrentUser:",
+            error
+        );
+
+    }
+
+
+    try{
+
+        const raw =
+            sessionStorage.getItem(
+                "smtg_current_user"
+            );
+
+
+        if(raw){
+
+            return JSON.parse(
+                raw
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            error
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   SAFE ACTIVITY LOG
+========================================================= */
+
+async function logActivitySafe(
+    action,
+    module,
+    page,
+    description,
+    entityType,
+    entityId
+){
+
+    try{
+
+        if(
+            window.SMTG &&
+            typeof window.SMTG.logActivity ===
+            "function"
+        ){
+
+            await window.SMTG.logActivity(
+                action,
+                module,
+                page,
+                description,
+                {
+                    entity_type:
+                        entityType,
+
+                    entity_id:
+                        entityId
+                }
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "Activity log:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function normalize(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .normalize(
+        "NFD"
+    )
+    .replace(
+        /[\u0300-\u036f]/g,
+        ""
+    )
+    .toLowerCase()
+    .trim();
+
+}
+
+
+function formatNumber(
+    value
+){
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "fr-FR",
+        {
+            maximumFractionDigits:0
+        }
+    );
+
+}
+
+
+function formatDate(
+    value
+){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(
+            value +
+            (
+                String(value).length ===
+                10
+                    ? "T00:00:00"
+                    : ""
+            )
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(
+            value
+        );
+
+    }
+
+
+    return date.toLocaleDateString(
+        "fr-FR"
+    );
+
+}
+
+
+function setText(
+    id,
+    value
+){
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if(element){
+
+        element.textContent =
+            value;
+
+    }
+
+}
+
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+function getError(
+    error
+){
+
+    return (
+        error?.message ||
+        error?.details ||
+        error?.hint ||
+        "Une erreur est survenue."
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    title,
+    message,
+    type = ""
+){
+
+    const container =
+        document.getElementById(
+            "toasts"
+        );
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.className =
+        `toast ${type}`;
+
+
+    toast.innerHTML = `
+
+        <strong>
+
+            ${escapeHtml(
+                title
+            )}
+
+        </strong>
+
+
+        <span>
+
+            ${escapeHtml(
+                message
+            )}
+
+        </span>
+
+    `;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        function(){
+
+            toast.remove();
+
+        },
+        4500
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
