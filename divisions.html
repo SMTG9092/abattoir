@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Divisions - SMTG</title>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7f5;
+    color:#1f2937;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+    background:#145a1f;
+    color:#fff;
+    padding:18px 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.header-icon{
+    width:48px;
+    height:48px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+}
+
+.header-title h1{
+    margin:0;
+    font-size:23px;
+}
+
+.header-title p{
+    margin:4px 0 0;
+    font-size:13px;
+    opacity:.8;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn{
+    border:0;
+    border-radius:9px;
+
+    padding:11px 17px;
+
+    cursor:pointer;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-primary{
+    background:#145a1f;
+    color:#fff;
+}
+
+.btn-secondary{
+    background:#eef2f0;
+    color:#374151;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:#fff;
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.container{
+    max-width:1500px;
+    margin:auto;
+    padding:22px;
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat-card{
+    background:#fff;
+    border-radius:14px;
+    padding:18px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+}
+
+.stat-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.stat-label{
+    color:#6b7280;
+    font-size:13px;
+}
+
+.stat-value{
+    margin-top:8px;
+    font-size:27px;
+    font-weight:700;
+}
+
+.stat-icon{
+    width:44px;
+    height:44px;
+
+    border-radius:11px;
+
+    background:#e8f3ea;
+    color:#145a1f;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:19px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.card{
+    background:#fff;
+    border-radius:14px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+
+    margin-bottom:20px;
+}
+
+/* =========================================
+   FILTERS
+========================================= */
+
+.filters{
+    padding:18px;
+}
+
+.filters-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:12px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field label{
+    font-size:12px;
+    font-weight:700;
+    color:#4b5563;
+}
+
+input,
+select{
+    width:100%;
+
+    border:1px solid #d1d5db;
+
+    border-radius:8px;
+
+    padding:10px 11px;
+
+    background:#fff;
+
+    font-size:14px;
+
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#145a1f;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(20,90,31,.08);
+}
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+.table-header{
+    padding:16px 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.table-title{
+    font-size:16px;
+    font-weight:700;
+}
+
+.table-count{
+    color:#6b7280;
+    font-size:13px;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+
+    min-width:850px;
+}
+
+thead th{
+    background:#f8faf9;
+
+    padding:12px;
+
+    text-align:left;
+
+    font-size:12px;
+
+    color:#4b5563;
+
+    white-space:nowrap;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+tbody td{
+    padding:13px 12px;
+
+    border-bottom:1px solid #eef0ef;
+
+    font-size:13px;
+
+    white-space:nowrap;
+}
+
+tbody tr:hover{
+    background:#fafcfb;
+}
+
+.code{
+    font-weight:700;
+    color:#145a1f;
+}
+
+.name{
+    font-weight:600;
+}
+
+.description{
+    color:#6b7280;
+}
+
+/* =========================================
+   BADGES
+========================================= */
+
+.badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.badge-active{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-inactive{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.actions{
+    display:flex;
+    gap:6px;
+}
+
+.action-btn{
+    width:33px;
+    height:33px;
+
+    border:0;
+
+    border-radius:7px;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.action-edit{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+.action-delete{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.action-btn:hover{
+    transform:translateY(-1px);
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty{
+    padding:45px 20px;
+
+    text-align:center;
+
+    color:#6b7280;
+}
+
+.empty i{
+    font-size:40px;
+
+    margin-bottom:12px;
+
+    opacity:.4;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading{
+    padding:40px;
+
+    text-align:center;
+
+    color:#6b7280;
+}
+
+.loading i{
+    font-size:25px;
+
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    background:rgba(0,0,0,.48);
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+
+    max-height:92vh;
+
+    overflow:auto;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,.25);
+}
+
+.modal-header{
+    padding:18px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.modal-header h2{
+    margin:0;
+    font-size:19px;
+}
+
+.close-btn{
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#f3f4f6;
+
+    cursor:pointer;
+
+    font-size:17px;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+
+    gap:6px;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+.form-group label{
+    font-size:13px;
+    font-weight:700;
+}
+
+.required{
+    color:#dc2626;
+}
+
+.help{
+    color:#6b7280;
+    font-size:11px;
+}
+
+.modal-footer{
+    padding:15px 20px;
+
+    display:flex;
+    justify-content:flex-end;
+
+    gap:10px;
+
+    border-top:1px solid #e5e7eb;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:20000;
+
+    min-width:280px;
+    max-width:420px;
+
+    padding:14px 17px;
+
+    border-radius:10px;
+
+    color:#fff;
+
+    background:#111827;
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.25);
+
+    display:none;
+}
+
+.toast.show{
+    display:block;
+}
+
+.toast.success{
+    background:#166534;
+}
+
+.toast.error{
+    background:#b91c1c;
+}
+
+.toast.warning{
+    background:#b45309;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:900px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .filters-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .header{
+        padding:15px;
+    }
+
+    .header-title h1{
+        font-size:19px;
+    }
+
+    .container{
+        padding:12px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .filters-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .header .btn{
+        padding:9px 11px;
+    }
+
+    .header .btn span{
+        display:none;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <div class="header-icon">
+            <i class="fa-solid fa-code-branch"></i>
+        </div>
+
+        <div class="header-title">
+
+            <h1>Divisions</h1>
+
+            <p>
+                Gestion des divisions
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="btn btn-primary"
+        onclick="openAddModal()"
+    >
+
+        <i class="fa-solid fa-plus"></i>
+
+        <span>Ajouter</span>
+
+    </button>
+
+</header>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<div class="container">
+
+
+    <!-- =====================================
+         STATS
+    ====================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+
+                    <div class="stat-label">
+                        Total divisions
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statTotal"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+
+                    <div class="stat-label">
+                        Divisions actives
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statActive"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+
+                    <div class="stat-label">
+                        Divisions inactives
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statInactive"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+
+                    <div class="stat-label">
+                        Affichées
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statDisplayed"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-filter"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================
+         FILTERS
+    ====================================== -->
+
+    <div class="card filters">
+
+        <div class="filters-grid">
+
+
+            <div class="field">
+
+                <label>
+                    Recherche
+                </label>
+
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Code, nom ou description..."
+                    oninput="render()"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Statut
+                </label>
+
+                <select
+                    id="filterStatus"
+                    onchange="render()"
+                >
+
+                    <option value="">
+                        Tous
+                    </option>
+
+                    <option value="ACTIF">
+                        Actif
+                    </option>
+
+                    <option value="INACTIF">
+                        Inactif
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                class="field"
+                style="justify-content:flex-end;"
+            >
+
+                <label>
+                    &nbsp;
+                </label>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="resetFilters()"
+                >
+
+                    <i class="fa-solid fa-rotate-left"></i>
+
+                    Réinitialiser
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         TABLE
+    ====================================== -->
+
+    <div class="card">
+
+        <div class="table-header">
+
+            <div class="table-title">
+
+                <i
+                    class="fa-solid fa-code-branch"
+                    style="color:#145a1f;margin-right:7px;"
+                ></i>
+
+                Liste des divisions
+
+            </div>
+
+            <div
+                class="table-count"
+                id="tableCount"
+            >
+                0 division
+            </div>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Code</th>
+
+                        <th>Nom</th>
+
+                        <th>Description</th>
+
+                        <th>Statut</th>
+
+                        <th>Créée le</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================
+     MODAL
+========================================= -->
+
+<div
+    class="modal"
+    id="divisionModal"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Ajouter une division
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <form id="divisionForm">
+
+
+                <input
+                    type="hidden"
+                    id="divisionId"
+                >
+
+
+                <div class="form-grid">
+
+
+                    <!-- CODE -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Code
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="code"
+                            maxlength="50"
+                            required
+                            placeholder="Ex : ABS01"
+                        >
+
+                        <div class="help">
+                            Code unique de la division.
+                        </div>
+
+                    </div>
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Nom
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            maxlength="150"
+                            required
+                            placeholder="Nom de la division"
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <input
+                            type="text"
+                            id="description"
+                            maxlength="500"
+                            placeholder="Description de la division"
+                        >
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Statut
+                        </label>
+
+                        <select id="status">
+
+                            <option value="ACTIF">
+                                Actif
+                            </option>
+
+                            <option value="INACTIF">
+                                Inactif
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-secondary"
+                onclick="closeModal()"
+            >
+
+                Annuler
+
+            </button>
+
+
+            <button
+                class="btn btn-primary"
+                onclick="saveDivision()"
+            >
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     TOAST
+========================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<!-- =========================================
+     SCRIPTS
+========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="api/supabase.js"></script>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const client = getSupabase();
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let divisions = [];
+
+let editingId = null;
+
+
+/* =========================================
+   CURRENT USER
+========================================= */
+
+function getCurrentUser(){
+
+    try{
+
+        const current =
+            sessionStorage.getItem(
+                "smtg_current_user"
+            );
+
+        if(current){
+
+            return JSON.parse(current);
+
+        }
+
+
+        const fallback =
+            sessionStorage.getItem(
+                "smtgUser"
+            );
+
+        if(fallback){
+
+            return JSON.parse(fallback);
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Erreur utilisateur :",
+            error
+        );
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================================
+   USER ID
+========================================= */
+
+function getCurrentUserId(){
+
+    const user =
+        getCurrentUser();
+
+    if(
+        !user ||
+        !user.id
+    ){
+
+        return null;
+
+    }
+
+    return Number(user.id);
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(
+    message,
+    type="success"
+){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.className =
+        "toast show " + type;
+
+
+    setTimeout(()=>{
+
+        toast.className =
+            "toast";
+
+    },3500);
+
+}
+
+
+/* =========================================
+   LOAD DIVISIONS
+========================================= */
+
+async function loadDivisions(){
+
+    const tbody =
+        document.getElementById(
+            "tableBody"
+        );
+
+
+    tbody.innerHTML = `
+
+        <tr>
+
+            <td colspan="7">
+
+                <div class="loading">
+
+                    <i class="fa-solid fa-spinner"></i>
+
+                    <div>
+                        Chargement...
+                    </div>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try{
+
+        const allRows = [];
+
+        const pageSize = 1000;
+
+        let from = 0;
+
+
+        while(true){
+
+            const to =
+                from + pageSize - 1;
+
+
+            const {
+                data,
+                error
+            } =
+                await client
+
+                    .from("divisions")
+
+                    .select("*")
+
+                    .order(
+                        "code",
+                        {
+                            ascending:true
+                        }
+                    )
+
+                    .range(
+                        from,
+                        to
+                    );
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            if(
+                !data ||
+                data.length === 0
+            ){
+
+                break;
+
+            }
+
+
+            allRows.push(
+                ...data
+            );
+
+
+            if(
+                data.length <
+                pageSize
+            ){
+
+                break;
+
+            }
+
+
+            from += pageSize;
+
+        }
+
+
+        divisions =
+            allRows;
+
+
+        updateStats();
+
+        render();
+
+
+    }catch(error){
+
+        console.error(
+            "loadDivisions:",
+            error
+        );
+
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <div>
+                            Erreur lors du chargement
+                        </div>
+
+                        <small>
+                            ${escapeHtml(
+                                error.message ||
+                                ""
+                            )}
+                        </small>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        showToast(
+            "Erreur lors du chargement des divisions.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+    const total =
+        divisions.length;
+
+
+    const active =
+        divisions.filter(
+            d =>
+                d.is_active === true
+        ).length;
+
+
+    const inactive =
+        divisions.filter(
+            d =>
+                d.is_active === false
+        ).length;
+
+
+    document.getElementById(
+        "statTotal"
+    ).textContent =
+        total.toLocaleString(
+            "fr-FR"
+        );
+
+
+    document.getElementById(
+        "statActive"
+    ).textContent =
+        active.toLocaleString(
+            "fr-FR"
+        );
+
+
+    document.getElementById(
+        "statInactive"
+    ).textContent =
+        inactive.toLocaleString(
+            "fr-FR"
+        );
+
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function render(){
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const status =
+        document.getElementById(
+            "filterStatus"
+        )
+        .value;
+
+
+    const filtered =
+        divisions.filter(
+            division => {
+
+
+                const matchesSearch =
+
+                    !search ||
+
+                    String(
+                        division.code ||
+                        ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+                    ||
+
+                    String(
+                        division.name ||
+                        ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+                    ||
+
+                    String(
+                        division.description ||
+                        ""
+                    )
+                    .toLowerCase()
+                    .includes(search);
+
+
+                const matchesStatus =
+
+                    !status ||
+
+                    (
+                        status === "ACTIF" &&
+                        division.is_active === true
+                    )
+
+                    ||
+
+                    (
+                        status === "INACTIF" &&
+                        division.is_active === false
+                    );
+
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+
+            }
+        );
+
+
+    document.getElementById(
+        "statDisplayed"
+    ).textContent =
+        filtered.length.toLocaleString(
+            "fr-FR"
+        );
+
+
+    document.getElementById(
+        "tableCount"
+    ).textContent =
+
+        `${filtered.length.toLocaleString("fr-FR")} division(s)`;
+
+
+    const tbody =
+        document.getElementById(
+            "tableBody"
+        );
+
+
+    if(
+        filtered.length === 0
+    ){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-code-branch"></i>
+
+                        <div>
+                            Aucune division trouvée
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+
+        filtered.map(
+            division => {
+
+
+                const statusBadge =
+                    division.is_active
+                        ? `
+                            <span class="badge badge-active">
+                                Actif
+                            </span>
+                          `
+                        : `
+                            <span class="badge badge-inactive">
+                                Inactif
+                            </span>
+                          `;
+
+
+                const createdDate =
+                    division.created_at
+                        ? formatDate(
+                            division.created_at
+                          )
+                        : "—";
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+                            ${division.id}
+                        </td>
+
+
+                        <td class="code">
+                            ${escapeHtml(
+                                division.code
+                            )}
+                        </td>
+
+
+                        <td class="name">
+                            ${escapeHtml(
+                                division.name
+                            )}
+                        </td>
+
+
+                        <td class="description">
+                            ${escapeHtml(
+                                division.description ||
+                                "—"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${statusBadge}
+                        </td>
+
+
+                        <td>
+                            ${createdDate}
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+
+                                <button
+                                    class="action-btn action-edit"
+                                    title="Modifier"
+                                    onclick="editDivision(${division.id})"
+                                >
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+
+                                <button
+                                    class="action-btn action-delete"
+                                    title="Supprimer"
+                                    onclick="deleteDivision(${division.id})"
+                                >
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =========================================
+   OPEN ADD
+========================================= */
+
+function openAddModal(){
+
+    editingId = null;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Ajouter une division";
+
+
+    document.getElementById(
+        "divisionForm"
+    ).reset();
+
+
+    document.getElementById(
+        "divisionId"
+    ).value = "";
+
+
+    document.getElementById(
+        "status"
+    ).value =
+        "ACTIF";
+
+
+    document.getElementById(
+        "divisionModal"
+    )
+    .classList
+    .add("show");
+
+
+    setTimeout(()=>{
+
+        document.getElementById(
+            "code"
+        ).focus();
+
+    },100);
+
+}
+
+
+/* =========================================
+   EDIT
+========================================= */
+
+function editDivision(id){
+
+    const division =
+        divisions.find(
+            d =>
+                Number(d.id) ===
+                Number(id)
+        );
+
+
+    if(!division){
+
+        showToast(
+            "Division introuvable.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    editingId =
+        division.id;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Modifier la division";
+
+
+    document.getElementById(
+        "divisionId"
+    ).value =
+        division.id;
+
+
+    document.getElementById(
+        "code"
+    ).value =
+        division.code ||
+        "";
+
+
+    document.getElementById(
+        "name"
+    ).value =
+        division.name ||
+        "";
+
+
+    document.getElementById(
+        "description"
+    ).value =
+        division.description ||
+        "";
+
+
+    document.getElementById(
+        "status"
+    ).value =
+        division.is_active
+            ? "ACTIF"
+            : "INACTIF";
+
+
+    document.getElementById(
+        "divisionModal"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+/* =========================================
+   CLOSE MODAL
+========================================= */
+
+function closeModal(){
+
+    document.getElementById(
+        "divisionModal"
+    )
+    .classList
+    .remove("show");
+
+}
+
+
+/* =========================================
+   SAVE
+========================================= */
+
+async function saveDivision(){
+
+    const code =
+        document.getElementById(
+            "code"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const name =
+        document.getElementById(
+            "name"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document.getElementById(
+            "description"
+        )
+        .value
+        .trim();
+
+
+    const status =
+        document.getElementById(
+            "status"
+        ).value;
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if(!code){
+
+        showToast(
+            "Veuillez saisir le code.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if(!name){
+
+        showToast(
+            "Veuillez saisir le nom.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const userId =
+        getCurrentUserId();
+
+
+    try{
+
+        /* =========================
+           INSERT
+        ========================= */
+
+        if(!editingId){
+
+            const payload = {
+
+                code,
+
+                name,
+
+                description:
+                    description ||
+                    null,
+
+                is_active:
+                    status === "ACTIF",
+
+                created_by:
+                    userId,
+
+                updated_by:
+                    userId
+
+            };
+
+
+            const {
+                data,
+                error
+            } =
+                await client
+
+                    .from("divisions")
+
+                    .insert(
+                        payload
+                    )
+
+                    .select()
+
+                    .single();
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            /* ACTIVITY LOG */
+
+            await logActivitySafe(
+                "CREATE",
+                "Division créée",
+                data?.id,
+                code
+            );
+
+
+            closeModal();
+
+
+            showToast(
+                "Division créée avec succès.",
+                "success"
+            );
+
+
+        }
+
+
+        /* =========================
+           UPDATE
+        ========================= */
+
+        else{
+
+            const payload = {
+
+                code,
+
+                name,
+
+                description:
+                    description ||
+                    null,
+
+                is_active:
+                    status === "ACTIF",
+
+                updated_by:
+                    userId
+
+            };
+
+
+            const {
+                data,
+                error
+            } =
+                await client
+
+                    .from("divisions")
+
+                    .update(
+                        payload
+                    )
+
+                    .eq(
+                        "id",
+                        editingId
+                    )
+
+                    .select()
+
+                    .single();
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            /* ACTIVITY LOG */
+
+            await logActivitySafe(
+                "UPDATE",
+                "Division modifiée",
+                editingId,
+                code
+            );
+
+
+            closeModal();
+
+
+            showToast(
+                "Division modifiée avec succès.",
+                "success"
+            );
+
+        }
+
+
+        await loadDivisions();
+
+
+    }catch(error){
+
+        console.error(
+            "saveDivision:",
+            error
+        );
+
+
+        const message =
+            String(
+                error.message ||
+                ""
+            );
+
+
+        if(
+            error.code === "23505" ||
+            message
+                .toLowerCase()
+                .includes("duplicate") ||
+            message
+                .toLowerCase()
+                .includes("unique")
+        ){
+
+            showToast(
+                "Ce code de division existe déjà.",
+                "error"
+            );
+
+        }else{
+
+            showToast(
+                message ||
+                "Erreur lors de l'enregistrement.",
+                "error"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   DELETE
+========================================= */
+
+async function deleteDivision(id){
+
+    const division =
+        divisions.find(
+            d =>
+                Number(d.id) ===
+                Number(id)
+        );
+
+
+    if(!division){
+
+        return;
+
+    }
+
+
+    /* =====================================
+       PROTECTION
+    ===================================== */
+
+    if(
+        String(
+            division.code ||
+            ""
+        ).toUpperCase() ===
+        "SYSTEM"
+    ){
+
+        showToast(
+            "Cette division est protégée.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+
+            `Supprimer la division "${division.code}" ?\n\n` +
+
+            `Attention : si des magasins sont déjà liés à cette division, ` +
+
+            `la suppression peut être refusée par la base de données.\n\n` +
+
+            `Voulez-vous continuer ?`
+
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+            await client
+
+                .from("divisions")
+
+                .delete()
+
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        await logActivitySafe(
+            "DELETE",
+            "Division supprimée",
+            id,
+            division.code
+        );
+
+
+        showToast(
+            "Division supprimée avec succès.",
+            "success"
+        );
+
+
+        await loadDivisions();
+
+
+    }catch(error){
+
+        console.error(
+            "deleteDivision:",
+            error
+        );
+
+
+        showToast(
+
+            error.message ||
+
+            "Impossible de supprimer la division.",
+
+            "error"
+
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   ACTIVITY LOG
+========================================= */
+
+async function logActivitySafe(
+    action,
+    description,
+    entityId,
+    code
+){
+
+    try{
+
+        if(
+            window.SMTG &&
+            typeof window.SMTG.logActivity ===
+            "function"
+        ){
+
+            await window.SMTG.logActivity(
+
+                action,
+
+                "STOCK",
+
+                "divisions.html",
+
+                description,
+
+                {
+
+                    entity_type:
+                        "DIVISION",
+
+                    entity_id:
+                        entityId,
+
+                    metadata:{
+
+                        code:
+                            code
+
+                    }
+
+                }
+
+            );
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Activity log:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   RESET FILTERS
+========================================= */
+
+function resetFilters(){
+
+    document.getElementById(
+        "search"
+    ).value = "";
+
+
+    document.getElementById(
+        "filterStatus"
+    ).value = "";
+
+
+    render();
+
+}
+
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(value){
+
+    try{
+
+        const date =
+            new Date(value);
+
+
+        if(
+            Number.isNaN(
+                date.getTime()
+            )
+        ){
+
+            return "—";
+
+        }
+
+
+        return date.toLocaleString(
+            "fr-FR",
+            {
+
+                day:"2-digit",
+
+                month:"2-digit",
+
+                year:"numeric",
+
+                hour:"2-digit",
+
+                minute:"2-digit"
+
+            }
+        );
+
+    }catch{
+
+        return "—";
+
+    }
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   CLICK OUTSIDE MODAL
+========================================= */
+
+document
+    .getElementById(
+        "divisionModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target ===
+                this
+            ){
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+
+        /* CTRL + ENTER */
+
+        if(
+            event.ctrlKey &&
+            event.key === "Enter"
+        ){
+
+            if(
+                document
+                    .getElementById(
+                        "divisionModal"
+                    )
+                    .classList
+                    .contains("show")
+            ){
+
+                saveDivision();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   FORM ENTER
+========================================= */
+
+document
+    .getElementById(
+        "divisionForm"
+    )
+    .addEventListener(
+        "submit",
+        function(event){
+
+            event.preventDefault();
+
+            saveDivision();
+
+        }
+    );
+
+
+/* =========================================
+   INIT
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadDivisions();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
