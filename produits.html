@@ -1,121 +1,79 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Produits - SMTG</title>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="api/supabase.js"></script>
-
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
 }
 
 body{
-    font-family:"Segoe UI",Arial,sans-serif;
-    background:#f3f6f4;
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7f5;
     color:#1f2937;
 }
 
-button,
-input,
-select{
-    font-family:inherit;
-}
-
-
-/* =========================================================
-   PAGE
-========================================================= */
-
-.page{
-    width:100%;
-    max-width:1800px;
-    margin:auto;
-    padding:20px;
-}
-
-
-/* =========================================================
+/* ================================
    HEADER
-========================================================= */
+================================ */
 
 .header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-bottom:20px;
-}
-
-.title-box{
-    display:flex;
-    align-items:center;
-    gap:13px;
-}
-
-.title-icon{
-    width:50px;
-    height:50px;
-    border-radius:13px;
     background:#145a1f;
     color:white;
+    padding:18px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.header-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:rgba(255,255,255,.15);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:22px;
-    box-shadow:0 5px 16px rgba(20,90,31,.18);
+    font-size:23px;
 }
 
-.title-text h1{
-    font-size:24px;
-    color:#18351d;
+.header h1{
+    margin:0;
+    font-size:23px;
 }
 
-.title-text p{
-    margin-top:3px;
-    color:#707b74;
-    font-size:12px;
+.header p{
+    margin:4px 0 0;
+    opacity:.8;
+    font-size:13px;
 }
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
 
 .btn{
-    min-height:39px;
-    padding:0 14px;
-    border:0;
-    border-radius:8px;
+    border:none;
+    border-radius:9px;
+    padding:11px 17px;
+    cursor:pointer;
+    font-weight:600;
     display:inline-flex;
     align-items:center;
-    justify-content:center;
-    gap:7px;
-    cursor:pointer;
-    font-size:11px;
-    font-weight:600;
-    transition:.15s;
+    gap:8px;
+    transition:.2s;
 }
 
 .btn:hover{
@@ -124,410 +82,287 @@ select{
 
 .btn-primary{
     background:#145a1f;
-    color:#fff;
-}
-
-.btn-primary:hover{
-    background:#0e4517;
+    color:white;
 }
 
 .btn-secondary{
-    background:#fff;
-    color:#344139;
-    border:1px solid #d4ddd7;
-}
-
-.btn-secondary:hover{
-    background:#f7faf8;
+    background:#eef2f0;
+    color:#374151;
 }
 
 .btn-danger{
     background:#dc2626;
-    color:#fff;
+    color:white;
 }
 
-.btn-danger:hover{
-    background:#b91c1c;
+.btn-warning{
+    background:#f59e0b;
+    color:white;
 }
 
-.btn-small{
-    min-height:32px;
-    padding:0 10px;
-    font-size:10px;
+/* ================================
+   CONTAINER
+================================ */
+
+.container{
+    padding:22px;
+    max-width:1600px;
+    margin:auto;
 }
 
-
-/* =========================================================
+/* ================================
    STATS
-========================================================= */
+================================ */
 
 .stats{
     display:grid;
     grid-template-columns:repeat(5,1fr);
-    gap:12px;
-    margin-bottom:15px;
+    gap:15px;
+    margin-bottom:20px;
 }
 
 .stat{
-    background:#fff;
-    border:1px solid #e0e7e2;
-    border-radius:12px;
-    padding:14px;
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+}
+
+.stat-top{
     display:flex;
     align-items:center;
-    gap:10px;
+    justify-content:space-between;
 }
 
 .stat-icon{
-    width:40px;
-    height:40px;
-    flex:none;
+    width:42px;
+    height:42px;
     border-radius:10px;
-    background:#edf6ef;
+    background:#e8f3ea;
     color:#145a1f;
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
-.stat-label{
-    font-size:10px;
-    color:#768079;
-}
-
 .stat-value{
-    margin-top:2px;
-    font-size:19px;
+    font-size:27px;
     font-weight:700;
-    color:#203126;
+    margin-top:12px;
 }
 
-
-/* =========================================================
-   FILTER CARD
-========================================================= */
-
-.filter-card{
-    background:#fff;
-    border:1px solid #dfe6e1;
-    border-radius:14px;
-    margin-bottom:15px;
-    overflow:hidden;
-    box-shadow:0 4px 16px rgba(0,0,0,.035);
-}
-
-.filter-head{
-    padding:13px 16px;
-    background:#f8faf8;
-    border-bottom:1px solid #e4e9e5;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-}
-
-.filter-head strong{
-    color:#24362a;
+.stat-label{
+    color:#6b7280;
     font-size:13px;
+    margin-top:3px;
 }
 
-.filter-body{
-    padding:15px;
+/* ================================
+   FILTERS
+================================ */
+
+.card{
+    background:white;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+    margin-bottom:20px;
 }
 
-.filter-grid{
+.filters{
+    padding:18px;
+}
+
+.filters-grid{
     display:grid;
     grid-template-columns:2fr repeat(5,1fr);
-    gap:10px;
+    gap:12px;
 }
 
-.filter input,
-.filter select{
-    width:100%;
-    height:38px;
-    padding:0 10px;
-    border:1px solid #ccd6cf;
-    border-radius:8px;
-    background:#fff;
-    outline:none;
-    font-size:11px;
-    color:#28342c;
-}
-
-.filter input:focus,
-.filter select:focus{
-    border-color:#145a1f;
-    box-shadow:0 0 0 3px rgba(20,90,31,.08);
-}
-
-.filter-actions{
-    margin-top:11px;
+.field{
     display:flex;
-    justify-content:flex-end;
-    gap:7px;
+    flex-direction:column;
+    gap:6px;
 }
 
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-.table-card{
-    background:#fff;
-    border:1px solid #dfe6e1;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 4px 16px rgba(0,0,0,.035);
+.field label{
+    font-size:12px;
+    font-weight:700;
+    color:#4b5563;
 }
 
-.table-head{
-    min-height:52px;
-    padding:10px 15px;
-    border-bottom:1px solid #e5eae6;
+input,
+select{
+    width:100%;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    padding:10px 11px;
+    font-size:14px;
+    outline:none;
+    background:white;
+}
+
+input:focus,
+select:focus{
+    border-color:#145a1f;
+    box-shadow:0 0 0 2px rgba(20,90,31,.08);
+}
+
+/* ================================
+   TABLE HEADER
+================================ */
+
+.table-header{
+    padding:16px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
-    flex-wrap:wrap;
+    border-bottom:1px solid #e5e7eb;
 }
 
 .table-title{
-    color:#293a2e;
-    font-size:13px;
     font-weight:700;
-}
-
-.table-title i{
-    color:#145a1f;
-    margin-right:5px;
+    font-size:16px;
 }
 
 .table-count{
-    color:#77817b;
-    font-size:10px;
+    color:#6b7280;
+    font-size:13px;
 }
 
+/* ================================
+   TABLE
+================================ */
+
 .table-wrap{
-    width:100%;
     overflow:auto;
 }
 
 table{
     width:100%;
-    min-width:1250px;
     border-collapse:collapse;
+    min-width:1050px;
 }
 
 thead th{
-    padding:11px 12px;
-    background:#f7f9f7;
-    border-bottom:1px solid #e0e6e2;
-    color:#5b665f;
-    font-size:10px;
+    background:#f8faf9;
+    padding:12px;
     text-align:left;
-    text-transform:uppercase;
+    font-size:12px;
+    color:#4b5563;
     white-space:nowrap;
+    border-bottom:1px solid #e5e7eb;
 }
 
 tbody td{
-    padding:10px 12px;
-    border-bottom:1px solid #edf0ee;
-    font-size:11px;
-    vertical-align:middle;
+    padding:12px;
+    border-bottom:1px solid #eef0ef;
+    font-size:13px;
+    white-space:nowrap;
 }
 
 tbody tr:hover{
     background:#fafcfb;
 }
 
-.article-code{
-    display:inline-block;
-    padding:5px 8px;
-    border-radius:6px;
-    background:#edf6ef;
+.article{
+    font-weight:700;
     color:#145a1f;
-    font-weight:700;
 }
 
-.designation{
-    font-weight:600;
-    color:#29382f;
-}
-
-.sub{
-    color:#87918a;
-    font-size:9px;
-    margin-top:2px;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
+.badge{
     display:inline-flex;
-    align-items:center;
-    gap:5px;
-    border-radius:20px;
     padding:5px 9px;
-    font-size:9px;
+    border-radius:20px;
+    font-size:11px;
     font-weight:700;
 }
 
-.status-active{
+.badge-active{
     background:#dcfce7;
     color:#166534;
 }
 
-.status-inactive{
-    background:#f1f5f9;
-    color:#64748b;
+.badge-inactive{
+    background:#fee2e2;
+    color:#991b1b;
 }
 
-
-/* =========================================================
-   ACTIONS
-========================================================= */
-
-.actions-cell{
+.actions{
     display:flex;
-    align-items:center;
-    gap:5px;
+    gap:6px;
 }
 
-.icon-btn{
-    width:31px;
-    height:31px;
-    border:1px solid #d8e0da;
+.action-btn{
+    width:32px;
+    height:32px;
+    border:none;
     border-radius:7px;
-    background:#fff;
-    color:#435149;
     cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
-.icon-btn:hover{
-    background:#f2f6f3;
+.edit{
+    background:#e0f2fe;
+    color:#0369a1;
 }
 
-.icon-btn.edit{
-    color:#145a1f;
+.delete{
+    background:#fee2e2;
+    color:#b91c1c;
 }
 
-.icon-btn.delete{
-    color:#dc2626;
-}
-
-
-/* =========================================================
-   LOADING / EMPTY
-========================================================= */
-
-.loading{
-    display:none;
-    padding:55px;
-    text-align:center;
-    color:#69756e;
-    font-size:11px;
-}
-
-.loading.show{
-    display:block;
-}
-
-.spinner{
-    width:30px;
-    height:30px;
-    margin:0 auto 10px;
-    border:3px solid #dfe8e1;
-    border-top-color:#145a1f;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-.empty{
-    display:none;
-    padding:55px 20px;
-    text-align:center;
-}
-
-.empty i{
-    color:#bdc8c0;
-    font-size:38px;
-    margin-bottom:10px;
-}
-
-.empty h3{
-    color:#5d6861;
-    font-size:14px;
-    margin-bottom:5px;
-}
-
-.empty p{
-    color:#818b85;
-    font-size:11px;
-}
-
-
-/* =========================================================
+/* ================================
    MODAL
-========================================================= */
+================================ */
 
-.modal-bg{
+.modal{
+    display:none;
     position:fixed;
     inset:0;
+    background:rgba(0,0,0,.48);
     z-index:9999;
-    background:rgba(10,20,13,.55);
-    display:none;
     align-items:center;
     justify-content:center;
     padding:20px;
 }
 
-.modal-bg.show{
+.modal.show{
     display:flex;
 }
 
-.modal{
-    width:min(760px,100%);
+.modal-box{
+    width:100%;
+    max-width:720px;
     max-height:92vh;
     overflow:auto;
-    background:#fff;
-    border-radius:15px;
-    box-shadow:0 25px 70px rgba(0,0,0,.25);
+    background:white;
+    border-radius:16px;
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
 }
 
-.modal-head{
-    padding:15px 18px;
-    border-bottom:1px solid #e4e9e5;
+.modal-header{
+    padding:18px 20px;
+    border-bottom:1px solid #e5e7eb;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
-.modal-head h3{
-    color:#19351e;
-    font-size:15px;
+.modal-header h2{
+    margin:0;
+    font-size:19px;
 }
 
 .close{
-    width:34px;
-    height:34px;
-    border:0;
+    border:none;
+    background:#f3f4f6;
+    width:35px;
+    height:35px;
     border-radius:8px;
-    background:#f1f4f2;
     cursor:pointer;
+    font-size:18px;
 }
 
 .modal-body{
@@ -547,172 +382,137 @@ tbody tr:hover{
 }
 
 .form-group.full{
-    grid-column:1/-1;
+    grid-column:1 / -1;
 }
 
 .form-group label{
-    color:#465149;
-    font-size:11px;
-    font-weight:600;
+    font-size:13px;
+    font-weight:700;
 }
 
-.form-group label span{
+.required{
     color:#dc2626;
 }
 
-.form-group input,
-.form-group select{
-    height:40px;
-    width:100%;
-    padding:0 10px;
-    border:1px solid #ccd6cf;
-    border-radius:8px;
-    outline:none;
-    background:#fff;
-    font-size:12px;
-}
-
-.form-group input:focus,
-.form-group select:focus{
-    border-color:#145a1f;
-    box-shadow:0 0 0 3px rgba(20,90,31,.08);
+.help{
+    color:#6b7280;
+    font-size:11px;
 }
 
 .modal-footer{
-    margin-top:20px;
-    padding-top:15px;
-    border-top:1px solid #e5eae6;
+    padding:15px 20px;
+    border-top:1px solid #e5e7eb;
     display:flex;
     justify-content:flex-end;
-    gap:8px;
+    gap:10px;
 }
 
+/* ================================
+   EMPTY
+================================ */
 
-/* =========================================================
-   CONFIRM
-========================================================= */
-
-.confirm-box{
-    width:min(430px,100%);
-}
-
-.confirm-content{
-    padding:25px;
+.empty{
+    padding:45px 20px;
     text-align:center;
+    color:#6b7280;
 }
 
-.confirm-icon{
-    width:55px;
-    height:55px;
-    margin:0 auto 12px;
-    border-radius:50%;
-    background:#fee2e2;
-    color:#dc2626;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
+.empty i{
+    font-size:40px;
+    margin-bottom:12px;
+    opacity:.4;
 }
 
-.confirm-content h3{
-    color:#27352c;
-    font-size:15px;
-    margin-bottom:6px;
+/* ================================
+   LOADING
+================================ */
+
+.loading{
+    padding:40px;
+    text-align:center;
+    color:#6b7280;
 }
 
-.confirm-content p{
-    color:#707b74;
-    font-size:11px;
-    line-height:1.5;
+.loading i{
+    font-size:25px;
+    animation:spin 1s linear infinite;
 }
 
-.confirm-actions{
-    margin-top:20px;
-    display:flex;
-    justify-content:center;
-    gap:8px;
+@keyframes spin{
+    from{transform:rotate(0)}
+    to{transform:rotate(360deg)}
 }
 
-
-/* =========================================================
+/* ================================
    TOAST
-========================================================= */
-
-.toasts{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-    width:min(390px,calc(100vw - 36px));
-    z-index:15000;
-}
+================================ */
 
 .toast{
-    background:#fff;
-    border:1px solid #dfe6e1;
-    border-left:4px solid #145a1f;
-    border-radius:9px;
-    padding:11px 13px;
-    margin-top:7px;
-    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    min-width:280px;
+    max-width:400px;
+    background:#111827;
+    color:white;
+    padding:14px 17px;
+    border-radius:10px;
+    display:none;
+    z-index:20000;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+
+.toast.show{
+    display:block;
+}
+
+.toast.success{
+    background:#166534;
 }
 
 .toast.error{
-    border-left-color:#dc2626;
+    background:#b91c1c;
 }
 
 .toast.warning{
-    border-left-color:#d97706;
+    background:#b45309;
 }
 
-.toast strong{
-    display:block;
-    font-size:11px;
-    margin-bottom:3px;
-}
-
-.toast span{
-    color:#68736c;
-    font-size:10px;
-}
-
-
-/* =========================================================
+/* ================================
    RESPONSIVE
-========================================================= */
+================================ */
 
-@media(max-width:1250px){
-
-    .filter-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .filter-grid .search-main{
-        grid-column:1/-1;
-    }
+@media(max-width:1100px){
 
     .stats{
         grid-template-columns:repeat(3,1fr);
     }
 
+    .filters-grid{
+        grid-template-columns:1fr 1fr 1fr;
+    }
 }
-
 
 @media(max-width:700px){
 
-    .page{
-        padding:13px;
+    .header{
+        padding:15px;
+    }
+
+    .header h1{
+        font-size:18px;
+    }
+
+    .container{
+        padding:12px;
     }
 
     .stats{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:1fr 1fr;
     }
 
-    .filter-grid{
+    .filters-grid{
         grid-template-columns:1fr;
-    }
-
-    .filter-grid .search-main{
-        grid-column:auto;
     }
 
     .form-grid{
@@ -722,116 +522,178 @@ tbody tr:hover{
     .form-group.full{
         grid-column:auto;
     }
-
-}
-
-
-@media(max-width:480px){
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .header .btn{
-        width:100%;
-    }
-
-    .filter-actions{
-        justify-content:stretch;
-    }
-
-    .filter-actions .btn{
-        flex:1;
-    }
-
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<!-- HEADER -->
 
-<div class="page">
+<header class="header">
 
+    <div class="header-left">
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
-<div class="header">
-
-
-    <div class="title-box">
-
-        <div class="title-icon">
-
+        <div class="header-icon">
             <i class="fa-solid fa-boxes-stacked"></i>
-
         </div>
 
-
-        <div class="title-text">
-
-            <h1>
-                Produits
-            </h1>
-
-            <p>
-                Gestion des produits et articles
-            </p>
-
+        <div>
+            <h1>Produits</h1>
+            <p>Gestion des articles et produits</p>
         </div>
 
     </div>
 
-
-
-    <button
-        id="btnAdd"
-        class="btn btn-primary"
-        type="button"
-    >
-
+    <button class="btn btn-primary" onclick="openAddModal()">
         <i class="fa-solid fa-plus"></i>
-
-        Ajouter un produit
-
+        Ajouter
     </button>
 
-
-</div>
-
+</header>
 
 
-<!-- =========================================================
-     STATS
-========================================================= -->
+<div class="container">
 
-<div class="stats">
+    <!-- STATS -->
 
+    <div class="stats">
 
-    <div class="stat">
+        <div class="stat">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Total produits</div>
+                    <div class="stat-value" id="statTotal">0</div>
+                </div>
 
-        <div class="stat-icon">
-
-            <i class="fa-solid fa-box"></i>
-
+                <div class="stat-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+            </div>
         </div>
 
-        <div>
 
-            <div class="stat-label">
-                Total produits
+        <div class="stat">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Actifs</div>
+                    <div class="stat-value" id="statActive">0</div>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Inactifs</div>
+                    <div class="stat-value" id="statInactive">0</div>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Types</div>
+                    <div class="stat-value" id="statTypes">0</div>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-top">
+                <div>
+                    <div class="stat-label">Divisions</div>
+                    <div class="stat-value" id="statDivisions">0</div>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="card filters">
+
+        <div class="filters-grid">
+
+            <div class="field">
+                <label>Recherche</label>
+
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Article ou désignation..."
+                    oninput="render()"
+                >
             </div>
 
-            <div
-                id="statTotal"
-                class="stat-value"
-            >
-                0
+
+            <div class="field">
+                <label>Type</label>
+
+                <select id="filterType" onchange="render()">
+                    <option value="">Tous</option>
+                </select>
+            </div>
+
+
+            <div class="field">
+                <label>Groupe</label>
+
+                <select id="filterGroupe" onchange="render()">
+                    <option value="">Tous</option>
+                </select>
+            </div>
+
+
+            <div class="field">
+                <label>Unité</label>
+
+                <select id="filterUnite" onchange="render()">
+                    <option value="">Toutes</option>
+                </select>
+            </div>
+
+
+            <div class="field">
+                <label>Division</label>
+
+                <select id="filterDivision" onchange="render()">
+                    <option value="">Toutes</option>
+                </select>
+            </div>
+
+
+            <div class="field">
+                <label>Statut</label>
+
+                <select id="filterStatut" onchange="render()">
+                    <option value="">Tous</option>
+                    <option value="ACTIF">Actif</option>
+                    <option value="INACTIF">Inactif</option>
+                </select>
             </div>
 
         </div>
@@ -839,565 +701,188 @@ tbody tr:hover{
     </div>
 
 
+    <!-- TABLE -->
 
-    <div class="stat">
+    <div class="card">
 
-        <div class="stat-icon">
+        <div class="table-header">
 
-            <i class="fa-solid fa-circle-check"></i>
-
-        </div>
-
-        <div>
-
-            <div class="stat-label">
-                Actifs
+            <div class="table-title">
+                Liste des produits
             </div>
 
-            <div
-                id="statActive"
-                class="stat-value"
-            >
-                0
+            <div class="table-count" id="tableCount">
+                0 produit
             </div>
 
         </div>
 
-    </div>
 
+        <div class="table-wrap">
 
+            <table>
 
-    <div class="stat">
+                <thead>
 
-        <div class="stat-icon">
+                    <tr>
 
-            <i class="fa-solid fa-circle-xmark"></i>
+                        <th>Article</th>
 
-        </div>
+                        <th>Désignation</th>
 
-        <div>
+                        <th>Type</th>
 
-            <div class="stat-label">
-                Inactifs
-            </div>
+                        <th>Groupe</th>
 
-            <div
-                id="statInactive"
-                class="stat-value"
-            >
-                0
-            </div>
+                        <th>Unité</th>
 
-        </div>
+                        <th>Division</th>
 
-    </div>
+                        <th>Statut</th>
 
+                        <th>Délai limite vente</th>
 
+                        <th>Actions</th>
 
-    <div class="stat">
+                    </tr>
 
-        <div class="stat-icon">
+                </thead>
 
-            <i class="fa-solid fa-layer-group"></i>
+                <tbody id="tableBody">
 
-        </div>
+                </tbody>
 
-        <div>
-
-            <div class="stat-label">
-                Types
-            </div>
-
-            <div
-                id="statTypes"
-                class="stat-value"
-            >
-                0
-            </div>
+            </table>
 
         </div>
-
-    </div>
-
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-
-            <i class="fa-solid fa-warehouse"></i>
-
-        </div>
-
-        <div>
-
-            <div class="stat-label">
-                Divisions
-            </div>
-
-            <div
-                id="statDivisions"
-                class="stat-value"
-            >
-                0
-            </div>
-
-        </div>
-
-    </div>
-
-
-</div>
-
-
-
-<!-- =========================================================
-     FILTERS
-========================================================= -->
-
-<div class="filter-card">
-
-
-    <div class="filter-head">
-
-        <strong>
-
-            <i class="fa-solid fa-filter"></i>
-
-            Recherche et filtres
-
-        </strong>
-
-
-        <button
-            id="btnReset"
-            class="btn btn-secondary btn-small"
-            type="button"
-        >
-
-            <i class="fa-solid fa-rotate-left"></i>
-
-            Réinitialiser
-
-        </button>
-
-    </div>
-
-
-
-    <div class="filter-body">
-
-
-        <div class="filter-grid filter">
-
-
-            <input
-                id="search"
-                class="search-main"
-                type="text"
-                placeholder="Rechercher article ou désignation..."
-                autocomplete="off"
-            >
-
-
-            <select id="filterType">
-
-                <option value="">
-                    Tous les types
-                </option>
-
-            </select>
-
-
-            <select id="filterGroupe">
-
-                <option value="">
-                    Tous les groupes
-                </option>
-
-            </select>
-
-
-            <select id="filterUnite">
-
-                <option value="">
-                    Toutes les unités
-                </option>
-
-            </select>
-
-
-            <select id="filterDivision">
-
-                <option value="">
-                    Toutes les divisions
-                </option>
-
-            </select>
-
-
-            <select id="filterStatut">
-
-                <option value="">
-                    Tous les statuts
-                </option>
-
-                <option value="ACTIF">
-                    Actif
-                </option>
-
-                <option value="INACTIF">
-                    Inactif
-                </option>
-
-            </select>
-
-
-        </div>
-
-
-        <div class="filter-actions">
-
-            <button
-                id="btnRefresh"
-                class="btn btn-secondary"
-                type="button"
-            >
-
-                <i class="fa-solid fa-rotate"></i>
-
-                Actualiser
-
-            </button>
-
-        </div>
-
 
     </div>
 
 </div>
 
 
+<!-- MODAL -->
 
-<!-- =========================================================
-     TABLE
-========================================================= -->
+<div class="modal" id="productModal">
 
-<div class="table-card">
+    <div class="modal-box">
 
+        <div class="modal-header">
 
-    <div class="table-head">
-
-        <div class="table-title">
-
-            <i class="fa-solid fa-list"></i>
-
-            Liste des produits
-
-        </div>
-
-
-        <div
-            id="tableCount"
-            class="table-count"
-        >
-            0 produit
-        </div>
-
-    </div>
-
-
-
-    <div
-        id="loading"
-        class="loading"
-    >
-
-        <div class="spinner"></div>
-
-        Chargement des produits...
-
-    </div>
-
-
-
-    <div
-        id="empty"
-        class="empty"
-    >
-
-        <i class="fa-solid fa-box-open"></i>
-
-        <h3>
-            Aucun produit
-        </h3>
-
-        <p>
-            Aucun produit ne correspond aux critères.
-        </p>
-
-    </div>
-
-
-
-    <div
-        id="tableWrap"
-        class="table-wrap"
-        style="display:none;"
-    >
-
-        <table>
-
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Article
-                    </th>
-
-                    <th>
-                        Désignation
-                    </th>
-
-                    <th>
-                        Type
-                    </th>
-
-                    <th>
-                        Groupe
-                    </th>
-
-                    <th>
-                        Unité
-                    </th>
-
-                    <th>
-                        Division
-                    </th>
-
-                    <th>
-                        Statut
-                    </th>
-
-                    <th>
-                        Date limite vente
-                    </th>
-
-                    <th>
-                        Actions
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody
-                id="productsBody"
-            ></tbody>
-
-
-        </table>
-
-    </div>
-
-
-</div>
-
-
-</div>
-
-
-
-<!-- =========================================================
-     PRODUCT MODAL
-========================================================= -->
-
-<div
-    id="productModal"
-    class="modal-bg"
->
-
-
-    <div class="modal">
-
-
-        <div class="modal-head">
-
-            <h3 id="modalTitle">
-
-                <i class="fa-solid fa-box"></i>
-
+            <h2 id="modalTitle">
                 Ajouter un produit
+            </h2>
 
-            </h3>
-
-
-            <button
-                id="closeProductModal"
-                class="close"
-                type="button"
-            >
-
+            <button class="close" onclick="closeModal()">
                 <i class="fa-solid fa-xmark"></i>
-
             </button>
 
         </div>
-
 
 
         <div class="modal-body">
 
-
             <form id="productForm">
 
-
-                <input
-                    id="productId"
-                    type="hidden"
-                >
-
+                <input type="hidden" id="productId">
 
                 <div class="form-grid">
-
-
-                    <!-- ARTICLE -->
 
                     <div class="form-group">
 
                         <label>
-                            Article <span>*</span>
+                            Article <span class="required">*</span>
                         </label>
 
                         <input
-                            id="formArticle"
+                            id="article"
                             type="text"
-                            maxlength="100"
                             required
-                            autocomplete="off"
-                            placeholder="Ex : 220000284"
+                            maxlength="100"
+                            placeholder="Ex: 220000284"
                         >
 
                     </div>
 
 
-
-                    <!-- DESIGNATION -->
-
                     <div class="form-group">
 
                         <label>
-                            Désignation <span>*</span>
+                            Désignation <span class="required">*</span>
                         </label>
 
                         <input
-                            id="formDesignation"
+                            id="designation"
                             type="text"
-                            maxlength="255"
                             required
-                            autocomplete="off"
+                            maxlength="255"
                             placeholder="Désignation du produit"
                         >
 
                     </div>
 
 
-
-                    <!-- TYPE -->
-
                     <div class="form-group">
 
-                        <label>
-                            Type
-                        </label>
+                        <label>Type</label>
 
                         <input
-                            id="formType"
+                            id="type"
                             type="text"
                             maxlength="100"
-                            autocomplete="off"
-                            placeholder="Ex : Congelé"
+                            placeholder="Ex: Produit fini"
                         >
 
                     </div>
 
 
-
-                    <!-- GROUPE -->
-
                     <div class="form-group">
 
-                        <label>
-                            Groupe
-                        </label>
+                        <label>Groupe</label>
 
                         <input
-                            id="formGroupe"
+                            id="groupe"
                             type="text"
                             maxlength="100"
-                            autocomplete="off"
-                            placeholder="Groupe marchandises"
+                            placeholder="Ex: Viande"
                         >
 
                     </div>
 
 
-
-                    <!-- UNITE -->
-
                     <div class="form-group">
 
-                        <label>
-                            Unité
-                        </label>
+                        <label>Unité</label>
 
                         <input
-                            id="formUnite"
+                            id="unite"
                             type="text"
                             maxlength="50"
-                            autocomplete="off"
-                            placeholder="Ex : KG / PCE"
+                            placeholder="Ex: KG"
                         >
 
                     </div>
 
 
-
-                    <!-- DIVISION -->
-
                     <div class="form-group">
 
-                        <label>
-                            Division
-                        </label>
+                        <label>Division</label>
 
                         <input
-                            id="formDivision"
+                            id="division"
                             type="text"
                             maxlength="100"
-                            autocomplete="off"
-                            placeholder="Ex : AB01"
+                            placeholder="Ex: Congelé"
                         >
 
                     </div>
 
 
-
-                    <!-- STATUT -->
-
                     <div class="form-group">
 
-                        <label>
-                            Statut <span>*</span>
-                        </label>
+                        <label>Statut</label>
 
-                        <select
-                            id="formStatut"
-                            required
-                        >
+                        <select id="statut">
 
                             <option value="ACTIF">
                                 Actif
@@ -1412,1546 +897,746 @@ tbody tr:hover{
                     </div>
 
 
-
-                    <!-- DATE LIMITE -->
-
                     <div class="form-group">
 
                         <label>
-                            Date limite vente
+                            Délai limite vente
                         </label>
 
                         <input
-                            id="formDateLimite"
-                            type="date"
+                            id="dateLimiteVente"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="Ex: 30"
                         >
+
+                        <div class="help">
+                            Nombre de jours
+                        </div>
 
                     </div>
 
-
                 </div>
-
-
-
-                <div class="modal-footer">
-
-
-                    <button
-                        id="btnCancelProduct"
-                        class="btn btn-secondary"
-                        type="button"
-                    >
-
-                        Annuler
-
-                    </button>
-
-
-                    <button
-                        id="btnSaveProduct"
-                        class="btn btn-primary"
-                        type="submit"
-                    >
-
-                        <i class="fa-solid fa-floppy-disk"></i>
-
-                        Enregistrer
-
-                    </button>
-
-
-                </div>
-
 
             </form>
-
 
         </div>
 
 
-    </div>
-
-</div>
-
-
-
-<!-- =========================================================
-     DELETE MODAL
-========================================================= -->
-
-<div
-    id="deleteModal"
-    class="modal-bg"
->
-
-
-    <div class="modal confirm-box">
-
-
-        <div class="modal-head">
-
-            <h3>
-
-                <i class="fa-solid fa-trash"></i>
-
-                Supprimer le produit
-
-            </h3>
-
+        <div class="modal-footer">
 
             <button
-                id="closeDeleteModal"
-                class="close"
-                type="button"
+                class="btn btn-secondary"
+                onclick="closeModal()"
             >
+                Annuler
+            </button>
 
-                <i class="fa-solid fa-xmark"></i>
-
+            <button
+                class="btn btn-primary"
+                onclick="saveProduct()"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+                Enregistrer
             </button>
 
         </div>
 
-
-
-        <div class="confirm-content">
-
-
-            <div class="confirm-icon">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-            </div>
-
-
-            <h3>
-                Confirmer la suppression
-            </h3>
-
-
-            <p id="deleteMessage">
-                Voulez-vous vraiment supprimer ce produit ?
-            </p>
-
-
-            <div class="confirm-actions">
-
-
-                <button
-                    id="btnCancelDelete"
-                    class="btn btn-secondary"
-                    type="button"
-                >
-
-                    Annuler
-
-                </button>
-
-
-                <button
-                    id="btnConfirmDelete"
-                    class="btn btn-danger"
-                    type="button"
-                >
-
-                    <i class="fa-solid fa-trash"></i>
-
-                    Supprimer
-
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-
     </div>
 
 </div>
 
 
+<!-- TOAST -->
 
-<!-- =========================================================
-     TOAST
-========================================================= -->
+<div class="toast" id="toast"></div>
 
-<div
-    id="toasts"
-    class="toasts"
-></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="api/supabase.js"></script>
 
 
 <script>
 
-/* =========================================================
+/* ============================================
    VARIABLES
-========================================================= */
+============================================ */
 
-"use strict";
-
-
-let client = null;
+const client = getSupabase();
 
 let products = [];
-
-let filteredProducts = [];
-
 let editingId = null;
 
-let deletingProduct = null;
 
+/* ============================================
+   CURRENT USER
+============================================ */
 
-/* =========================================================
-   INIT
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function(){
-
-        try{
-
-            client =
-                getSupabase();
-
-
-            bindEvents();
-
-
-            await loadProducts();
-
-        }
-        catch(error){
-
-            console.error(
-                "INIT:",
-                error
-            );
-
-
-            showToast(
-                "Erreur",
-                getError(error),
-                "error"
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
-function bindEvents(){
-
-
-    document
-        .getElementById(
-            "btnAdd"
-        )
-        .addEventListener(
-            "click",
-            openAddModal
-        );
-
-
-    document
-        .getElementById(
-            "closeProductModal"
-        )
-        .addEventListener(
-            "click",
-            closeProductModal
-        );
-
-
-    document
-        .getElementById(
-            "btnCancelProduct"
-        )
-        .addEventListener(
-            "click",
-            closeProductModal
-        );
-
-
-    document
-        .getElementById(
-            "productForm"
-        )
-        .addEventListener(
-            "submit",
-            saveProduct
-        );
-
-
-    document
-        .getElementById(
-            "btnReset"
-        )
-        .addEventListener(
-            "click",
-            resetFilters
-        );
-
-
-    document
-        .getElementById(
-            "btnRefresh"
-        )
-        .addEventListener(
-            "click",
-            loadProducts
-        );
-
-
-    document
-        .getElementById(
-            "search"
-        )
-        .addEventListener(
-            "input",
-            applyFilters
-        );
-
-
-    document
-        .getElementById(
-            "filterType"
-        )
-        .addEventListener(
-            "change",
-            applyFilters
-        );
-
-
-    document
-        .getElementById(
-            "filterGroupe"
-        )
-        .addEventListener(
-            "change",
-            applyFilters
-        );
-
-
-    document
-        .getElementById(
-            "filterUnite"
-        )
-        .addEventListener(
-            "change",
-            applyFilters
-        );
-
-
-    document
-        .getElementById(
-            "filterDivision"
-        )
-        .addEventListener(
-            "change",
-            applyFilters
-        );
-
-
-    document
-        .getElementById(
-            "filterStatut"
-        )
-        .addEventListener(
-            "change",
-            applyFilters
-        );
-
-
-    document
-        .getElementById(
-            "closeDeleteModal"
-        )
-        .addEventListener(
-            "click",
-            closeDeleteModal
-        );
-
-
-    document
-        .getElementById(
-            "btnCancelDelete"
-        )
-        .addEventListener(
-            "click",
-            closeDeleteModal
-        );
-
-
-    document
-        .getElementById(
-            "btnConfirmDelete"
-        )
-        .addEventListener(
-            "click",
-            confirmDelete
-        );
-
-
-    document
-        .getElementById(
-            "productModal"
-        )
-        .addEventListener(
-            "click",
-            function(event){
-
-                if(
-                    event.target.id ===
-                    "productModal"
-                ){
-
-                    closeProductModal();
-
-                }
-
-            }
-        );
-
-
-    document
-        .getElementById(
-            "deleteModal"
-        )
-        .addEventListener(
-            "click",
-            function(event){
-
-                if(
-                    event.target.id ===
-                    "deleteModal"
-                ){
-
-                    closeDeleteModal();
-
-                }
-
-            }
-        );
-
-
-    document.addEventListener(
-        "keydown",
-        function(event){
-
-            if(
-                event.key ===
-                "Escape"
-            ){
-
-                closeProductModal();
-
-                closeDeleteModal();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOAD PRODUCTS
-========================================================= */
-
-async function loadProducts(){
-
-    setLoading(true);
-
+function getCurrentUser(){
 
     try{
 
-        const {
-            data,
-            error
-        } =
-            await client
-                .from("produits")
-                .select("*")
-                .order(
-                    "article",
-                    {
-                        ascending:true
-                    }
-                );
+        const a =
+            sessionStorage.getItem("smtg_current_user");
 
-
-        if(error){
-
-            throw error;
-
+        if(a){
+            return JSON.parse(a);
         }
 
+        const b =
+            sessionStorage.getItem("smtgUser");
 
-        products =
-            data || [];
+        if(b){
+            return JSON.parse(b);
+        }
 
+    }catch(e){
 
-        buildFilterOptions();
-
-
-        applyFilters();
-
+        console.error(e);
 
     }
-    catch(error){
 
-        console.error(
-            "LOAD PRODUCTS:",
-            error
-        );
+    return null;
+}
 
 
-        products = [];
+/* ============================================
+   AUDIT USER
+============================================ */
 
-        filteredProducts = [];
+function auditUserId(){
+
+    const user = getCurrentUser();
+
+    if(!user || !user.id){
+        return null;
+    }
+
+    return Number(user.id);
+}
 
 
-        renderProducts();
+/* ============================================
+   TOAST
+============================================ */
 
+function showToast(message,type="success"){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.className =
+        "toast show " + type;
+
+    setTimeout(()=>{
+
+        toast.className="toast";
+
+    },3500);
+
+}
+
+
+/* ============================================
+   LOAD PRODUCTS
+============================================ */
+
+async function loadProducts(){
+
+    const tbody =
+        document.getElementById("tableBody");
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="9">
+                <div class="loading">
+                    <i class="fa-solid fa-spinner"></i>
+                    <div>Chargement...</div>
+                </div>
+            </td>
+        </tr>
+    `;
+
+    try{
+
+        const all = [];
+
+        const pageSize = 1000;
+
+        let from = 0;
+
+        while(true){
+
+            const to =
+                from + pageSize - 1;
+
+            const {data,error} =
+                await client
+                    .from("produits")
+                    .select("*")
+                    .order("article",{ascending:true})
+                    .range(from,to);
+
+            if(error){
+                throw error;
+            }
+
+            if(!data || data.length === 0){
+                break;
+            }
+
+            all.push(...data);
+
+            if(data.length < pageSize){
+                break;
+            }
+
+            from += pageSize;
+        }
+
+        products = all;
+
+        fillFilters();
+
+        updateStats();
+
+        render();
+
+    }catch(error){
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9">
+                    <div class="empty">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div>Erreur lors du chargement</div>
+                        <small>${escapeHtml(error.message)}</small>
+                    </div>
+                </td>
+            </tr>
+        `;
 
         showToast(
-            "Erreur",
-            getError(error),
+            "Erreur lors du chargement des produits",
             "error"
         );
 
     }
-    finally{
-
-        setLoading(false);
-
-    }
 
 }
 
 
-/* =========================================================
+/* ============================================
    FILTER OPTIONS
-========================================================= */
+============================================ */
 
-function buildFilterOptions(){
-
-    fillSelect(
-        "filterType",
-        uniqueFieldValues(
-            "type"
-        ),
-        "Tous les types"
-    );
-
-
-    fillSelect(
-        "filterGroupe",
-        uniqueFieldValues(
-            "groupe"
-        ),
-        "Tous les groupes"
-    );
-
-
-    fillSelect(
-        "filterUnite",
-        uniqueFieldValues(
-            "unite"
-        ),
-        "Toutes les unités"
-    );
-
-
-    fillSelect(
-        "filterDivision",
-        uniqueFieldValues(
-            "division"
-        ),
-        "Toutes les divisions"
-    );
-
-}
-
-
-function uniqueFieldValues(
-    field
-){
-
-    const values =
-        products
-            .map(
-                p =>
-                    p[field]
-            )
-            .filter(
-                value =>
-                    value !== null &&
-                    value !== undefined &&
-                    String(value).trim() !== ""
-            )
-            .map(
-                value =>
-                    String(value).trim()
-            );
-
+function uniqueValues(field){
 
     return [
         ...new Set(
-            values
+            products
+                .map(p => p[field])
+                .filter(v =>
+                    v !== null &&
+                    v !== undefined &&
+                    String(v).trim() !== ""
+                )
+                .map(v => String(v))
         )
-    ]
-    .sort(
-        (a,b) =>
-            a.localeCompare(
-                b,
-                "fr"
-            )
+    ].sort((a,b)=>
+        a.localeCompare(b,"fr")
     );
 
 }
 
 
-function fillSelect(
-    id,
-    values,
-    firstLabel
-){
+function fillSelect(id,values){
 
     const select =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
-
-    const oldValue =
+    const current =
         select.value;
 
+    select.innerHTML =
+        '<option value="">Tous</option>';
 
-    select.innerHTML = `
+    values.forEach(value=>{
 
-        <option value="">
-            ${escapeHtml(firstLabel)}
-        </option>
+        const option =
+            document.createElement("option");
 
-    `;
+        option.value=value;
 
+        option.textContent=value;
 
-    values.forEach(
-        value => {
+        select.appendChild(option);
 
-            const option =
-                document.createElement(
-                    "option"
-                );
+    });
 
+    if(values.includes(current)){
+        select.value=current;
+    }
 
-            option.value =
-                value;
-
-
-            option.textContent =
-                value;
+}
 
 
-            select.appendChild(
-                option
-            );
+function fillFilters(){
 
-        }
+    fillSelect(
+        "filterType",
+        uniqueValues("type")
     );
 
+    fillSelect(
+        "filterGroupe",
+        uniqueValues("groupe")
+    );
 
-    if(
-        values.includes(
-            oldValue
-        )
-    ){
+    fillSelect(
+        "filterUnite",
+        uniqueValues("unite")
+    );
 
-        select.value =
-            oldValue;
-
-    }
-
-}
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-function applyFilters(){
-
-    const search =
-        normalize(
-            document
-                .getElementById(
-                    "search"
-                )
-                .value
-        );
-
-
-    const type =
-        document
-            .getElementById(
-                "filterType"
-            )
-            .value;
-
-
-    const groupe =
-        document
-            .getElementById(
-                "filterGroupe"
-            )
-            .value;
-
-
-    const unite =
-        document
-            .getElementById(
-                "filterUnite"
-            )
-            .value;
-
-
-    const division =
-        document
-            .getElementById(
-                "filterDivision"
-            )
-            .value;
-
-
-    const statut =
-        document
-            .getElementById(
-                "filterStatut"
-            )
-            .value;
-
-
-    filteredProducts =
-        products.filter(
-            product => {
-
-
-                /* SEARCH */
-
-                if(search){
-
-                    const article =
-                        normalize(
-                            product.article
-                        );
-
-
-                    const designation =
-                        normalize(
-                            product.designation
-                        );
-
-
-                    if(
-                        !article.includes(search) &&
-                        !designation.includes(search)
-                    ){
-
-                        return false;
-
-                    }
-
-                }
-
-
-                /* TYPE */
-
-                if(
-                    type &&
-                    String(
-                        product.type || ""
-                    ) !==
-                    type
-                ){
-
-                    return false;
-
-                }
-
-
-                /* GROUPE */
-
-                if(
-                    groupe &&
-                    String(
-                        product.groupe || ""
-                    ) !==
-                    groupe
-                ){
-
-                    return false;
-
-                }
-
-
-                /* UNITE */
-
-                if(
-                    unite &&
-                    String(
-                        product.unite || ""
-                    ) !==
-                    unite
-                ){
-
-                    return false;
-
-                }
-
-
-                /* DIVISION */
-
-                if(
-                    division &&
-                    String(
-                        product.division || ""
-                    ) !==
-                    division
-                ){
-
-                    return false;
-
-                }
-
-
-                /* STATUT */
-
-                if(
-                    statut &&
-                    String(
-                        product.statut || ""
-                    ) !==
-                    statut
-                ){
-
-                    return false;
-
-                }
-
-
-                return true;
-
-            }
-        );
-
-
-    updateStats();
-
-    renderProducts();
+    fillSelect(
+        "filterDivision",
+        uniqueValues("division")
+    );
 
 }
 
 
-/* =========================================================
-   RENDER
-========================================================= */
-
-function renderProducts(){
-
-    const body =
-        document.getElementById(
-            "productsBody"
-        );
-
-
-    const table =
-        document.getElementById(
-            "tableWrap"
-        );
-
-
-    const empty =
-        document.getElementById(
-            "empty"
-        );
-
-
-    document.getElementById(
-        "tableCount"
-    ).textContent =
-        `${formatNumber(filteredProducts.length)} produit${filteredProducts.length > 1 ? "s" : ""}`;
-
-
-    if(
-        filteredProducts.length === 0
-    ){
-
-        body.innerHTML =
-            "";
-
-
-        table.style.display =
-            "none";
-
-
-        empty.style.display =
-            "block";
-
-
-        return;
-
-    }
-
-
-    empty.style.display =
-        "none";
-
-
-    table.style.display =
-        "block";
-
-
-    body.innerHTML =
-        filteredProducts
-            .map(
-                productRow
-            )
-            .join("");
-
-
-    body
-        .querySelectorAll(
-            "[data-edit]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function(event){
-
-                        event.stopPropagation();
-
-                        openEditModal(
-                            Number(
-                                button.dataset.edit
-                            )
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    body
-        .querySelectorAll(
-            "[data-delete]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function(event){
-
-                        event.stopPropagation();
-
-                        openDeleteModal(
-                            Number(
-                                button.dataset.delete
-                            )
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   PRODUCT ROW
-========================================================= */
-
-function productRow(
-    product
-){
-
-    const active =
-        String(
-            product.statut || "ACTIF"
-        ) ===
-        "ACTIF";
-
-
-    return `
-
-        <tr>
-
-
-            <td>
-
-                <span class="article-code">
-
-                    ${escapeHtml(
-                        product.article || "-"
-                    )}
-
-                </span>
-
-            </td>
-
-
-
-            <td>
-
-                <div class="designation">
-
-                    ${escapeHtml(
-                        product.designation || "-"
-                    )}
-
-                </div>
-
-
-                <div class="sub">
-
-                    ID :
-                    ${escapeHtml(
-                        String(
-                            product.id
-                        )
-                    )}
-
-                </div>
-
-            </td>
-
-
-
-            <td>
-
-                ${escapeHtml(
-                    product.type || "-"
-                )}
-
-            </td>
-
-
-
-            <td>
-
-                ${escapeHtml(
-                    product.groupe || "-"
-                )}
-
-            </td>
-
-
-
-            <td>
-
-                ${escapeHtml(
-                    product.unite || "-"
-                )}
-
-            </td>
-
-
-
-            <td>
-
-                ${escapeHtml(
-                    product.division || "-"
-                )}
-
-            </td>
-
-
-
-            <td>
-
-                ${
-                    active
-
-                    ?
-
-                    `
-                    <span class="status status-active">
-
-                        <i class="fa-solid fa-circle"></i>
-
-                        Actif
-
-                    </span>
-                    `
-
-                    :
-
-                    `
-                    <span class="status status-inactive">
-
-                        <i class="fa-solid fa-circle"></i>
-
-                        Inactif
-
-                    </span>
-                    `
-                }
-
-            </td>
-
-
-
-            <td>
-
-                ${
-                    product.date_limite_vente
-
-                    ?
-
-                    formatDate(
-                        product.date_limite_vente
-                    )
-
-                    :
-
-                    "-"
-                }
-
-            </td>
-
-
-
-            <td>
-
-                <div class="actions-cell">
-
-
-                    <button
-                        class="icon-btn edit"
-                        title="Modifier"
-                        data-edit="${product.id}"
-                        type="button"
-                    >
-
-                        <i class="fa-solid fa-pen"></i>
-
-                    </button>
-
-
-
-                    <button
-                        class="icon-btn delete"
-                        title="Supprimer"
-                        data-delete="${product.id}"
-                        type="button"
-                    >
-
-                        <i class="fa-solid fa-trash"></i>
-
-                    </button>
-
-
-                </div>
-
-            </td>
-
-
-        </tr>
-
-    `;
-
-}
-
-
-/* =========================================================
+/* ============================================
    STATS
-========================================================= */
+============================================ */
 
 function updateStats(){
 
-    const total =
-        products.length;
+    document.getElementById("statTotal")
+        .textContent =
+        products.length.toLocaleString("fr-FR");
 
-
-    const active =
+    document.getElementById("statActive")
+        .textContent =
         products.filter(
-            p =>
-                p.statut ===
-                "ACTIF"
-        ).length;
+            p => p.statut === "ACTIF"
+        ).length.toLocaleString("fr-FR");
 
-
-    const inactive =
+    document.getElementById("statInactive")
+        .textContent =
         products.filter(
-            p =>
-                p.statut ===
-                "INACTIF"
-        ).length;
+            p => p.statut === "INACTIF"
+        ).length.toLocaleString("fr-FR");
 
+    document.getElementById("statTypes")
+        .textContent =
+        uniqueValues("type").length;
 
-    const types =
-        new Set(
-            products
-                .map(
-                    p =>
-                        p.type
-                )
-                .filter(Boolean)
-        ).size;
-
-
-    const divisions =
-        new Set(
-            products
-                .map(
-                    p =>
-                        p.division
-                )
-                .filter(Boolean)
-        ).size;
-
-
-    setText(
-        "statTotal",
-        formatNumber(total)
-    );
-
-
-    setText(
-        "statActive",
-        formatNumber(active)
-    );
-
-
-    setText(
-        "statInactive",
-        formatNumber(inactive)
-    );
-
-
-    setText(
-        "statTypes",
-        formatNumber(types)
-    );
-
-
-    setText(
-        "statDivisions",
-        formatNumber(divisions)
-    );
+    document.getElementById("statDivisions")
+        .textContent =
+        uniqueValues("division").length;
 
 }
 
 
-/* =========================================================
-   ADD MODAL
-========================================================= */
+/* ============================================
+   RENDER
+============================================ */
 
-function openAddModal(){
+function render(){
 
-    editingId =
-        null;
+    const search =
+        document.getElementById("search")
+            .value
+            .trim()
+            .toLowerCase();
 
+    const type =
+        document.getElementById("filterType").value;
 
-    document.getElementById(
-        "modalTitle"
-    ).innerHTML = `
+    const groupe =
+        document.getElementById("filterGroupe").value;
 
-        <i class="fa-solid fa-box"></i>
+    const unite =
+        document.getElementById("filterUnite").value;
 
-        Ajouter un produit
+    const division =
+        document.getElementById("filterDivision").value;
 
-    `;
-
-
-    clearForm();
-
-
-    document.getElementById(
-        "productModal"
-    ).classList.add(
-        "show"
-    );
+    const statut =
+        document.getElementById("filterStatut").value;
 
 
-    setTimeout(
-        function(){
+    const filtered =
+        products.filter(p=>{
 
-            document.getElementById(
-                "formArticle"
-            ).focus();
+            const matchesSearch =
+                !search ||
+                String(p.article || "")
+                    .toLowerCase()
+                    .includes(search) ||
+                String(p.designation || "")
+                    .toLowerCase()
+                    .includes(search);
 
-        },
-        100
-    );
+            const matchesType =
+                !type ||
+                String(p.type || "") === type;
 
-}
+            const matchesGroupe =
+                !groupe ||
+                String(p.groupe || "") === groupe;
+
+            const matchesUnite =
+                !unite ||
+                String(p.unite || "") === unite;
+
+            const matchesDivision =
+                !division ||
+                String(p.division || "") === division;
+
+            const matchesStatut =
+                !statut ||
+                String(p.statut || "") === statut;
+
+            return (
+                matchesSearch &&
+                matchesType &&
+                matchesGroupe &&
+                matchesUnite &&
+                matchesDivision &&
+                matchesStatut
+            );
+
+        });
 
 
-/* =========================================================
-   EDIT MODAL
-========================================================= */
-
-function openEditModal(
-    id
-){
-
-    const product =
-        products.find(
-            p =>
-                Number(p.id) ===
-                Number(id)
-        );
+    document.getElementById("tableCount")
+        .textContent =
+        `${filtered.length.toLocaleString("fr-FR")} produit(s)`;
 
 
-    if(!product){
+    const tbody =
+        document.getElementById("tableBody");
 
-        showToast(
-            "Erreur",
-            "Produit introuvable.",
-            "error"
-        );
+
+    if(filtered.length === 0){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9">
+                    <div class="empty">
+                        <i class="fa-solid fa-box-open"></i>
+                        <div>Aucun produit trouvé</div>
+                    </div>
+                </td>
+            </tr>
+        `;
 
         return;
-
     }
 
 
+    tbody.innerHTML =
+        filtered.map(p=>{
+
+            const statusClass =
+                p.statut === "ACTIF"
+                    ? "badge-active"
+                    : "badge-inactive";
+
+            const statusText =
+                p.statut === "ACTIF"
+                    ? "Actif"
+                    : "Inactif";
+
+
+            const dlv =
+                p.date_limite_vente !== null &&
+                p.date_limite_vente !== undefined
+                    ? `${Number(p.date_limite_vente)} jours`
+                    : "—";
+
+
+            return `
+
+                <tr>
+
+                    <td class="article">
+                        ${escapeHtml(p.article)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(p.designation)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(p.type || "—")}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(p.groupe || "—")}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(p.unite || "—")}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(p.division || "—")}
+                    </td>
+
+                    <td>
+                        <span class="badge ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </td>
+
+                    <td>
+                        ${dlv}
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="action-btn edit"
+                                title="Modifier"
+                                onclick="editProduct(${p.id})"
+                            >
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+                            <button
+                                class="action-btn delete"
+                                title="Supprimer"
+                                onclick="deleteProduct(${p.id})"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* ============================================
+   ADD MODAL
+============================================ */
+
+function openAddModal(){
+
+    editingId = null;
+
+    document.getElementById("modalTitle")
+        .textContent =
+        "Ajouter un produit";
+
+    document.getElementById("productForm")
+        .reset();
+
+    document.getElementById("productId")
+        .value="";
+
+    document.getElementById("statut")
+        .value="ACTIF";
+
+    document.getElementById("productModal")
+        .classList.add("show");
+
+}
+
+
+/* ============================================
+   EDIT
+============================================ */
+
+function editProduct(id){
+
+    const product =
+        products.find(
+            p => Number(p.id) === Number(id)
+        );
+
+    if(!product){
+        return;
+    }
+
     editingId =
         product.id;
 
+    document.getElementById("modalTitle")
+        .textContent =
+        "Modifier le produit";
 
-    document.getElementById(
-        "modalTitle"
-    ).innerHTML = `
-
-        <i class="fa-solid fa-pen"></i>
-
-        Modifier le produit
-
-    `;
-
-
-    document.getElementById(
-        "productId"
-    ).value =
+    document.getElementById("productId")
+        .value =
         product.id;
 
-
-    document.getElementById(
-        "formArticle"
-    ).value =
+    document.getElementById("article")
+        .value =
         product.article || "";
 
-
-    document.getElementById(
-        "formDesignation"
-    ).value =
+    document.getElementById("designation")
+        .value =
         product.designation || "";
 
-
-    document.getElementById(
-        "formType"
-    ).value =
+    document.getElementById("type")
+        .value =
         product.type || "";
 
-
-    document.getElementById(
-        "formGroupe"
-    ).value =
+    document.getElementById("groupe")
+        .value =
         product.groupe || "";
 
-
-    document.getElementById(
-        "formUnite"
-    ).value =
+    document.getElementById("unite")
+        .value =
         product.unite || "";
 
-
-    document.getElementById(
-        "formDivision"
-    ).value =
+    document.getElementById("division")
+        .value =
         product.division || "";
 
-
-    document.getElementById(
-        "formStatut"
-    ).value =
+    document.getElementById("statut")
+        .value =
         product.statut || "ACTIF";
 
+    document.getElementById("dateLimiteVente")
+        .value =
+        product.date_limite_vente ?? "";
 
-    document.getElementById(
-        "formDateLimite"
-    ).value =
-        product.date_limite_vente || "";
-
-
-    document.getElementById(
-        "productModal"
-    ).classList.add(
-        "show"
-    );
+    document.getElementById("productModal")
+        .classList.add("show");
 
 }
 
 
-/* =========================================================
-   CLEAR FORM
-========================================================= */
+/* ============================================
+   CLOSE
+============================================ */
 
-function clearForm(){
+function closeModal(){
 
-    document.getElementById(
-        "productForm"
-    ).reset();
-
-
-    document.getElementById(
-        "productId"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "formStatut"
-    ).value =
-        "ACTIF";
+    document.getElementById("productModal")
+        .classList.remove("show");
 
 }
 
 
-/* =========================================================
-   CLOSE PRODUCT MODAL
-========================================================= */
+/* ============================================
+   SAVE
+============================================ */
 
-function closeProductModal(){
-
-    document.getElementById(
-        "productModal"
-    ).classList.remove(
-        "show"
-    );
-
-
-    editingId =
-        null;
-
-}
-
-
-/* =========================================================
-   SAVE PRODUCT
-========================================================= */
-
-async function saveProduct(
-    event
-){
-
-    event.preventDefault();
-
+async function saveProduct(){
 
     const article =
-        document.getElementById(
-            "formArticle"
-        ).value
-        .trim();
-
+        document.getElementById("article")
+            .value
+            .trim();
 
     const designation =
-        document.getElementById(
-            "formDesignation"
-        ).value
-        .trim();
-
+        document.getElementById("designation")
+            .value
+            .trim();
 
     const type =
-        document.getElementById(
-            "formType"
-        ).value
-        .trim();
-
+        document.getElementById("type")
+            .value
+            .trim();
 
     const groupe =
-        document.getElementById(
-            "formGroupe"
-        ).value
-        .trim();
-
+        document.getElementById("groupe")
+            .value
+            .trim();
 
     const unite =
-        document.getElementById(
-            "formUnite"
-        ).value
-        .trim();
-
+        document.getElementById("unite")
+            .value
+            .trim();
 
     const division =
-        document.getElementById(
-            "formDivision"
-        ).value
-        .trim();
-
+        document.getElementById("division")
+            .value
+            .trim();
 
     const statut =
-        document.getElementById(
-            "formStatut"
-        ).value;
+        document.getElementById("statut")
+            .value;
+
+    const dlvRaw =
+        document.getElementById("dateLimiteVente")
+            .value
+            .trim();
 
 
-    const dateLimite =
-        document.getElementById(
-            "formDateLimite"
-        ).value || null;
-
-
-    if(
-        !article ||
-        !designation
-    ){
+    if(!article){
 
         showToast(
-            "Attention",
-            "Article et Désignation sont obligatoires.",
+            "Veuillez saisir l'article.",
             "warning"
         );
 
         return;
+    }
+
+
+    if(!designation){
+
+        showToast(
+            "Veuillez saisir la désignation.",
+            "warning"
+        );
+
+        return;
+    }
+
+
+    let dateLimiteVente = null;
+
+    if(dlvRaw !== ""){
+
+        dateLimiteVente =
+            Number(dlvRaw);
+
+        if(
+            !Number.isInteger(dateLimiteVente) ||
+            dateLimiteVente < 0
+        ){
+
+            showToast(
+                "Le délai limite vente doit être un nombre entier positif.",
+                "warning"
+            );
+
+            return;
+        }
 
     }
 
 
-    const currentUser =
-        getCurrentUserSafe();
-
-
     const userId =
-        currentUser?.id ||
-        null;
+        auditUserId();
 
 
     const payload = {
 
-        article:
-            article,
-
-        designation:
-            designation,
+        article,
+        designation,
 
         type:
             type || null,
@@ -2965,79 +1650,24 @@ async function saveProduct(
         division:
             division || null,
 
-        statut:
-            statut,
+        statut,
 
         date_limite_vente:
-            dateLimite
+            dateLimiteVente
 
     };
 
 
     try{
 
-        setSaveLoading(true);
+        let result;
 
 
-        /* ==========================================
-           UPDATE
-        ========================================== */
-
-        if(
-            editingId
-        ){
-
-            payload.updated_by =
-                userId;
-
-
-            const {
-                data,
-                error
-            } =
-                await client
-                    .from("produits")
-                    .update(
-                        payload
-                    )
-                    .eq(
-                        "id",
-                        editingId
-                    )
-                    .select()
-                    .single();
-
-
-            if(error){
-
-                throw error;
-
-            }
-
-
-            await logActivitySafe(
-                "UPDATE",
-                "PRODUITS",
-                "produits.html",
-                `Modification du produit ${article}`,
-                "PRODUIT",
-                editingId
-            );
-
-
-            showToast(
-                "Succès",
-                "Produit modifié avec succès."
-            );
-
-        }
-
-
-        /* ==========================================
+        /* ==========================
            INSERT
-        ========================================== */
+        ========================== */
 
-        else{
+        if(!editingId){
 
             payload.created_by =
                 userId;
@@ -3046,234 +1676,216 @@ async function saveProduct(
                 userId;
 
 
-            const {
-                data,
-                error
-            } =
+            result =
                 await client
                     .from("produits")
-                    .insert(
-                        payload
-                    )
+                    .insert(payload)
                     .select()
                     .single();
 
 
-            if(error){
+        }
 
-                if(
-                    error.code ===
-                    "23505"
-                ){
+        /* ==========================
+           UPDATE
+        ========================== */
 
-                    throw new Error(
-                        "Cet article existe déjà."
-                    );
+        else{
 
-                }
+            payload.updated_by =
+                userId;
 
-                throw error;
+
+            result =
+                await client
+                    .from("produits")
+                    .update(payload)
+                    .eq("id",editingId)
+                    .select()
+                    .single();
+
+        }
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        /* ==========================
+           ACTIVITY LOG
+        ========================== */
+
+        try{
+
+            if(window.SMTG &&
+               typeof window.SMTG.logActivity === "function"){
+
+                await window.SMTG.logActivity(
+                    editingId
+                        ? "UPDATE"
+                        : "CREATE",
+                    "STOCK",
+                    "produits.html",
+                    editingId
+                        ? "Modification du produit"
+                        : "Création du produit",
+                    {
+                        entity_type:"PRODUIT",
+                        entity_id:result.data?.id || editingId,
+                        metadata:{
+                            article
+                        }
+                    }
+                );
 
             }
 
+        }catch(logError){
 
-            await logActivitySafe(
-                "CREATE",
-                "PRODUITS",
-                "produits.html",
-                `Création du produit ${article}`,
-                "PRODUIT",
-                data?.id
-            );
-
-
-            showToast(
-                "Succès",
-                "Produit ajouté avec succès."
+            console.warn(
+                "Activity log:",
+                logError
             );
 
         }
 
 
-        closeProductModal();
+        closeModal();
+
+        showToast(
+            editingId
+                ? "Produit modifié avec succès."
+                : "Produit créé avec succès.",
+            "success"
+        );
 
 
         await loadProducts();
 
 
-    }
-    catch(error){
+    }catch(error){
 
-        console.error(
-            "SAVE PRODUCT:",
-            error
-        );
+        console.error(error);
 
 
-        showToast(
-            "Erreur",
-            getError(error),
-            "error"
-        );
+        if(
+            error.code === "23505" ||
+            String(error.message || "")
+                .toLowerCase()
+                .includes("duplicate")
+        ){
 
-    }
-    finally{
+            showToast(
+                "Cet article existe déjà.",
+                "error"
+            );
 
-        setSaveLoading(false);
+        }else{
+
+            showToast(
+                error.message ||
+                "Erreur lors de l'enregistrement.",
+                "error"
+            );
+
+        }
 
     }
 
 }
 
 
-/* =========================================================
-   DELETE MODAL
-========================================================= */
+/* ============================================
+   DELETE
+============================================ */
 
-function openDeleteModal(
-    id
-){
+async function deleteProduct(id){
 
     const product =
         products.find(
-            p =>
-                Number(p.id) ===
-                Number(id)
+            p => Number(p.id) === Number(id)
+        );
+
+    if(!product){
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Supprimer le produit "${product.article}" ?\n\nCette action est définitive.`
         );
 
 
-    if(!product){
-
+    if(!confirmed){
         return;
-
     }
-
-
-    deletingProduct =
-        product;
-
-
-    document.getElementById(
-        "deleteMessage"
-    ).innerHTML = `
-
-        Voulez-vous vraiment supprimer
-        <strong>
-            ${escapeHtml(
-                product.article
-            )}
-        </strong>
-        -
-        ${escapeHtml(
-            product.designation
-        )}
-        ?
-
-    `;
-
-
-    document.getElementById(
-        "deleteModal"
-    ).classList.add(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE DELETE
-========================================================= */
-
-function closeDeleteModal(){
-
-    document.getElementById(
-        "deleteModal"
-    ).classList.remove(
-        "show"
-    );
-
-
-    deletingProduct =
-        null;
-
-}
-
-
-/* =========================================================
-   CONFIRM DELETE
-========================================================= */
-
-async function confirmDelete(){
-
-    if(
-        !deletingProduct
-    ){
-
-        return;
-
-    }
-
-
-    const product =
-        deletingProduct;
 
 
     try{
 
-        const {
-            error
-        } =
+        const {error} =
             await client
                 .from("produits")
                 .delete()
-                .eq(
-                    "id",
-                    product.id
-                );
+                .eq("id",id);
 
 
         if(error){
-
             throw error;
+        }
+
+
+        try{
+
+            if(window.SMTG &&
+               typeof window.SMTG.logActivity === "function"){
+
+                await window.SMTG.logActivity(
+                    "DELETE",
+                    "STOCK",
+                    "produits.html",
+                    "Suppression du produit",
+                    {
+                        entity_type:"PRODUIT",
+                        entity_id:id,
+                        metadata:{
+                            article:product.article
+                        }
+                    }
+                );
+
+            }
+
+        }catch(logError){
+
+            console.warn(
+                "Activity log:",
+                logError
+            );
 
         }
 
 
-        await logActivitySafe(
-            "DELETE",
-            "PRODUITS",
-            "produits.html",
-            `Suppression du produit ${product.article}`,
-            "PRODUIT",
-            product.id
-        );
-
-
-        closeDeleteModal();
-
-
         showToast(
-            "Succès",
-            "Produit supprimé avec succès."
+            "Produit supprimé.",
+            "success"
         );
 
 
         await loadProducts();
 
 
-    }
-    catch(error){
+    }catch(error){
 
-        console.error(
-            "DELETE PRODUCT:",
-            error
-        );
-
+        console.error(error);
 
         showToast(
-            "Erreur",
-            getError(error),
+            error.message ||
+            "Impossible de supprimer le produit.",
             "error"
         );
 
@@ -3282,462 +1894,70 @@ async function confirmDelete(){
 }
 
 
-/* =========================================================
-   SAVE LOADING
-========================================================= */
+/* ============================================
+   ESCAPE HTML
+============================================ */
 
-function setSaveLoading(
-    loading
-){
+function escapeHtml(value){
 
-    const button =
-        document.getElementById(
-            "btnSaveProduct"
-        );
+    if(value === null ||
+       value === undefined){
 
-
-    if(loading){
-
-        button.disabled =
-            true;
-
-        button.innerHTML = `
-
-            <i class="fa-solid fa-spinner fa-spin"></i>
-
-            Enregistrement...
-
-        `;
+        return "";
 
     }
-    else{
 
-        button.disabled =
-            false;
-
-        button.innerHTML = `
-
-            <i class="fa-solid fa-floppy-disk"></i>
-
-            Enregistrer
-
-        `;
-
-    }
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
-/* =========================================================
-   TABLE LOADING
-========================================================= */
+/* ============================================
+   CLOSE MODAL CLICK OUTSIDE
+============================================ */
 
-function setLoading(
-    loading
-){
+document.getElementById("productModal")
+    .addEventListener("click",function(e){
 
-    const element =
-        document.getElementById(
-            "loading"
-        );
+        if(e.target === this){
 
-
-    if(loading){
-
-        element.classList.add(
-            "show"
-        );
-
-    }
-    else{
-
-        element.classList.remove(
-            "show"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   RESET FILTERS
-========================================================= */
-
-function resetFilters(){
-
-    document.getElementById(
-        "search"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "filterType"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "filterGroupe"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "filterUnite"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "filterDivision"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "filterStatut"
-    ).value =
-        "";
-
-
-    applyFilters();
-
-}
-
-
-/* =========================================================
-   SAFE CURRENT USER
-========================================================= */
-
-function getCurrentUserSafe(){
-
-    try{
-
-        if(
-            typeof getCurrentUser ===
-            "function"
-        ){
-
-            const user =
-                getCurrentUser();
-
-            if(user){
-
-                return user;
-
-            }
+            closeModal();
 
         }
 
-    }
-    catch(error){
-
-        console.warn(
-            "getCurrentUser:",
-            error
-        );
-
-    }
+    });
 
 
-    try{
+/* ============================================
+   ESC
+============================================ */
 
-        const raw =
-            sessionStorage.getItem(
-                "smtg_current_user"
-            );
+document.addEventListener("keydown",function(e){
 
+    if(e.key === "Escape"){
 
-        if(raw){
-
-            return JSON.parse(
-                raw
-            );
-
-        }
-
-    }
-    catch(error){
-
-        console.warn(
-            error
-        );
+        closeModal();
 
     }
 
+});
 
-    return null;
 
-}
+/* ============================================
+   INIT
+============================================ */
 
-
-/* =========================================================
-   SAFE ACTIVITY LOG
-========================================================= */
-
-async function logActivitySafe(
-    action,
-    module,
-    page,
-    description,
-    entityType,
-    entityId
-){
-
-    try{
-
-        if(
-            window.SMTG &&
-            typeof window.SMTG.logActivity ===
-            "function"
-        ){
-
-            await window.SMTG.logActivity(
-                action,
-                module,
-                page,
-                description,
-                {
-                    entity_type:
-                        entityType,
-
-                    entity_id:
-                        entityId
-                }
-            );
-
-        }
-
-    }
-    catch(error){
-
-        console.warn(
-            "Activity log:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function normalize(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-    .normalize(
-        "NFD"
-    )
-    .replace(
-        /[\u0300-\u036f]/g,
-        ""
-    )
-    .toLowerCase()
-    .trim();
-
-}
-
-
-function formatNumber(
-    value
-){
-
-    return Number(
-        value || 0
-    ).toLocaleString(
-        "fr-FR",
-        {
-            maximumFractionDigits:0
-        }
-    );
-
-}
-
-
-function formatDate(
-    value
-){
-
-    if(!value){
-
-        return "-";
-
-    }
-
-
-    const date =
-        new Date(
-            value +
-            (
-                String(value).length ===
-                10
-                    ? "T00:00:00"
-                    : ""
-            )
-        );
-
-
-    if(
-        Number.isNaN(
-            date.getTime()
-        )
-    ){
-
-        return String(
-            value
-        );
-
-    }
-
-
-    return date.toLocaleDateString(
-        "fr-FR"
-    );
-
-}
-
-
-function setText(
-    id,
-    value
-){
-
-    const element =
-        document.getElementById(
-            id
-        );
-
-
-    if(element){
-
-        element.textContent =
-            value;
-
-    }
-
-}
-
-
-function escapeHtml(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-function getError(
-    error
-){
-
-    return (
-        error?.message ||
-        error?.details ||
-        error?.hint ||
-        "Une erreur est survenue."
-    );
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(
-    title,
-    message,
-    type = ""
-){
-
-    const container =
-        document.getElementById(
-            "toasts"
-        );
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-
-    toast.className =
-        `toast ${type}`;
-
-
-    toast.innerHTML = `
-
-        <strong>
-
-            ${escapeHtml(
-                title
-            )}
-
-        </strong>
-
-
-        <span>
-
-            ${escapeHtml(
-                message
-            )}
-
-        </span>
-
-    `;
-
-
-    container.appendChild(
-        toast
-    );
-
-
-    setTimeout(
-        function(){
-
-            toast.remove();
-
-        },
-        4500
-    );
-
-}
+document.addEventListener(
+    "DOMContentLoaded",
+    loadProducts
+);
 
 </script>
 
 </body>
-
 </html>
