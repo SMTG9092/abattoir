@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Emplacements - SMTG</title>
 
@@ -10,9 +14,15 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="api/supabase.js"></script>
 
+
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -24,6 +34,7 @@ body{
     font-family:"Segoe UI",Arial,sans-serif;
     background:#f3f6f4;
     color:#1f2937;
+    min-height:100vh;
 }
 
 button,
@@ -32,24 +43,33 @@ select{
     font-family:inherit;
 }
 
+
+/* =========================================================
+   PAGE
+========================================================= */
+
 .page{
-    max-width:1700px;
-    margin:auto;
-    padding:22px;
+    width:100%;
+    max-width:1800px;
+    margin:0 auto;
+    padding:20px;
 }
 
-/* HEADER */
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     gap:15px;
-    flex-wrap:wrap;
     margin-bottom:20px;
+    flex-wrap:wrap;
 }
 
-.title{
+.title-box{
     display:flex;
     align-items:center;
     gap:13px;
@@ -60,63 +80,76 @@ select{
     height:50px;
     border-radius:13px;
     background:#145a1f;
-    color:#fff;
+    color:white;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:22px;
+    box-shadow:0 5px 16px rgba(20,90,31,.18);
 }
 
-.title h1{
-    font-size:24px;
+.title-text h1{
     color:#18351d;
+    font-size:24px;
+    font-weight:700;
 }
 
-.title p{
+.title-text p{
+    color:#707b74;
     font-size:12px;
-    color:#6b7280;
     margin-top:3px;
 }
 
-/* BUTTON */
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .btn{
     border:0;
-    border-radius:8px;
-    min-height:39px;
+    min-height:40px;
     padding:0 15px;
-    cursor:pointer;
+    border-radius:8px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap:8px;
+    cursor:pointer;
     font-size:12px;
     font-weight:600;
+    transition:.15s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
 }
 
 .btn-primary{
     background:#145a1f;
-    color:#fff;
+    color:white;
 }
 
 .btn-primary:hover{
-    background:#0e4517;
+    background:#0f4718;
 }
 
 .btn-secondary{
-    background:#fff;
+    background:white;
     color:#344139;
-    border:1px solid #d5ddd7;
+    border:1px solid #d4ddd7;
 }
 
 .btn-secondary:hover{
     background:#f7faf8;
 }
 
-/* SEARCH */
+
+/* =========================================================
+   SEARCH CARD
+========================================================= */
 
 .search-card{
-    background:#fff;
+    background:white;
     border:1px solid #dfe6e1;
     border-radius:15px;
     overflow:hidden;
@@ -130,14 +163,14 @@ select{
 }
 
 .search-header h2{
-    font-size:16px;
     color:#17331c;
+    font-size:16px;
 }
 
 .search-header p{
-    margin-top:4px;
     color:#748078;
     font-size:11px;
+    margin-top:4px;
 }
 
 .criteria{
@@ -145,16 +178,17 @@ select{
 }
 
 .criteria-grid{
-    max-width:1100px;
+    width:100%;
+    max-width:1150px;
     margin:auto;
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:18px 40px;
+    gap:18px 45px;
 }
 
 .field{
     display:grid;
-    grid-template-columns:180px 1fr;
+    grid-template-columns:190px 1fr;
     align-items:center;
     gap:12px;
 }
@@ -162,7 +196,7 @@ select{
 .field label{
     text-align:right;
     font-size:12px;
-    font-weight:600;
+    font-weight:650;
     color:#37423b;
 }
 
@@ -172,9 +206,10 @@ select{
     height:40px;
     border:1px solid #ccd6cf;
     border-radius:8px;
-    padding:0 11px;
     outline:none;
-    background:#fff;
+    padding:0 11px;
+    background:white;
+    color:#27332b;
     font-size:12px;
 }
 
@@ -184,14 +219,17 @@ select{
     box-shadow:0 0 0 3px rgba(20,90,31,.08);
 }
 
-.actions{
+.criteria-actions{
     margin-top:30px;
     display:flex;
     justify-content:center;
     gap:9px;
 }
 
-/* RESULTS */
+
+/* =========================================================
+   RESULTS
+========================================================= */
 
 .results{
     display:none;
@@ -203,32 +241,35 @@ select{
 
 .results-header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+    gap:15px;
     flex-wrap:wrap;
-    gap:10px;
     margin-bottom:15px;
 }
 
-.results-header h2{
-    font-size:17px;
+.results-title h2{
     color:#18351d;
+    font-size:18px;
 }
 
-.results-header p{
-    font-size:11px;
+.results-title p{
     color:#707a74;
+    font-size:11px;
     margin-top:4px;
 }
 
-.result-actions{
+.results-actions{
     display:flex;
     gap:8px;
 }
 
-/* CHIPS */
 
-.chips{
+/* =========================================================
+   CHIPS
+========================================================= */
+
+.criteria-summary{
     display:flex;
     flex-wrap:wrap;
     gap:7px;
@@ -236,15 +277,21 @@ select{
 }
 
 .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:6px 10px;
+    border-radius:20px;
     background:#eaf3ec;
     color:#245c2d;
-    border-radius:20px;
-    padding:6px 10px;
     font-size:10px;
     font-weight:600;
 }
 
-/* STATS */
+
+/* =========================================================
+   STATS
+========================================================= */
 
 .stats{
     display:grid;
@@ -254,7 +301,7 @@ select{
 }
 
 .stat{
-    background:#fff;
+    background:white;
     border:1px solid #e0e7e2;
     border-radius:12px;
     padding:14px;
@@ -264,32 +311,37 @@ select{
 }
 
 .stat-icon{
-    width:40px;
-    height:40px;
+    width:42px;
+    height:42px;
+    flex:none;
     border-radius:10px;
     background:#edf6ef;
     color:#145a1f;
     display:flex;
     align-items:center;
     justify-content:center;
+    font-size:16px;
 }
 
 .stat-label{
-    font-size:10px;
     color:#768079;
+    font-size:10px;
 }
 
 .stat-value{
-    font-size:19px;
-    font-weight:700;
     color:#203126;
+    font-size:20px;
+    font-weight:700;
     margin-top:2px;
 }
 
-/* TABLE */
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
 
 .table-card{
-    background:#fff;
+    background:white;
     border:1px solid #dfe6e1;
     border-radius:14px;
     overflow:hidden;
@@ -297,21 +349,23 @@ select{
 }
 
 .table-head{
+    min-height:50px;
     padding:12px 15px;
     border-bottom:1px solid #e5eae6;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .table-head strong{
-    font-size:13px;
     color:#293a2e;
+    font-size:13px;
 }
 
 .table-head span{
-    font-size:11px;
     color:#77817b;
+    font-size:11px;
 }
 
 .table-wrap{
@@ -321,7 +375,7 @@ select{
 
 table{
     width:100%;
-    min-width:1150px;
+    min-width:1200px;
     border-collapse:collapse;
 }
 
@@ -330,20 +384,26 @@ thead th{
     background:#f7f9f7;
     border-bottom:1px solid #e0e6e2;
     color:#5b665f;
+    text-align:left;
     font-size:10px;
     text-transform:uppercase;
-    text-align:left;
     white-space:nowrap;
+}
+
+tbody tr{
+    cursor:pointer;
+}
+
+tbody tr:hover{
+    background:#f8fbf9;
 }
 
 tbody td{
     padding:11px 12px;
     border-bottom:1px solid #edf0ee;
+    color:#2d382f;
     font-size:11px;
-}
-
-tbody tr:hover{
-    background:#fafcfb;
+    vertical-align:middle;
 }
 
 .code{
@@ -353,7 +413,18 @@ tbody tr:hover{
     background:#edf6ef;
     color:#145a1f;
     font-weight:700;
+    white-space:nowrap;
 }
+
+.muted{
+    color:#89938d;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 .status{
     display:inline-flex;
@@ -363,31 +434,35 @@ tbody tr:hover{
     border-radius:20px;
     font-size:10px;
     font-weight:700;
+    white-space:nowrap;
 }
 
-.free{
-    background:#dcfce7;
+.status-free{
     color:#166534;
+    background:#dcfce7;
 }
 
-.occupied{
-    background:#fee2e2;
+.status-occupied{
     color:#991b1b;
+    background:#fee2e2;
 }
 
-.partial{
-    background:#fef3c7;
+.status-partial{
     color:#92400e;
+    background:#fef3c7;
 }
 
-.muted{
-    color:#8a948d;
-}
+
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading{
     display:none;
-    padding:55px;
+    padding:60px 20px;
     text-align:center;
+    color:#657169;
+    font-size:12px;
 }
 
 .loading.show{
@@ -395,9 +470,9 @@ tbody tr:hover{
 }
 
 .spinner{
-    width:30px;
-    height:30px;
-    margin:auto auto 12px;
+    width:32px;
+    height:32px;
+    margin:0 auto 12px;
     border:3px solid #dfe9e1;
     border-top-color:#145a1f;
     border-radius:50%;
@@ -405,45 +480,55 @@ tbody tr:hover{
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty{
     display:none;
-    padding:55px 20px;
+    padding:60px 20px;
     text-align:center;
-    color:#7b857f;
 }
 
 .empty i{
-    font-size:36px;
-    color:#b9c4bc;
+    color:#bdc8c0;
+    font-size:38px;
     margin-bottom:12px;
 }
 
 .empty h3{
+    color:#59645d;
     font-size:14px;
-    color:#5d6861;
     margin-bottom:5px;
 }
 
 .empty p{
+    color:#818b85;
     font-size:11px;
 }
 
-/* MODAL */
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal-bg{
     position:fixed;
     inset:0;
-    background:rgba(13,24,16,.5);
+    z-index:9999;
+    background:rgba(10,20,13,.55);
     display:none;
     align-items:center;
     justify-content:center;
     padding:20px;
-    z-index:9999;
 }
 
 .modal-bg.show{
@@ -451,29 +536,30 @@ tbody tr:hover{
 }
 
 .modal{
-    width:min(850px,100%);
+    width:min(900px,100%);
     max-height:90vh;
     overflow:auto;
-    background:#fff;
+    background:white;
     border-radius:15px;
+    box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
 
 .modal-head{
     padding:15px 18px;
     border-bottom:1px solid #e4e9e5;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
 }
 
 .modal-head h3{
-    font-size:15px;
     color:#19351e;
+    font-size:15px;
 }
 
 .close{
-    width:33px;
-    height:33px;
+    width:34px;
+    height:34px;
     border:0;
     border-radius:8px;
     background:#f1f4f2;
@@ -491,9 +577,9 @@ tbody tr:hover{
 }
 
 .detail{
+    padding:11px;
     border:1px solid #e0e7e2;
     border-radius:9px;
-    padding:11px;
 }
 
 .detail.full{
@@ -501,21 +587,21 @@ tbody tr:hover{
 }
 
 .detail-label{
-    font-size:10px;
     color:#78827c;
+    font-size:10px;
     margin-bottom:4px;
 }
 
 .detail-value{
+    color:#26372b;
     font-size:13px;
     font-weight:700;
-    color:#26372b;
 }
 
 .stock-title{
+    color:#26382b;
     font-size:13px;
     font-weight:700;
-    color:#26382b;
     margin:18px 0 9px;
 }
 
@@ -523,14 +609,17 @@ tbody tr:hover{
     display:grid;
     grid-template-columns:1.5fr 1fr 1fr 1fr;
     gap:10px;
+    padding:10px;
+    margin-bottom:6px;
     border:1px solid #e3e9e5;
     border-radius:8px;
-    padding:9px;
-    margin-bottom:6px;
     font-size:10px;
 }
 
-/* TOAST */
+
+/* =========================================================
+   TOAST
+========================================================= */
 
 .toasts{
     position:fixed;
@@ -541,7 +630,7 @@ tbody tr:hover{
 }
 
 .toast{
-    background:#fff;
+    background:white;
     border:1px solid #dfe6e1;
     border-left:4px solid #145a1f;
     border-radius:9px;
@@ -561,11 +650,14 @@ tbody tr:hover{
 }
 
 .toast span{
-    font-size:10px;
     color:#68736c;
+    font-size:10px;
 }
 
-/* RESPONSIVE */
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(max-width:1100px){
 
@@ -579,6 +671,7 @@ tbody tr:hover{
     }
 
 }
+
 
 @media(max-width:700px){
 
@@ -617,52 +710,518 @@ tbody tr:hover{
 
 }
 
-@media(max-width:470px){
+
+@media(max-width:480px){
 
     .stats{
         grid-template-columns:1fr;
     }
 
-    .result-actions{
+    .results-actions{
         width:100%;
     }
 
-    .result-actions .btn{
+    .results-actions .btn{
         flex:1;
     }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="page">
 
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
-    <div class="header">
+<div class="header">
 
-        <div class="title">
+    <div class="title-box">
 
-            <div class="title-icon">
+        <div class="title-icon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+        </div>
+
+
+        <div class="title-text">
+
+            <h1>
+                Emplacements
+            </h1>
+
+            <p>
+                Recherche et consultation des emplacements de stockage
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SEARCH
+========================================================= -->
+
+<section
+    id="searchScreen"
+    class="search-card"
+>
+
+
+    <div class="search-header">
+
+        <h2>
+
+            <i class="fa-solid fa-filter"></i>
+
+            Critères de recherche
+
+        </h2>
+
+
+        <p>
+
+            Laissez les champs vides pour afficher tous les emplacements.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="criteria">
+
+
+        <div class="criteria-grid">
+
+
+            <!-- ARTICLE -->
+
+            <div class="field">
+
+                <label for="article">
+                    Article
+                </label>
+
+                <input
+                    id="article"
+                    type="text"
+                    placeholder="Code ou désignation"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- EMPLACEMENT -->
+
+            <div class="field">
+
+                <label for="emplacement">
+                    Emplacement
+                </label>
+
+                <input
+                    id="emplacement"
+                    type="text"
+                    placeholder="Ex : A-01-00-1"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- MAGASIN -->
+
+            <div class="field">
+
+                <label for="magasin">
+                    Magasin
+                </label>
+
+                <select id="magasin">
+
+                    <option value="">
+                        Tous les magasins
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- LOT -->
+
+            <div class="field">
+
+                <label for="lot">
+                    Lot
+                </label>
+
+                <input
+                    id="lot"
+                    type="text"
+                    placeholder="Numéro de lot"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- DIVISION -->
+
+            <div class="field">
+
+                <label for="division">
+                    Division
+                </label>
+
+                <input
+                    id="division"
+                    type="text"
+                    placeholder="Ex : AB01"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- TYPE ARTICLE -->
+
+            <div class="field">
+
+                <label for="typeArticle">
+                    Type d'article
+                </label>
+
+                <input
+                    id="typeArticle"
+                    type="text"
+                    placeholder="Type d'article"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- GROUPE -->
+
+            <div class="field">
+
+                <label for="groupeMarch">
+                    Groupe de marchandises
+                </label>
+
+                <input
+                    id="groupeMarch"
+                    type="text"
+                    placeholder="Groupe"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- ETAT -->
+
+            <div class="field">
+
+                <label for="etat">
+                    État
+                </label>
+
+                <select id="etat">
+
+                    <option value="">
+                        Tous
+                    </option>
+
+                    <option value="FREE">
+                        Libre
+                    </option>
+
+                    <option value="OCCUPIED">
+                        Occupé
+                    </option>
+
+                    <option value="PARTIAL">
+                        Partiellement occupé
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="criteria-actions">
+
+
+            <button
+                id="btnClear"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-eraser"></i>
+
+                Effacer
+
+            </button>
+
+
+
+            <button
+                id="btnExecute"
+                class="btn btn-primary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-play"></i>
+
+                Exécuter
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESULTS
+========================================================= -->
+
+<section
+    id="resultsScreen"
+    class="results"
+>
+
+
+    <div class="results-header">
+
+
+        <div class="results-title">
+
+            <h2>
+                Résultats
+            </h2>
+
+            <p id="resultSubtitle">
+                -
+            </p>
+
+        </div>
+
+
+
+        <div class="results-actions">
+
+
+            <button
+                id="btnNewSearch"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Nouvelle recherche
+
+            </button>
+
+
+
+            <button
+                id="btnRefresh"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-rotate"></i>
+
+                Actualiser
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CRITERIA SUMMARY -->
+
+    <div
+        id="criteriaSummary"
+        class="criteria-summary"
+    ></div>
+
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+
                 <i class="fa-solid fa-location-dot"></i>
+
             </div>
 
             <div>
 
-                <h1>
-                    Emplacements
-                </h1>
+                <div class="stat-label">
+                    Total
+                </div>
 
-                <p>
-                    Recherche et consultation des emplacements
-                </p>
+                <div
+                    id="statTotal"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <div>
+
+                <div class="stat-label">
+                    Libres
+                </div>
+
+                <div
+                    id="statFree"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-box"></i>
+
+            </div>
+
+            <div>
+
+                <div class="stat-label">
+                    Occupés
+                </div>
+
+                <div
+                    id="statOccupied"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+            </div>
+
+            <div>
+
+                <div class="stat-label">
+                    Partiels
+                </div>
+
+                <div
+                    id="statPartial"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-weight-hanging"></i>
+
+            </div>
+
+            <div>
+
+                <div class="stat-label">
+                    Quantité KG
+                </div>
+
+                <div
+                    id="statKg"
+                    class="stat-value"
+                >
+                    0
+                </div>
 
             </div>
 
@@ -673,424 +1232,61 @@ tbody tr:hover{
 
 
 
-    <!-- =====================================================
-         CRITERES
-    ====================================================== -->
+    <!-- TABLE -->
 
-    <section
-        id="searchScreen"
-        class="search-card"
-    >
+    <div class="table-card">
 
-        <div class="search-header">
 
-            <h2>
-                <i class="fa-solid fa-filter"></i>
-                Critères de recherche
-            </h2>
+        <div class="table-head">
 
-            <p>
-                Laissez les champs vides pour afficher tous les emplacements.
-            </p>
+            <strong>
 
-        </div>
+                <i class="fa-solid fa-list"></i>
 
+                Liste des emplacements
 
-        <div class="criteria">
+            </strong>
 
 
-            <div class="criteria-grid">
-
-
-                <!-- ARTICLE -->
-
-                <div class="field">
-
-                    <label>
-                        Article
-                    </label>
-
-                    <input
-                        id="article"
-                        type="text"
-                        placeholder="Code ou désignation"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <!-- EMPLACEMENT -->
-
-                <div class="field">
-
-                    <label>
-                        Emplacement
-                    </label>
-
-                    <input
-                        id="emplacement"
-                        type="text"
-                        placeholder="Ex : A-01-00-1"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <!-- MAGASIN -->
-
-                <div class="field">
-
-                    <label>
-                        Magasin
-                    </label>
-
-                    <select id="magasin">
-
-                        <option value="">
-                            Tous les magasins
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- LOT -->
-
-                <div class="field">
-
-                    <label>
-                        Lot
-                    </label>
-
-                    <input
-                        id="lot"
-                        type="text"
-                        placeholder="Numéro de lot"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <!-- DIVISION -->
-
-                <div class="field">
-
-                    <label>
-                        Division
-                    </label>
-
-                    <input
-                        id="division"
-                        type="text"
-                        placeholder="Ex : AB01"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <!-- TYPE ARTICLE -->
-
-                <div class="field">
-
-                    <label>
-                        Type d'article
-                    </label>
-
-                    <input
-                        id="typeArticle"
-                        type="text"
-                        placeholder="Type d'article"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <!-- GROUPE -->
-
-                <div class="field">
-
-                    <label>
-                        Groupe de marchandises
-                    </label>
-
-                    <input
-                        id="groupeMarch"
-                        type="text"
-                        placeholder="Groupe"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <!-- ETAT -->
-
-                <div class="field">
-
-                    <label>
-                        État
-                    </label>
-
-                    <select id="etat">
-
-                        <option value="">
-                            Tous
-                        </option>
-
-                        <option value="FREE">
-                            Libre
-                        </option>
-
-                        <option value="OCCUPIED">
-                            Occupé
-                        </option>
-
-                        <option value="PARTIAL">
-                            Partiellement occupé
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-            </div>
-
-
-
-            <div class="actions">
-
-                <button
-                    class="btn btn-secondary"
-                    id="btnClear"
-                    type="button"
-                >
-
-                    <i class="fa-solid fa-eraser"></i>
-
-                    Effacer
-
-                </button>
-
-
-                <button
-                    class="btn btn-primary"
-                    id="btnExecute"
-                    type="button"
-                >
-
-                    <i class="fa-solid fa-play"></i>
-
-                    Exécuter
-
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         RESULTATS
-    ====================================================== -->
-
-    <section
-        id="resultsScreen"
-        class="results"
-    >
-
-
-        <div class="results-header">
-
-            <div>
-
-                <h2>
-                    Résultats
-                </h2>
-
-                <p id="resultSubtitle">
-                    -
-                </p>
-
-            </div>
-
-
-            <div class="result-actions">
-
-                <button
-                    class="btn btn-secondary"
-                    id="btnNewSearch"
-                    type="button"
-                >
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                    Nouvelle recherche
-
-                </button>
-
-
-                <button
-                    class="btn btn-secondary"
-                    id="btnRefresh"
-                    type="button"
-                >
-
-                    <i class="fa-solid fa-rotate"></i>
-
-                    Actualiser
-
-                </button>
-
-            </div>
+            <span id="tableCount">
+                0 résultat
+            </span>
 
         </div>
 
 
 
-        <!-- CRITERES ACTIFS -->
+        <!-- LOADING -->
 
         <div
-            id="criteriaSummary"
-            class="chips"
-        ></div>
+            id="loading"
+            class="loading"
+        >
+
+            <div class="spinner"></div>
+
+            Chargement des emplacements...
+
+        </div>
 
 
 
-        <!-- STATS -->
+        <!-- EMPTY -->
 
-        <div class="stats">
+        <div
+            id="empty"
+            class="empty"
+        >
 
+            <i class="fa-solid fa-box-open"></i>
 
-            <div class="stat">
+            <h3>
+                Aucun résultat
+            </h3>
 
-                <div class="stat-icon">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
-                <div>
-
-                    <div class="stat-label">
-                        Total
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="statTotal"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-
-                <div>
-
-                    <div class="stat-label">
-                        Libres
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="statFree"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    <i class="fa-solid fa-box"></i>
-                </div>
-
-                <div>
-
-                    <div class="stat-label">
-                        Occupés
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="statOccupied"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-
-                <div>
-
-                    <div class="stat-label">
-                        Partiels
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="statPartial"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    <i class="fa-solid fa-weight-hanging"></i>
-                </div>
-
-                <div>
-
-                    <div class="stat-label">
-                        Quantité KG
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="statKg"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-            </div>
-
+            <p>
+                Aucun emplacement ne correspond aux critères.
+            </p>
 
         </div>
 
@@ -1098,140 +1294,90 @@ tbody tr:hover{
 
         <!-- TABLE -->
 
-        <div class="table-card">
+        <div
+            id="tableWrap"
+            class="table-wrap"
+            style="display:none;"
+        >
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Emplacement
+                        </th>
+
+                        <th>
+                            Magasin
+                        </th>
+
+                        <th>
+                            Division
+                        </th>
+
+                        <th>
+                            État
+                        </th>
+
+                        <th>
+                            Palettes
+                        </th>
+
+                        <th>
+                            Article
+                        </th>
+
+                        <th>
+                            Lot
+                        </th>
+
+                        <th>
+                            Quantité KG
+                        </th>
+
+                        <th>
+                            Capacité
+                        </th>
+
+                    </tr>
+
+                </thead>
 
 
-            <div class="table-head">
+                <tbody
+                    id="resultsBody"
+                ></tbody>
 
-                <strong>
-
-                    <i class="fa-solid fa-list"></i>
-
-                    Liste des emplacements
-
-                </strong>
-
-
-                <span id="tableCount">
-                    0 résultat
-                </span>
-
-            </div>
-
-
-            <div
-                id="loading"
-                class="loading"
-            >
-
-                <div class="spinner"></div>
-
-                <div>
-                    Chargement des emplacements...
-                </div>
-
-            </div>
-
-
-            <div
-                id="empty"
-                class="empty"
-            >
-
-                <i class="fa-solid fa-box-open"></i>
-
-                <h3>
-                    Aucun résultat
-                </h3>
-
-                <p>
-                    Aucun emplacement ne correspond aux critères.
-                </p>
-
-            </div>
-
-
-            <div
-                id="tableWrap"
-                class="table-wrap"
-                style="display:none;"
-            >
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Emplacement
-                            </th>
-
-                            <th>
-                                Magasin
-                            </th>
-
-                            <th>
-                                Division
-                            </th>
-
-                            <th>
-                                État
-                            </th>
-
-                            <th>
-                                Palettes
-                            </th>
-
-                            <th>
-                                Article
-                            </th>
-
-                            <th>
-                                Lot
-                            </th>
-
-                            <th>
-                                Quantité KG
-                            </th>
-
-                            <th>
-                                Capacité
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody
-                        id="resultsBody"
-                    ></tbody>
-
-                </table>
-
-            </div>
+            </table>
 
         </div>
 
 
-    </section>
+    </div>
+
+
+</section>
 
 
 </div>
 
 
 
-<!-- =====================================================
-     DETAIL
-====================================================== -->
+<!-- =========================================================
+     DETAIL MODAL
+========================================================= -->
 
 <div
     id="modalBg"
     class="modal-bg"
 >
 
+
     <div class="modal">
+
 
         <div class="modal-head">
 
@@ -1245,8 +1391,8 @@ tbody tr:hover{
 
 
             <button
-                class="close"
                 id="closeModal"
+                class="close"
                 type="button"
             >
 
@@ -1255,6 +1401,7 @@ tbody tr:hover{
             </button>
 
         </div>
+
 
 
         <div class="modal-body">
@@ -1270,13 +1417,14 @@ tbody tr:hover{
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dCode"
+                        class="detail-value"
                     >
                         -
                     </div>
 
                 </div>
+
 
 
                 <div class="detail">
@@ -1286,13 +1434,14 @@ tbody tr:hover{
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dMagasin"
+                        class="detail-value"
                     >
                         -
                     </div>
 
                 </div>
+
 
 
                 <div class="detail">
@@ -1302,13 +1451,14 @@ tbody tr:hover{
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dDivision"
+                        class="detail-value"
                     >
                         -
                     </div>
 
                 </div>
+
 
 
                 <div class="detail">
@@ -1318,8 +1468,8 @@ tbody tr:hover{
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dEtat"
+                        class="detail-value"
                     >
                         -
                     </div>
@@ -1327,36 +1477,39 @@ tbody tr:hover{
                 </div>
 
 
+
                 <div class="detail">
 
                     <div class="detail-label">
-                        Capacité
+                        Capacité palettes
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dCapacity"
+                        class="detail-value"
                     >
                         -
                     </div>
 
                 </div>
+
 
 
                 <div class="detail">
 
                     <div class="detail-label">
-                        Quantité
+                        Quantité KG
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dKg"
+                        class="detail-value"
                     >
                         -
                     </div>
 
                 </div>
+
 
 
                 <div class="detail full">
@@ -1366,8 +1519,8 @@ tbody tr:hover{
                     </div>
 
                     <div
-                        class="detail-value"
                         id="dDescription"
+                        class="detail-value"
                     >
                         -
                     </div>
@@ -1376,6 +1529,7 @@ tbody tr:hover{
 
 
             </div>
+
 
 
             <div class="stock-title">
@@ -1392,13 +1546,16 @@ tbody tr:hover{
 
         </div>
 
+
     </div>
 
 </div>
 
 
 
-<!-- TOAST -->
+<!-- =========================================================
+     TOAST
+========================================================= -->
 
 <div
     id="toasts"
@@ -1409,12 +1566,12 @@ tbody tr:hover{
 
 <script>
 
-"use strict";
-
-
 /* =========================================================
    VARIABLES
 ========================================================= */
+
+"use strict";
+
 
 let client = null;
 
@@ -1429,87 +1586,156 @@ let results = [];
 let currentCriteria = {};
 
 
+let stockById =
+    new Map();
+
+let stockByCode =
+    new Map();
+
+
+
 /* =========================================================
-   POSSIBLE STOCK FIELDS
+   POSSIBLE STOCK COLUMNS
 ========================================================= */
 
 const LOCATION_ID_FIELDS = [
+
     "emplacement_id",
+
     "location_id",
+
     "emplacementid"
+
 ];
+
 
 const LOCATION_CODE_FIELDS = [
+
     "emplacement_code",
+
     "location_code",
+
     "emplacement",
+
     "location",
+
     "code_emplacement"
+
 ];
+
 
 const ARTICLE_FIELDS = [
+
     "article",
+
     "article_code",
+
     "code_article",
+
     "product",
+
     "product_code",
+
     "code_produit",
+
     "designation",
+
     "article_name"
+
 ];
+
 
 const LOT_FIELDS = [
+
     "lot",
+
     "lot_code",
+
     "lot_number",
+
     "numero_lot",
+
     "code_lot"
+
 ];
+
 
 const QTY_FIELDS = [
+
     "quantity_kg",
+
     "qty_kg",
+
     "quantite_kg",
+
     "quantite",
+
     "quantity",
+
     "qte",
+
     "stock_kg",
+
     "poids"
+
 ];
+
 
 const PALETTE_FIELDS = [
+
     "palette_count",
+
     "palettes",
+
     "palette",
+
     "qty_palettes",
+
     "quantite_palettes",
+
     "nb_palettes",
+
     "nombre_palettes"
+
 ];
+
 
 const DIVISION_FIELDS = [
+
     "division",
+
     "division_code",
+
     "code_division"
+
 ];
+
 
 const TYPE_FIELDS = [
+
     "type_article",
+
     "article_type",
+
     "type",
+
     "material_type"
+
 ];
+
 
 const GROUP_FIELDS = [
+
     "groupe_marchandises",
+
     "groupe_marchandise",
+
     "material_group",
+
     "groupe_article"
+
 ];
 
-
-let stockById = new Map();
-let stockByCode = new Map();
 
 
 /* =========================================================
@@ -1525,14 +1751,20 @@ document.addEventListener(
             client =
                 getSupabase();
 
+
             bindEvents();
+
 
             await loadMagasins();
 
         }
         catch(error){
 
-            console.error(error);
+            console.error(
+                "INIT:",
+                error
+            );
+
 
             showToast(
                 "Erreur",
@@ -1546,58 +1778,81 @@ document.addEventListener(
 );
 
 
+
 /* =========================================================
    EVENTS
 ========================================================= */
 
 function bindEvents(){
 
+
     document
-        .getElementById("btnExecute")
+        .getElementById(
+            "btnExecute"
+        )
         .addEventListener(
             "click",
             function(){
+
                 executeSearch(false);
+
             }
         );
 
 
+
     document
-        .getElementById("btnClear")
+        .getElementById(
+            "btnClear"
+        )
         .addEventListener(
             "click",
             clearCriteria
         );
 
 
+
     document
-        .getElementById("btnNewSearch")
+        .getElementById(
+            "btnNewSearch"
+        )
         .addEventListener(
             "click",
             newSearch
         );
 
 
+
     document
-        .getElementById("btnRefresh")
+        .getElementById(
+            "btnRefresh"
+        )
         .addEventListener(
             "click",
             function(){
+
                 executeSearch(true);
+
             }
         );
 
 
+
     document
-        .getElementById("closeModal")
+        .getElementById(
+            "closeModal"
+        )
         .addEventListener(
             "click",
             closeModal
         );
 
 
+
     document
-        .getElementById("modalBg")
+        .getElementById(
+            "modalBg"
+        )
         .addEventListener(
             "click",
             function(event){
@@ -1613,6 +1868,7 @@ function bindEvents(){
 
             }
         );
+
 
 
     document.addEventListener(
@@ -1634,14 +1890,14 @@ function bindEvents(){
                 "Enter"
             ){
 
-                const searchScreen =
+                const search =
                     document.getElementById(
                         "searchScreen"
                     );
 
 
                 if(
-                    searchScreen.style.display !==
+                    search.style.display !==
                     "none"
                 ){
 
@@ -1657,17 +1913,22 @@ function bindEvents(){
 }
 
 
+
 /* =========================================================
    LOAD MAGASINS
 ========================================================= */
 
 async function loadMagasins(){
 
-    const result =
+    const { data, error } =
         await client
             .from("magasins")
             .select(
                 "id,code,name,is_active"
+            )
+            .eq(
+                "is_active",
+                true
             )
             .order(
                 "code",
@@ -1677,15 +1938,15 @@ async function loadMagasins(){
             );
 
 
-    if(result.error){
+    if(error){
 
-        throw result.error;
+        throw error;
 
     }
 
 
     magasins =
-        result.data || [];
+        data || [];
 
 
     const select =
@@ -1723,35 +1984,39 @@ async function loadMagasins(){
 }
 
 
+
 /* =========================================================
-   EXECUTE
+   IMPORTANT
+   LOAD ALL EMPACEMENTS
+   SUPABASE MAX 1000 PAR REQUETE
 ========================================================= */
 
-async function executeSearch(
-    isRefresh
-){
+async function loadAllEmplacements(){
 
-    if(!isRefresh){
+    const allRows = [];
 
-        currentCriteria =
-            getCriteria();
+    const pageSize = 1000;
 
-        showResults();
-
-    }
+    let from = 0;
 
 
-    setLoading(true);
+    while(true){
+
+        const to =
+            from +
+            pageSize -
+            1;
 
 
-    try{
+        console.log(
+            `Chargement emplacements ${from} → ${to}`
+        );
 
-        /*
-         * IMPORTANT:
-         * Les emplacements sont la source principale.
-         */
 
-        const empResult =
+        const {
+            data,
+            error
+        } =
             await client
                 .from("emplacements")
                 .select("*")
@@ -1770,31 +2035,117 @@ async function executeSearch(
                     {
                         ascending:true
                     }
+                )
+                .range(
+                    from,
+                    to
                 );
 
 
-        console.log(
-            "EMPLACEMENTS RESULT:",
-            empResult
-        );
+        if(error){
 
-
-        if(
-            empResult.error
-        ){
-
-            throw empResult.error;
+            throw error;
 
         }
 
 
+        if(
+            !data ||
+            data.length === 0
+        ){
+
+            break;
+
+        }
+
+
+        allRows.push(
+            ...data
+        );
+
+
+        console.log(
+            `Chargés : ${allRows.length}`
+        );
+
+
+        if(
+            data.length <
+            pageSize
+        ){
+
+            break;
+
+        }
+
+
+        from +=
+            pageSize;
+
+    }
+
+
+    console.log(
+        "TOTAL EMPACEMENTS:",
+        allRows.length
+    );
+
+
+    return allRows;
+
+}
+
+
+
+/* =========================================================
+   EXECUTE SEARCH
+========================================================= */
+
+async function executeSearch(
+    isRefresh = false
+){
+
+    console.log(
+        "========== EXECUTER =========="
+    );
+
+
+    if(
+        !isRefresh
+    ){
+
+        currentCriteria =
+            getCriteria();
+
+
+        showResults();
+
+    }
+
+
+    setLoading(true);
+
+
+    try{
+
+
+        /* ==========================================
+           1. LOAD ALL EMPLACEMENTS
+        ========================================== */
+
         emplacements =
-            empResult.data || [];
+            await loadAllEmplacements();
 
 
-        /*
-         * Initialisation
-         */
+        console.log(
+            "Emplacements chargés:",
+            emplacements.length
+        );
+
+
+        /* ==========================================
+           2. INITIALISATION
+        ========================================== */
 
         emplacements =
             emplacements.map(
@@ -1815,37 +2166,37 @@ async function executeSearch(
             );
 
 
-        /*
-         * Stock est OPTIONNEL.
-         * Même si stock retourne une erreur,
-         * la liste des emplacements continue.
-         */
+        /* ==========================================
+           3. LOAD STOCK
+           OPTIONNEL
+        ========================================== */
 
         stockRows = [];
 
 
         try{
 
-            const stockResult =
+            const {
+                data,
+                error
+            } =
                 await client
                     .from("stock")
                     .select("*");
 
 
-            if(
-                stockResult.error
-            ){
+            if(error){
 
                 console.warn(
-                    "STOCK:",
-                    stockResult.error.message
+                    "Stock non disponible:",
+                    error.message
                 );
 
             }
             else{
 
                 stockRows =
-                    stockResult.data || [];
+                    data || [];
 
             }
 
@@ -1862,14 +2213,23 @@ async function executeSearch(
         }
 
 
+        /* ==========================================
+           4. INDEX
+        ========================================== */
+
         buildStockIndexes();
+
+
+        /* ==========================================
+           5. OCCUPATION
+        ========================================== */
 
         calculateOccupation();
 
 
-        /*
-         * Filtre
-         */
+        /* ==========================================
+           6. FILTER
+        ========================================== */
 
         results =
             applyCriteria(
@@ -1879,16 +2239,14 @@ async function executeSearch(
 
 
         console.log(
-            "TOTAL EMPACEMENTS:",
-            emplacements.length
-        );
-
-
-        console.log(
             "RESULTATS:",
             results.length
         );
 
+
+        /* ==========================================
+           7. DISPLAY
+        ========================================== */
 
         updateSummary();
 
@@ -1901,6 +2259,7 @@ async function executeSearch(
             "resultSubtitle"
         ).textContent =
             `${formatNumber(results.length)} emplacement(s) trouvé(s)`;
+
 
     }
     catch(error){
@@ -1930,8 +2289,9 @@ async function executeSearch(
 }
 
 
+
 /* =========================================================
-   CRITERIA
+   GET CRITERIA
 ========================================================= */
 
 function getCriteria(){
@@ -1940,48 +2300,71 @@ function getCriteria(){
 
         article:
             document
-                .getElementById("article")
+                .getElementById(
+                    "article"
+                )
                 .value
                 .trim(),
+
 
         emplacement:
             document
-                .getElementById("emplacement")
+                .getElementById(
+                    "emplacement"
+                )
                 .value
                 .trim(),
+
 
         magasin:
             document
-                .getElementById("magasin")
+                .getElementById(
+                    "magasin"
+                )
                 .value,
+
 
         lot:
             document
-                .getElementById("lot")
+                .getElementById(
+                    "lot"
+                )
                 .value
                 .trim(),
+
 
         division:
             document
-                .getElementById("division")
+                .getElementById(
+                    "division"
+                )
                 .value
                 .trim(),
+
 
         typeArticle:
             document
-                .getElementById("typeArticle")
+                .getElementById(
+                    "typeArticle"
+                )
                 .value
                 .trim(),
+
 
         groupeMarch:
             document
-                .getElementById("groupeMarch")
+                .getElementById(
+                    "groupeMarch"
+                )
                 .value
                 .trim(),
 
+
         etat:
             document
-                .getElementById("etat")
+                .getElementById(
+                    "etat"
+                )
                 .value
 
     };
@@ -1989,8 +2372,9 @@ function getCriteria(){
 }
 
 
+
 /* =========================================================
-   STOCK INDEX
+   BUILD STOCK INDEXES
 ========================================================= */
 
 function buildStockIndexes(){
@@ -1998,12 +2382,14 @@ function buildStockIndexes(){
     stockById =
         new Map();
 
+
     stockByCode =
         new Map();
 
 
     stockRows.forEach(
         row => {
+
 
             const id =
                 getFirstValue(
@@ -2080,14 +2466,21 @@ function buildStockIndexes(){
 }
 
 
+
 /* =========================================================
-   OCCUPATION
+   CALCULATE OCCUPATION
 ========================================================= */
 
 function calculateOccupation(){
 
     emplacements.forEach(
         emp => {
+
+
+            /*
+             * IMPORTANT:
+             * أولاً ID
+             */
 
             let rows =
                 stockById.get(
@@ -2096,8 +2489,8 @@ function calculateOccupation(){
 
 
             /*
-             * Si pas de relation ID,
-             * essayer avec le code.
+             * إذا ما كانش ID
+             * نستعمل code + magasin
              */
 
             if(
@@ -2110,6 +2503,54 @@ function calculateOccupation(){
                             emp.code || ""
                         )
                     ) || [];
+
+            }
+
+
+            /*
+             * Si plusieurs magasins ont
+             * le même code, filtrer par magasin
+             * si stock contient magasin_id.
+             */
+
+            if(
+                rows.length > 1
+            ){
+
+                const hasMagasinId =
+                    rows.some(
+                        row =>
+                            row.magasin_id !==
+                            undefined
+                    );
+
+
+                if(
+                    hasMagasinId
+                ){
+
+                    const filtered =
+                        rows.filter(
+                            row =>
+                                String(
+                                    row.magasin_id
+                                ) ===
+                                String(
+                                    emp.magasin_id
+                                )
+                        );
+
+
+                    if(
+                        filtered.length
+                    ){
+
+                        rows =
+                            filtered;
+
+                    }
+
+                }
 
             }
 
@@ -2140,13 +2581,19 @@ function calculateOccupation(){
                         row
                     ) =>
                         total +
-                        getPaletteNumber(row),
+                        getPaletteNumber(
+                            row
+                        ),
                     0
                 );
 
 
+            /*
+             * Aucun stock
+             */
+
             if(
-                !rows.length
+                rows.length === 0
             ){
 
                 emp.occupation =
@@ -2157,6 +2604,10 @@ function calculateOccupation(){
             }
 
 
+            /*
+             * Capacité
+             */
+
             const capacity =
                 Number(
                     emp.max_palettes ||
@@ -2164,19 +2615,36 @@ function calculateOccupation(){
                 );
 
 
+            /*
+             * Si quantité ou stock existe,
+             * mais nombre palettes inconnu,
+             * considérer 1 palette.
+             */
+
+            const palettes =
+                emp.palette_count >
+                0
+                    ? emp.palette_count
+                    : 1;
+
+
+            emp.palette_count =
+                palettes;
+
+
             if(
-                emp.palette_count <
+                palettes >=
                 capacity
             ){
 
                 emp.occupation =
-                    "PARTIAL";
+                    "OCCUPIED";
 
             }
             else{
 
                 emp.occupation =
-                    "OCCUPIED";
+                    "PARTIAL";
 
             }
 
@@ -2186,8 +2654,9 @@ function calculateOccupation(){
 }
 
 
+
 /* =========================================================
-   FILTER
+   APPLY CRITERIA
 ========================================================= */
 
 function applyCriteria(
@@ -2197,6 +2666,7 @@ function applyCriteria(
 
     return rows.filter(
         emp => {
+
 
             const magasin =
                 magasins.find(
@@ -2210,10 +2680,9 @@ function applyCriteria(
                 emp.stock_items || [];
 
 
-            /*
-             * Si aucun critère n'est choisi,
-             * on garde l'emplacement.
-             */
+            /* ==========================================
+               EMPLACEMENT
+            ========================================== */
 
             if(
                 criteria.emplacement
@@ -2249,9 +2718,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * MAGASIN
-             */
+            /* ==========================================
+               MAGASIN
+            ========================================== */
 
             if(
                 criteria.magasin
@@ -2273,9 +2742,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * ARTICLE
-             */
+            /* ==========================================
+               ARTICLE
+            ========================================== */
 
             if(
                 criteria.article
@@ -2307,9 +2776,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * LOT
-             */
+            /* ==========================================
+               LOT
+            ========================================== */
 
             if(
                 criteria.lot
@@ -2341,9 +2810,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * DIVISION
-             */
+            /* ==========================================
+               DIVISION
+            ========================================== */
 
             if(
                 criteria.division
@@ -2399,9 +2868,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * TYPE ARTICLE
-             */
+            /* ==========================================
+               TYPE ARTICLE
+            ========================================== */
 
             if(
                 criteria.typeArticle
@@ -2433,9 +2902,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * GROUPE
-             */
+            /* ==========================================
+               GROUPE MARCHANDISE
+            ========================================== */
 
             if(
                 criteria.groupeMarch
@@ -2467,9 +2936,9 @@ function applyCriteria(
             }
 
 
-            /*
-             * ETAT
-             */
+            /* ==========================================
+               ETAT
+            ========================================== */
 
             if(
                 criteria.etat
@@ -2495,8 +2964,9 @@ function applyCriteria(
 }
 
 
+
 /* =========================================================
-   SUMMARY
+   UPDATE SUMMARY
 ========================================================= */
 
 function updateSummary(){
@@ -2612,11 +3082,14 @@ function updateSummary(){
 
         const labels = {
 
-            FREE:"Libre",
+            FREE:
+                "Libre",
 
-            OCCUPIED:"Occupé",
+            OCCUPIED:
+                "Occupé",
 
-            PARTIAL:"Partiellement occupé"
+            PARTIAL:
+                "Partiellement occupé"
 
         };
 
@@ -2633,7 +3106,7 @@ function updateSummary(){
 
 
     if(
-        !chips.length
+        chips.length === 0
     ){
 
         chips.push(
@@ -2658,13 +3131,19 @@ function makeChip(
 ){
 
     return `
+
         <span class="chip">
-            ${escapeHtml(label)} :
+
+            ${escapeHtml(label)}
+            :
             ${escapeHtml(value)}
+
         </span>
+
     `;
 
 }
+
 
 
 /* =========================================================
@@ -2704,10 +3183,10 @@ function updateStats(){
     const kg =
         results.reduce(
             (
-                sum,
+                total,
                 row
             ) =>
-                sum +
+                total +
                 Number(
                     row.total_kg || 0
                 ),
@@ -2747,8 +3226,9 @@ function updateStats(){
 }
 
 
+
 /* =========================================================
-   RENDER
+   RENDER RESULTS
 ========================================================= */
 
 function renderResults(){
@@ -2778,8 +3258,12 @@ function renderResults(){
 
 
     if(
-        !results.length
+        results.length === 0
     ){
+
+        body.innerHTML =
+            "";
+
 
         table.style.display =
             "none";
@@ -2836,11 +3320,14 @@ function renderResults(){
 }
 
 
+
 /* =========================================================
    ROW
 ========================================================= */
 
-function rowHtml(emp){
+function rowHtml(
+    emp
+){
 
     const magasin =
         magasins.find(
@@ -2854,18 +3341,18 @@ function rowHtml(emp){
         emp.stock_items || [];
 
 
-    const article =
+    const articles =
         uniqueValues(
             stock,
             ARTICLE_FIELDS
-        ).join(", ") || "-";
+        );
 
 
-    const lot =
+    const lots =
         uniqueValues(
             stock,
             LOT_FIELDS
-        ).join(", ") || "-";
+        );
 
 
     const division =
@@ -2888,7 +3375,10 @@ function rowHtml(emp){
 
     return `
 
-        <tr data-id="${emp.id}">
+        <tr
+            data-id="${emp.id}"
+        >
+
 
             <td>
 
@@ -2903,6 +3393,7 @@ function rowHtml(emp){
             </td>
 
 
+
             <td>
 
                 <strong>
@@ -2912,6 +3403,7 @@ function rowHtml(emp){
                     )}
 
                 </strong>
+
 
                 <div class="muted">
 
@@ -2924,13 +3416,17 @@ function rowHtml(emp){
             </td>
 
 
+
             <td>
 
                 ${escapeHtml(
-                    String(division)
+                    String(
+                        division
+                    )
                 )}
 
             </td>
+
 
 
             <td>
@@ -2940,6 +3436,7 @@ function rowHtml(emp){
                 )}
 
             </td>
+
 
 
             <td>
@@ -2963,22 +3460,25 @@ function rowHtml(emp){
             </td>
 
 
+
             <td>
 
                 ${escapeHtml(
-                    article
+                    articles.join(", ") || "-"
                 )}
 
             </td>
 
 
+
             <td>
 
                 ${escapeHtml(
-                    lot
+                    lots.join(", ") || "-"
                 )}
 
             </td>
+
 
 
             <td>
@@ -3000,6 +3500,7 @@ function rowHtml(emp){
             </td>
 
 
+
             <td>
 
                 ${
@@ -3018,6 +3519,7 @@ function rowHtml(emp){
 
             </td>
 
+
         </tr>
 
     `;
@@ -3025,8 +3527,9 @@ function rowHtml(emp){
 }
 
 
+
 /* =========================================================
-   STATUS
+   STATUS HTML
 ========================================================= */
 
 function statusHtml(
@@ -3039,10 +3542,17 @@ function statusHtml(
     ){
 
         return `
-            <span class="status free">
+
+            <span
+                class="status status-free"
+            >
+
                 <i class="fa-solid fa-circle"></i>
+
                 Libre
+
             </span>
+
         `;
 
     }
@@ -3054,30 +3564,47 @@ function statusHtml(
     ){
 
         return `
-            <span class="status partial">
+
+            <span
+                class="status status-partial"
+            >
+
                 <i class="fa-solid fa-circle"></i>
+
                 Partiel
+
             </span>
+
         `;
 
     }
 
 
     return `
-        <span class="status occupied">
+
+        <span
+            class="status status-occupied"
+        >
+
             <i class="fa-solid fa-circle"></i>
+
             Occupé
+
         </span>
+
     `;
 
 }
+
 
 
 /* =========================================================
    DETAIL
 ========================================================= */
 
-function openDetail(id){
+function openDetail(
+    id
+){
 
     const emp =
         emplacements.find(
@@ -3088,7 +3615,9 @@ function openDetail(id){
 
 
     if(!emp){
+
         return;
+
     }
 
 
@@ -3162,7 +3691,8 @@ function openDetail(id){
 
 
     if(
-        !emp.stock_items.length
+        !emp.stock_items ||
+        emp.stock_items.length === 0
     ){
 
         box.innerHTML = `
@@ -3171,7 +3701,7 @@ function openDetail(id){
                 style="
                     border:1px solid #e3e9e5;
                     border-radius:8px;
-                    padding:18px;
+                    padding:20px;
                     text-align:center;
                     color:#7a847e;
                     font-size:11px;
@@ -3181,7 +3711,7 @@ function openDetail(id){
                 <i
                     class="fa-solid fa-box-open"
                     style="
-                        font-size:27px;
+                        font-size:28px;
                         color:#bdc7c0;
                         margin-bottom:8px;
                     "
@@ -3235,30 +3765,47 @@ function openDetail(id){
                             <div class="stock-row">
 
                                 <div>
+
                                     <strong>
+
                                         ${escapeHtml(
                                             article
                                         )}
+
                                     </strong>
+
                                 </div>
 
+
                                 <div>
+
                                     Lot :
                                     ${escapeHtml(
-                                        String(lot)
+                                        String(
+                                            lot
+                                        )
                                     )}
+
                                 </div>
 
+
                                 <div>
-                                    ${formatKg(qty)}
+
+                                    ${formatKg(
+                                        qty
+                                    )}
                                     KG
+
                                 </div>
 
+
                                 <div>
+
                                     ${formatNumber(
                                         palettes
                                     )}
                                     palette(s)
+
                                 </div>
 
                             </div>
@@ -3281,6 +3828,11 @@ function openDetail(id){
 }
 
 
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
 function closeModal(){
 
     document.getElementById(
@@ -3292,8 +3844,9 @@ function closeModal(){
 }
 
 
+
 /* =========================================================
-   SEARCH SCREEN
+   SHOW RESULTS
 ========================================================= */
 
 function showResults(){
@@ -3312,6 +3865,11 @@ function showResults(){
 
 }
 
+
+
+/* =========================================================
+   NEW SEARCH
+========================================================= */
 
 function newSearch(){
 
@@ -3335,6 +3893,7 @@ function newSearch(){
 }
 
 
+
 /* =========================================================
    CLEAR
 ========================================================= */
@@ -3343,44 +3902,53 @@ function clearCriteria(){
 
     document.getElementById(
         "article"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "emplacement"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "magasin"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "lot"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "division"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "typeArticle"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "groupeMarch"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "etat"
-    ).value = "";
+    ).value =
+        "";
 
 }
+
 
 
 /* =========================================================
@@ -3415,8 +3983,10 @@ function setLoading(
             "show"
         );
 
+
         table.style.display =
             "none";
+
 
         empty.style.display =
             "none";
@@ -3431,6 +4001,7 @@ function setLoading(
     }
 
 }
+
 
 
 /* =========================================================
@@ -3479,6 +4050,7 @@ function renderError(){
 }
 
 
+
 /* =========================================================
    HELPERS
 ========================================================= */
@@ -3489,7 +4061,9 @@ function getFirstValue(
 ){
 
     if(!row){
+
         return null;
+
     }
 
 
@@ -3518,6 +4092,7 @@ function getFirstValue(
 }
 
 
+
 function getNumber(
     row,
     fields
@@ -3531,8 +4106,10 @@ function getNumber(
 
 
     if(
-        value === null ||
-        value === ""
+        value ===
+            null ||
+        value ===
+            ""
     ){
 
         return 0;
@@ -3542,8 +4119,12 @@ function getNumber(
 
     const number =
         Number(
-            String(value)
-                .replace(",",".")
+            String(
+                value
+            ).replace(
+                ",",
+                "."
+            )
         );
 
 
@@ -3554,6 +4135,7 @@ function getNumber(
         : 0;
 
 }
+
 
 
 function getPaletteNumber(
@@ -3568,12 +4150,16 @@ function getPaletteNumber(
 
 
     if(
-        value !== null &&
-        value !== ""
+        value !==
+            null &&
+        value !==
+            ""
     ){
 
         const number =
-            Number(value);
+            Number(
+                value
+            );
 
 
         if(
@@ -3589,9 +4175,16 @@ function getPaletteNumber(
     }
 
 
+    /*
+     * Si ligne stock présente mais
+     * aucune colonne palettes,
+     * considérer 1 palette.
+     */
+
     return 1;
 
 }
+
 
 
 function rowContains(
@@ -3635,6 +4228,7 @@ function rowContains(
 }
 
 
+
 function uniqueValues(
     rows,
     fields
@@ -3661,7 +4255,9 @@ function uniqueValues(
             ){
 
                 const text =
-                    String(value);
+                    String(
+                        value
+                    );
 
 
                 if(
@@ -3689,6 +4285,7 @@ function uniqueValues(
 }
 
 
+
 function normalize(
     value
 ){
@@ -3696,7 +4293,9 @@ function normalize(
     return String(
         value ?? ""
     )
-    .normalize("NFD")
+    .normalize(
+        "NFD"
+    )
     .replace(
         /[\u0300-\u036f]/g,
         ""
@@ -3705,6 +4304,7 @@ function normalize(
     .trim();
 
 }
+
 
 
 function formatNumber(
@@ -3721,6 +4321,7 @@ function formatNumber(
     );
 
 }
+
 
 
 function formatKg(
@@ -3740,17 +4341,27 @@ function formatKg(
 }
 
 
+
 function setText(
     id,
     value
 ){
 
-    document.getElementById(
-        id
-    ).textContent =
-        value;
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if(element){
+
+        element.textContent =
+            value;
+
+    }
 
 }
+
 
 
 function escapeHtml(
@@ -3760,13 +4371,29 @@ function escapeHtml(
     return String(
         value ?? ""
     )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
+
 
 
 function getError(
@@ -3781,6 +4408,7 @@ function getError(
     );
 
 }
+
 
 
 /* =========================================================
@@ -3812,11 +4440,20 @@ function showToast(
     toast.innerHTML = `
 
         <strong>
-            ${escapeHtml(title)}
+
+            ${escapeHtml(
+                title
+            )}
+
         </strong>
 
+
         <span>
-            ${escapeHtml(message)}
+
+            ${escapeHtml(
+                message
+            )}
+
         </span>
 
     `;
@@ -3828,7 +4465,11 @@ function showToast(
 
 
     setTimeout(
-        () => toast.remove(),
+        function(){
+
+            toast.remove();
+
+        },
         4500
     );
 
