@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Emplacements - SMTG</title>
 
 <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="api/supabase.js"></script>
 
 <style>
-
-/* =========================================================
-   GLOBAL
-========================================================= */
 
 *{
     box-sizing:border-box;
@@ -29,7 +24,6 @@ body{
     font-family:"Segoe UI",Arial,sans-serif;
     background:#f3f6f4;
     color:#1f2937;
-    min-height:100vh;
 }
 
 button,
@@ -39,27 +33,23 @@ select{
 }
 
 .page{
-    width:100%;
     max-width:1700px;
     margin:auto;
     padding:22px;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
+/* HEADER */
 
 .header{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:15px;
     flex-wrap:wrap;
     margin-bottom:20px;
 }
 
-.title-box{
+.title{
     display:flex;
     align-items:center;
     gap:13px;
@@ -75,35 +65,26 @@ select{
     align-items:center;
     justify-content:center;
     font-size:22px;
-    box-shadow:0 5px 16px rgba(20,90,31,.18);
 }
 
-.title-box h1{
+.title h1{
     font-size:24px;
     color:#18351d;
 }
 
-.title-box p{
+.title p{
     font-size:12px;
     color:#6b7280;
     margin-top:3px;
 }
 
-.header-actions{
-    display:flex;
-    gap:8px;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
+/* BUTTON */
 
 .btn{
     border:0;
     border-radius:8px;
     min-height:39px;
-    padding:0 14px;
+    padding:0 15px;
     cursor:pointer;
     display:inline-flex;
     align-items:center;
@@ -111,11 +92,6 @@ select{
     gap:8px;
     font-size:12px;
     font-weight:600;
-    transition:.18s;
-}
-
-.btn:hover{
-    transform:translateY(-1px);
 }
 
 .btn-primary{
@@ -129,7 +105,7 @@ select{
 
 .btn-secondary{
     background:#fff;
-    color:#334139;
+    color:#344139;
     border:1px solid #d5ddd7;
 }
 
@@ -137,34 +113,31 @@ select{
     background:#f7faf8;
 }
 
-
-/* =========================================================
-   SEARCH CARD
-========================================================= */
+/* SEARCH */
 
 .search-card{
     background:#fff;
     border:1px solid #dfe6e1;
     border-radius:15px;
-    box-shadow:0 4px 16px rgba(0,0,0,.04);
     overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.04);
 }
 
-.search-head{
+.search-header{
     padding:17px 20px;
     background:#f8faf8;
     border-bottom:1px solid #e4e9e5;
 }
 
-.search-head h2{
+.search-header h2{
     font-size:16px;
     color:#17331c;
 }
 
-.search-head p{
-    font-size:11px;
-    color:#748078;
+.search-header p{
     margin-top:4px;
+    color:#748078;
+    font-size:11px;
 }
 
 .criteria{
@@ -172,12 +145,11 @@ select{
 }
 
 .criteria-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(300px,1fr));
-    column-gap:40px;
-    row-gap:18px;
     max-width:1100px;
     margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 40px;
 }
 
 .field{
@@ -188,10 +160,10 @@ select{
 }
 
 .field label{
-    font-size:12px;
-    font-weight:650;
-    color:#37423b;
     text-align:right;
+    font-size:12px;
+    font-weight:600;
+    color:#37423b;
 }
 
 .field input,
@@ -200,10 +172,9 @@ select{
     height:40px;
     border:1px solid #ccd6cf;
     border-radius:8px;
-    outline:none;
     padding:0 11px;
+    outline:none;
     background:#fff;
-    color:#27332b;
     font-size:12px;
 }
 
@@ -213,17 +184,14 @@ select{
     box-shadow:0 0 0 3px rgba(20,90,31,.08);
 }
 
-.criteria-actions{
+.actions{
     margin-top:30px;
     display:flex;
     justify-content:center;
     gap:9px;
 }
 
-
-/* =========================================================
-   RESULTS
-========================================================= */
+/* RESULTS */
 
 .results{
     display:none;
@@ -233,23 +201,23 @@ select{
     display:block;
 }
 
-.results-top{
+.results-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
     flex-wrap:wrap;
+    gap:10px;
     margin-bottom:15px;
 }
 
-.results-title h2{
+.results-header h2{
     font-size:17px;
     color:#18351d;
 }
 
-.results-title p{
-    color:#707a74;
+.results-header p{
     font-size:11px;
+    color:#707a74;
     margin-top:4px;
 }
 
@@ -258,34 +226,25 @@ select{
     gap:8px;
 }
 
+/* CHIPS */
 
-/* =========================================================
-   CRITERIA CHIPS
-========================================================= */
-
-.criteria-summary{
+.chips{
     display:flex;
-    gap:7px;
     flex-wrap:wrap;
+    gap:7px;
     margin-bottom:15px;
 }
 
 .chip{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    padding:6px 10px;
-    border-radius:20px;
     background:#eaf3ec;
     color:#245c2d;
+    border-radius:20px;
+    padding:6px 10px;
     font-size:10px;
     font-weight:600;
 }
 
-
-/* =========================================================
-   STATS
-========================================================= */
+/* STATS */
 
 .stats{
     display:grid;
@@ -323,14 +282,11 @@ select{
 .stat-value{
     font-size:19px;
     font-weight:700;
-    margin-top:2px;
     color:#203126;
+    margin-top:2px;
 }
 
-
-/* =========================================================
-   TABLE
-========================================================= */
+/* TABLE */
 
 .table-card{
     background:#fff;
@@ -340,24 +296,22 @@ select{
     box-shadow:0 4px 16px rgba(0,0,0,.035);
 }
 
-.table-toolbar{
+.table-head{
     padding:12px 15px;
     border-bottom:1px solid #e5eae6;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
 }
 
-.table-toolbar strong{
+.table-head strong{
     font-size:13px;
     color:#293a2e;
 }
 
-.table-toolbar span{
-    color:#77817b;
+.table-head span{
     font-size:11px;
+    color:#77817b;
 }
 
 .table-wrap{
@@ -367,7 +321,7 @@ select{
 
 table{
     width:100%;
-    min-width:1200px;
+    min-width:1150px;
     border-collapse:collapse;
 }
 
@@ -376,9 +330,9 @@ thead th{
     background:#f7f9f7;
     border-bottom:1px solid #e0e6e2;
     color:#5b665f;
-    text-align:left;
     font-size:10px;
     text-transform:uppercase;
+    text-align:left;
     white-space:nowrap;
 }
 
@@ -386,19 +340,18 @@ tbody td{
     padding:11px 12px;
     border-bottom:1px solid #edf0ee;
     font-size:11px;
-    vertical-align:middle;
 }
 
 tbody tr:hover{
-    background:#fbfcfb;
+    background:#fafcfb;
 }
 
 .code{
     display:inline-block;
-    background:#edf6ef;
-    color:#145a1f;
     padding:5px 8px;
     border-radius:6px;
+    background:#edf6ef;
+    color:#145a1f;
     font-weight:700;
 }
 
@@ -406,70 +359,34 @@ tbody tr:hover{
     display:inline-flex;
     align-items:center;
     gap:5px;
-    border-radius:20px;
     padding:5px 9px;
+    border-radius:20px;
     font-size:10px;
     font-weight:700;
 }
 
-.status-free{
+.free{
     background:#dcfce7;
     color:#166534;
 }
 
-.status-occupied{
+.occupied{
     background:#fee2e2;
     color:#991b1b;
 }
 
-.status-partial{
+.partial{
     background:#fef3c7;
     color:#92400e;
-}
-
-.status-unknown{
-    background:#eef1ef;
-    color:#5f6963;
-}
-
-.qty{
-    font-weight:700;
 }
 
 .muted{
     color:#8a948d;
 }
 
-
-/* =========================================================
-   EMPTY / LOADING
-========================================================= */
-
-.empty-state{
-    padding:55px 20px;
-    text-align:center;
-    color:#7b857f;
-}
-
-.empty-state i{
-    font-size:36px;
-    color:#b9c4bc;
-    margin-bottom:12px;
-}
-
-.empty-state h3{
-    color:#5d6861;
-    font-size:14px;
-    margin-bottom:4px;
-}
-
-.empty-state p{
-    font-size:11px;
-}
-
 .loading{
     display:none;
-    padding:55px 20px;
+    padding:55px;
     text-align:center;
 }
 
@@ -480,7 +397,7 @@ tbody tr:hover{
 .spinner{
     width:30px;
     height:30px;
-    margin:0 auto 12px;
+    margin:auto auto 12px;
     border:3px solid #dfe9e1;
     border-top-color:#145a1f;
     border-radius:50%;
@@ -493,12 +410,32 @@ tbody tr:hover{
     }
 }
 
+.empty{
+    display:none;
+    padding:55px 20px;
+    text-align:center;
+    color:#7b857f;
+}
 
-/* =========================================================
-   MODAL
-========================================================= */
+.empty i{
+    font-size:36px;
+    color:#b9c4bc;
+    margin-bottom:12px;
+}
 
-.modal-overlay{
+.empty h3{
+    font-size:14px;
+    color:#5d6861;
+    margin-bottom:5px;
+}
+
+.empty p{
+    font-size:11px;
+}
+
+/* MODAL */
+
+.modal-bg{
     position:fixed;
     inset:0;
     background:rgba(13,24,16,.5);
@@ -509,7 +446,7 @@ tbody tr:hover{
     z-index:9999;
 }
 
-.modal-overlay.show{
+.modal-bg.show{
     display:flex;
 }
 
@@ -519,7 +456,6 @@ tbody tr:hover{
     overflow:auto;
     background:#fff;
     border-radius:15px;
-    box-shadow:0 25px 60px rgba(0,0,0,.25);
 }
 
 .modal-head{
@@ -548,9 +484,9 @@ tbody tr:hover{
     padding:18px;
 }
 
-.detail-grid{
+.details{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr 1fr;
     gap:10px;
 }
 
@@ -565,26 +501,27 @@ tbody tr:hover{
 }
 
 .detail-label{
-    color:#78827c;
     font-size:10px;
+    color:#78827c;
     margin-bottom:4px;
 }
 
 .detail-value{
-    color:#26372b;
     font-size:13px;
     font-weight:700;
+    color:#26372b;
 }
 
 .stock-title{
     font-size:13px;
-    margin:18px 0 9px;
+    font-weight:700;
     color:#26382b;
+    margin:18px 0 9px;
 }
 
 .stock-row{
     display:grid;
-    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
     gap:10px;
     border:1px solid #e3e9e5;
     border-radius:8px;
@@ -593,10 +530,7 @@ tbody tr:hover{
     font-size:10px;
 }
 
-
-/* =========================================================
-   TOAST
-========================================================= */
+/* TOAST */
 
 .toasts{
     position:fixed;
@@ -623,7 +557,7 @@ tbody tr:hover{
 .toast strong{
     display:block;
     font-size:11px;
-    margin-bottom:2px;
+    margin-bottom:3px;
 }
 
 .toast span{
@@ -631,10 +565,7 @@ tbody tr:hover{
     color:#68736c;
 }
 
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* RESPONSIVE */
 
 @media(max-width:1100px){
 
@@ -672,7 +603,7 @@ tbody tr:hover{
         padding:20px 15px;
     }
 
-    .detail-grid{
+    .details{
         grid-template-columns:1fr;
     }
 
@@ -692,12 +623,10 @@ tbody tr:hover{
         grid-template-columns:1fr;
     }
 
-    .header-actions,
     .result-actions{
         width:100%;
     }
 
-    .header-actions .btn,
     .result-actions .btn{
         flex:1;
     }
@@ -705,12 +634,10 @@ tbody tr:hover{
 }
 
 </style>
-
 </head>
 
 
 <body>
-
 
 <div class="page">
 
@@ -721,7 +648,7 @@ tbody tr:hover{
 
     <div class="header">
 
-        <div class="title-box">
+        <div class="title">
 
             <div class="title-icon">
                 <i class="fa-solid fa-location-dot"></i>
@@ -734,7 +661,7 @@ tbody tr:hover{
                 </h1>
 
                 <p>
-                    Recherche et consultation des emplacements de stockage
+                    Recherche et consultation des emplacements
                 </p>
 
             </div>
@@ -742,29 +669,12 @@ tbody tr:hover{
         </div>
 
 
-        <div class="header-actions">
-
-            <button
-                class="btn btn-secondary"
-                id="btnResetTop"
-                type="button"
-                style="display:none;"
-            >
-
-                <i class="fa-solid fa-arrow-left"></i>
-
-                Nouvelle recherche
-
-            </button>
-
-        </div>
-
     </div>
 
 
 
     <!-- =====================================================
-         SEARCH SCREEN
+         CRITERES
     ====================================================== -->
 
     <section
@@ -772,20 +682,15 @@ tbody tr:hover{
         class="search-card"
     >
 
-        <div class="search-head">
+        <div class="search-header">
 
             <h2>
-
                 <i class="fa-solid fa-filter"></i>
-
                 Critères de recherche
-
             </h2>
 
             <p>
-
-                Laissez un champ vide pour ne pas l'utiliser dans la recherche.
-
+                Laissez les champs vides pour afficher tous les emplacements.
             </p>
 
         </div>
@@ -801,15 +706,15 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="article">
+                    <label>
                         Article
                     </label>
 
                     <input
                         id="article"
                         type="text"
+                        placeholder="Code ou désignation"
                         autocomplete="off"
-                        placeholder="Code ou désignation article"
                     >
 
                 </div>
@@ -819,15 +724,15 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="emplacement">
+                    <label>
                         Emplacement
                     </label>
 
                     <input
                         id="emplacement"
                         type="text"
-                        autocomplete="off"
                         placeholder="Ex : A-01-00-1"
+                        autocomplete="off"
                     >
 
                 </div>
@@ -837,7 +742,7 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="magasin">
+                    <label>
                         Magasin
                     </label>
 
@@ -856,15 +761,15 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="lot">
+                    <label>
                         Lot
                     </label>
 
                     <input
                         id="lot"
                         type="text"
-                        autocomplete="off"
                         placeholder="Numéro de lot"
+                        autocomplete="off"
                     >
 
                 </div>
@@ -874,15 +779,15 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="division">
+                    <label>
                         Division
                     </label>
 
                     <input
                         id="division"
                         type="text"
-                        autocomplete="off"
                         placeholder="Ex : AB01"
+                        autocomplete="off"
                     >
 
                 </div>
@@ -892,15 +797,15 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="typeArticle">
+                    <label>
                         Type d'article
                     </label>
 
                     <input
                         id="typeArticle"
                         type="text"
-                        autocomplete="off"
                         placeholder="Type d'article"
+                        autocomplete="off"
                     >
 
                 </div>
@@ -910,15 +815,15 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="groupeMarch">
+                    <label>
                         Groupe de marchandises
                     </label>
 
                     <input
                         id="groupeMarch"
                         type="text"
+                        placeholder="Groupe"
                         autocomplete="off"
-                        placeholder="Groupe de marchandises"
                     >
 
                 </div>
@@ -928,7 +833,7 @@ tbody tr:hover{
 
                 <div class="field">
 
-                    <label for="etat">
+                    <label>
                         État
                     </label>
 
@@ -959,9 +864,7 @@ tbody tr:hover{
 
 
 
-            <!-- ACTIONS -->
-
-            <div class="criteria-actions">
+            <div class="actions">
 
                 <button
                     class="btn btn-secondary"
@@ -998,7 +901,7 @@ tbody tr:hover{
 
 
     <!-- =====================================================
-         RESULTS
+         RESULTATS
     ====================================================== -->
 
     <section
@@ -1007,10 +910,9 @@ tbody tr:hover{
     >
 
 
-        <div class="results-top">
+        <div class="results-header">
 
-
-            <div class="results-title">
+            <div>
 
                 <h2>
                     Résultats
@@ -1024,7 +926,6 @@ tbody tr:hover{
 
 
             <div class="result-actions">
-
 
                 <button
                     class="btn btn-secondary"
@@ -1051,19 +952,17 @@ tbody tr:hover{
 
                 </button>
 
-
             </div>
-
 
         </div>
 
 
 
-        <!-- CRITERIA -->
+        <!-- CRITERES ACTIFS -->
 
         <div
-            class="criteria-summary"
             id="criteriaSummary"
+            class="chips"
         ></div>
 
 
@@ -1202,7 +1101,7 @@ tbody tr:hover{
         <div class="table-card">
 
 
-            <div class="table-toolbar">
+            <div class="table-head">
 
                 <strong>
 
@@ -1220,9 +1119,6 @@ tbody tr:hover{
             </div>
 
 
-
-            <!-- LOADING -->
-
             <div
                 id="loading"
                 class="loading"
@@ -1230,27 +1126,16 @@ tbody tr:hover{
 
                 <div class="spinner"></div>
 
-                <div
-                    style="
-                        font-size:12px;
-                        color:#657169;
-                    "
-                >
-
-                    Chargement des données...
-
+                <div>
+                    Chargement des emplacements...
                 </div>
 
             </div>
 
 
-
-            <!-- EMPTY -->
-
             <div
-                id="emptyState"
-                class="empty-state"
-                style="display:none;"
+                id="empty"
+                class="empty"
             >
 
                 <i class="fa-solid fa-box-open"></i>
@@ -1260,14 +1145,11 @@ tbody tr:hover{
                 </h3>
 
                 <p>
-                    Aucun emplacement ne correspond aux critères sélectionnés.
+                    Aucun emplacement ne correspond aux critères.
                 </p>
 
             </div>
 
-
-
-            <!-- TABLE -->
 
             <div
                 id="tableWrap"
@@ -1298,7 +1180,7 @@ tbody tr:hover{
                             </th>
 
                             <th>
-                                Palette
+                                Palettes
                             </th>
 
                             <th>
@@ -1330,7 +1212,6 @@ tbody tr:hover{
 
             </div>
 
-
         </div>
 
 
@@ -1341,18 +1222,16 @@ tbody tr:hover{
 
 
 
-<!-- =========================================================
-     DETAIL MODAL
-========================================================== -->
+<!-- =====================================================
+     DETAIL
+====================================================== -->
 
 <div
-    class="modal-overlay"
-    id="detailModal"
+    id="modalBg"
+    class="modal-bg"
 >
 
-
     <div class="modal">
-
 
         <div class="modal-head">
 
@@ -1378,11 +1257,10 @@ tbody tr:hover{
         </div>
 
 
-
         <div class="modal-body">
 
 
-            <div class="detail-grid">
+            <div class="details">
 
 
                 <div class="detail">
@@ -1441,7 +1319,7 @@ tbody tr:hover{
 
                     <div
                         class="detail-value"
-                        id="dStatus"
+                        id="dEtat"
                     >
                         -
                     </div>
@@ -1452,7 +1330,7 @@ tbody tr:hover{
                 <div class="detail">
 
                     <div class="detail-label">
-                        Capacité palettes
+                        Capacité
                     </div>
 
                     <div
@@ -1468,7 +1346,7 @@ tbody tr:hover{
                 <div class="detail">
 
                     <div class="detail-label">
-                        Quantité KG
+                        Quantité
                     </div>
 
                     <div
@@ -1500,7 +1378,6 @@ tbody tr:hover{
             </div>
 
 
-
             <div class="stock-title">
 
                 <i class="fa-solid fa-box"></i>
@@ -1515,7 +1392,6 @@ tbody tr:hover{
 
         </div>
 
-
     </div>
 
 </div>
@@ -1525,8 +1401,8 @@ tbody tr:hover{
 <!-- TOAST -->
 
 <div
-    class="toasts"
     id="toasts"
+    class="toasts"
 ></div>
 
 
@@ -1552,14 +1428,9 @@ let results = [];
 
 let currentCriteria = {};
 
-let stockByEmplacementId = new Map();
-
-let stockByEmplacementCode = new Map();
-
-
 
 /* =========================================================
-   POSSIBLE STOCK COLUMNS
+   POSSIBLE STOCK FIELDS
 ========================================================= */
 
 const LOCATION_ID_FIELDS = [
@@ -1568,7 +1439,6 @@ const LOCATION_ID_FIELDS = [
     "emplacementid"
 ];
 
-
 const LOCATION_CODE_FIELDS = [
     "emplacement_code",
     "location_code",
@@ -1576,7 +1446,6 @@ const LOCATION_CODE_FIELDS = [
     "location",
     "code_emplacement"
 ];
-
 
 const ARTICLE_FIELDS = [
     "article",
@@ -1589,7 +1458,6 @@ const ARTICLE_FIELDS = [
     "article_name"
 ];
 
-
 const LOT_FIELDS = [
     "lot",
     "lot_code",
@@ -1597,7 +1465,6 @@ const LOT_FIELDS = [
     "numero_lot",
     "code_lot"
 ];
-
 
 const QTY_FIELDS = [
     "quantity_kg",
@@ -1610,7 +1477,6 @@ const QTY_FIELDS = [
     "poids"
 ];
 
-
 const PALETTE_FIELDS = [
     "palette_count",
     "palettes",
@@ -1621,13 +1487,11 @@ const PALETTE_FIELDS = [
     "nombre_palettes"
 ];
 
-
 const DIVISION_FIELDS = [
     "division",
     "division_code",
     "code_division"
 ];
-
 
 const TYPE_FIELDS = [
     "type_article",
@@ -1635,7 +1499,6 @@ const TYPE_FIELDS = [
     "type",
     "material_type"
 ];
-
 
 const GROUP_FIELDS = [
     "groupe_marchandises",
@@ -1645,6 +1508,9 @@ const GROUP_FIELDS = [
 ];
 
 
+let stockById = new Map();
+let stockByCode = new Map();
+
 
 /* =========================================================
    INIT
@@ -1652,7 +1518,7 @@ const GROUP_FIELDS = [
 
 document.addEventListener(
     "DOMContentLoaded",
-    async () => {
+    async function(){
 
         try{
 
@@ -1661,9 +1527,10 @@ document.addEventListener(
 
             bindEvents();
 
-            await loadBaseData();
+            await loadMagasins();
 
-        }catch(error){
+        }
+        catch(error){
 
             console.error(error);
 
@@ -1679,7 +1546,6 @@ document.addEventListener(
 );
 
 
-
 /* =========================================================
    EVENTS
 ========================================================= */
@@ -1690,7 +1556,9 @@ function bindEvents(){
         .getElementById("btnExecute")
         .addEventListener(
             "click",
-            executeSearch
+            function(){
+                executeSearch(false);
+            }
         );
 
 
@@ -1711,18 +1579,12 @@ function bindEvents(){
 
 
     document
-        .getElementById("btnResetTop")
-        .addEventListener(
-            "click",
-            newSearch
-        );
-
-
-    document
         .getElementById("btnRefresh")
         .addEventListener(
             "click",
-            () => executeSearch(true)
+            function(){
+                executeSearch(true);
+            }
         );
 
 
@@ -1735,14 +1597,14 @@ function bindEvents(){
 
 
     document
-        .getElementById("detailModal")
+        .getElementById("modalBg")
         .addEventListener(
             "click",
-            event => {
+            function(event){
 
                 if(
                     event.target.id ===
-                    "detailModal"
+                    "modalBg"
                 ){
 
                     closeModal();
@@ -1755,7 +1617,7 @@ function bindEvents(){
 
     document.addEventListener(
         "keydown",
-        event => {
+        function(event){
 
             if(
                 event.key ===
@@ -1769,16 +1631,23 @@ function bindEvents(){
 
             if(
                 event.key ===
-                "Enter" &&
-                document
-                    .getElementById(
-                        "searchScreen"
-                    )
-                    .style.display !==
-                    "none"
+                "Enter"
             ){
 
-                executeSearch();
+                const searchScreen =
+                    document.getElementById(
+                        "searchScreen"
+                    );
+
+
+                if(
+                    searchScreen.style.display !==
+                    "none"
+                ){
+
+                    executeSearch(false);
+
+                }
 
             }
 
@@ -1788,17 +1657,13 @@ function bindEvents(){
 }
 
 
-
 /* =========================================================
    LOAD MAGASINS
 ========================================================= */
 
-async function loadBaseData(){
+async function loadMagasins(){
 
-    const {
-        data,
-        error
-    } =
+    const result =
         await client
             .from("magasins")
             .select(
@@ -1812,40 +1677,21 @@ async function loadBaseData(){
             );
 
 
-    if(error){
-        throw error;
+    if(result.error){
+
+        throw result.error;
+
     }
 
 
     magasins =
-        data || [];
+        result.data || [];
 
-
-    fillMagasinSelect();
-
-}
-
-
-
-/* =========================================================
-   MAGASIN SELECT
-========================================================= */
-
-function fillMagasinSelect(){
 
     const select =
         document.getElementById(
             "magasin"
         );
-
-
-    select.innerHTML = `
-
-        <option value="">
-            Tous les magasins
-        </option>
-
-    `;
 
 
     magasins.forEach(
@@ -1877,13 +1723,12 @@ function fillMagasinSelect(){
 }
 
 
-
 /* =========================================================
-   EXECUTE SEARCH
+   EXECUTE
 ========================================================= */
 
 async function executeSearch(
-    isRefresh = false
+    isRefresh
 ){
 
     if(!isRefresh){
@@ -1891,7 +1736,7 @@ async function executeSearch(
         currentCriteria =
             getCriteria();
 
-        showResultsScreen();
+        showResults();
 
     }
 
@@ -1901,174 +1746,64 @@ async function executeSearch(
 
     try{
 
-        await loadData();
+        /*
+         * IMPORTANT:
+         * Les emplacements sont la source principale.
+         */
 
-        calculateOccupation();
+        const empResult =
+            await client
+                .from("emplacements")
+                .select("*")
+                .eq(
+                    "is_active",
+                    true
+                )
+                .order(
+                    "magasin_id",
+                    {
+                        ascending:true
+                    }
+                )
+                .order(
+                    "code",
+                    {
+                        ascending:true
+                    }
+                );
 
-        results =
-            applyCriteria(
-                emplacements,
-                currentCriteria
-            );
 
-
-        updateSummary();
-
-        updateStats();
-
-        renderResults();
-
-        document.getElementById(
-            "resultSubtitle"
-        ).textContent =
-            `${formatNumber(results.length)} emplacement(s) trouvé(s)`;
-
-
-    }catch(error){
-
-        console.error(
-            "executeSearch:",
-            error
+        console.log(
+            "EMPLACEMENTS RESULT:",
+            empResult
         );
 
 
-        showToast(
-            "Erreur de recherche",
-            getError(error),
-            "error"
-        );
+        if(
+            empResult.error
+        ){
+
+            throw empResult.error;
+
+        }
 
 
-        renderError();
-
-    }finally{
-
-        setLoading(false);
-
-    }
-
-}
+        emplacements =
+            empResult.data || [];
 
 
+        /*
+         * Initialisation
+         */
 
-/* =========================================================
-   GET CRITERIA
-========================================================= */
+        emplacements =
+            emplacements.map(
+                emp => ({
 
-function getCriteria(){
+                    ...emp,
 
-    return {
-
-        article:
-            document
-                .getElementById(
-                    "article"
-                )
-                .value
-                .trim(),
-
-
-        emplacement:
-            document
-                .getElementById(
-                    "emplacement"
-                )
-                .value
-                .trim(),
-
-
-        magasin:
-            document
-                .getElementById(
-                    "magasin"
-                )
-                .value,
-
-
-        lot:
-            document
-                .getElementById(
-                    "lot"
-                )
-                .value
-                .trim(),
-
-
-        division:
-            document
-                .getElementById(
-                    "division"
-                )
-                .value
-                .trim(),
-
-
-        typeArticle:
-            document
-                .getElementById(
-                    "typeArticle"
-                )
-                .value
-                .trim(),
-
-
-        groupeMarch:
-            document
-                .getElementById(
-                    "groupeMarch"
-                )
-                .value
-                .trim(),
-
-
-        etat:
-            document
-                .getElementById(
-                    "etat"
-                )
-                .value
-
-    };
-
-}
-
-
-
-/* =========================================================
-   LOAD EMPLEMENTS + STOCK
-========================================================= */
-
-async function loadData(){
-
-    const empResult =
-        await client
-            .from("emplacements")
-            .select("*")
-            .order(
-                "code",
-                {
-                    ascending:true
-                }
-            );
-
-
-    if(
-        empResult.error
-    ){
-
-        throw empResult.error;
-
-    }
-
-
-    emplacements =
-        (empResult.data || [])
-            .map(
-                row => ({
-
-                    ...row,
-
-                    occupation:"FREE",
+                    occupation:
+                        "FREE",
 
                     stock_items:[],
 
@@ -2080,49 +1815,190 @@ async function loadData(){
             );
 
 
-
-    const stockResult =
-        await client
-            .from("stock")
-            .select("*");
-
-
-    if(
-        stockResult.error
-    ){
-
-        console.warn(
-            "Table stock non accessible:",
-            stockResult.error.message
-        );
-
+        /*
+         * Stock est OPTIONNEL.
+         * Même si stock retourne une erreur,
+         * la liste des emplacements continue.
+         */
 
         stockRows = [];
 
-    }else{
 
-        stockRows =
-            stockResult.data || [];
+        try{
+
+            const stockResult =
+                await client
+                    .from("stock")
+                    .select("*");
+
+
+            if(
+                stockResult.error
+            ){
+
+                console.warn(
+                    "STOCK:",
+                    stockResult.error.message
+                );
+
+            }
+            else{
+
+                stockRows =
+                    stockResult.data || [];
+
+            }
+
+        }
+        catch(stockError){
+
+            console.warn(
+                "Stock ignoré:",
+                stockError
+            );
+
+            stockRows = [];
+
+        }
+
+
+        buildStockIndexes();
+
+        calculateOccupation();
+
+
+        /*
+         * Filtre
+         */
+
+        results =
+            applyCriteria(
+                emplacements,
+                currentCriteria
+            );
+
+
+        console.log(
+            "TOTAL EMPACEMENTS:",
+            emplacements.length
+        );
+
+
+        console.log(
+            "RESULTATS:",
+            results.length
+        );
+
+
+        updateSummary();
+
+        updateStats();
+
+        renderResults();
+
+
+        document.getElementById(
+            "resultSubtitle"
+        ).textContent =
+            `${formatNumber(results.length)} emplacement(s) trouvé(s)`;
 
     }
+    catch(error){
+
+        console.error(
+            "EXECUTE ERROR:",
+            error
+        );
 
 
-    buildStockIndexes();
+        renderError();
+
+
+        showToast(
+            "Erreur",
+            getError(error),
+            "error"
+        );
+
+    }
+    finally{
+
+        setLoading(false);
+
+    }
 
 }
 
 
+/* =========================================================
+   CRITERIA
+========================================================= */
+
+function getCriteria(){
+
+    return {
+
+        article:
+            document
+                .getElementById("article")
+                .value
+                .trim(),
+
+        emplacement:
+            document
+                .getElementById("emplacement")
+                .value
+                .trim(),
+
+        magasin:
+            document
+                .getElementById("magasin")
+                .value,
+
+        lot:
+            document
+                .getElementById("lot")
+                .value
+                .trim(),
+
+        division:
+            document
+                .getElementById("division")
+                .value
+                .trim(),
+
+        typeArticle:
+            document
+                .getElementById("typeArticle")
+                .value
+                .trim(),
+
+        groupeMarch:
+            document
+                .getElementById("groupeMarch")
+                .value
+                .trim(),
+
+        etat:
+            document
+                .getElementById("etat")
+                .value
+
+    };
+
+}
+
 
 /* =========================================================
-   BUILD STOCK INDEXES
+   STOCK INDEX
 ========================================================= */
 
 function buildStockIndexes(){
 
-    stockByEmplacementId =
+    stockById =
         new Map();
 
-    stockByEmplacementCode =
+    stockByCode =
         new Map();
 
 
@@ -2153,20 +2029,18 @@ function buildStockIndexes(){
 
 
                 if(
-                    !stockByEmplacementId
-                        .has(key)
+                    !stockById.has(key)
                 ){
 
-                    stockByEmplacementId
-                        .set(
-                            key,
-                            []
-                        );
+                    stockById.set(
+                        key,
+                        []
+                    );
 
                 }
 
 
-                stockByEmplacementId
+                stockById
                     .get(key)
                     .push(row);
 
@@ -2183,20 +2057,18 @@ function buildStockIndexes(){
 
 
                 if(
-                    !stockByEmplacementCode
-                        .has(key)
+                    !stockByCode.has(key)
                 ){
 
-                    stockByEmplacementCode
-                        .set(
-                            key,
-                            []
-                        );
+                    stockByCode.set(
+                        key,
+                        []
+                    );
 
                 }
 
 
-                stockByEmplacementCode
+                stockByCode
                     .get(key)
                     .push(row);
 
@@ -2208,9 +2080,8 @@ function buildStockIndexes(){
 }
 
 
-
 /* =========================================================
-   CALCUL OCCUPATION
+   OCCUPATION
 ========================================================= */
 
 function calculateOccupation(){
@@ -2219,15 +2090,14 @@ function calculateOccupation(){
         emp => {
 
             let rows =
-                stockByEmplacementId
-                    .get(
-                        String(emp.id)
-                    ) || [];
+                stockById.get(
+                    String(emp.id)
+                ) || [];
 
 
             /*
-             * Si pas de liaison par ID,
-             * on essaye par code.
+             * Si pas de relation ID,
+             * essayer avec le code.
              */
 
             if(
@@ -2235,12 +2105,11 @@ function calculateOccupation(){
             ){
 
                 rows =
-                    stockByEmplacementCode
-                        .get(
-                            normalize(
-                                emp.code || ""
-                            )
-                        ) || [];
+                    stockByCode.get(
+                        normalize(
+                            emp.code || ""
+                        )
+                    ) || [];
 
             }
 
@@ -2271,9 +2140,7 @@ function calculateOccupation(){
                         row
                     ) =>
                         total +
-                        getPaletteNumber(
-                            row
-                        ),
+                        getPaletteNumber(row),
                     0
                 );
 
@@ -2298,15 +2165,15 @@ function calculateOccupation(){
 
 
             if(
-                emp.palette_count > 0 &&
                 emp.palette_count <
-                    capacity
+                capacity
             ){
 
                 emp.occupation =
                     "PARTIAL";
 
-            }else{
+            }
+            else{
 
                 emp.occupation =
                     "OCCUPIED";
@@ -2319,9 +2186,8 @@ function calculateOccupation(){
 }
 
 
-
 /* =========================================================
-   APPLY CRITERIA
+   FILTER
 ========================================================= */
 
 function applyCriteria(
@@ -2344,37 +2210,10 @@ function applyCriteria(
                 emp.stock_items || [];
 
 
-            /* ARTICLE */
-
-            if(
-                criteria.article
-            ){
-
-                const wanted =
-                    normalize(
-                        criteria.article
-                    );
-
-
-                const found =
-                    stock.some(
-                        row =>
-                            rowContainsAny(
-                                row,
-                                ARTICLE_FIELDS,
-                                wanted
-                            )
-                    );
-
-
-                if(!found){
-                    return false;
-                }
-
-            }
-
-
-            /* EMPLACEMENT */
+            /*
+             * Si aucun critère n'est choisi,
+             * on garde l'emplacement.
+             */
 
             if(
                 criteria.emplacement
@@ -2399,12 +2238,8 @@ function applyCriteria(
 
 
                 if(
-                    !code.includes(
-                        wanted
-                    ) &&
-                    !name.includes(
-                        wanted
-                    )
+                    !code.includes(wanted) &&
+                    !name.includes(wanted)
                 ){
 
                     return false;
@@ -2414,7 +2249,9 @@ function applyCriteria(
             }
 
 
-            /* MAGASIN */
+            /*
+             * MAGASIN
+             */
 
             if(
                 criteria.magasin
@@ -2436,7 +2273,43 @@ function applyCriteria(
             }
 
 
-            /* LOT */
+            /*
+             * ARTICLE
+             */
+
+            if(
+                criteria.article
+            ){
+
+                const wanted =
+                    normalize(
+                        criteria.article
+                    );
+
+
+                const found =
+                    stock.some(
+                        row =>
+                            rowContains(
+                                row,
+                                ARTICLE_FIELDS,
+                                wanted
+                            )
+                    );
+
+
+                if(!found){
+
+                    return false;
+
+                }
+
+            }
+
+
+            /*
+             * LOT
+             */
 
             if(
                 criteria.lot
@@ -2451,7 +2324,7 @@ function applyCriteria(
                 const found =
                     stock.some(
                         row =>
-                            rowContainsAny(
+                            rowContains(
                                 row,
                                 LOT_FIELDS,
                                 wanted
@@ -2460,13 +2333,17 @@ function applyCriteria(
 
 
                 if(!found){
+
                     return false;
+
                 }
 
             }
 
 
-            /* DIVISION */
+            /*
+             * DIVISION
+             */
 
             if(
                 criteria.division
@@ -2478,19 +2355,10 @@ function applyCriteria(
                     );
 
 
-                const empDivision =
-                    getFirstValue(
-                        emp,
-                        DIVISION_FIELDS
-                    );
-
-
                 let found =
-                    empDivision !==
-                    null &&
-                    normalize(
-                        empDivision
-                    ).includes(
+                    rowContains(
+                        emp,
+                        DIVISION_FIELDS,
                         wanted
                     );
 
@@ -2500,7 +2368,7 @@ function applyCriteria(
                     found =
                         stock.some(
                             row =>
-                                rowContainsAny(
+                                rowContains(
                                     row,
                                     DIVISION_FIELDS,
                                     wanted
@@ -2514,8 +2382,7 @@ function applyCriteria(
 
                     found =
                         normalize(
-                            magasin?.code ||
-                            ""
+                            magasin?.code || ""
                         ).includes(
                             wanted
                         );
@@ -2524,13 +2391,17 @@ function applyCriteria(
 
 
                 if(!found){
+
                     return false;
+
                 }
 
             }
 
 
-            /* TYPE ARTICLE */
+            /*
+             * TYPE ARTICLE
+             */
 
             if(
                 criteria.typeArticle
@@ -2545,7 +2416,7 @@ function applyCriteria(
                 const found =
                     stock.some(
                         row =>
-                            rowContainsAny(
+                            rowContains(
                                 row,
                                 TYPE_FIELDS,
                                 wanted
@@ -2554,13 +2425,17 @@ function applyCriteria(
 
 
                 if(!found){
+
                     return false;
+
                 }
 
             }
 
 
-            /* GROUPE MARCHANDISES */
+            /*
+             * GROUPE
+             */
 
             if(
                 criteria.groupeMarch
@@ -2575,7 +2450,7 @@ function applyCriteria(
                 const found =
                     stock.some(
                         row =>
-                            rowContainsAny(
+                            rowContains(
                                 row,
                                 GROUP_FIELDS,
                                 wanted
@@ -2584,13 +2459,17 @@ function applyCriteria(
 
 
                 if(!found){
+
                     return false;
+
                 }
 
             }
 
 
-            /* ETAT */
+            /*
+             * ETAT
+             */
 
             if(
                 criteria.etat
@@ -2616,7 +2495,6 @@ function applyCriteria(
 }
 
 
-
 /* =========================================================
    SUMMARY
 ========================================================= */
@@ -2629,10 +2507,11 @@ function updateSummary(){
         );
 
 
-    const chips = [];
-
     const c =
         currentCriteria;
+
+
+    const chips = [];
 
 
     if(c.article){
@@ -2721,7 +2600,7 @@ function updateSummary(){
 
         chips.push(
             makeChip(
-                "Groupe marchandises",
+                "Groupe",
                 c.groupeMarch
             )
         );
@@ -2733,14 +2612,11 @@ function updateSummary(){
 
         const labels = {
 
-            FREE:
-                "Libre",
+            FREE:"Libre",
 
-            OCCUPIED:
-                "Occupé",
+            OCCUPIED:"Occupé",
 
-            PARTIAL:
-                "Partiellement occupé"
+            PARTIAL:"Partiellement occupé"
 
         };
 
@@ -2782,19 +2658,13 @@ function makeChip(
 ){
 
     return `
-
         <span class="chip">
-
-            ${escapeHtml(label)}
-            :
+            ${escapeHtml(label)} :
             ${escapeHtml(value)}
-
         </span>
-
     `;
 
 }
-
 
 
 /* =========================================================
@@ -2809,24 +2679,24 @@ function updateStats(){
 
     const free =
         results.filter(
-            e =>
-                e.occupation ===
+            x =>
+                x.occupation ===
                 "FREE"
         ).length;
 
 
     const occupied =
         results.filter(
-            e =>
-                e.occupation ===
+            x =>
+                x.occupation ===
                 "OCCUPIED"
         ).length;
 
 
     const partial =
         results.filter(
-            e =>
-                e.occupation ===
+            x =>
+                x.occupation ===
                 "PARTIAL"
         ).length;
 
@@ -2835,11 +2705,11 @@ function updateStats(){
         results.reduce(
             (
                 sum,
-                e
+                row
             ) =>
                 sum +
                 Number(
-                    e.total_kg || 0
+                    row.total_kg || 0
                 ),
             0
         );
@@ -2877,7 +2747,6 @@ function updateStats(){
 }
 
 
-
 /* =========================================================
    RENDER
 ========================================================= */
@@ -2898,7 +2767,7 @@ function renderResults(){
 
     const empty =
         document.getElementById(
-            "emptyState"
+            "empty"
         );
 
 
@@ -2918,10 +2787,6 @@ function renderResults(){
 
         empty.style.display =
             "block";
-
-
-        body.innerHTML =
-            "";
 
 
         return;
@@ -2954,7 +2819,7 @@ function renderResults(){
 
                 row.addEventListener(
                     "click",
-                    () => {
+                    function(){
 
                         openDetail(
                             Number(
@@ -2971,9 +2836,8 @@ function renderResults(){
 }
 
 
-
 /* =========================================================
-   ROW HTML
+   ROW
 ========================================================= */
 
 function rowHtml(emp){
@@ -3013,7 +2877,6 @@ function rowHtml(emp){
             stock,
             DIVISION_FIELDS
         ).join(", ") ||
-        magasin?.code ||
         "-";
 
 
@@ -3025,10 +2888,7 @@ function rowHtml(emp){
 
     return `
 
-        <tr
-            data-id="${emp.id}"
-        >
-
+        <tr data-id="${emp.id}">
 
             <td>
 
@@ -3048,8 +2908,7 @@ function rowHtml(emp){
                 <strong>
 
                     ${escapeHtml(
-                        magasin?.code ||
-                        "-"
+                        magasin?.code || "-"
                     )}
 
                 </strong>
@@ -3057,8 +2916,7 @@ function rowHtml(emp){
                 <div class="muted">
 
                     ${escapeHtml(
-                        magasin?.name ||
-                        ""
+                        magasin?.name || ""
                     )}
 
                 </div>
@@ -3069,9 +2927,7 @@ function rowHtml(emp){
             <td>
 
                 ${escapeHtml(
-                    String(
-                        division
-                    )
+                    String(division)
                 )}
 
             </td>
@@ -3125,7 +2981,7 @@ function rowHtml(emp){
             </td>
 
 
-            <td class="qty">
+            <td>
 
                 ${
                     emp.total_kg > 0
@@ -3162,13 +3018,11 @@ function rowHtml(emp){
 
             </td>
 
-
         </tr>
 
     `;
 
 }
-
 
 
 /* =========================================================
@@ -3185,17 +3039,10 @@ function statusHtml(
     ){
 
         return `
-
-            <span
-                class="status status-free"
-            >
-
+            <span class="status free">
                 <i class="fa-solid fa-circle"></i>
-
                 Libre
-
             </span>
-
         `;
 
     }
@@ -3207,58 +3054,23 @@ function statusHtml(
     ){
 
         return `
-
-            <span
-                class="status status-partial"
-            >
-
+            <span class="status partial">
                 <i class="fa-solid fa-circle"></i>
-
                 Partiel
-
             </span>
-
-        `;
-
-    }
-
-
-    if(
-        status ===
-        "OCCUPIED"
-    ){
-
-        return `
-
-            <span
-                class="status status-occupied"
-            >
-
-                <i class="fa-solid fa-circle"></i>
-
-                Occupé
-
-            </span>
-
         `;
 
     }
 
 
     return `
-
-        <span
-            class="status status-unknown"
-        >
-
-            Inconnu
-
+        <span class="status occupied">
+            <i class="fa-solid fa-circle"></i>
+            Occupé
         </span>
-
     `;
 
 }
-
 
 
 /* =========================================================
@@ -3269,8 +3081,8 @@ function openDetail(id){
 
     const emp =
         emplacements.find(
-            e =>
-                Number(e.id) ===
+            x =>
+                Number(x.id) ===
                 Number(id)
         );
 
@@ -3314,7 +3126,7 @@ function openDetail(id){
 
 
     document.getElementById(
-        "dStatus"
+        "dEtat"
     ).innerHTML =
         statusHtml(
             emp.occupation
@@ -3343,7 +3155,7 @@ function openDetail(id){
     );
 
 
-    const stockBox =
+    const box =
         document.getElementById(
             "detailStock"
         );
@@ -3353,7 +3165,7 @@ function openDetail(id){
         !emp.stock_items.length
     ){
 
-        stockBox.innerHTML = `
+        box.innerHTML = `
 
             <div
                 style="
@@ -3383,9 +3195,10 @@ function openDetail(id){
 
         `;
 
-    }else{
+    }
+    else{
 
-        stockBox.innerHTML =
+        box.innerHTML =
             emp.stock_items
                 .map(
                     row => {
@@ -3422,48 +3235,30 @@ function openDetail(id){
                             <div class="stock-row">
 
                                 <div>
-
                                     <strong>
-
                                         ${escapeHtml(
                                             article
                                         )}
-
                                     </strong>
-
                                 </div>
 
-
                                 <div>
-
                                     Lot :
-
                                     ${escapeHtml(
                                         String(lot)
                                     )}
-
                                 </div>
 
-
                                 <div>
-
-                                    ${formatKg(
-                                        qty
-                                    )}
-
+                                    ${formatKg(qty)}
                                     KG
-
                                 </div>
 
-
                                 <div>
-
                                     ${formatNumber(
                                         palettes
                                     )}
-
                                     palette(s)
-
                                 </div>
 
                             </div>
@@ -3478,7 +3273,7 @@ function openDetail(id){
 
 
     document.getElementById(
-        "detailModal"
+        "modalBg"
     ).classList.add(
         "show"
     );
@@ -3486,15 +3281,10 @@ function openDetail(id){
 }
 
 
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
 function closeModal(){
 
     document.getElementById(
-        "detailModal"
+        "modalBg"
     ).classList.remove(
         "show"
     );
@@ -3502,10 +3292,26 @@ function closeModal(){
 }
 
 
-
 /* =========================================================
-   NEW SEARCH
+   SEARCH SCREEN
 ========================================================= */
+
+function showResults(){
+
+    document.getElementById(
+        "searchScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultsScreen"
+    ).classList.add(
+        "show"
+    );
+
+}
+
 
 function newSearch(){
 
@@ -3523,45 +3329,10 @@ function newSearch(){
 
 
     document.getElementById(
-        "btnResetTop"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
         "article"
     ).focus();
 
 }
-
-
-
-/* =========================================================
-   SHOW RESULTS
-========================================================= */
-
-function showResultsScreen(){
-
-    document.getElementById(
-        "searchScreen"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "resultsScreen"
-    ).classList.add(
-        "show"
-    );
-
-
-    document.getElementById(
-        "btnResetTop"
-    ).style.display =
-        "inline-flex";
-
-}
-
 
 
 /* =========================================================
@@ -3572,53 +3343,44 @@ function clearCriteria(){
 
     document.getElementById(
         "article"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "emplacement"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "magasin"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "lot"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "division"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "typeArticle"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "groupeMarch"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "etat"
-    ).value =
-        "";
+    ).value = "";
 
 }
-
 
 
 /* =========================================================
@@ -3643,7 +3405,7 @@ function setLoading(
 
     const empty =
         document.getElementById(
-            "emptyState"
+            "empty"
         );
 
 
@@ -3653,15 +3415,14 @@ function setLoading(
             "show"
         );
 
-
         table.style.display =
             "none";
-
 
         empty.style.display =
             "none";
 
-    }else{
+    }
+    else{
 
         loading.classList.remove(
             "show"
@@ -3672,23 +3433,26 @@ function setLoading(
 }
 
 
-
 /* =========================================================
    ERROR
 ========================================================= */
 
 function renderError(){
 
-    document.getElementById(
-        "tableWrap"
-    ).style.display =
-        "none";
+    const table =
+        document.getElementById(
+            "tableWrap"
+        );
 
 
     const empty =
         document.getElementById(
-            "emptyState"
+            "empty"
         );
+
+
+    table.style.display =
+        "none";
 
 
     empty.style.display =
@@ -3707,13 +3471,12 @@ function renderError(){
         </h3>
 
         <p>
-            Vérifiez la connexion et la structure des données.
+            Vérifiez la connexion à Supabase.
         </p>
 
     `;
 
 }
-
 
 
 /* =========================================================
@@ -3731,21 +3494,14 @@ function getFirstValue(
 
 
     for(
-        const field
-        of fields
+        const field of fields
     ){
 
         if(
-            Object.prototype
-                .hasOwnProperty
-                .call(
-                    row,
-                    field
-                ) &&
-            row[field] !==
-                null &&
             row[field] !==
                 undefined &&
+            row[field] !==
+                null &&
             row[field] !==
                 ""
         ){
@@ -3760,7 +3516,6 @@ function getFirstValue(
     return null;
 
 }
-
 
 
 function getNumber(
@@ -3801,7 +3556,6 @@ function getNumber(
 }
 
 
-
 function getPaletteNumber(
     row
 ){
@@ -3840,23 +3594,21 @@ function getPaletteNumber(
 }
 
 
-
-function rowContainsAny(
+function rowContains(
     row,
     fields,
     wanted
 ){
 
     for(
-        const field
-        of fields
+        const field of fields
     ){
 
         if(
             row[field] !==
-                null &&
-            row[field] !==
                 undefined &&
+            row[field] !==
+                null &&
             row[field] !==
                 ""
         ){
@@ -3881,7 +3633,6 @@ function rowContainsAny(
     return false;
 
 }
-
 
 
 function uniqueValues(
@@ -3938,7 +3689,6 @@ function uniqueValues(
 }
 
 
-
 function normalize(
     value
 ){
@@ -3957,7 +3707,6 @@ function normalize(
 }
 
 
-
 function formatNumber(
     value
 ){
@@ -3972,7 +3721,6 @@ function formatNumber(
     );
 
 }
-
 
 
 function formatKg(
@@ -3992,7 +3740,6 @@ function formatKg(
 }
 
 
-
 function setText(
     id,
     value
@@ -4006,7 +3753,6 @@ function setText(
 }
 
 
-
 function escapeHtml(
     value
 ){
@@ -4014,29 +3760,13 @@ function escapeHtml(
     return String(
         value ?? ""
     )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
-
 
 
 function getError(
@@ -4051,7 +3781,6 @@ function getError(
     );
 
 }
-
 
 
 /* =========================================================
@@ -4083,19 +3812,11 @@ function showToast(
     toast.innerHTML = `
 
         <strong>
-
-            ${escapeHtml(
-                title
-            )}
-
+            ${escapeHtml(title)}
         </strong>
 
         <span>
-
-            ${escapeHtml(
-                message
-            )}
-
+            ${escapeHtml(message)}
         </span>
 
     `;
