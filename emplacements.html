@@ -219,6 +219,28 @@ select{
     box-shadow:0 0 0 3px rgba(20,90,31,.08);
 }
 
+
+/* =========================================================
+   DIVISION AUTO
+========================================================= */
+
+.division-auto{
+    background:#f3f8f4 !important;
+    color:#145a1f !important;
+    font-weight:700;
+    cursor:not-allowed;
+}
+
+.division-auto:focus{
+    border-color:#ccd6cf !important;
+    box-shadow:none !important;
+}
+
+
+/* =========================================================
+   SEARCH ACTIONS
+========================================================= */
+
 .criteria-actions{
     margin-top:30px;
     display:flex;
@@ -808,7 +830,9 @@ tbody td{
         <div class="criteria-grid">
 
 
-            <!-- ARTICLE -->
+            <!-- =================================================
+                 ARTICLE
+            ================================================== -->
 
             <div class="field">
 
@@ -827,7 +851,9 @@ tbody td{
 
 
 
-            <!-- EMPLACEMENT -->
+            <!-- =================================================
+                 EMPLACEMENT
+            ================================================== -->
 
             <div class="field">
 
@@ -846,7 +872,9 @@ tbody td{
 
 
 
-            <!-- MAGASIN -->
+            <!-- =================================================
+                 MAGASIN
+            ================================================== -->
 
             <div class="field">
 
@@ -866,7 +894,9 @@ tbody td{
 
 
 
-            <!-- LOT -->
+            <!-- =================================================
+                 LOT
+            ================================================== -->
 
             <div class="field">
 
@@ -885,7 +915,10 @@ tbody td{
 
 
 
-            <!-- DIVISION -->
+            <!-- =================================================
+                 DIVISION
+                 AUTOMATIQUE SELON MAGASIN
+            ================================================== -->
 
             <div class="field">
 
@@ -896,15 +929,20 @@ tbody td{
                 <input
                     id="division"
                     type="text"
-                    placeholder="Ex : AB01"
+                    class="division-auto"
+                    placeholder="Sélectionnez d'abord un magasin"
                     autocomplete="off"
+                    readonly
                 >
 
             </div>
 
 
 
-            <!-- TYPE ARTICLE -->
+            <!-- =================================================
+                 TYPE ARTICLE
+                 VIENT DE PRODUITS.TYPE
+            ================================================== -->
 
             <div class="field">
 
@@ -912,18 +950,22 @@ tbody td{
                     Type d'article
                 </label>
 
-                <input
-                    id="typeArticle"
-                    type="text"
-                    placeholder="Type d'article"
-                    autocomplete="off"
-                >
+                <select id="typeArticle">
+
+                    <option value="">
+                        Tous les types
+                    </option>
+
+                </select>
 
             </div>
 
 
 
-            <!-- GROUPE -->
+            <!-- =================================================
+                 GROUPE MARCHANDISE
+                 VIENT DE PRODUITS.GROUPE
+            ================================================== -->
 
             <div class="field">
 
@@ -931,18 +973,21 @@ tbody td{
                     Groupe de marchandises
                 </label>
 
-                <input
-                    id="groupeMarch"
-                    type="text"
-                    placeholder="Groupe"
-                    autocomplete="off"
-                >
+                <select id="groupeMarch">
+
+                    <option value="">
+                        Tous les groupes
+                    </option>
+
+                </select>
 
             </div>
 
 
 
-            <!-- ETAT -->
+            <!-- =================================================
+                 ETAT
+            ================================================== -->
 
             <div class="field">
 
@@ -1232,7 +1277,9 @@ tbody td{
 
 
 
-    <!-- TABLE -->
+    <!-- =====================================================
+         TABLE
+    ====================================================== -->
 
     <div class="table-card">
 
@@ -1256,8 +1303,6 @@ tbody td{
 
 
 
-        <!-- LOADING -->
-
         <div
             id="loading"
             class="loading"
@@ -1270,8 +1315,6 @@ tbody td{
         </div>
 
 
-
-        <!-- EMPTY -->
 
         <div
             id="empty"
@@ -1291,8 +1334,6 @@ tbody td{
         </div>
 
 
-
-        <!-- TABLE -->
 
         <div
             id="tableWrap"
@@ -1577,6 +1618,10 @@ let client = null;
 
 let magasins = [];
 
+let divisions = [];
+
+let produits = [];
+
 let emplacements = [];
 
 let stockRows = [];
@@ -1586,6 +1631,10 @@ let results = [];
 let currentCriteria = {};
 
 
+/* =========================================================
+   INDEX
+========================================================= */
+
 let stockById =
     new Map();
 
@@ -1593,9 +1642,16 @@ let stockByCode =
     new Map();
 
 
+let productsByArticle =
+    new Map();
+
+
+let productsByArticleNormalized =
+    new Map();
+
 
 /* =========================================================
-   POSSIBLE STOCK COLUMNS
+   STOCK FIELDS
 ========================================================= */
 
 const LOCATION_ID_FIELDS = [
@@ -1638,9 +1694,9 @@ const ARTICLE_FIELDS = [
 
     "code_produit",
 
-    "designation",
+    "material",
 
-    "article_name"
+    "material_code"
 
 ];
 
@@ -1700,44 +1756,6 @@ const PALETTE_FIELDS = [
 ];
 
 
-const DIVISION_FIELDS = [
-
-    "division",
-
-    "division_code",
-
-    "code_division"
-
-];
-
-
-const TYPE_FIELDS = [
-
-    "type_article",
-
-    "article_type",
-
-    "type",
-
-    "material_type"
-
-];
-
-
-const GROUP_FIELDS = [
-
-    "groupe_marchandises",
-
-    "groupe_marchandise",
-
-    "material_group",
-
-    "groupe_article"
-
-];
-
-
-
 /* =========================================================
    INIT
 ========================================================= */
@@ -1755,7 +1773,8 @@ document.addEventListener(
             bindEvents();
 
 
-            await loadMagasins();
+            await loadBaseData();
+
 
         }
         catch(error){
@@ -1777,6 +1796,36 @@ document.addEventListener(
     }
 );
 
+
+/* =========================================================
+   GET SUPABASE
+========================================================= */
+
+function getSupabase(){
+
+    if(
+        window.smtgSupabase
+    ){
+
+        return window.smtgSupabase;
+
+    }
+
+
+    if(
+        window.supabase
+    ){
+
+        return window.supabase;
+
+    }
+
+
+    throw new Error(
+        "Client Supabase non disponible."
+    );
+
+}
 
 
 /* =========================================================
@@ -1800,7 +1849,6 @@ function bindEvents(){
         );
 
 
-
     document
         .getElementById(
             "btnClear"
@@ -1811,7 +1859,6 @@ function bindEvents(){
         );
 
 
-
     document
         .getElementById(
             "btnNewSearch"
@@ -1820,7 +1867,6 @@ function bindEvents(){
             "click",
             newSearch
         );
-
 
 
     document
@@ -1837,7 +1883,6 @@ function bindEvents(){
         );
 
 
-
     document
         .getElementById(
             "closeModal"
@@ -1846,7 +1891,6 @@ function bindEvents(){
             "click",
             closeModal
         );
-
 
 
     document
@@ -1869,6 +1913,19 @@ function bindEvents(){
             }
         );
 
+
+    /* =====================================================
+       MAGASIN CHANGE
+    ====================================================== */
+
+    document
+        .getElementById(
+            "magasin"
+        )
+        .addEventListener(
+            "change",
+            onMagasinChange
+        );
 
 
     document.addEventListener(
@@ -1913,6 +1970,64 @@ function bindEvents(){
 }
 
 
+/* =========================================================
+   LOAD BASE DATA
+========================================================= */
+
+async function loadBaseData(){
+
+    await Promise.all([
+
+        loadDivisions(),
+
+        loadMagasins(),
+
+        loadProduits()
+
+    ]);
+
+}
+
+
+/* =========================================================
+   LOAD DIVISIONS
+========================================================= */
+
+async function loadDivisions(){
+
+    const {
+        data,
+        error
+    } =
+        await client
+            .from("divisions")
+            .select(
+                "id,code,name,is_active"
+            )
+            .eq(
+                "is_active",
+                true
+            )
+            .order(
+                "code",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    divisions =
+        data || [];
+
+}
+
 
 /* =========================================================
    LOAD MAGASINS
@@ -1920,12 +2035,19 @@ function bindEvents(){
 
 async function loadMagasins(){
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await client
             .from("magasins")
-            .select(
-                "id,code,name,is_active"
-            )
+            .select(`
+                id,
+                code,
+                name,
+                division_id,
+                is_active
+            `)
             .eq(
                 "is_active",
                 true
@@ -1953,6 +2075,15 @@ async function loadMagasins(){
         document.getElementById(
             "magasin"
         );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Tous les magasins
+        </option>
+
+    `;
 
 
     magasins.forEach(
@@ -1984,11 +2115,404 @@ async function loadMagasins(){
 }
 
 
+/* =========================================================
+   LOAD PRODUITS
+========================================================= */
+
+async function loadProduits(){
+
+    const allProducts = [];
+
+    const pageSize = 1000;
+
+    let from = 0;
+
+
+    while(true){
+
+        const to =
+            from +
+            pageSize -
+            1;
+
+
+        const {
+            data,
+            error
+        } =
+            await client
+                .from("produits")
+                .select(`
+                    id,
+                    article,
+                    designation,
+                    type,
+                    groupe,
+                    unite,
+                    division,
+                    statut
+                `)
+                .range(
+                    from,
+                    to
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(
+            !data ||
+            data.length === 0
+        ){
+
+            break;
+
+        }
+
+
+        allProducts.push(
+            ...data
+        );
+
+
+        if(
+            data.length <
+            pageSize
+        ){
+
+            break;
+
+        }
+
+
+        from +=
+            pageSize;
+
+    }
+
+
+    produits =
+        allProducts;
+
+
+    buildProductIndex();
+
+
+    populateProductFilters();
+
+}
+
 
 /* =========================================================
-   IMPORTANT
+   PRODUCT INDEX
+========================================================= */
+
+function buildProductIndex(){
+
+    productsByArticle =
+        new Map();
+
+
+    productsByArticleNormalized =
+        new Map();
+
+
+    produits.forEach(
+        produit => {
+
+            const article =
+                produit.article;
+
+
+            if(
+                article === null ||
+                article === undefined ||
+                article === ""
+            ){
+
+                return;
+
+            }
+
+
+            const exactKey =
+                String(
+                    article
+                );
+
+
+            const normalizedKey =
+                normalize(
+                    article
+                );
+
+
+            productsByArticle.set(
+                exactKey,
+                produit
+            );
+
+
+            productsByArticleNormalized.set(
+                normalizedKey,
+                produit
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   POPULATE PRODUCT FILTERS
+========================================================= */
+
+function populateProductFilters(){
+
+    const groupSelect =
+        document.getElementById(
+            "groupeMarch"
+        );
+
+
+    const typeSelect =
+        document.getElementById(
+            "typeArticle"
+        );
+
+
+    groupSelect.innerHTML = `
+
+        <option value="">
+            Tous les groupes
+        </option>
+
+    `;
+
+
+    typeSelect.innerHTML = `
+
+        <option value="">
+            Tous les types
+        </option>
+
+    `;
+
+
+    const groups =
+        new Set();
+
+
+    const types =
+        new Set();
+
+
+    produits.forEach(
+        produit => {
+
+
+            const group =
+                cleanValue(
+                    produit.groupe
+                );
+
+
+            const type =
+                cleanValue(
+                    produit.type
+                );
+
+
+            if(group){
+
+                groups.add(
+                    group
+                );
+
+            }
+
+
+            if(type){
+
+                types.add(
+                    type
+                );
+
+            }
+
+        }
+    );
+
+
+    Array.from(groups)
+        .sort(
+            localeSort
+        )
+        .forEach(
+            group => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    group;
+
+
+                option.textContent =
+                    group;
+
+
+                groupSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+    Array.from(types)
+        .sort(
+            localeSort
+        )
+        .forEach(
+            type => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    type;
+
+
+                option.textContent =
+                    type;
+
+
+                typeSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   MAGASIN CHANGE
+   DIVISION AUTOMATIQUE
+========================================================= */
+
+function onMagasinChange(){
+
+    const magasinId =
+        document.getElementById(
+            "magasin"
+        ).value;
+
+
+    const divisionInput =
+        document.getElementById(
+            "division"
+        );
+
+
+    /* -----------------------------------------------
+       Aucun magasin
+    ------------------------------------------------ */
+
+    if(
+        !magasinId
+    ){
+
+        divisionInput.value =
+            "";
+
+
+        divisionInput.placeholder =
+            "Sélectionnez d'abord un magasin";
+
+
+        return;
+
+    }
+
+
+    const magasin =
+        magasins.find(
+            m =>
+                String(
+                    m.id
+                ) ===
+                String(
+                    magasinId
+                )
+        );
+
+
+    if(!magasin){
+
+        divisionInput.value =
+            "";
+
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       Division du magasin
+    ------------------------------------------------ */
+
+    const division =
+        divisions.find(
+            d =>
+                Number(
+                    d.id
+                ) ===
+                Number(
+                    magasin.division_id
+                )
+        );
+
+
+    if(division){
+
+        divisionInput.value =
+            `${division.code} - ${division.name}`;
+
+    }
+    else{
+
+        divisionInput.value =
+            "Division non affectée";
+
+    }
+
+
+    /*
+     * Important :
+     * Division reste readonly.
+     */
+
+}
+
+
+/* =========================================================
    LOAD ALL EMPACEMENTS
-   SUPABASE MAX 1000 PAR REQUETE
 ========================================================= */
 
 async function loadAllEmplacements(){
@@ -2006,11 +2530,6 @@ async function loadAllEmplacements(){
             from +
             pageSize -
             1;
-
-
-        console.log(
-            `Chargement emplacements ${from} → ${to}`
-        );
 
 
         const {
@@ -2064,11 +2583,6 @@ async function loadAllEmplacements(){
         );
 
 
-        console.log(
-            `Chargés : ${allRows.length}`
-        );
-
-
         if(
             data.length <
             pageSize
@@ -2085,16 +2599,9 @@ async function loadAllEmplacements(){
     }
 
 
-    console.log(
-        "TOTAL EMPACEMENTS:",
-        allRows.length
-    );
-
-
     return allRows;
 
 }
-
 
 
 /* =========================================================
@@ -2104,11 +2611,6 @@ async function loadAllEmplacements(){
 async function executeSearch(
     isRefresh = false
 ){
-
-    console.log(
-        "========== EXECUTER =========="
-    );
-
 
     if(
         !isRefresh
@@ -2130,21 +2632,15 @@ async function executeSearch(
 
 
         /* ==========================================
-           1. LOAD ALL EMPLACEMENTS
+           EMPLACEMENTS
         ========================================== */
 
         emplacements =
             await loadAllEmplacements();
 
 
-        console.log(
-            "Emplacements chargés:",
-            emplacements.length
-        );
-
-
         /* ==========================================
-           2. INITIALISATION
+           INITIALISATION
         ========================================== */
 
         emplacements =
@@ -2167,8 +2663,7 @@ async function executeSearch(
 
 
         /* ==========================================
-           3. LOAD STOCK
-           OPTIONNEL
+           STOCK
         ========================================== */
 
         stockRows = [];
@@ -2201,11 +2696,11 @@ async function executeSearch(
             }
 
         }
-        catch(stockError){
+        catch(errorStock){
 
             console.warn(
                 "Stock ignoré:",
-                stockError
+                errorStock
             );
 
             stockRows = [];
@@ -2214,21 +2709,21 @@ async function executeSearch(
 
 
         /* ==========================================
-           4. INDEX
+           INDEX STOCK
         ========================================== */
 
         buildStockIndexes();
 
 
         /* ==========================================
-           5. OCCUPATION
+           OCCUPATION
         ========================================== */
 
         calculateOccupation();
 
 
         /* ==========================================
-           6. FILTER
+           FILTER
         ========================================== */
 
         results =
@@ -2237,16 +2732,6 @@ async function executeSearch(
                 currentCriteria
             );
 
-
-        console.log(
-            "RESULTATS:",
-            results.length
-        );
-
-
-        /* ==========================================
-           7. DISPLAY
-        ========================================== */
 
         updateSummary();
 
@@ -2259,7 +2744,6 @@ async function executeSearch(
             "resultSubtitle"
         ).textContent =
             `${formatNumber(results.length)} emplacement(s) trouvé(s)`;
-
 
     }
     catch(error){
@@ -2289,12 +2773,60 @@ async function executeSearch(
 }
 
 
-
 /* =========================================================
    GET CRITERIA
 ========================================================= */
 
 function getCriteria(){
+
+    const magasinId =
+        document.getElementById(
+            "magasin"
+        ).value;
+
+
+    let division = "";
+
+
+    /*
+     * Division ne vient plus d'une saisie utilisateur.
+     * Elle vient directement du magasin sélectionné.
+     */
+
+    if(
+        magasinId
+    ){
+
+        const magasin =
+            magasins.find(
+                m =>
+                    String(
+                        m.id
+                    ) ===
+                    String(
+                        magasinId
+                    )
+            );
+
+
+        const divisionObj =
+            divisions.find(
+                d =>
+                    Number(
+                        d.id
+                    ) ===
+                    Number(
+                        magasin?.division_id
+                    )
+            );
+
+
+        division =
+            divisionObj?.code ||
+            "";
+
+    }
+
 
     return {
 
@@ -2317,11 +2849,7 @@ function getCriteria(){
 
 
         magasin:
-            document
-                .getElementById(
-                    "magasin"
-                )
-                .value,
+            magasinId,
 
 
         lot:
@@ -2334,12 +2862,7 @@ function getCriteria(){
 
 
         division:
-            document
-                .getElementById(
-                    "division"
-                )
-                .value
-                .trim(),
+            division,
 
 
         typeArticle:
@@ -2347,8 +2870,7 @@ function getCriteria(){
                 .getElementById(
                     "typeArticle"
                 )
-                .value
-                .trim(),
+                .value,
 
 
         groupeMarch:
@@ -2356,8 +2878,7 @@ function getCriteria(){
                 .getElementById(
                     "groupeMarch"
                 )
-                .value
-                .trim(),
+                .value,
 
 
         etat:
@@ -2370,7 +2891,6 @@ function getCriteria(){
     };
 
 }
-
 
 
 /* =========================================================
@@ -2466,6 +2986,83 @@ function buildStockIndexes(){
 }
 
 
+/* =========================================================
+   GET PRODUCT FROM STOCK ARTICLE
+========================================================= */
+
+function getProductForStockRow(
+    row
+){
+
+    const article =
+        getFirstValue(
+            row,
+            ARTICLE_FIELDS
+        );
+
+
+    if(
+        article === null ||
+        article === ""
+    ){
+
+        return null;
+
+    }
+
+
+    const exact =
+        productsByArticle.get(
+            String(
+                article
+            )
+        );
+
+
+    if(exact){
+
+        return exact;
+
+    }
+
+
+    return productsByArticleNormalized.get(
+        normalize(
+            article
+        )
+    ) || null;
+
+}
+
+
+/* =========================================================
+   GET PRODUCT FIELD
+========================================================= */
+
+function getProductField(
+    row,
+    field
+){
+
+    const product =
+        getProductForStockRow(
+            row
+        );
+
+
+    if(!product){
+
+        return "";
+
+    }
+
+
+    return cleanValue(
+        product[field]
+    );
+
+}
+
 
 /* =========================================================
    CALCULATE OCCUPATION
@@ -2477,21 +3074,11 @@ function calculateOccupation(){
         emp => {
 
 
-            /*
-             * IMPORTANT:
-             * أولاً ID
-             */
-
             let rows =
                 stockById.get(
                     String(emp.id)
                 ) || [];
 
-
-            /*
-             * إذا ما كانش ID
-             * نستعمل code + magasin
-             */
 
             if(
                 !rows.length
@@ -2506,12 +3093,6 @@ function calculateOccupation(){
 
             }
 
-
-            /*
-             * Si plusieurs magasins ont
-             * le même code, filtrer par magasin
-             * si stock contient magasin_id.
-             */
 
             if(
                 rows.length > 1
@@ -2588,10 +3169,6 @@ function calculateOccupation(){
                 );
 
 
-            /*
-             * Aucun stock
-             */
-
             if(
                 rows.length === 0
             ){
@@ -2604,22 +3181,12 @@ function calculateOccupation(){
             }
 
 
-            /*
-             * Capacité
-             */
-
             const capacity =
                 Number(
                     emp.max_palettes ||
                     1
                 );
 
-
-            /*
-             * Si quantité ou stock existe,
-             * mais nombre palettes inconnu,
-             * considérer 1 palette.
-             */
 
             const palettes =
                 emp.palette_count >
@@ -2652,7 +3219,6 @@ function calculateOccupation(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -2758,12 +3324,50 @@ function applyCriteria(
 
                 const found =
                     stock.some(
-                        row =>
-                            rowContains(
-                                row,
-                                ARTICLE_FIELDS,
-                                wanted
-                            )
+                        row => {
+
+
+                            /*
+                             * Recherche dans stock
+                             */
+
+                            const article =
+                                getFirstValue(
+                                    row,
+                                    ARTICLE_FIELDS
+                                );
+
+
+                            const product =
+                                getProductForStockRow(
+                                    row
+                                );
+
+
+                            const designation =
+                                product?.designation ||
+                                "";
+
+
+                            return (
+
+                                normalize(
+                                    article
+                                ).includes(
+                                    wanted
+                                )
+
+                                ||
+
+                                normalize(
+                                    designation
+                                ).includes(
+                                    wanted
+                                )
+
+                            );
+
+                        }
                     );
 
 
@@ -2812,54 +3416,34 @@ function applyCriteria(
 
             /* ==========================================
                DIVISION
+               AUTO SELON MAGASIN
             ========================================== */
 
             if(
                 criteria.division
             ){
 
-                const wanted =
+                const division =
+                    divisions.find(
+                        d =>
+                            Number(
+                                d.id
+                            ) ===
+                            Number(
+                                magasin?.division_id
+                            )
+                    );
+
+
+                if(
+                    !division ||
+                    normalize(
+                        division.code
+                    ) !==
                     normalize(
                         criteria.division
-                    );
-
-
-                let found =
-                    rowContains(
-                        emp,
-                        DIVISION_FIELDS,
-                        wanted
-                    );
-
-
-                if(!found){
-
-                    found =
-                        stock.some(
-                            row =>
-                                rowContains(
-                                    row,
-                                    DIVISION_FIELDS,
-                                    wanted
-                                )
-                        );
-
-                }
-
-
-                if(!found){
-
-                    found =
-                        normalize(
-                            magasin?.code || ""
-                        ).includes(
-                            wanted
-                        );
-
-                }
-
-
-                if(!found){
+                    )
+                ){
 
                     return false;
 
@@ -2870,6 +3454,7 @@ function applyCriteria(
 
             /* ==========================================
                TYPE ARTICLE
+               PRODUITS.TYPE
             ========================================== */
 
             if(
@@ -2884,12 +3469,23 @@ function applyCriteria(
 
                 const found =
                     stock.some(
-                        row =>
-                            rowContains(
-                                row,
-                                TYPE_FIELDS,
+                        row => {
+
+                            const type =
+                                getProductField(
+                                    row,
+                                    "type"
+                                );
+
+
+                            return (
+                                normalize(
+                                    type
+                                ) ===
                                 wanted
-                            )
+                            );
+
+                        }
                     );
 
 
@@ -2904,6 +3500,7 @@ function applyCriteria(
 
             /* ==========================================
                GROUPE MARCHANDISE
+               PRODUITS.GROUPE
             ========================================== */
 
             if(
@@ -2918,12 +3515,23 @@ function applyCriteria(
 
                 const found =
                     stock.some(
-                        row =>
-                            rowContains(
-                                row,
-                                GROUP_FIELDS,
+                        row => {
+
+                            const group =
+                                getProductField(
+                                    row,
+                                    "groupe"
+                                );
+
+
+                            return (
+                                normalize(
+                                    group
+                                ) ===
                                 wanted
-                            )
+                            );
+
+                        }
                     );
 
 
@@ -2962,7 +3570,6 @@ function applyCriteria(
     );
 
 }
-
 
 
 /* =========================================================
@@ -3044,10 +3651,24 @@ function updateSummary(){
 
     if(c.division){
 
+        const division =
+            divisions.find(
+                d =>
+                    normalize(
+                        d.code
+                    ) ===
+                    normalize(
+                        c.division
+                    )
+            );
+
+
         chips.push(
             makeChip(
                 "Division",
-                c.division
+                division
+                    ? `${division.code} - ${division.name}`
+                    : c.division
             )
         );
 
@@ -3145,7 +3766,6 @@ function makeChip(
 }
 
 
-
 /* =========================================================
    STATS
 ========================================================= */
@@ -3224,7 +3844,6 @@ function updateStats(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -3320,7 +3939,6 @@ function renderResults(){
 }
 
 
-
 /* =========================================================
    ROW
 ========================================================= */
@@ -3348,6 +3966,12 @@ function rowHtml(
         );
 
 
+    const articleDesignations =
+        uniqueProductDesignations(
+            stock
+        );
+
+
     const lots =
         uniqueValues(
             stock,
@@ -3356,15 +3980,9 @@ function rowHtml(
 
 
     const division =
-        getFirstValue(
-            emp,
-            DIVISION_FIELDS
-        ) ||
-        uniqueValues(
-            stock,
-            DIVISION_FIELDS
-        ).join(", ") ||
-        "-";
+        getDivisionLabelForMagasin(
+            magasin
+        );
 
 
     const capacity =
@@ -3420,9 +4038,7 @@ function rowHtml(
             <td>
 
                 ${escapeHtml(
-                    String(
-                        division
-                    )
+                    division
                 )}
 
             </td>
@@ -3463,9 +4079,27 @@ function rowHtml(
 
             <td>
 
-                ${escapeHtml(
-                    articles.join(", ") || "-"
-                )}
+                ${
+                    articles.length
+
+                    ?
+
+                    escapeHtml(
+                        articles.join(", ")
+                    )
+
+                    :
+
+                    (
+                        articleDesignations.length
+                        ?
+                        escapeHtml(
+                            articleDesignations.join(", ")
+                        )
+                        :
+                        "-"
+                    )
+                }
 
             </td>
 
@@ -3526,6 +4160,99 @@ function rowHtml(
 
 }
 
+
+/* =========================================================
+   PRODUCT DESIGNATIONS
+========================================================= */
+
+function uniqueProductDesignations(
+    rows
+){
+
+    const values = [];
+
+
+    rows.forEach(
+        row => {
+
+            const product =
+                getProductForStockRow(
+                    row
+                );
+
+
+            if(
+                product?.designation
+            ){
+
+                const value =
+                    String(
+                        product.designation
+                    );
+
+
+                if(
+                    !values.some(
+                        x =>
+                            normalize(x) ===
+                            normalize(value)
+                    )
+                ){
+
+                    values.push(
+                        value
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    return values;
+
+}
+
+
+/* =========================================================
+   DIVISION LABEL
+========================================================= */
+
+function getDivisionLabelForMagasin(
+    magasin
+){
+
+    if(!magasin){
+
+        return "-";
+
+    }
+
+
+    const division =
+        divisions.find(
+            d =>
+                Number(
+                    d.id
+                ) ===
+                Number(
+                    magasin.division_id
+                )
+        );
+
+
+    if(!division){
+
+        return "Non affectée";
+
+    }
+
+
+    return `${division.code} - ${division.name}`;
+
+}
 
 
 /* =========================================================
@@ -3597,7 +4324,6 @@ function statusHtml(
 }
 
 
-
 /* =========================================================
    DETAIL
 ========================================================= */
@@ -3645,12 +4371,9 @@ function openDetail(
 
     setText(
         "dDivision",
-        getFirstValue(
-            emp,
-            DIVISION_FIELDS
-        ) ||
-        magasin?.code ||
-        "-"
+        getDivisionLabelForMagasin(
+            magasin
+        )
     );
 
 
@@ -3740,6 +4463,27 @@ function openDetail(
                             ) || "-";
 
 
+                        const product =
+                            getProductForStockRow(
+                                row
+                            );
+
+
+                        const designation =
+                            product?.designation ||
+                            "";
+
+
+                        const type =
+                            product?.type ||
+                            "";
+
+
+                        const groupe =
+                            product?.groupe ||
+                            "";
+
+
                         const lot =
                             getFirstValue(
                                 row,
@@ -3774,6 +4518,22 @@ function openDetail(
 
                                     </strong>
 
+                                    ${
+                                        designation
+
+                                        ?
+
+                                        `<div class="muted">
+                                            ${escapeHtml(
+                                                designation
+                                            )}
+                                        </div>`
+
+                                        :
+
+                                        ""
+                                    }
+
                                 </div>
 
 
@@ -3791,15 +4551,37 @@ function openDetail(
 
                                 <div>
 
-                                    ${formatKg(
-                                        qty
-                                    )}
-                                    KG
+                                    ${
+                                        type
+                                        ?
+                                        `Type :
+                                        ${escapeHtml(type)}`
+                                        :
+                                        ""
+                                    }
+
+                                    <br>
+
+                                    ${
+                                        groupe
+                                        ?
+                                        `Groupe :
+                                        ${escapeHtml(groupe)}`
+                                        :
+                                        ""
+                                    }
 
                                 </div>
 
 
                                 <div>
+
+                                    ${formatKg(
+                                        qty
+                                    )}
+                                    KG
+
+                                    <br>
 
                                     ${formatNumber(
                                         palettes
@@ -3828,7 +4610,6 @@ function openDetail(
 }
 
 
-
 /* =========================================================
    CLOSE MODAL
 ========================================================= */
@@ -3842,7 +4623,6 @@ function closeModal(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -3864,7 +4644,6 @@ function showResults(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -3891,7 +4670,6 @@ function newSearch(){
     ).focus();
 
 }
-
 
 
 /* =========================================================
@@ -3931,6 +4709,12 @@ function clearCriteria(){
 
 
     document.getElementById(
+        "division"
+    ).placeholder =
+        "Sélectionnez d'abord un magasin";
+
+
+    document.getElementById(
         "typeArticle"
     ).value =
         "";
@@ -3948,7 +4732,6 @@ function clearCriteria(){
         "";
 
 }
-
 
 
 /* =========================================================
@@ -4003,7 +4786,6 @@ function setLoading(
 }
 
 
-
 /* =========================================================
    ERROR
 ========================================================= */
@@ -4050,7 +4832,6 @@ function renderError(){
 }
 
 
-
 /* =========================================================
    HELPERS
 ========================================================= */
@@ -4090,7 +4871,6 @@ function getFirstValue(
     return null;
 
 }
-
 
 
 function getNumber(
@@ -4137,7 +4917,6 @@ function getNumber(
 }
 
 
-
 function getPaletteNumber(
     row
 ){
@@ -4175,16 +4954,9 @@ function getPaletteNumber(
     }
 
 
-    /*
-     * Si ligne stock présente mais
-     * aucune colonne palettes,
-     * considérer 1 palette.
-     */
-
     return 1;
 
 }
-
 
 
 function rowContains(
@@ -4226,7 +4998,6 @@ function rowContains(
     return false;
 
 }
-
 
 
 function uniqueValues(
@@ -4285,7 +5056,6 @@ function uniqueValues(
 }
 
 
-
 function normalize(
     value
 ){
@@ -4306,6 +5076,43 @@ function normalize(
 }
 
 
+function cleanValue(
+    value
+){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(
+        value
+    ).trim();
+
+}
+
+
+function localeSort(
+    a,
+    b
+){
+
+    return String(a).localeCompare(
+        String(b),
+        "fr",
+        {
+            sensitivity:"base",
+            numeric:true
+        }
+    );
+
+}
+
 
 function formatNumber(
     value
@@ -4323,7 +5130,6 @@ function formatNumber(
 }
 
 
-
 function formatKg(
     value
 ){
@@ -4339,7 +5145,6 @@ function formatKg(
     );
 
 }
-
 
 
 function setText(
@@ -4361,7 +5166,6 @@ function setText(
     }
 
 }
-
 
 
 function escapeHtml(
@@ -4395,7 +5199,6 @@ function escapeHtml(
 }
 
 
-
 function getError(
     error
 ){
@@ -4408,7 +5211,6 @@ function getError(
     );
 
 }
-
 
 
 /* =========================================================
@@ -4478,4 +5280,5 @@ function showToast(
 </script>
 
 </body>
+
 </html>
