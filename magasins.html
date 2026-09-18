@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 
     <meta charset="UTF-8">
@@ -232,6 +233,24 @@
             background: #dc2626;
 
             color: white;
+        }
+
+
+        /* =====================================================
+           BOUTON EMPLACEMENTS
+        ====================================================== */
+
+        .btn-emplacements {
+
+            background: #145a1f;
+
+            color: #ffffff;
+        }
+
+
+        .btn-emplacements:hover {
+
+            background: #0d4316;
         }
 
 
@@ -474,7 +493,7 @@
 
             border-collapse: collapse;
 
-            min-width: 1050px;
+            min-width: 1120px;
         }
 
 
@@ -599,8 +618,23 @@
             display: flex;
 
             gap: 5px;
+
+            align-items: center;
         }
 
+
+        /* =====================================================
+           TOOLTIP
+        ====================================================== */
+
+        [title] {
+            position: relative;
+        }
+
+
+        /* =====================================================
+           EMPTY / LOADING
+        ====================================================== */
 
         .empty {
 
@@ -846,6 +880,7 @@
                 grid-template-columns:
                     1fr 1fr;
             }
+
         }
 
 
@@ -887,6 +922,7 @@
 
                 grid-column: auto;
             }
+
         }
 
     </style>
@@ -906,7 +942,9 @@
 
     <div class="page-header">
 
+
         <div class="page-title">
+
 
             <div class="page-title-icon">
 
@@ -927,6 +965,7 @@
 
             </div>
 
+
         </div>
 
 
@@ -934,7 +973,6 @@
             type="button"
             class="btn btn-primary"
             id="btnNew"
-            onclick="openCreateModal()"
         >
 
             <i class="fa-solid fa-plus"></i>
@@ -943,7 +981,9 @@
 
         </button>
 
+
     </div>
+
 
 
     <!-- =====================================================
@@ -1067,11 +1107,13 @@
     </div>
 
 
+
     <!-- =====================================================
          FILTERS
     ====================================================== -->
 
     <div class="filters-card">
+
 
         <div class="filters">
 
@@ -1154,6 +1196,7 @@
     </div>
 
 
+
     <!-- =====================================================
          TABLE
     ====================================================== -->
@@ -1162,6 +1205,7 @@
 
 
         <div class="table-header">
+
 
             <h2>
 
@@ -1184,15 +1228,19 @@
 
             </button>
 
+
         </div>
 
 
 
         <div class="table-wrapper">
 
+
             <table>
 
+
                 <thead>
+
 
                     <tr>
 
@@ -1238,10 +1286,13 @@
 
                     </tr>
 
+
                 </thead>
 
 
+
                 <tbody id="tableBody">
+
 
                     <tr>
 
@@ -1261,11 +1312,15 @@
 
                     </tr>
 
+
                 </tbody>
+
 
             </table>
 
+
         </div>
+
 
     </div>
 
@@ -1275,7 +1330,7 @@
 
 
 <!-- =====================================================
-     MODAL
+     MODAL MAGASIN
 ====================================================== -->
 
 <div
@@ -1288,6 +1343,7 @@
 
 
         <div class="modal-header">
+
 
             <h2 id="modalTitle">
                 Nouveau magasin
@@ -1303,6 +1359,7 @@
                 <i class="fa-solid fa-xmark"></i>
 
             </button>
+
 
         </div>
 
@@ -1343,6 +1400,7 @@
                     </div>
 
 
+
                     <!-- NOM -->
 
                     <div class="form-group">
@@ -1361,6 +1419,7 @@
                         >
 
                     </div>
+
 
 
                     <!-- DIVISION -->
@@ -1382,6 +1441,7 @@
                     </div>
 
 
+
                     <!-- TYPE -->
 
                     <div class="form-group">
@@ -1394,10 +1454,11 @@
                             type="text"
                             id="type"
                             maxlength="100"
-                            placeholder="Ex : Chambre"
+                            placeholder="Ex : Produit fini"
                         >
 
                     </div>
+
 
 
                     <!-- MAX PALETTES -->
@@ -1419,6 +1480,7 @@
                     </div>
 
 
+
                     <!-- MAX TONNAGE -->
 
                     <div class="form-group">
@@ -1436,6 +1498,7 @@
                         >
 
                     </div>
+
 
 
                     <!-- EMPLACEMENTS -->
@@ -1461,6 +1524,7 @@
                     </div>
 
 
+
                     <!-- STATUS -->
 
                     <div class="form-group">
@@ -1484,6 +1548,7 @@
                     </div>
 
 
+
                     <!-- DESCRIPTION -->
 
                     <div class="form-group full">
@@ -1503,11 +1568,13 @@
 
                 </div>
 
+
             </div>
 
 
 
             <div class="modal-footer">
+
 
                 <button
                     type="button"
@@ -1530,6 +1597,7 @@
 
                 </button>
 
+
             </div>
 
 
@@ -1537,6 +1605,7 @@
 
 
     </div>
+
 
 </div>
 
@@ -1554,8 +1623,7 @@
 
 
 <!-- =====================================================
-     IMPORTANT
-     SUPABASE JS V2 AVANT api/supabase.js
+     SUPABASE
 ====================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1565,7 +1633,7 @@
 
 
 <!-- =====================================================
-     PAGE JAVASCRIPT
+     JAVASCRIPT
 ====================================================== -->
 
 <script>
@@ -1589,7 +1657,7 @@ let currentUser = null;
 
 
 /* =========================================================
-   DOM READY
+   INIT
 ========================================================= */
 
 document.addEventListener(
@@ -1599,15 +1667,16 @@ document.addEventListener(
 
 
 /* =========================================================
-   INIT
+   INIT PAGE
 ========================================================= */
 
 async function initPage() {
 
     try {
 
+
         /* -----------------------------------------------
-           Vérifier Supabase JS
+           Vérifier Supabase
         ------------------------------------------------ */
 
         if (
@@ -1623,7 +1692,7 @@ async function initPage() {
 
 
         /* -----------------------------------------------
-           Vérifier client SMTG
+           Client SMTG
         ------------------------------------------------ */
 
         db =
@@ -1655,14 +1724,14 @@ async function initPage() {
 
 
         /* -----------------------------------------------
-           Load divisions
+           Divisions
         ------------------------------------------------ */
 
         await loadDivisions();
 
 
         /* -----------------------------------------------
-           Load magasins
+           Magasins
         ------------------------------------------------ */
 
         await loadMagasins();
@@ -1701,7 +1770,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("searchInput")
+        .getElementById(
+            "searchInput"
+        )
         .addEventListener(
             "input",
             applyFilters
@@ -1709,7 +1780,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("divisionFilter")
+        .getElementById(
+            "divisionFilter"
+        )
         .addEventListener(
             "change",
             applyFilters
@@ -1717,7 +1790,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("statusFilter")
+        .getElementById(
+            "statusFilter"
+        )
         .addEventListener(
             "change",
             applyFilters
@@ -1725,7 +1800,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("btnReset")
+        .getElementById(
+            "btnReset"
+        )
         .addEventListener(
             "click",
             resetFilters
@@ -1733,7 +1810,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("btnRefresh")
+        .getElementById(
+            "btnRefresh"
+        )
         .addEventListener(
             "click",
             async function () {
@@ -1747,7 +1826,19 @@ function setupEvents() {
 
 
     document
-        .getElementById("btnCloseModal")
+        .getElementById(
+            "btnNew"
+        )
+        .addEventListener(
+            "click",
+            openCreateModal
+        );
+
+
+    document
+        .getElementById(
+            "btnCloseModal"
+        )
         .addEventListener(
             "click",
             closeModal
@@ -1755,7 +1846,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("btnCancel")
+        .getElementById(
+            "btnCancel"
+        )
         .addEventListener(
             "click",
             closeModal
@@ -1763,7 +1856,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("magasinForm")
+        .getElementById(
+            "magasinForm"
+        )
         .addEventListener(
             "submit",
             saveMagasin
@@ -1771,7 +1866,9 @@ function setupEvents() {
 
 
     document
-        .getElementById("modalOverlay")
+        .getElementById(
+            "modalOverlay"
+        )
         .addEventListener(
             "click",
             function (event) {
@@ -1816,6 +1913,7 @@ function getCurrentUser() {
 
     try {
 
+
         if (
             window.SMTG &&
             typeof window.SMTG.getCurrentUser ===
@@ -1824,6 +1922,7 @@ function getCurrentUser() {
 
             const user =
                 window.SMTG.getCurrentUser();
+
 
             if (user) {
 
@@ -1895,7 +1994,7 @@ function getCurrentUser() {
 
 
 /* =========================================================
-   CURRENT USER ID
+   USER ID
 ========================================================= */
 
 function getCurrentUserId() {
@@ -1918,10 +2017,6 @@ function getCurrentUserId() {
     }
 
 
-    /*
-     * Fallback technique SYSTEM.
-     */
-
     return 1;
 
 }
@@ -1932,15 +2027,6 @@ function getCurrentUserId() {
 ========================================================= */
 
 async function loadDivisions() {
-
-    if (!db) {
-
-        throw new Error(
-            "Client Supabase indisponible."
-        );
-
-    }
-
 
     const {
         data,
@@ -1983,7 +2069,7 @@ async function loadDivisions() {
 
 
 /* =========================================================
-   FILL DIVISION SELECTS
+   FILL DIVISIONS
 ========================================================= */
 
 function fillDivisionSelects() {
@@ -2000,24 +2086,21 @@ function fillDivisionSelects() {
         );
 
 
-    if (!filter || !select) {
-
-        return;
-
-    }
-
-
     filter.innerHTML = `
+
         <option value="">
             Toutes les divisions
         </option>
+
     `;
 
 
     select.innerHTML = `
+
         <option value="">
             -- Aucune division --
         </option>
+
     `;
 
 
@@ -2028,10 +2111,6 @@ function fillDivisionSelects() {
             const label =
                 `${division.code} - ${division.name}`;
 
-
-            /* -------------------------------------------
-               FILTER
-            ------------------------------------------- */
 
             if (
                 division.is_active
@@ -2057,10 +2136,6 @@ function fillDivisionSelects() {
 
             }
 
-
-            /* -------------------------------------------
-               FORM
-            ------------------------------------------- */
 
             const option =
                 document.createElement(
@@ -2092,19 +2167,11 @@ function fillDivisionSelects() {
 
 async function loadMagasins() {
 
-    if (!db) {
-
-        throw new Error(
-            "Client Supabase indisponible."
-        );
-
-    }
-
-
     showTableLoading();
 
 
     try {
+
 
         const {
             data,
@@ -2148,8 +2215,8 @@ async function loadMagasins() {
 
         updateStats();
 
-
         applyFilters();
+
 
     }
     catch (error) {
@@ -2176,7 +2243,7 @@ async function loadMagasins() {
 
 
 /* =========================================================
-   APPLY FILTERS
+   FILTERS
 ========================================================= */
 
 function applyFilters() {
@@ -2185,7 +2252,8 @@ function applyFilters() {
         (
             document.getElementById(
                 "searchInput"
-            ).value || ""
+            ).value ||
+            ""
         )
         .trim()
         .toLowerCase();
@@ -2225,6 +2293,7 @@ function applyFilters() {
                 --------------------------------------- */
 
                 if (search) {
+
 
                     const division =
                         getDivision(
@@ -2320,7 +2389,7 @@ function applyFilters() {
 
 
 /* =========================================================
-   RESET
+   RESET FILTERS
 ========================================================= */
 
 function resetFilters() {
@@ -2392,13 +2461,6 @@ function renderTable() {
         );
 
 
-    if (!tbody) {
-
-        return;
-
-    }
-
-
     if (
         filteredMagasins.length ===
         0
@@ -2463,15 +2525,53 @@ function renderTable() {
                         : "fa-xmark";
 
 
+                /*
+                 * Bouton Emplacements
+                 *
+                 * Il apparaît seulement si
+                 * has_emplacements = true
+                 */
+
+                const emplacementButton =
+                    magasin.has_emplacements
+
+                    ?
+
+                    `
+
+                        <button
+                            type="button"
+                            class="btn btn-emplacements btn-sm"
+                            onclick="openEmplacements(${Number(magasin.id)})"
+                            title="Gérer les emplacements"
+                        >
+
+                            <i
+                                class="fa-solid fa-location-dot"
+                            ></i>
+
+                        </button>
+
+                    `
+
+                    :
+
+                    "";
+
+
                 return `
 
                     <tr>
 
+
                         <td>
+
                             ${escapeHtml(
                                 magasin.id
                             )}
+
                         </td>
+
 
 
                         <td>
@@ -2488,6 +2588,7 @@ function renderTable() {
                         </td>
 
 
+
                         <td>
 
                             ${escapeHtml(
@@ -2498,7 +2599,9 @@ function renderTable() {
                         </td>
 
 
+
                         <td>
+
 
                             ${
                                 division
@@ -2536,13 +2639,17 @@ function renderTable() {
                                     <span
                                         class="no-division"
                                     >
+
                                         Non affecté
+
                                     </span>
 
                                 `
                             }
 
+
                         </td>
+
 
 
                         <td>
@@ -2555,15 +2662,51 @@ function renderTable() {
                         </td>
 
 
+
                         <td>
 
                             ${
                                 magasin.has_emplacements
-                                    ? "Oui"
-                                    : "Non"
+
+                                ?
+
+                                `
+
+                                    <span
+                                        class="status active"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-check"
+                                        ></i>
+
+                                        Oui
+
+                                    </span>
+
+                                `
+
+                                :
+
+                                `
+
+                                    <span
+                                        class="status inactive"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-xmark"
+                                        ></i>
+
+                                        Non
+
+                                    </span>
+
+                                `
                             }
 
                         </td>
+
 
 
                         <td>
@@ -2575,6 +2718,7 @@ function renderTable() {
                         </td>
 
 
+
                         <td>
 
                             ${formatKg(
@@ -2582,6 +2726,7 @@ function renderTable() {
                             )}
 
                         </td>
+
 
 
                         <td>
@@ -2604,10 +2749,13 @@ function renderTable() {
                         </td>
 
 
+
                         <td>
 
                             <div class="actions">
 
+
+                                <!-- EDIT -->
 
                                 <button
                                     type="button"
@@ -2623,6 +2771,9 @@ function renderTable() {
                                 </button>
 
 
+
+                                <!-- DELETE -->
+
                                 <button
                                     type="button"
                                     class="btn btn-danger btn-sm"
@@ -2637,9 +2788,16 @@ function renderTable() {
                                 </button>
 
 
+
+                                <!-- EMPLACEMENTS -->
+
+                                ${emplacementButton}
+
+
                             </div>
 
                         </td>
+
 
                     </tr>
 
@@ -2648,6 +2806,78 @@ function renderTable() {
             }
         )
         .join("");
+
+}
+
+
+/* =========================================================
+   OPEN EMPLACEMENTS
+========================================================= */
+
+function openEmplacements(
+    magasinId
+) {
+
+    const magasin =
+        allMagasins.find(
+            function (item) {
+
+                return Number(
+                    item.id
+                ) === Number(
+                    magasinId
+                );
+
+            }
+        );
+
+
+    if (!magasin) {
+
+        showToast(
+            "Magasin introuvable.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Sécurité supplémentaire :
+     * seulement les magasins ayant
+     * has_emplacements = true
+     */
+
+    if (
+        !magasin.has_emplacements
+    ) {
+
+        showToast(
+            "Ce magasin n'utilise pas les emplacements.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * On transmet le magasin à
+     * emplacements.html
+     */
+
+    const url =
+        "emplacements.html?magasin_id=" +
+        encodeURIComponent(
+            magasin.id
+        );
+
+
+    window.location.href =
+        url;
 
 }
 
@@ -2664,9 +2894,9 @@ function updateStats() {
 
     const active =
         allMagasins.filter(
-            function (m) {
+            function (magasin) {
 
-                return m.is_active;
+                return magasin.is_active;
 
             }
         ).length;
@@ -2674,9 +2904,9 @@ function updateStats() {
 
     const inactive =
         allMagasins.filter(
-            function (m) {
+            function (magasin) {
 
-                return !m.is_active;
+                return !magasin.is_active;
 
             }
         ).length;
@@ -2684,26 +2914,28 @@ function updateStats() {
 
     const divisions =
         new Set(
-            allMagasins
-                .map(
-                    function (m) {
 
-                        return m.division_id;
+            allMagasins
+
+                .map(
+                    function (magasin) {
+
+                        return magasin.division_id;
 
                     }
                 )
+
                 .filter(
                     function (id) {
 
                         return (
-                            id !==
-                            null &&
-                            id !==
-                            undefined
+                            id !== null &&
+                            id !== undefined
                         );
 
                     }
                 )
+
         ).size;
 
 
@@ -2734,18 +2966,14 @@ function updateStats() {
 
 
 /* =========================================================
-   OPEN CREATE
+   CREATE MODAL
 ========================================================= */
 
 function openCreateModal() {
 
-    const form =
-        document.getElementById(
-            "magasinForm"
-        );
-
-
-    form.reset();
+    document.getElementById(
+        "magasinForm"
+    ).reset();
 
 
     document.getElementById(
@@ -2812,7 +3040,7 @@ function openCreateModal() {
 
 
 /* =========================================================
-   OPEN EDIT
+   EDIT MODAL
 ========================================================= */
 
 function openEditModal(
@@ -2951,7 +3179,7 @@ function closeModal() {
 
 
 /* =========================================================
-   SAVE
+   SAVE MAGASIN
 ========================================================= */
 
 async function saveMagasin(
@@ -3045,9 +3273,9 @@ async function saveMagasin(
         .trim();
 
 
-    /* -----------------------------------------------
+    /* =====================================================
        VALIDATION
-    ------------------------------------------------ */
+    ====================================================== */
 
     if (!code) {
 
@@ -3211,14 +3439,14 @@ async function saveMagasin(
             }
 
 
-            /* -------------------------------------------
-               ACTIVITY LOG
-            ------------------------------------------- */
-
             await writeCrudLog(
+
                 "UPDATE",
+
                 data.id,
+
                 "Modification du magasin",
+
                 {
 
                     code:
@@ -3228,9 +3456,13 @@ async function saveMagasin(
                         data.name,
 
                     division_id:
-                        data.division_id
+                        data.division_id,
+
+                    has_emplacements:
+                        data.has_emplacements
 
                 }
+
             );
 
 
@@ -3276,14 +3508,14 @@ async function saveMagasin(
             }
 
 
-            /* -------------------------------------------
-               ACTIVITY LOG
-            ------------------------------------------- */
-
             await writeCrudLog(
+
                 "CREATE",
+
                 data.id,
+
                 "Création du magasin",
+
                 {
 
                     code:
@@ -3293,9 +3525,13 @@ async function saveMagasin(
                         data.name,
 
                     division_id:
-                        data.division_id
+                        data.division_id,
+
+                    has_emplacements:
+                        data.has_emplacements
 
                 }
+
             );
 
 
@@ -3335,6 +3571,7 @@ async function saveMagasin(
             );
 
         }
+
         else if (
             error &&
             error.code ===
@@ -3347,6 +3584,7 @@ async function saveMagasin(
             );
 
         }
+
         else {
 
             showToast(
@@ -3428,7 +3666,9 @@ async function deleteMagasin(
 
     const confirmed =
         confirm(
+
             `Voulez-vous vraiment supprimer le magasin "${magasin.code} - ${magasin.name}" ?`
+
         );
 
 
@@ -3461,9 +3701,13 @@ async function deleteMagasin(
 
 
         await writeCrudLog(
+
             "DELETE",
+
             magasin.id,
+
             "Suppression du magasin",
+
             {
 
                 code:
@@ -3476,6 +3720,7 @@ async function deleteMagasin(
                     magasin.division_id
 
             }
+
         );
 
 
@@ -3505,17 +3750,24 @@ async function deleteMagasin(
         ) {
 
             showToast(
+
                 "Impossible de supprimer ce magasin car il est utilisé par d'autres données.",
+
                 "error"
+
             );
 
         }
+
         else {
 
             showToast(
+
                 error?.message ||
                 "Impossible de supprimer le magasin.",
+
                 "error"
+
             );
 
         }
@@ -3530,19 +3782,27 @@ async function deleteMagasin(
 ========================================================= */
 
 async function writeCrudLog(
+
     action,
+
     recordId,
+
     description,
+
     metadata
+
 ) {
 
     try {
 
 
         if (
+
             window.SMTG &&
+
             typeof window.SMTG.logCrudAction ===
             "function"
+
         ) {
 
 
@@ -3566,11 +3826,6 @@ async function writeCrudLog(
 
     }
     catch (error) {
-
-        /*
-         * Le log ne doit pas bloquer
-         * l'opération principale.
-         */
 
         console.warn(
             "CRUD LOG:",
@@ -3657,10 +3912,12 @@ function showTableError(
                     </div>
 
                     <small>
+
                         ${escapeHtml(
                             message ||
                             ""
                         )}
+
                     </small>
 
                 </div>
@@ -3786,8 +4043,11 @@ function escapeHtml(
 ========================================================= */
 
 function showToast(
+
     message,
+
     type = "success"
+
 ) {
 
     const container =
@@ -3839,9 +4099,11 @@ function showToast(
         ></i>
 
         <span>
+
             ${escapeHtml(
                 message
             )}
+
         </span>
 
     `;
@@ -3867,4 +4129,5 @@ function showToast(
 
 
 </body>
+
 </html>
