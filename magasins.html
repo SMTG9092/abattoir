@@ -5,27 +5,14 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Magasins - SMTG</title>
-
-
-    <!-- =====================================================
-         FONT AWESOME
-    ====================================================== -->
 
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
-
-
-    <!-- =====================================================
-         STYLE
-    ====================================================== -->
 
     <style>
 
@@ -33,894 +20,763 @@
             box-sizing: border-box;
         }
 
-
         body {
-
             margin: 0;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background: #f4f6f8;
-
             color: #1f2937;
         }
 
-
-        /* =====================================================
-           PAGE
-        ====================================================== */
-
         .page-container {
-
             width: 100%;
-
             max-width: 1600px;
-
             margin: 0 auto;
-
             padding: 20px;
         }
 
-
-        /* =====================================================
-           HEADER
-        ====================================================== */
+        /* ================= HEADER ================= */
 
         .page-header {
-
             background: #ffffff;
-
             border-radius: 14px;
-
             padding: 16px 20px;
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             gap: 15px;
-
             margin-bottom: 15px;
-
-            box-shadow:
-                0 2px 10px
-                rgba(0,0,0,.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
         }
 
-
         .page-title {
-
             display: flex;
-
             align-items: center;
-
             gap: 12px;
         }
 
-
         .page-title-icon {
-
             width: 44px;
-
             height: 44px;
-
             border-radius: 10px;
-
             background: #145a1f;
-
             color: white;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             font-size: 19px;
         }
 
-
         .page-title h1 {
-
             margin: 0;
-
             font-size: 20px;
-
             color: #1f2937;
         }
 
-
         .page-title p {
-
             margin: 3px 0 0;
-
             font-size: 11px;
-
             color: #7b8490;
         }
 
-
-        /* =====================================================
-           BUTTONS
-        ====================================================== */
+        /* ================= BUTTONS ================= */
 
         .btn {
-
             border: none;
-
             border-radius: 8px;
-
             padding: 9px 13px;
-
             cursor: pointer;
-
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 7px;
-
             font-size: 12px;
-
             font-weight: 600;
-
             transition: .2s;
         }
 
-
         .btn:hover {
-
-            transform:
-                translateY(-1px);
+            transform: translateY(-1px);
         }
 
-
         .btn:disabled {
-
             opacity: .55;
-
             cursor: not-allowed;
-
             transform: none;
         }
 
-
         .btn-primary {
-
             background: #145a1f;
-
             color: white;
         }
 
-
         .btn-primary:hover {
-
             background: #0d4316;
         }
 
-
         .btn-secondary {
-
             background: #eef1f4;
-
             color: #374151;
         }
 
-
         .btn-secondary:hover {
-
             background: #e2e6ea;
         }
 
-
         .btn-warning {
-
             background: #f59e0b;
-
             color: white;
         }
-
 
         .btn-danger {
-
             background: #dc2626;
-
             color: white;
         }
 
-
-        /* =====================================================
-           BOUTON EMPLACEMENTS
-        ====================================================== */
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
 
         .btn-emplacements {
-
             background: #145a1f;
-
             color: #ffffff;
         }
 
-
         .btn-emplacements:hover {
-
             background: #0d4316;
         }
 
-
         .btn-sm {
-
             padding: 6px 9px;
-
             font-size: 11px;
         }
 
-
-        /* =====================================================
-           STATS
-        ====================================================== */
+        /* ================= STATS ================= */
 
         .stats-grid {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
+            grid-template-columns: repeat(4, 1fr);
             gap: 12px;
-
             margin-bottom: 15px;
         }
 
-
         .stat-card {
-
             background: white;
-
             border-radius: 11px;
-
             padding: 13px;
-
             display: flex;
-
             align-items: center;
-
             gap: 11px;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
         }
 
-
         .stat-icon {
-
             width: 38px;
-
             height: 38px;
-
             border-radius: 9px;
-
             background: #eaf5ec;
-
             color: #145a1f;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             font-size: 15px;
         }
 
-
         .stat-value {
-
             font-size: 18px;
-
             font-weight: 700;
-
             line-height: 1;
         }
 
-
         .stat-label {
-
             margin-top: 4px;
-
             font-size: 9px;
-
             color: #7b8490;
         }
 
-
-        /* =====================================================
-           FILTERS
-        ====================================================== */
+        /* ================= FILTERS ================= */
 
         .filters-card {
-
             background: white;
-
             border-radius: 11px;
-
             padding: 13px;
-
             margin-bottom: 15px;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
         }
 
-
         .filters {
-
             display: grid;
-
-            grid-template-columns:
-                2fr
-                1fr
-                1fr
-                auto;
-
+            grid-template-columns: 2fr 1fr 1fr auto;
             gap: 10px;
-
             align-items: end;
         }
 
-
         .form-group {
-
             display: flex;
-
             flex-direction: column;
-
             gap: 5px;
         }
 
-
         .form-group label {
-
             font-size: 10px;
-
             font-weight: 700;
-
             color: #374151;
         }
-
 
         input,
         select,
         textarea {
-
             width: 100%;
-
-            border:
-                1px solid #d1d5db;
-
+            border: 1px solid #d1d5db;
             border-radius: 7px;
-
             padding: 9px 10px;
-
             background: white;
-
             outline: none;
-
             font-family: inherit;
-
             font-size: 12px;
         }
-
 
         input:focus,
         select:focus,
         textarea:focus {
-
             border-color: #145a1f;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(20,90,31,.08);
+            box-shadow: 0 0 0 3px rgba(20,90,31,.08);
         }
 
-
         textarea {
-
             resize: vertical;
         }
 
-
-        /* =====================================================
-           TABLE
-        ====================================================== */
+        /* ================= TABLE ================= */
 
         .table-card {
-
             background: white;
-
             border-radius: 11px;
-
             overflow: hidden;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
         }
 
-
         .table-header {
-
             padding: 12px 14px;
-
-            border-bottom:
-                1px solid #e5e7eb;
-
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
         }
 
-
         .table-header h2 {
-
             margin: 0;
-
             font-size: 13px;
-
             color: #374151;
         }
 
-
         .table-wrapper {
-
             overflow-x: auto;
         }
 
-
         table {
-
             width: 100%;
-
             border-collapse: collapse;
-
             min-width: 1120px;
         }
 
-
         th {
-
             padding: 10px;
-
             background: #f8faf9;
-
-            border-bottom:
-                1px solid #e5e7eb;
-
+            border-bottom: 1px solid #e5e7eb;
             text-align: left;
-
             white-space: nowrap;
-
             font-size: 9px;
-
             color: #4b5563;
-
             text-transform: uppercase;
         }
 
-
         td {
-
             padding: 10px;
-
-            border-bottom:
-                1px solid #edf0f2;
-
+            border-bottom: 1px solid #edf0f2;
             font-size: 11px;
-
             vertical-align: middle;
         }
 
-
         tr:hover td {
-
             background: #fafdfb;
         }
 
-
         .code {
-
             color: #145a1f;
-
             font-weight: 700;
         }
 
-
         .division-badge {
-
             display: inline-flex;
-
             align-items: center;
-
             gap: 5px;
-
             padding: 4px 7px;
-
             border-radius: 6px;
-
             background: #edf7ef;
-
             color: #145a1f;
-
             font-weight: 700;
-
             font-size: 9px;
-
             white-space: nowrap;
         }
 
-
         .no-division {
-
             color: #9ca3af;
-
             font-size: 10px;
-
             font-style: italic;
         }
 
-
         .status {
-
             display: inline-flex;
-
             align-items: center;
-
             gap: 5px;
-
             padding: 4px 8px;
-
             border-radius: 20px;
-
             font-size: 9px;
-
             font-weight: 700;
         }
 
-
         .status.active {
-
             background: #dcfce7;
-
             color: #166534;
         }
 
-
         .status.inactive {
-
             background: #fee2e2;
-
             color: #991b1b;
         }
 
-
         .actions {
-
             display: flex;
-
             gap: 5px;
-
             align-items: center;
         }
 
-
-        /* =====================================================
-           TOOLTIP
-        ====================================================== */
-
-        [title] {
-            position: relative;
-        }
-
-
-        /* =====================================================
-           EMPTY / LOADING
-        ====================================================== */
-
         .empty {
-
             text-align: center;
-
             padding: 40px 20px;
-
             color: #9ca3af;
         }
 
-
         .empty i {
-
             font-size: 30px;
-
             margin-bottom: 8px;
         }
 
-
         .loading {
-
             text-align: center;
-
             padding: 35px;
-
             color: #6b7280;
-
             font-size: 12px;
         }
 
-
         /* =====================================================
-           MODAL
+           MODAL MAGASIN
         ====================================================== */
 
         .modal-overlay {
-
             position: fixed;
-
             inset: 0;
-
-            background:
-                rgba(0,0,0,.45);
-
+            background: rgba(0,0,0,.45);
             display: none;
-
             align-items: center;
-
             justify-content: center;
-
             padding: 20px;
-
             z-index: 9999;
         }
 
-
         .modal-overlay.show {
-
             display: flex;
         }
-
 
         .modal {
-
             width: 100%;
-
             max-width: 650px;
-
             background: white;
-
             border-radius: 14px;
-
             overflow: hidden;
-
-            box-shadow:
-                0 20px 60px
-                rgba(0,0,0,.25);
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
         }
 
-
         .modal-header {
-
             padding: 15px 19px;
-
-            border-bottom:
-                1px solid #e5e7eb;
-
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
         }
 
-
         .modal-header h2 {
-
             margin: 0;
-
             font-size: 16px;
         }
 
-
         .modal-close {
-
             width: 32px;
-
             height: 32px;
-
             border: none;
-
             border-radius: 7px;
-
             background: #f3f4f6;
-
             cursor: pointer;
         }
 
-
         .modal-body {
-
             padding: 19px;
         }
 
-
         .form-grid {
-
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
-
         .full {
-
-            grid-column:
-                1 / -1;
+            grid-column: 1 / -1;
         }
-
 
         .modal-footer {
-
             padding: 13px 19px;
-
-            border-top:
-                1px solid #e5e7eb;
-
+            border-top: 1px solid #e5e7eb;
             display: flex;
-
             justify-content: flex-end;
-
             gap: 8px;
         }
-
 
         /* =====================================================
-           TOAST
+           MODAL EMPLACEMENTS
         ====================================================== */
 
-        .toast-container {
-
-            position: fixed;
-
-            top: 18px;
-
-            right: 18px;
-
-            z-index: 20000;
-
+        .modal-emplacements {
+            max-width: 1050px;
+            max-height: 92vh;
             display: flex;
-
             flex-direction: column;
+        }
 
+        .emplacement-header-info {
+            background: #edf7ef;
+            border: 1px solid #d5ead8;
+            border-radius: 9px;
+            padding: 9px 12px;
+            margin-bottom: 14px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .info-label {
+            font-size: 8px;
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .info-value {
+            color: #145a1f;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .generator-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: #374151;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .generator-title i {
+            color: #145a1f;
+        }
+
+        .generator-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .range-box {
+            background: #fafbfb;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            padding: 10px;
+        }
+
+        .range-box-title {
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: #374151;
+        }
+
+        .range-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .range-field label {
+            display: block;
+            font-size: 8px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .range-field select {
+            padding: 8px;
+        }
+
+        .generator-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 11px;
+            flex-wrap: wrap;
+        }
+
+        .generator-hint {
+            font-size: 9px;
+            color: #6b7280;
+        }
+
+        .generator-hint strong {
+            color: #145a1f;
+        }
+
+        /* ================= PREVIEW ================= */
+
+        .preview-section {
+            margin-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 13px;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 9px;
+        }
+
+        .preview-header-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .preview-count {
+            background: #edf7ef;
+            color: #145a1f;
+            border-radius: 20px;
+            padding: 4px 8px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            max-height: 245px;
+            overflow-y: auto;
+            padding: 2px;
+        }
+
+        .preview-item {
+            padding: 7px 4px;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+        .preview-item.existing {
+            background: #fff7ed;
+            border-color: #fed7aa;
+            color: #9a3412;
+        }
+
+        .preview-empty {
+            padding: 25px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 10px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        .preview-summary {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .summary-badge {
+            padding: 4px 7px;
+            border-radius: 5px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .summary-total {
+            background: #eef2ff;
+            color: #3730a3;
+        }
+
+        .summary-new {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .summary-existing {
+            background: #ffedd5;
+            color: #9a3412;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-container {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .progress-container.show {
+            display: block;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-value {
+            height: 100%;
+            width: 0%;
+            background: #145a1f;
+            transition: width .2s;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast-container {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
 
-
         .toast {
-
             min-width: 260px;
-
-            max-width: 400px;
-
+            max-width: 430px;
             background: white;
-
             padding: 11px 13px;
-
             border-radius: 8px;
-
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,.15);
-
+            box-shadow: 0 8px 25px rgba(0,0,0,.15);
             display: flex;
-
             align-items: center;
-
             gap: 9px;
-
             font-size: 12px;
         }
 
-
         .toast.success {
-
-            border-left:
-                4px solid #16a34a;
+            border-left: 4px solid #16a34a;
         }
-
 
         .toast.error {
-
-            border-left:
-                4px solid #dc2626;
+            border-left: 4px solid #dc2626;
         }
-
 
         .toast.warning {
-
-            border-left:
-                4px solid #f59e0b;
+            border-left: 4px solid #f59e0b;
         }
 
+        /* ================= RESPONSIVE ================= */
 
-        /* =====================================================
-           RESPONSIVE
-        ====================================================== */
+        @media (max-width: 1100px) {
 
-        @media (max-width: 1000px) {
+            .generator-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .preview-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+        }
+
+        @media (max-width: 900px) {
 
             .stats-grid {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
-
             .filters {
-
-                grid-template-columns:
-                    1fr 1fr;
+                grid-template-columns: 1fr 1fr;
             }
 
         }
-
 
         @media (max-width: 650px) {
 
             .page-container {
-
                 padding: 10px;
             }
 
-
             .page-header {
-
                 flex-direction: column;
-
                 align-items: flex-start;
             }
 
-
             .stats-grid {
-
                 grid-template-columns: 1fr;
             }
-
 
             .filters {
-
                 grid-template-columns: 1fr;
             }
-
 
             .form-grid {
-
                 grid-template-columns: 1fr;
             }
 
-
             .full {
-
                 grid-column: auto;
+            }
+
+            .generator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
 
         }
@@ -942,29 +798,21 @@
 
     <div class="page-header">
 
-
         <div class="page-title">
 
-
             <div class="page-title-icon">
-
                 <i class="fa-solid fa-warehouse"></i>
-
             </div>
-
 
             <div>
 
-                <h1>
-                    Magasins
-                </h1>
+                <h1>Magasins</h1>
 
                 <p>
                     Gestion des magasins par division
                 </p>
 
             </div>
-
 
         </div>
 
@@ -981,9 +829,7 @@
 
         </button>
 
-
     </div>
-
 
 
     <!-- =====================================================
@@ -992,15 +838,11 @@
 
     <div class="stats-grid">
 
-
         <div class="stat-card">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-warehouse"></i>
-
             </div>
-
 
             <div>
 
@@ -1020,15 +862,11 @@
         </div>
 
 
-
         <div class="stat-card">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-circle-check"></i>
-
             </div>
-
 
             <div>
 
@@ -1048,15 +886,11 @@
         </div>
 
 
-
         <div class="stat-card">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-circle-xmark"></i>
-
             </div>
-
 
             <div>
 
@@ -1076,15 +910,11 @@
         </div>
 
 
-
         <div class="stat-card">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-code-branch"></i>
-
             </div>
-
 
             <div>
 
@@ -1103,9 +933,7 @@
 
         </div>
 
-
     </div>
-
 
 
     <!-- =====================================================
@@ -1114,9 +942,7 @@
 
     <div class="filters-card">
 
-
         <div class="filters">
-
 
             <div class="form-group">
 
@@ -1131,7 +957,6 @@
                 >
 
             </div>
-
 
 
             <div class="form-group">
@@ -1149,7 +974,6 @@
                 </select>
 
             </div>
-
 
 
             <div class="form-group">
@@ -1177,7 +1001,6 @@
             </div>
 
 
-
             <button
                 type="button"
                 class="btn btn-secondary"
@@ -1190,11 +1013,9 @@
 
             </button>
 
-
         </div>
 
     </div>
-
 
 
     <!-- =====================================================
@@ -1203,13 +1024,14 @@
 
     <div class="table-card">
 
-
         <div class="table-header">
-
 
             <h2>
 
-                <i class="fa-solid fa-list"></i>
+                <i
+                    class="fa-solid fa-list"
+                    style="color:#145a1f;margin-right:6px;"
+                ></i>
 
                 Liste des magasins
 
@@ -1228,71 +1050,43 @@
 
             </button>
 
-
         </div>
-
 
 
         <div class="table-wrapper">
 
-
             <table>
-
 
                 <thead>
 
-
                     <tr>
 
-                        <th>
-                            ID
-                        </th>
+                        <th>ID</th>
 
-                        <th>
-                            Code
-                        </th>
+                        <th>Code</th>
 
-                        <th>
-                            Nom
-                        </th>
+                        <th>Nom</th>
 
-                        <th>
-                            Division
-                        </th>
+                        <th>Division</th>
 
-                        <th>
-                            Type
-                        </th>
+                        <th>Type</th>
 
-                        <th>
-                            Emplacements
-                        </th>
+                        <th>Emplacements</th>
 
-                        <th>
-                            Max palettes
-                        </th>
+                        <th>Max palettes</th>
 
-                        <th>
-                            Max tonnage KG
-                        </th>
+                        <th>Max tonnage KG</th>
 
-                        <th>
-                            Statut
-                        </th>
+                        <th>Statut</th>
 
-                        <th>
-                            Actions
-                        </th>
+                        <th>Actions</th>
 
                     </tr>
-
 
                 </thead>
 
 
-
                 <tbody id="tableBody">
-
 
                     <tr>
 
@@ -1312,21 +1106,15 @@
 
                     </tr>
 
-
                 </tbody>
-
 
             </table>
 
-
         </div>
-
 
     </div>
 
-
 </div>
-
 
 
 <!-- =====================================================
@@ -1338,17 +1126,13 @@
     id="modalOverlay"
 >
 
-
     <div class="modal">
 
-
         <div class="modal-header">
-
 
             <h2 id="modalTitle">
                 Nouveau magasin
             </h2>
-
 
             <button
                 type="button"
@@ -1360,16 +1144,12 @@
 
             </button>
 
-
         </div>
-
 
 
         <form id="magasinForm">
 
-
             <div class="modal-body">
-
 
                 <input
                     type="hidden"
@@ -1379,8 +1159,6 @@
 
                 <div class="form-grid">
 
-
-                    <!-- CODE -->
 
                     <div class="form-group">
 
@@ -1400,9 +1178,6 @@
                     </div>
 
 
-
-                    <!-- NOM -->
-
                     <div class="form-group">
 
                         <label>
@@ -1421,9 +1196,6 @@
                     </div>
 
 
-
-                    <!-- DIVISION -->
-
                     <div class="form-group">
 
                         <label>
@@ -1441,9 +1213,6 @@
                     </div>
 
 
-
-                    <!-- TYPE -->
-
                     <div class="form-group">
 
                         <label>
@@ -1459,9 +1228,6 @@
 
                     </div>
 
-
-
-                    <!-- MAX PALETTES -->
 
                     <div class="form-group">
 
@@ -1480,9 +1246,6 @@
                     </div>
 
 
-
-                    <!-- MAX TONNAGE -->
-
                     <div class="form-group">
 
                         <label>
@@ -1499,9 +1262,6 @@
 
                     </div>
 
-
-
-                    <!-- EMPLACEMENTS -->
 
                     <div class="form-group">
 
@@ -1524,9 +1284,6 @@
                     </div>
 
 
-
-                    <!-- STATUS -->
-
                     <div class="form-group">
 
                         <label>
@@ -1548,9 +1305,6 @@
                     </div>
 
 
-
-                    <!-- DESCRIPTION -->
-
                     <div class="form-group full">
 
                         <label>
@@ -1568,13 +1322,10 @@
 
                 </div>
 
-
             </div>
 
 
-
             <div class="modal-footer">
-
 
                 <button
                     type="button"
@@ -1597,18 +1348,547 @@
 
                 </button>
 
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL EMPLACEMENTS
+====================================================== -->
+
+<div
+    class="modal-overlay"
+    id="emplacementModalOverlay"
+>
+
+    <div class="modal modal-emplacements">
+
+
+        <!-- HEADER -->
+
+        <div class="modal-header">
+
+            <h2>
+
+                <i
+                    class="fa-solid fa-location-dot"
+                    style="color:#145a1f;margin-right:7px;"
+                ></i>
+
+                Création des emplacements
+
+            </h2>
+
+
+            <button
+                type="button"
+                class="modal-close"
+                id="btnCloseEmplacementModal"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- BODY -->
+
+        <div class="modal-body">
+
+            <!-- =========================================
+                 MAGASIN / DIVISION
+            ========================================== -->
+
+            <div class="emplacement-header-info">
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Division
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="emplacementDivision"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Magasin
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="emplacementMagasin"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Emplacements existants
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="existingEmplacementsCount"
+                    >
+                        0
+                    </span>
+
+                </div>
+
 
             </div>
 
 
-        </form>
+            <!-- =========================================
+                 GENERATOR
+            ========================================== -->
+
+            <div class="generator-title">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                Générateur d'emplacements
+
+            </div>
+
+
+            <div class="generator-grid">
+
+
+                <!-- LETTRES -->
+
+                <div class="range-box">
+
+                    <div class="range-box-title">
+
+                        <i
+                            class="fa-solid fa-font"
+                            style="color:#145a1f;margin-right:4px;"
+                        ></i>
+
+                        Lettres
+
+                    </div>
+
+
+                    <div class="range-fields">
+
+
+                        <div class="range-field">
+
+                            <label>
+                                Début
+                            </label>
+
+                            <select id="empLetterStart"></select>
+
+                        </div>
+
+
+                        <div class="range-field">
+
+                            <label>
+                                Fin
+                            </label>
+
+                            <select id="empLetterEnd"></select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- NUMEROS -->
+
+                <div class="range-box">
+
+                    <div class="range-box-title">
+
+                        <i
+                            class="fa-solid fa-arrow-down-1-9"
+                            style="color:#145a1f;margin-right:4px;"
+                        ></i>
+
+                        Numéros
+
+                    </div>
+
+
+                    <div class="range-fields">
+
+
+                        <div class="range-field">
+
+                            <label>
+                                Début
+                            </label>
+
+                            <select id="empNumberStart"></select>
+
+                        </div>
+
+
+                        <div class="range-field">
+
+                            <label>
+                                Fin
+                            </label>
+
+                            <select id="empNumberEnd"></select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ZONES -->
+
+                <div class="range-box">
+
+                    <div class="range-box-title">
+
+                        <i
+                            class="fa-solid fa-layer-group"
+                            style="color:#145a1f;margin-right:4px;"
+                        ></i>
+
+                        Zones
+
+                    </div>
+
+
+                    <div class="range-fields">
+
+
+                        <div class="range-field">
+
+                            <label>
+                                Début
+                            </label>
+
+                            <select id="empZoneStart"></select>
+
+                        </div>
+
+
+                        <div class="range-field">
+
+                            <label>
+                                Fin
+                            </label>
+
+                            <select id="empZoneEnd"></select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- POSITIONS -->
+
+                <div class="range-box">
+
+                    <div class="range-box-title">
+
+                        <i
+                            class="fa-solid fa-list-ol"
+                            style="color:#145a1f;margin-right:4px;"
+                        ></i>
+
+                        Positions
+
+                    </div>
+
+
+                    <div class="range-field">
+
+                        <label>
+                            Nombre
+                        </label>
+
+                        <select id="empPositionCount"></select>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================================
+                 ACTIONS
+            ========================================== -->
+
+            <div class="generator-actions">
+
+
+                <div class="generator-hint">
+
+                    Exemple :
+
+                    <strong>
+                        A-01-00-1
+                    </strong>
+
+                    ...
+
+                    <strong>
+                        R-18-03-3
+                    </strong>
+
+                </div>
+
+
+                <div style="display:flex;gap:7px;">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary btn-sm"
+                        id="btnClearEmpPreview"
+                    >
+
+                        <i class="fa-solid fa-eraser"></i>
+
+                        Effacer
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        id="btnGenerateEmp"
+                    >
+
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                        Générer
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================================
+                 PROGRESS
+            ========================================== -->
+
+            <div
+                class="progress-container"
+                id="empProgressContainer"
+            >
+
+                <div class="progress-info">
+
+                    <span id="empProgressText">
+                        Préparation...
+                    </span>
+
+                    <span id="empProgressPercent">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-value"
+                        id="empProgressValue"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 PREVIEW
+            ========================================== -->
+
+            <div class="preview-section">
+
+
+                <div class="preview-header">
+
+
+                    <div>
+
+                        <span class="preview-header-title">
+
+                            <i
+                                class="fa-solid fa-eye"
+                                style="color:#145a1f;margin-right:5px;"
+                            ></i>
+
+                            Aperçu
+
+                        </span>
+
+
+                        <span
+                            class="preview-count"
+                            id="empPreviewCount"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary btn-sm"
+                        id="btnSelectAllEmp"
+                    >
+
+                        <i class="fa-solid fa-check-double"></i>
+
+                        Tout sélectionner
+
+                    </button>
+
+
+                </div>
+
+
+                <div
+                    class="preview-empty"
+                    id="empPreviewEmpty"
+                >
+
+                    <i
+                        class="fa-solid fa-location-dot"
+                        style="font-size:22px;margin-bottom:6px;"
+                    ></i>
+
+                    <div>
+                        Aucun emplacement généré.
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="preview-grid"
+                    id="empPreviewGrid"
+                    style="display:none;"
+                ></div>
+
+
+                <div
+                    class="preview-summary"
+                    id="empPreviewSummary"
+                    style="display:none;"
+                >
+
+                    <span
+                        class="summary-badge summary-total"
+                        id="empSummaryTotal"
+                    >
+                        Total : 0
+                    </span>
+
+
+                    <span
+                        class="summary-badge summary-new"
+                        id="empSummaryNew"
+                    >
+                        Nouveaux : 0
+                    </span>
+
+
+                    <span
+                        class="summary-badge summary-existing"
+                        id="empSummaryExisting"
+                    >
+                        Déjà existants : 0
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="modal-footer">
+
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCancelEmplacement"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+                Fermer
+
+            </button>
+
+
+            <button
+                type="button"
+                class="btn btn-success"
+                id="btnSaveEmplacements"
+                disabled
+            >
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer les emplacements
+
+            </button>
+
+
+        </div>
 
 
     </div>
 
-
 </div>
-
 
 
 <!-- =====================================================
@@ -1621,7 +1901,6 @@
 ></div>
 
 
-
 <!-- =====================================================
      SUPABASE
 ====================================================== -->
@@ -1630,11 +1909,6 @@
 
 <script src="api/supabase.js"></script>
 
-
-
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
 
 <script>
 
@@ -1657,6 +1931,26 @@ let currentUser = null;
 
 
 /* =========================================================
+   VARIABLES EMPLACEMENTS
+========================================================= */
+
+let currentEmplacementMagasin = null;
+
+let currentEmplacementDivision = null;
+
+let existingEmplacements = [];
+
+let existingEmplacementCodes = new Set();
+
+let generatedEmplacementCodes = [];
+
+let selectedEmplacementCodes = new Set();
+
+
+const EMP_BATCH_SIZE = 500;
+
+
+/* =========================================================
    INIT
 ========================================================= */
 
@@ -1667,33 +1961,13 @@ document.addEventListener(
 
 
 /* =========================================================
-   INIT PAGE
+   INIT
 ========================================================= */
 
 async function initPage() {
 
     try {
 
-
-        /* -----------------------------------------------
-           Vérifier Supabase
-        ------------------------------------------------ */
-
-        if (
-            typeof window.supabase ===
-            "undefined"
-        ) {
-
-            throw new Error(
-                "Supabase JS v2 n'est pas chargé."
-            );
-
-        }
-
-
-        /* -----------------------------------------------
-           Client SMTG
-        ------------------------------------------------ */
 
         db =
             window.smtgSupabase;
@@ -1708,31 +1982,18 @@ async function initPage() {
         }
 
 
-        /* -----------------------------------------------
-           Current user
-        ------------------------------------------------ */
-
         currentUser =
             getCurrentUser();
 
 
-        /* -----------------------------------------------
-           Events
-        ------------------------------------------------ */
+        initializeEmplacementSelects();
+
 
         setupEvents();
 
 
-        /* -----------------------------------------------
-           Divisions
-        ------------------------------------------------ */
-
         await loadDivisions();
 
-
-        /* -----------------------------------------------
-           Magasins
-        ------------------------------------------------ */
 
         await loadMagasins();
 
@@ -1741,7 +2002,7 @@ async function initPage() {
     catch (error) {
 
         console.error(
-            "INIT MAGASINS:",
+            "INIT:",
             error
         );
 
@@ -1750,11 +2011,6 @@ async function initPage() {
             error.message ||
             "Erreur de chargement.",
             "error"
-        );
-
-
-        showTableError(
-            error.message
         );
 
     }
@@ -1770,9 +2026,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "searchInput"
-        )
+        .getElementById("searchInput")
         .addEventListener(
             "input",
             applyFilters
@@ -1780,9 +2034,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "divisionFilter"
-        )
+        .getElementById("divisionFilter")
         .addEventListener(
             "change",
             applyFilters
@@ -1790,9 +2042,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "statusFilter"
-        )
+        .getElementById("statusFilter")
         .addEventListener(
             "change",
             applyFilters
@@ -1800,9 +2050,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "btnReset"
-        )
+        .getElementById("btnReset")
         .addEventListener(
             "click",
             resetFilters
@@ -1810,25 +2058,15 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "btnRefresh"
-        )
+        .getElementById("btnRefresh")
         .addEventListener(
             "click",
-            async function () {
-
-                await loadDivisions();
-
-                await loadMagasins();
-
-            }
+            refreshAll
         );
 
 
     document
-        .getElementById(
-            "btnNew"
-        )
+        .getElementById("btnNew")
         .addEventListener(
             "click",
             openCreateModal
@@ -1836,9 +2074,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "btnCloseModal"
-        )
+        .getElementById("btnCloseModal")
         .addEventListener(
             "click",
             closeModal
@@ -1846,9 +2082,7 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "btnCancel"
-        )
+        .getElementById("btnCancel")
         .addEventListener(
             "click",
             closeModal
@@ -1856,22 +2090,71 @@ function setupEvents() {
 
 
     document
-        .getElementById(
-            "magasinForm"
-        )
+        .getElementById("magasinForm")
         .addEventListener(
             "submit",
             saveMagasin
         );
 
 
+    /* =====================================================
+       EMPLACEMENTS
+    ====================================================== */
+
+
     document
-        .getElementById(
-            "modalOverlay"
-        )
+        .getElementById("btnCloseEmplacementModal")
         .addEventListener(
             "click",
-            function (event) {
+            closeEmplacementModal
+        );
+
+
+    document
+        .getElementById("btnCancelEmplacement")
+        .addEventListener(
+            "click",
+            closeEmplacementModal
+        );
+
+
+    document
+        .getElementById("btnGenerateEmp")
+        .addEventListener(
+            "click",
+            generateEmplacementPreview
+        );
+
+
+    document
+        .getElementById("btnClearEmpPreview")
+        .addEventListener(
+            "click",
+            clearEmplacementPreview
+        );
+
+
+    document
+        .getElementById("btnSelectAllEmp")
+        .addEventListener(
+            "click",
+            toggleSelectAllEmplacements
+        );
+
+
+    document
+        .getElementById("btnSaveEmplacements")
+        .addEventListener(
+            "click",
+            saveEmplacements
+        );
+
+
+    document
+        .getElementById("modalOverlay")
+        .addEventListener(
+            "click",
+            function(event) {
 
                 if (
                     event.target ===
@@ -1886,9 +2169,28 @@ function setupEvents() {
         );
 
 
+    document
+        .getElementById("emplacementModalOverlay")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    this
+                ) {
+
+                    closeEmplacementModal();
+
+                }
+
+            }
+        );
+
+
     document.addEventListener(
         "keydown",
-        function (event) {
+        function(event) {
 
             if (
                 event.key ===
@@ -1897,10 +2199,25 @@ function setupEvents() {
 
                 closeModal();
 
+                closeEmplacementModal();
+
             }
 
         }
     );
+
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+async function refreshAll() {
+
+    await loadDivisions();
+
+    await loadMagasins();
 
 }
 
@@ -1913,7 +2230,6 @@ function getCurrentUser() {
 
     try {
 
-
         if (
             window.SMTG &&
             typeof window.SMTG.getCurrentUser ===
@@ -1922,7 +2238,6 @@ function getCurrentUser() {
 
             const user =
                 window.SMTG.getCurrentUser();
-
 
             if (user) {
 
@@ -1981,7 +2296,6 @@ function getCurrentUser() {
     catch (error) {
 
         console.warn(
-            "GET CURRENT USER:",
             error
         );
 
@@ -2049,11 +2363,6 @@ async function loadDivisions() {
 
     if (error) {
 
-        console.error(
-            "LOAD DIVISIONS:",
-            error
-        );
-
         throw error;
 
     }
@@ -2105,7 +2414,7 @@ function fillDivisionSelects() {
 
 
     allDivisions.forEach(
-        function (division) {
+        function(division) {
 
 
             const label =
@@ -2170,80 +2479,63 @@ async function loadMagasins() {
     showTableLoading();
 
 
-    try {
-
-
-        const {
-            data,
-            error
-        } = await db
-            .from("magasins")
-            .select(`
-                id,
-                code,
-                name,
-                description,
-                type,
-                has_emplacements,
-                max_palettes,
-                max_tonnage_kg,
-                is_active,
-                division_id,
-                created_by,
-                created_at,
-                updated_by,
-                updated_at
-            `)
-            .order(
-                "code",
-                {
-                    ascending: true
-                }
-            );
-
-
-        if (error) {
-
-            throw error;
-
-        }
-
-
-        allMagasins =
-            data || [];
-
-
-        updateStats();
-
-        applyFilters();
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "LOAD MAGASINS:",
-            error
+    const {
+        data,
+        error
+    } = await db
+        .from("magasins")
+        .select(`
+            id,
+            code,
+            name,
+            description,
+            type,
+            has_emplacements,
+            max_palettes,
+            max_tonnage_kg,
+            is_active,
+            division_id,
+            created_by,
+            created_at,
+            updated_by,
+            updated_at
+        `)
+        .order(
+            "code",
+            {
+                ascending: true
+            }
         );
 
+
+    if (error) {
+
+        console.error(
+            error
+        );
 
         showTableError(
             error.message
         );
 
-
-        showToast(
-            "Impossible de charger les magasins.",
-            "error"
-        );
+        return;
 
     }
+
+
+    allMagasins =
+        data || [];
+
+
+    updateStats();
+
+    applyFilters();
 
 }
 
 
 /* =========================================================
-   FILTERS
+   FILTER
 ========================================================= */
 
 function applyFilters() {
@@ -2273,7 +2565,7 @@ function applyFilters() {
 
     filteredMagasins =
         allMagasins.filter(
-            function (magasin) {
+            function(magasin) {
 
 
                 let matchSearch =
@@ -2287,10 +2579,6 @@ function applyFilters() {
                 let matchStatus =
                     true;
 
-
-                /* ---------------------------------------
-                   SEARCH
-                --------------------------------------- */
 
                 if (search) {
 
@@ -2318,10 +2606,8 @@ function applyFilters() {
                     ]
                     .filter(
                         value =>
-                            value !==
-                            null &&
-                            value !==
-                            undefined
+                            value !== null &&
+                            value !== undefined
                     )
                     .join(" ")
                     .toLowerCase();
@@ -2334,10 +2620,6 @@ function applyFilters() {
 
                 }
 
-
-                /* ---------------------------------------
-                   DIVISION
-                --------------------------------------- */
 
                 if (
                     divisionId !== ""
@@ -2353,10 +2635,6 @@ function applyFilters() {
 
                 }
 
-
-                /* ---------------------------------------
-                   STATUS
-                --------------------------------------- */
 
                 if (
                     status !== ""
@@ -2423,10 +2701,8 @@ function getDivision(
 ) {
 
     if (
-        divisionId ===
-        null ||
-        divisionId ===
-        undefined
+        divisionId === null ||
+        divisionId === undefined
     ) {
 
         return null;
@@ -2435,7 +2711,7 @@ function getDivision(
 
 
     return allDivisions.find(
-        function (division) {
+        function(division) {
 
             return Number(
                 division.id
@@ -2498,7 +2774,7 @@ function renderTable() {
     tbody.innerHTML =
         filteredMagasins
         .map(
-            function (magasin) {
+            function(magasin) {
 
 
                 const division =
@@ -2525,13 +2801,6 @@ function renderTable() {
                         : "fa-xmark";
 
 
-                /*
-                 * Bouton Emplacements
-                 *
-                 * Il apparaît seulement si
-                 * has_emplacements = true
-                 */
-
                 const emplacementButton =
                     magasin.has_emplacements
 
@@ -2543,7 +2812,7 @@ function renderTable() {
                             type="button"
                             class="btn btn-emplacements btn-sm"
                             onclick="openEmplacements(${Number(magasin.id)})"
-                            title="Gérer les emplacements"
+                            title="Créer / gérer les emplacements"
                         >
 
                             <i
@@ -2565,13 +2834,8 @@ function renderTable() {
 
 
                         <td>
-
-                            ${escapeHtml(
-                                magasin.id
-                            )}
-
+                            ${escapeHtml(magasin.id)}
                         </td>
-
 
 
                         <td>
@@ -2579,8 +2843,7 @@ function renderTable() {
                             <span class="code">
 
                                 ${escapeHtml(
-                                    magasin.code ||
-                                    ""
+                                    magasin.code || ""
                                 )}
 
                             </span>
@@ -2588,20 +2851,16 @@ function renderTable() {
                         </td>
 
 
-
                         <td>
 
                             ${escapeHtml(
-                                magasin.name ||
-                                ""
+                                magasin.name || ""
                             )}
 
                         </td>
 
 
-
                         <td>
-
 
                             ${
                                 division
@@ -2636,31 +2895,23 @@ function renderTable() {
 
                                 `
 
-                                    <span
-                                        class="no-division"
-                                    >
-
+                                    <span class="no-division">
                                         Non affecté
-
                                     </span>
 
                                 `
                             }
 
-
                         </td>
-
 
 
                         <td>
 
                             ${escapeHtml(
-                                magasin.type ||
-                                "-"
+                                magasin.type || "-"
                             )}
 
                         </td>
-
 
 
                         <td>
@@ -2672,9 +2923,7 @@ function renderTable() {
 
                                 `
 
-                                    <span
-                                        class="status active"
-                                    >
+                                    <span class="status active">
 
                                         <i
                                             class="fa-solid fa-check"
@@ -2690,9 +2939,7 @@ function renderTable() {
 
                                 `
 
-                                    <span
-                                        class="status inactive"
-                                    >
+                                    <span class="status inactive">
 
                                         <i
                                             class="fa-solid fa-xmark"
@@ -2708,7 +2955,6 @@ function renderTable() {
                         </td>
 
 
-
                         <td>
 
                             ${formatNumber(
@@ -2716,7 +2962,6 @@ function renderTable() {
                             )}
 
                         </td>
-
 
 
                         <td>
@@ -2728,7 +2973,6 @@ function renderTable() {
                         </td>
 
 
-
                         <td>
 
                             <span
@@ -2736,10 +2980,7 @@ function renderTable() {
                             >
 
                                 <i
-                                    class="
-                                        fa-solid
-                                        ${statusIcon}
-                                    "
+                                    class="fa-solid ${statusIcon}"
                                 ></i>
 
                                 ${statusText}
@@ -2749,13 +2990,10 @@ function renderTable() {
                         </td>
 
 
-
                         <td>
 
                             <div class="actions">
 
-
-                                <!-- EDIT -->
 
                                 <button
                                     type="button"
@@ -2771,9 +3009,6 @@ function renderTable() {
                                 </button>
 
 
-
-                                <!-- DELETE -->
-
                                 <button
                                     type="button"
                                     class="btn btn-danger btn-sm"
@@ -2787,9 +3022,6 @@ function renderTable() {
 
                                 </button>
 
-
-
-                                <!-- EMPLACEMENTS -->
 
                                 ${emplacementButton}
 
@@ -2811,16 +3043,17 @@ function renderTable() {
 
 
 /* =========================================================
-   OPEN EMPLACEMENTS
+   OPEN EMPLACEMENTS MODAL
 ========================================================= */
 
-function openEmplacements(
+async function openEmplacements(
     magasinId
 ) {
 
+
     const magasin =
         allMagasins.find(
-            function (item) {
+            function(item) {
 
                 return Number(
                     item.id
@@ -2844,12 +3077,6 @@ function openEmplacements(
     }
 
 
-    /*
-     * Sécurité supplémentaire :
-     * seulement les magasins ayant
-     * has_emplacements = true
-     */
-
     if (
         !magasin.has_emplacements
     ) {
@@ -2864,109 +3091,1505 @@ function openEmplacements(
     }
 
 
-    /*
-     * On transmet le magasin à
-     * emplacements.html
-     */
+    currentEmplacementMagasin =
+        magasin;
 
-    const url =
-        "emplacements.html?magasin_id=" +
-        encodeURIComponent(
-            magasin.id
+
+    currentEmplacementDivision =
+        getDivision(
+            magasin.division_id
         );
 
 
-    window.location.href =
-        url;
+    document.getElementById(
+        "emplacementDivision"
+    ).textContent =
+
+        currentEmplacementDivision
+
+            ?
+
+            `${currentEmplacementDivision.code} - ${currentEmplacementDivision.name}`
+
+            :
+
+            "Non affectée";
+
+
+    document.getElementById(
+        "emplacementMagasin"
+    ).textContent =
+        `${magasin.code} - ${magasin.name}`;
+
+
+    generatedEmplacementCodes =
+        [];
+
+
+    selectedEmplacementCodes =
+        new Set();
+
+
+    renderEmplacementPreview();
+
+
+    document.getElementById(
+        "emplacementModalOverlay"
+    ).classList.add(
+        "show"
+    );
+
+
+    await loadExistingEmplacementsForCurrentMagasin();
 
 }
 
 
 /* =========================================================
-   STATS
+   CLOSE EMPLACEMENTS
 ========================================================= */
 
-function updateStats() {
-
-    const total =
-        allMagasins.length;
-
-
-    const active =
-        allMagasins.filter(
-            function (magasin) {
-
-                return magasin.is_active;
-
-            }
-        ).length;
-
-
-    const inactive =
-        allMagasins.filter(
-            function (magasin) {
-
-                return !magasin.is_active;
-
-            }
-        ).length;
-
-
-    const divisions =
-        new Set(
-
-            allMagasins
-
-                .map(
-                    function (magasin) {
-
-                        return magasin.division_id;
-
-                    }
-                )
-
-                .filter(
-                    function (id) {
-
-                        return (
-                            id !== null &&
-                            id !== undefined
-                        );
-
-                    }
-                )
-
-        ).size;
-
+function closeEmplacementModal() {
 
     document.getElementById(
-        "statTotal"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "statActive"
-    ).textContent =
-        active;
-
-
-    document.getElementById(
-        "statInactive"
-    ).textContent =
-        inactive;
-
-
-    document.getElementById(
-        "statDivisions"
-    ).textContent =
-        divisions;
+        "emplacementModalOverlay"
+    ).classList.remove(
+        "show"
+    );
 
 }
 
 
 /* =========================================================
-   CREATE MODAL
+   LOAD EXISTING EMPLACEMENTS
+========================================================= */
+
+async function loadExistingEmplacementsForCurrentMagasin() {
+
+
+    if (
+        !currentEmplacementMagasin
+    ) {
+
+        return;
+
+    }
+
+
+    existingEmplacements =
+        [];
+
+
+    existingEmplacementCodes =
+        new Set();
+
+
+    try {
+
+
+        let from =
+            0;
+
+
+        const pageSize =
+            1000;
+
+
+        while (true) {
+
+
+            const {
+                data,
+                error
+            } = await db
+                .from("emplacements")
+                .select(`
+                    id,
+                    magasin_id,
+                    code,
+                    name,
+                    description,
+                    type,
+                    max_palettes,
+                    max_tonnage_kg,
+                    is_active
+                `)
+                .eq(
+                    "magasin_id",
+                    currentEmplacementMagasin.id
+                )
+                .order(
+                    "code",
+                    {
+                        ascending: true
+                    }
+                )
+                .range(
+                    from,
+                    from + pageSize - 1
+                );
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            if (
+                !data ||
+                data.length === 0
+            ) {
+
+                break;
+
+            }
+
+
+            existingEmplacements.push(
+                ...data
+            );
+
+
+            if (
+                data.length <
+                pageSize
+            ) {
+
+                break;
+
+            }
+
+
+            from +=
+                pageSize;
+
+        }
+
+
+        existingEmplacementCodes =
+            new Set(
+                existingEmplacements.map(
+                    function(item) {
+
+                        return String(
+                            item.code
+                        ).toUpperCase();
+
+                    }
+                )
+            );
+
+
+        document.getElementById(
+            "existingEmplacementsCount"
+        ).textContent =
+            existingEmplacements.length.toLocaleString(
+                "fr-FR"
+            );
+
+
+        /*
+         * Si aperçu existe déjà,
+         * recalculer les doublons.
+         */
+
+        if (
+            generatedEmplacementCodes.length
+        ) {
+
+            selectedEmplacementCodes =
+                new Set(
+                    generatedEmplacementCodes.filter(
+                        function(code) {
+
+                            return !existingEmplacementCodes.has(
+                                code.toUpperCase()
+                            );
+
+                        }
+                    )
+                );
+
+            renderEmplacementPreview();
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "LOAD EMPACEMENTS:",
+            error
+        );
+
+
+        showToast(
+            "Impossible de charger les emplacements existants.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INIT EMP SELECTS
+========================================================= */
+
+function initializeEmplacementSelects() {
+
+
+    const letterStart =
+        document.getElementById(
+            "empLetterStart"
+        );
+
+
+    const letterEnd =
+        document.getElementById(
+            "empLetterEnd"
+        );
+
+
+    const numberStart =
+        document.getElementById(
+            "empNumberStart"
+        );
+
+
+    const numberEnd =
+        document.getElementById(
+            "empNumberEnd"
+        );
+
+
+    const zoneStart =
+        document.getElementById(
+            "empZoneStart"
+        );
+
+
+    const zoneEnd =
+        document.getElementById(
+            "empZoneEnd"
+        );
+
+
+    const positionCount =
+        document.getElementById(
+            "empPositionCount"
+        );
+
+
+    /* LETTERS A-Z */
+
+    for (
+        let i = 65;
+        i <= 90;
+        i++
+    ) {
+
+
+        const letter =
+            String.fromCharCode(
+                i
+            );
+
+
+        letterStart.appendChild(
+            createOption(
+                letter,
+                letter
+            )
+        );
+
+
+        letterEnd.appendChild(
+            createOption(
+                letter,
+                letter
+            )
+        );
+
+    }
+
+
+    /* NUMBERS 01-99 */
+
+    for (
+        let i = 1;
+        i <= 99;
+        i++
+    ) {
+
+
+        const value =
+            String(i)
+            .padStart(
+                2,
+                "0"
+            );
+
+
+        numberStart.appendChild(
+            createOption(
+                value,
+                value
+            )
+        );
+
+
+        numberEnd.appendChild(
+            createOption(
+                value,
+                value
+            )
+        );
+
+    }
+
+
+    /* ZONES 00-10 */
+
+    for (
+        let i = 0;
+        i <= 10;
+        i++
+    ) {
+
+
+        const value =
+            String(i)
+            .padStart(
+                2,
+                "0"
+            );
+
+
+        zoneStart.appendChild(
+            createOption(
+                value,
+                value
+            )
+        );
+
+
+        zoneEnd.appendChild(
+            createOption(
+                value,
+                value
+            )
+        );
+
+    }
+
+
+    /* POSITIONS 1-10 */
+
+    for (
+        let i = 1;
+        i <= 10;
+        i++
+    ) {
+
+        positionCount.appendChild(
+            createOption(
+                String(i),
+                String(i)
+            )
+        );
+
+    }
+
+
+    /* DEFAULT */
+
+    letterStart.value =
+        "A";
+
+
+    letterEnd.value =
+        "R";
+
+
+    numberStart.value =
+        "01";
+
+
+    numberEnd.value =
+        "18";
+
+
+    zoneStart.value =
+        "00";
+
+
+    zoneEnd.value =
+        "03";
+
+
+    positionCount.value =
+        "3";
+
+}
+
+
+/* =========================================================
+   CREATE OPTION
+========================================================= */
+
+function createOption(
+    value,
+    text
+) {
+
+    const option =
+        document.createElement(
+            "option"
+        );
+
+
+    option.value =
+        value;
+
+
+    option.textContent =
+        text;
+
+
+    return option;
+
+}
+
+
+/* =========================================================
+   GENERATE EMP PREVIEW
+========================================================= */
+
+function generateEmplacementPreview() {
+
+
+    if (
+        !currentEmplacementMagasin
+    ) {
+
+        showToast(
+            "Aucun magasin sélectionné.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const letterStart =
+        document.getElementById(
+            "empLetterStart"
+        ).value;
+
+
+    const letterEnd =
+        document.getElementById(
+            "empLetterEnd"
+        ).value;
+
+
+    const numberStart =
+        Number(
+            document.getElementById(
+                "empNumberStart"
+            ).value
+        );
+
+
+    const numberEnd =
+        Number(
+            document.getElementById(
+                "empNumberEnd"
+            ).value
+        );
+
+
+    const zoneStart =
+        Number(
+            document.getElementById(
+                "empZoneStart"
+            ).value
+        );
+
+
+    const zoneEnd =
+        Number(
+            document.getElementById(
+                "empZoneEnd"
+            ).value
+        );
+
+
+    const positionCount =
+        Number(
+            document.getElementById(
+                "empPositionCount"
+            ).value
+        );
+
+
+    const startLetter =
+        letterStart.charCodeAt(
+            0
+        );
+
+
+    const endLetter =
+        letterEnd.charCodeAt(
+            0
+        );
+
+
+    if (
+        startLetter >
+        endLetter
+    ) {
+
+        showToast(
+            "La lettre début doit être avant la lettre fin.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        numberStart >
+        numberEnd
+    ) {
+
+        showToast(
+            "Le numéro début doit être inférieur au numéro fin.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        zoneStart >
+        zoneEnd
+    ) {
+
+        showToast(
+            "La zone début doit être inférieure à la zone fin.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const letters =
+        endLetter -
+        startLetter +
+        1;
+
+
+    const numbers =
+        numberEnd -
+        numberStart +
+        1;
+
+
+    const zones =
+        zoneEnd -
+        zoneStart +
+        1;
+
+
+    const total =
+        letters *
+        numbers *
+        zones *
+        positionCount;
+
+
+    if (
+        total >
+        500000
+    ) {
+
+        showToast(
+            "La génération dépasse 500 000 emplacements.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    generatedEmplacementCodes =
+        [];
+
+
+    for (
+        let letterCode =
+            startLetter;
+
+        letterCode <=
+        endLetter;
+
+        letterCode++
+    ) {
+
+
+        const letter =
+            String.fromCharCode(
+                letterCode
+            );
+
+
+        for (
+            let number =
+                numberStart;
+
+            number <=
+            numberEnd;
+
+            number++
+        ) {
+
+
+            const numberText =
+                String(number)
+                .padStart(
+                    2,
+                    "0"
+                );
+
+
+            for (
+                let zone =
+                    zoneStart;
+
+                zone <=
+                zoneEnd;
+
+                zone++
+            ) {
+
+
+                const zoneText =
+                    String(zone)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+
+                for (
+                    let position =
+                        1;
+
+                    position <=
+                    positionCount;
+
+                    position++
+                ) {
+
+
+                    generatedEmplacementCodes.push(
+
+                        `${letter}-${numberText}-${zoneText}-${position}`
+
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    selectedEmplacementCodes =
+        new Set(
+
+            generatedEmplacementCodes.filter(
+                function(code) {
+
+                    return !existingEmplacementCodes.has(
+                        code.toUpperCase()
+                    );
+
+                }
+            )
+
+        );
+
+
+    renderEmplacementPreview();
+
+
+    showToast(
+        `${generatedEmplacementCodes.length.toLocaleString("fr-FR")} emplacement(s) généré(s).`,
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   RENDER EMP PREVIEW
+========================================================= */
+
+function renderEmplacementPreview() {
+
+
+    const empty =
+        document.getElementById(
+            "empPreviewEmpty"
+        );
+
+
+    const grid =
+        document.getElementById(
+            "empPreviewGrid"
+        );
+
+
+    const summary =
+        document.getElementById(
+            "empPreviewSummary"
+        );
+
+
+    const count =
+        document.getElementById(
+            "empPreviewCount"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "btnSaveEmplacements"
+        );
+
+
+    if (
+        generatedEmplacementCodes.length ===
+        0
+    ) {
+
+        empty.style.display =
+            "block";
+
+
+        grid.style.display =
+            "none";
+
+
+        summary.style.display =
+            "none";
+
+
+        count.textContent =
+            "0";
+
+
+        saveButton.disabled =
+            true;
+
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    grid.style.display =
+        "grid";
+
+
+    summary.style.display =
+        "flex";
+
+
+    count.textContent =
+        generatedEmplacementCodes.length.toLocaleString(
+            "fr-FR"
+        );
+
+
+    const existingCount =
+        generatedEmplacementCodes.filter(
+            function(code) {
+
+                return existingEmplacementCodes.has(
+                    code.toUpperCase()
+                );
+
+            }
+        ).length;
+
+
+    const newCount =
+        generatedEmplacementCodes.length -
+        existingCount;
+
+
+    const previewLimit =
+        5000;
+
+
+    const codes =
+        generatedEmplacementCodes.slice(
+            0,
+            previewLimit
+        );
+
+
+    let html = "";
+
+
+    codes.forEach(
+        function(code) {
+
+
+            const exists =
+                existingEmplacementCodes.has(
+                    code.toUpperCase()
+                );
+
+
+            html += `
+
+                <div
+                    class="
+                        preview-item
+                        ${exists ? "existing" : ""}
+                    "
+                    title="${
+                        exists
+                            ? "Déjà existant"
+                            : "Nouveau"
+                    }"
+                >
+
+                    ${escapeHtml(code)}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    if (
+        generatedEmplacementCodes.length >
+        previewLimit
+    ) {
+
+        html += `
+
+            <div
+                class="preview-item"
+                style="
+                    grid-column:1/-1;
+                    background:#f3f4f6;
+                    border-color:#d1d5db;
+                    color:#6b7280;
+                "
+            >
+
+                ...
+
+                ${
+                    (
+                        generatedEmplacementCodes.length -
+                        previewLimit
+                    ).toLocaleString(
+                        "fr-FR"
+                    )
+                }
+
+                autres
+
+            </div>
+
+        `;
+
+    }
+
+
+    grid.innerHTML =
+        html;
+
+
+    document.getElementById(
+        "empSummaryTotal"
+    ).textContent =
+        `Total : ${generatedEmplacementCodes.length.toLocaleString("fr-FR")}`;
+
+
+    document.getElementById(
+        "empSummaryNew"
+    ).textContent =
+        `Nouveaux : ${newCount.toLocaleString("fr-FR")}`;
+
+
+    document.getElementById(
+        "empSummaryExisting"
+    ).textContent =
+        `Déjà existants : ${existingCount.toLocaleString("fr-FR")}`;
+
+
+    saveButton.disabled =
+        selectedEmplacementCodes.size ===
+        0;
+
+
+    document.getElementById(
+        "btnSelectAllEmp"
+    ).innerHTML =
+
+        selectedEmplacementCodes.size ===
+        newCount
+
+            ?
+
+            `
+
+                <i class="fa-solid fa-square-xmark"></i>
+
+                Tout désélectionner
+
+            `
+
+            :
+
+            `
+
+                <i class="fa-solid fa-check-double"></i>
+
+                Tout sélectionner
+
+            `;
+
+}
+
+
+/* =========================================================
+   CLEAR EMP PREVIEW
+========================================================= */
+
+function clearEmplacementPreview() {
+
+    generatedEmplacementCodes =
+        [];
+
+
+    selectedEmplacementCodes =
+        new Set();
+
+
+    renderEmplacementPreview();
+
+}
+
+
+/* =========================================================
+   SELECT ALL EMP
+========================================================= */
+
+function toggleSelectAllEmplacements() {
+
+
+    const newCodes =
+        generatedEmplacementCodes.filter(
+            function(code) {
+
+                return !existingEmplacementCodes.has(
+                    code.toUpperCase()
+                );
+
+            }
+        );
+
+
+    if (
+        selectedEmplacementCodes.size ===
+        newCodes.length
+    ) {
+
+        selectedEmplacementCodes.clear();
+
+    }
+    else {
+
+        selectedEmplacementCodes =
+            new Set(
+                newCodes
+            );
+
+    }
+
+
+    renderEmplacementPreview();
+
+}
+
+
+/* =========================================================
+   SAVE EMPACEMENTS
+========================================================= */
+
+async function saveEmplacements() {
+
+
+    if (
+        !currentEmplacementMagasin
+    ) {
+
+        showToast(
+            "Aucun magasin sélectionné.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const codesToSave =
+        Array.from(
+            selectedEmplacementCodes
+        );
+
+
+    if (
+        codesToSave.length ===
+        0
+    ) {
+
+        showToast(
+            "Aucun emplacement à enregistrer.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+
+            `Créer ${codesToSave.length.toLocaleString("fr-FR")} emplacement(s) pour ${currentEmplacementMagasin.code} - ${currentEmplacementMagasin.name} ?`
+
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "btnSaveEmplacements"
+        );
+
+
+    const generateButton =
+        document.getElementById(
+            "btnGenerateEmp"
+        );
+
+
+    const clearButton =
+        document.getElementById(
+            "btnClearEmpPreview"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    generateButton.disabled =
+        true;
+
+
+    clearButton.disabled =
+        true;
+
+
+    showEmpProgress(
+        true,
+        0,
+        "Préparation..."
+    );
+
+
+    try {
+
+
+        const userId =
+            getCurrentUserId();
+
+
+        let insertedCount =
+            0;
+
+
+        let skippedCount =
+            0;
+
+
+        for (
+            let i = 0;
+
+            i <
+            codesToSave.length;
+
+            i +=
+                EMP_BATCH_SIZE
+        ) {
+
+
+            const batch =
+                codesToSave.slice(
+                    i,
+                    i + EMP_BATCH_SIZE
+                );
+
+
+            const rows =
+                batch.map(
+                    function(code) {
+
+                        return {
+
+                            magasin_id:
+                                currentEmplacementMagasin.id,
+
+                            code:
+                                code,
+
+                            name:
+                                `Emplacement ${code}`,
+
+                            description:
+                                null,
+
+                            type:
+                                null,
+
+                            max_palettes:
+                                1,
+
+                            max_tonnage_kg:
+                                0,
+
+                            is_active:
+                                true,
+
+                            created_by:
+                                userId,
+
+                            updated_by:
+                                userId
+
+                        };
+
+                    }
+                );
+
+
+            const {
+                data,
+                error
+            } = await db
+                .from("emplacements")
+                .upsert(
+                    rows,
+                    {
+                        onConflict:
+                            "magasin_id,code",
+                        ignoreDuplicates:
+                            true
+                    }
+                )
+                .select(
+                    "id,code"
+                );
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            const inserted =
+                data
+                    ? data.length
+                    : 0;
+
+
+            insertedCount +=
+                inserted;
+
+
+            skippedCount +=
+                batch.length -
+                inserted;
+
+
+            const processed =
+                Math.min(
+                    i + batch.length,
+                    codesToSave.length
+                );
+
+
+            const percent =
+                Math.round(
+                    (
+                        processed /
+                        codesToSave.length
+                    ) *
+                    100
+                );
+
+
+            showEmpProgress(
+
+                true,
+
+                percent,
+
+                `Enregistrement : ${processed.toLocaleString("fr-FR")} / ${codesToSave.length.toLocaleString("fr-FR")}`
+
+            );
+
+        }
+
+
+        /* =================================================
+           LOG
+        ================================================== */
+
+        await writeCrudLog(
+
+            "CREATE",
+
+            currentEmplacementMagasin.id,
+
+            "Création d'emplacements pour un magasin",
+
+            {
+
+                magasin_id:
+                    currentEmplacementMagasin.id,
+
+                magasin_code:
+                    currentEmplacementMagasin.code,
+
+                magasin_name:
+                    currentEmplacementMagasin.name,
+
+                division_id:
+                    currentEmplacementMagasin.division_id,
+
+                requested_count:
+                    codesToSave.length,
+
+                inserted_count:
+                    insertedCount,
+
+                skipped_count:
+                    skippedCount
+
+            }
+
+        );
+
+
+        showEmpProgress(
+            true,
+            100,
+            "Terminé."
+        );
+
+
+        showToast(
+
+            `${insertedCount.toLocaleString("fr-FR")} emplacement(s) créé(s).` +
+
+            (
+                skippedCount > 0
+
+                    ?
+
+                    ` ${skippedCount.toLocaleString("fr-FR")} déjà existant(s).`
+
+                    :
+
+                    ""
+            ),
+
+            "success"
+
+        );
+
+
+        /* Reload */
+
+        await loadExistingEmplacementsForCurrentMagasin();
+
+
+        /* Update preview */
+
+        selectedEmplacementCodes =
+            new Set();
+
+
+        renderEmplacementPreview();
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "SAVE EMP:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "Erreur lors de l'enregistrement.",
+            "error"
+        );
+
+    }
+    finally {
+
+
+        generateButton.disabled =
+            false;
+
+
+        clearButton.disabled =
+            false;
+
+
+        button.disabled =
+            selectedEmplacementCodes.size ===
+            0;
+
+
+        setTimeout(
+            function() {
+
+                showEmpProgress(
+                    false,
+                    0,
+                    ""
+                );
+
+            },
+            1000
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EMP PROGRESS
+========================================================= */
+
+function showEmpProgress(
+    show,
+    percent,
+    text
+) {
+
+    const container =
+        document.getElementById(
+            "empProgressContainer"
+        );
+
+
+    const value =
+        document.getElementById(
+            "empProgressValue"
+        );
+
+
+    const textElement =
+        document.getElementById(
+            "empProgressText"
+        );
+
+
+    const percentElement =
+        document.getElementById(
+            "empProgressPercent"
+        );
+
+
+    if (!show) {
+
+        container.classList.remove(
+            "show"
+        );
+
+        return;
+
+    }
+
+
+    container.classList.add(
+        "show"
+    );
+
+
+    value.style.width =
+        `${percent}%`;
+
+
+    textElement.textContent =
+        text;
+
+
+    percentElement.textContent =
+        `${percent}%`;
+
+}
+
+
+/* =========================================================
+   MAGASIN MODAL CREATE
 ========================================================= */
 
 function openCreateModal() {
@@ -3024,23 +4647,11 @@ function openCreateModal() {
         "show"
     );
 
-
-    setTimeout(
-        function () {
-
-            document.getElementById(
-                "code"
-            ).focus();
-
-        },
-        100
-    );
-
 }
 
 
 /* =========================================================
-   EDIT MODAL
+   EDIT MAGASIN
 ========================================================= */
 
 function openEditModal(
@@ -3049,7 +4660,7 @@ function openEditModal(
 
     const magasin =
         allMagasins.find(
-            function (item) {
+            function(item) {
 
                 return Number(
                     item.id
@@ -3088,43 +4699,37 @@ function openEditModal(
     document.getElementById(
         "code"
     ).value =
-        magasin.code ||
-        "";
+        magasin.code || "";
 
 
     document.getElementById(
         "name"
     ).value =
-        magasin.name ||
-        "";
+        magasin.name || "";
 
 
     document.getElementById(
         "divisionId"
     ).value =
-        magasin.division_id ??
-        "";
+        magasin.division_id ?? "";
 
 
     document.getElementById(
         "type"
     ).value =
-        magasin.type ||
-        "";
+        magasin.type || "";
 
 
     document.getElementById(
         "maxPalettes"
     ).value =
-        magasin.max_palettes ??
-        0;
+        magasin.max_palettes ?? 0;
 
 
     document.getElementById(
         "maxTonnage"
     ).value =
-        magasin.max_tonnage_kg ??
-        0;
+        magasin.max_tonnage_kg ?? 0;
 
 
     document.getElementById(
@@ -3150,8 +4755,7 @@ function openEditModal(
     document.getElementById(
         "description"
     ).value =
-        magasin.description ||
-        "";
+        magasin.description || "";
 
 
     document.getElementById(
@@ -3164,7 +4768,7 @@ function openEditModal(
 
 
 /* =========================================================
-   CLOSE MODAL
+   CLOSE MAGASIN MODAL
 ========================================================= */
 
 function closeModal() {
@@ -3187,18 +4791,6 @@ async function saveMagasin(
 ) {
 
     event.preventDefault();
-
-
-    if (!db) {
-
-        showToast(
-            "Connexion Supabase indisponible.",
-            "error"
-        );
-
-        return;
-
-    }
 
 
     const id =
@@ -3273,10 +4865,6 @@ async function saveMagasin(
         .trim();
 
 
-    /* =====================================================
-       VALIDATION
-    ====================================================== */
-
     if (!code) {
 
         showToast(
@@ -3302,9 +4890,7 @@ async function saveMagasin(
 
 
     if (
-        !Number.isFinite(
-            maxPalettes
-        ) ||
+        !Number.isFinite(maxPalettes) ||
         maxPalettes < 0
     ) {
 
@@ -3319,9 +4905,7 @@ async function saveMagasin(
 
 
     if (
-        !Number.isFinite(
-            maxTonnage
-        ) ||
+        !Number.isFinite(maxTonnage) ||
         maxTonnage < 0
     ) {
 
@@ -3335,21 +4919,19 @@ async function saveMagasin(
     }
 
 
-    const saveButton =
+    const button =
         document.getElementById(
             "saveButton"
         );
 
 
-    saveButton.disabled =
+    button.disabled =
         true;
 
 
-    saveButton.innerHTML = `
+    button.innerHTML = `
 
-        <i
-            class="fa-solid fa-spinner fa-spin"
-        ></i>
+        <i class="fa-solid fa-spinner fa-spin"></i>
 
         Enregistrement...
 
@@ -3357,14 +4939,6 @@ async function saveMagasin(
 
 
     try {
-
-
-        const divisionId =
-            divisionValue
-                ? Number(
-                    divisionValue
-                )
-                : null;
 
 
         const userId =
@@ -3400,14 +4974,14 @@ async function saveMagasin(
                 isActive,
 
             division_id:
-                divisionId
+                divisionValue
+                    ? Number(
+                        divisionValue
+                    )
+                    : null
 
         };
 
-
-        /* =================================================
-           UPDATE
-        ================================================= */
 
         if (id) {
 
@@ -3456,10 +5030,7 @@ async function saveMagasin(
                         data.name,
 
                     division_id:
-                        data.division_id,
-
-                    has_emplacements:
-                        data.has_emplacements
+                        data.division_id
 
                 }
 
@@ -3472,12 +5043,6 @@ async function saveMagasin(
             );
 
         }
-
-
-        /* =================================================
-           INSERT
-        ================================================= */
-
         else {
 
 
@@ -3525,10 +5090,7 @@ async function saveMagasin(
                         data.name,
 
                     division_id:
-                        data.division_id,
-
-                    has_emplacements:
-                        data.has_emplacements
+                        data.division_id
 
                 }
 
@@ -3552,16 +5114,13 @@ async function saveMagasin(
     }
     catch (error) {
 
-
         console.error(
-            "SAVE MAGASIN:",
             error
         );
 
 
         if (
-            error &&
-            error.code ===
+            error?.code ===
             "23505"
         ) {
 
@@ -3571,20 +5130,6 @@ async function saveMagasin(
             );
 
         }
-
-        else if (
-            error &&
-            error.code ===
-            "23503"
-        ) {
-
-            showToast(
-                "La division sélectionnée n'existe pas.",
-                "error"
-            );
-
-        }
-
         else {
 
             showToast(
@@ -3599,15 +5144,13 @@ async function saveMagasin(
     finally {
 
 
-        saveButton.disabled =
+        button.disabled =
             false;
 
 
-        saveButton.innerHTML = `
+        button.innerHTML = `
 
-            <i
-                class="fa-solid fa-floppy-disk"
-            ></i>
+            <i class="fa-solid fa-floppy-disk"></i>
 
             Enregistrer
 
@@ -3619,28 +5162,16 @@ async function saveMagasin(
 
 
 /* =========================================================
-   DELETE
+   DELETE MAGASIN
 ========================================================= */
 
 async function deleteMagasin(
     id
 ) {
 
-    if (!db) {
-
-        showToast(
-            "Connexion Supabase indisponible.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
     const magasin =
         allMagasins.find(
-            function (item) {
+            function(item) {
 
                 return Number(
                     item.id
@@ -3653,11 +5184,6 @@ async function deleteMagasin(
 
 
     if (!magasin) {
-
-        showToast(
-            "Magasin introuvable.",
-            "error"
-        );
 
         return;
 
@@ -3732,45 +5258,20 @@ async function deleteMagasin(
 
         await loadMagasins();
 
-
     }
     catch (error) {
 
 
         console.error(
-            "DELETE MAGASIN:",
             error
         );
 
 
-        if (
-            error &&
-            error.code ===
-            "23503"
-        ) {
-
-            showToast(
-
-                "Impossible de supprimer ce magasin car il est utilisé par d'autres données.",
-
-                "error"
-
-            );
-
-        }
-
-        else {
-
-            showToast(
-
-                error?.message ||
-                "Impossible de supprimer le magasin.",
-
-                "error"
-
-            );
-
-        }
+        showToast(
+            error.message ||
+            "Impossible de supprimer le magasin.",
+            "error"
+        );
 
     }
 
@@ -3838,18 +5339,85 @@ async function writeCrudLog(
 
 
 /* =========================================================
-   TABLE LOADING
+   STATS
+========================================================= */
+
+function updateStats() {
+
+
+    const total =
+        allMagasins.length;
+
+
+    const active =
+        allMagasins.filter(
+            m => m.is_active
+        ).length;
+
+
+    const inactive =
+        allMagasins.filter(
+            m => !m.is_active
+        ).length;
+
+
+    const divisions =
+        new Set(
+            allMagasins
+                .map(
+                    m => m.division_id
+                )
+                .filter(
+                    id =>
+                        id !== null &&
+                        id !== undefined
+                )
+        ).size;
+
+
+    document.getElementById(
+        "statTotal"
+    ).textContent =
+        total.toLocaleString(
+            "fr-FR"
+        );
+
+
+    document.getElementById(
+        "statActive"
+    ).textContent =
+        active.toLocaleString(
+            "fr-FR"
+        );
+
+
+    document.getElementById(
+        "statInactive"
+    ).textContent =
+        inactive.toLocaleString(
+            "fr-FR"
+        );
+
+
+    document.getElementById(
+        "statDivisions"
+    ).textContent =
+        divisions.toLocaleString(
+            "fr-FR"
+        );
+
+}
+
+
+/* =========================================================
+   LOADING
 ========================================================= */
 
 function showTableLoading() {
 
-    const tbody =
-        document.getElementById(
-            "tableBody"
-        );
-
-
-    tbody.innerHTML = `
+    document.getElementById(
+        "tableBody"
+    ).innerHTML = `
 
         <tr>
 
@@ -3875,27 +5443,16 @@ function showTableLoading() {
 
 
 /* =========================================================
-   TABLE ERROR
+   ERROR
 ========================================================= */
 
 function showTableError(
     message
 ) {
 
-    const tbody =
-        document.getElementById(
-            "tableBody"
-        );
-
-
-    if (!tbody) {
-
-        return;
-
-    }
-
-
-    tbody.innerHTML = `
+    document.getElementById(
+        "tableBody"
+    ).innerHTML = `
 
         <tr>
 
@@ -3912,12 +5469,9 @@ function showTableError(
                     </div>
 
                     <small>
-
                         ${escapeHtml(
-                            message ||
-                            ""
+                            message || ""
                         )}
-
                     </small>
 
                 </div>
@@ -3939,20 +5493,13 @@ function formatNumber(
     value
 ) {
 
-    const number =
-        Number(
-            value ||
-            0
-        );
-
-
-    return number.toLocaleString(
+    return Number(
+        value || 0
+    ).toLocaleString(
         "fr-FR",
         {
-
             maximumFractionDigits:
                 0
-
         }
     );
 
@@ -3967,23 +5514,15 @@ function formatKg(
     value
 ) {
 
-    const number =
-        Number(
-            value ||
-            0
-        );
-
-
-    return number.toLocaleString(
+    return Number(
+        value || 0
+    ).toLocaleString(
         "fr-FR",
         {
-
             minimumFractionDigits:
                 3,
-
             maximumFractionDigits:
                 3
-
         }
     );
 
@@ -3991,7 +5530,7 @@ function formatKg(
 
 
 /* =========================================================
-   ESCAPE HTML
+   ESCAPE
 ========================================================= */
 
 function escapeHtml(
@@ -4115,12 +5654,12 @@ function showToast(
 
 
     setTimeout(
-        function () {
+        function() {
 
             toast.remove();
 
         },
-        4000
+        4500
     );
 
 }
