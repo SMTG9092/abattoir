@@ -17,7 +17,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <script src="api/supabase.js"></script>
 
-
 <style>
 
 /* =========================================================
@@ -152,7 +151,7 @@ select{
     background:white;
     border:1px solid #dfe6e1;
     border-radius:15px;
-    overflow:hidden;
+    overflow:visible;
     box-shadow:0 4px 16px rgba(0,0,0,.04);
 }
 
@@ -160,6 +159,7 @@ select{
     padding:17px 20px;
     background:#f8faf8;
     border-bottom:1px solid #e4e9e5;
+    border-radius:15px 15px 0 0;
 }
 
 .search-header h2{
@@ -221,19 +221,121 @@ select{
 
 
 /* =========================================================
-   DIVISION AUTO
+   DIVISION LOCKED
 ========================================================= */
 
 .division-auto{
-    background:#f3f8f4 !important;
+    background:#f1f7f2 !important;
     color:#145a1f !important;
     font-weight:700;
+}
+
+.division-auto.locked{
     cursor:not-allowed;
 }
 
-.division-auto:focus{
-    border-color:#ccd6cf !important;
-    box-shadow:none !important;
+
+/* =========================================================
+   ARTICLE AUTOCOMPLETE
+========================================================= */
+
+.article-wrap{
+    position:relative;
+    width:100%;
+}
+
+.article-input{
+    width:100%;
+}
+
+.article-suggestions{
+    position:absolute;
+    left:0;
+    right:0;
+    top:44px;
+    z-index:5000;
+    background:white;
+    border:1px solid #d3ddd6;
+    border-radius:9px;
+    box-shadow:0 12px 30px rgba(0,0,0,.13);
+    max-height:300px;
+    overflow-y:auto;
+    display:none;
+}
+
+.article-suggestions.show{
+    display:block;
+}
+
+.article-option{
+    padding:10px 12px;
+    border-bottom:1px solid #edf1ee;
+    cursor:pointer;
+    transition:.12s;
+}
+
+.article-option:last-child{
+    border-bottom:0;
+}
+
+.article-option:hover{
+    background:#f0f7f2;
+}
+
+.article-code{
+    color:#145a1f;
+    font-size:12px;
+    font-weight:700;
+}
+
+.article-designation{
+    color:#66716a;
+    font-size:10px;
+    margin-top:3px;
+}
+
+.article-meta{
+    color:#89938d;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.article-empty{
+    padding:14px;
+    text-align:center;
+    color:#7b857f;
+    font-size:11px;
+}
+
+
+/* =========================================================
+   USER INFO
+========================================================= */
+
+.user-scope{
+    width:100%;
+    max-width:1150px;
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 13px;
+    background:#f0f7f2;
+    border:1px solid #dce9df;
+    border-radius:9px;
+}
+
+.user-scope i{
+    color:#145a1f;
+}
+
+.user-scope-text{
+    font-size:11px;
+    color:#526057;
+}
+
+.user-scope-text strong{
+    color:#173b1d;
 }
 
 
@@ -359,7 +461,7 @@ select{
 
 
 /* =========================================================
-   TABLE CARD
+   TABLE
 ========================================================= */
 
 .table-card{
@@ -539,7 +641,7 @@ tbody td{
 
 
 /* =========================================================
-   MODAL
+   DETAIL MODAL
 ========================================================= */
 
 .modal-bg{
@@ -694,7 +796,6 @@ tbody td{
 
 }
 
-
 @media(max-width:700px){
 
     .page{
@@ -732,7 +833,6 @@ tbody td{
 
 }
 
-
 @media(max-width:480px){
 
     .stats{
@@ -769,11 +869,8 @@ tbody td{
     <div class="title-box">
 
         <div class="title-icon">
-
             <i class="fa-solid fa-location-dot"></i>
-
         </div>
-
 
         <div class="title-text">
 
@@ -792,7 +889,6 @@ tbody td{
 </div>
 
 
-
 <!-- =========================================================
      SEARCH
 ========================================================= -->
@@ -801,7 +897,6 @@ tbody td{
     id="searchScreen"
     class="search-card"
 >
-
 
     <div class="search-header">
 
@@ -813,25 +908,51 @@ tbody td{
 
         </h2>
 
-
         <p>
-
-            Laissez les champs vides pour afficher tous les emplacements.
-
+            Les critères disponibles sont adaptés à votre périmètre de travail.
         </p>
 
     </div>
 
 
-
     <div class="criteria">
+
+
+        <!-- =================================================
+             USER SCOPE
+        ================================================== -->
+
+        <div
+            id="userScope"
+            class="user-scope"
+        >
+
+            <i class="fa-solid fa-user-shield"></i>
+
+            <div class="user-scope-text">
+
+                Utilisateur :
+                <strong id="scopeUser">
+                    -
+                </strong>
+
+                &nbsp; | &nbsp;
+
+                Division :
+                <strong id="scopeDivision">
+                    Chargement...
+                </strong>
+
+            </div>
+
+        </div>
 
 
         <div class="criteria-grid">
 
 
             <!-- =================================================
-                 ARTICLE
+                 1 ARTICLE
             ================================================== -->
 
             <div class="field">
@@ -840,15 +961,24 @@ tbody td{
                     Article
                 </label>
 
-                <input
-                    id="article"
-                    type="text"
-                    placeholder="Code ou désignation"
-                    autocomplete="off"
-                >
+                <div class="article-wrap">
+
+                    <input
+                        id="article"
+                        class="article-input"
+                        type="text"
+                        placeholder="Code ou désignation"
+                        autocomplete="off"
+                    >
+
+                    <div
+                        id="articleSuggestions"
+                        class="article-suggestions"
+                    ></div>
+
+                </div>
 
             </div>
-
 
 
             <!-- =================================================
@@ -871,9 +1001,8 @@ tbody td{
             </div>
 
 
-
             <!-- =================================================
-                 MAGASIN
+                 2 MAGASIN
             ================================================== -->
 
             <div class="field">
@@ -891,7 +1020,6 @@ tbody td{
                 </select>
 
             </div>
-
 
 
             <!-- =================================================
@@ -914,10 +1042,8 @@ tbody td{
             </div>
 
 
-
             <!-- =================================================
-                 DIVISION
-                 AUTOMATIQUE SELON MAGASIN
+                 3 DIVISION
             ================================================== -->
 
             <div class="field">
@@ -926,22 +1052,22 @@ tbody td{
                     Division
                 </label>
 
-                <input
+                <select
                     id="division"
-                    type="text"
                     class="division-auto"
-                    placeholder="Sélectionnez d'abord un magasin"
-                    autocomplete="off"
-                    readonly
                 >
+
+                    <option value="">
+                        Chargement...
+                    </option>
+
+                </select>
 
             </div>
 
 
-
             <!-- =================================================
-                 TYPE ARTICLE
-                 VIENT DE PRODUITS.TYPE
+                 5 TYPE
             ================================================== -->
 
             <div class="field">
@@ -961,10 +1087,8 @@ tbody td{
             </div>
 
 
-
             <!-- =================================================
-                 GROUPE MARCHANDISE
-                 VIENT DE PRODUITS.GROUPE
+                 4 GROUPE
             ================================================== -->
 
             <div class="field">
@@ -982,7 +1106,6 @@ tbody td{
                 </select>
 
             </div>
-
 
 
             <!-- =================================================
@@ -1021,9 +1144,7 @@ tbody td{
         </div>
 
 
-
         <div class="criteria-actions">
-
 
             <button
                 id="btnClear"
@@ -1038,7 +1159,6 @@ tbody td{
             </button>
 
 
-
             <button
                 id="btnExecute"
                 class="btn btn-primary"
@@ -1051,14 +1171,12 @@ tbody td{
 
             </button>
 
-
         </div>
 
 
     </div>
 
 </section>
-
 
 
 <!-- =========================================================
@@ -1070,9 +1188,7 @@ tbody td{
     class="results"
 >
 
-
     <div class="results-header">
-
 
         <div class="results-title">
 
@@ -1087,9 +1203,7 @@ tbody td{
         </div>
 
 
-
         <div class="results-actions">
-
 
             <button
                 id="btnNewSearch"
@@ -1104,7 +1218,6 @@ tbody td{
             </button>
 
 
-
             <button
                 id="btnRefresh"
                 class="btn btn-secondary"
@@ -1117,15 +1230,10 @@ tbody td{
 
             </button>
 
-
         </div>
-
 
     </div>
 
-
-
-    <!-- CRITERIA SUMMARY -->
 
     <div
         id="criteriaSummary"
@@ -1133,18 +1241,14 @@ tbody td{
     ></div>
 
 
-
     <!-- STATS -->
 
     <div class="stats">
 
-
         <div class="stat">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-location-dot"></i>
-
             </div>
 
             <div>
@@ -1165,13 +1269,10 @@ tbody td{
         </div>
 
 
-
         <div class="stat">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-circle-check"></i>
-
             </div>
 
             <div>
@@ -1192,13 +1293,10 @@ tbody td{
         </div>
 
 
-
         <div class="stat">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-box"></i>
-
             </div>
 
             <div>
@@ -1219,13 +1317,10 @@ tbody td{
         </div>
 
 
-
         <div class="stat">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-chart-pie"></i>
-
             </div>
 
             <div>
@@ -1246,13 +1341,10 @@ tbody td{
         </div>
 
 
-
         <div class="stat">
 
             <div class="stat-icon">
-
                 <i class="fa-solid fa-weight-hanging"></i>
-
             </div>
 
             <div>
@@ -1272,17 +1364,12 @@ tbody td{
 
         </div>
 
-
     </div>
 
 
-
-    <!-- =====================================================
-         TABLE
-    ====================================================== -->
+    <!-- TABLE -->
 
     <div class="table-card">
-
 
         <div class="table-head">
 
@@ -1294,13 +1381,11 @@ tbody td{
 
             </strong>
 
-
             <span id="tableCount">
                 0 résultat
             </span>
 
         </div>
-
 
 
         <div
@@ -1313,7 +1398,6 @@ tbody td{
             Chargement des emplacements...
 
         </div>
-
 
 
         <div
@@ -1332,7 +1416,6 @@ tbody td{
             </p>
 
         </div>
-
 
 
         <div
@@ -1387,7 +1470,6 @@ tbody td{
 
                 </thead>
 
-
                 <tbody
                     id="resultsBody"
                 ></tbody>
@@ -1396,15 +1478,12 @@ tbody td{
 
         </div>
 
-
     </div>
-
 
 </section>
 
 
 </div>
-
 
 
 <!-- =========================================================
@@ -1416,9 +1495,7 @@ tbody td{
     class="modal-bg"
 >
 
-
     <div class="modal">
-
 
         <div class="modal-head">
 
@@ -1444,9 +1521,7 @@ tbody td{
         </div>
 
 
-
         <div class="modal-body">
-
 
             <div class="details">
 
@@ -1467,7 +1542,6 @@ tbody td{
                 </div>
 
 
-
                 <div class="detail">
 
                     <div class="detail-label">
@@ -1482,7 +1556,6 @@ tbody td{
                     </div>
 
                 </div>
-
 
 
                 <div class="detail">
@@ -1501,7 +1574,6 @@ tbody td{
                 </div>
 
 
-
                 <div class="detail">
 
                     <div class="detail-label">
@@ -1516,7 +1588,6 @@ tbody td{
                     </div>
 
                 </div>
-
 
 
                 <div class="detail">
@@ -1535,7 +1606,6 @@ tbody td{
                 </div>
 
 
-
                 <div class="detail">
 
                     <div class="detail-label">
@@ -1550,7 +1620,6 @@ tbody td{
                     </div>
 
                 </div>
-
 
 
                 <div class="detail full">
@@ -1572,7 +1641,6 @@ tbody td{
             </div>
 
 
-
             <div class="stock-title">
 
                 <i class="fa-solid fa-box"></i>
@@ -1584,14 +1652,11 @@ tbody td{
 
             <div id="detailStock"></div>
 
-
         </div>
-
 
     </div>
 
 </div>
-
 
 
 <!-- =========================================================
@@ -1604,21 +1669,24 @@ tbody td{
 ></div>
 
 
-
 <script>
+
+"use strict";
+
 
 /* =========================================================
    VARIABLES
 ========================================================= */
 
-"use strict";
-
-
 let client = null;
 
-let magasins = [];
+let currentUser = null;
+
+let userDivisions = [];
 
 let divisions = [];
+
+let magasins = [];
 
 let produits = [];
 
@@ -1630,10 +1698,8 @@ let results = [];
 
 let currentCriteria = {};
 
+let selectedArticleCode = "";
 
-/* =========================================================
-   INDEX
-========================================================= */
 
 let stockById =
     new Map();
@@ -1641,10 +1707,8 @@ let stockById =
 let stockByCode =
     new Map();
 
-
 let productsByArticle =
     new Map();
-
 
 let productsByArticleNormalized =
     new Map();
@@ -1657,9 +1721,7 @@ let productsByArticleNormalized =
 const LOCATION_ID_FIELDS = [
 
     "emplacement_id",
-
     "location_id",
-
     "emplacementid"
 
 ];
@@ -1668,13 +1730,9 @@ const LOCATION_ID_FIELDS = [
 const LOCATION_CODE_FIELDS = [
 
     "emplacement_code",
-
     "location_code",
-
     "emplacement",
-
     "location",
-
     "code_emplacement"
 
 ];
@@ -1683,19 +1741,12 @@ const LOCATION_CODE_FIELDS = [
 const ARTICLE_FIELDS = [
 
     "article",
-
     "article_code",
-
     "code_article",
-
     "product",
-
     "product_code",
-
     "code_produit",
-
     "material",
-
     "material_code"
 
 ];
@@ -1704,13 +1755,9 @@ const ARTICLE_FIELDS = [
 const LOT_FIELDS = [
 
     "lot",
-
     "lot_code",
-
     "lot_number",
-
     "numero_lot",
-
     "code_lot"
 
 ];
@@ -1719,19 +1766,12 @@ const LOT_FIELDS = [
 const QTY_FIELDS = [
 
     "quantity_kg",
-
     "qty_kg",
-
     "quantite_kg",
-
     "quantite",
-
     "quantity",
-
     "qte",
-
     "stock_kg",
-
     "poids"
 
 ];
@@ -1740,17 +1780,11 @@ const QTY_FIELDS = [
 const PALETTE_FIELDS = [
 
     "palette_count",
-
     "palettes",
-
     "palette",
-
     "qty_palettes",
-
     "quantite_palettes",
-
     "nb_palettes",
-
     "nombre_palettes"
 
 ];
@@ -1767,20 +1801,20 @@ document.addEventListener(
         try{
 
             client =
-                getSupabase();
+                getSupabaseClient();
 
 
             bindEvents();
 
 
-            await loadBaseData();
+            await initializePage();
 
 
         }
         catch(error){
 
             console.error(
-                "INIT:",
+                "INIT ERROR:",
                 error
             );
 
@@ -1798,10 +1832,10 @@ document.addEventListener(
 
 
 /* =========================================================
-   GET SUPABASE
+   SUPABASE CLIENT
 ========================================================= */
 
-function getSupabase(){
+function getSupabaseClient(){
 
     if(
         window.smtgSupabase
@@ -1829,190 +1863,256 @@ function getSupabase(){
 
 
 /* =========================================================
-   EVENTS
+   INITIALISATION
 ========================================================= */
 
-function bindEvents(){
+async function initializePage(){
+
+    /*
+     * 1. Utilisateur actuel
+     */
+
+    currentUser =
+        await getCurrentLoggedUser();
 
 
-    document
-        .getElementById(
-            "btnExecute"
-        )
-        .addEventListener(
-            "click",
-            function(){
+    if(!currentUser){
 
-                executeSearch(false);
-
-            }
+        throw new Error(
+            "Utilisateur connecté introuvable."
         );
 
-
-    document
-        .getElementById(
-            "btnClear"
-        )
-        .addEventListener(
-            "click",
-            clearCriteria
-        );
+    }
 
 
-    document
-        .getElementById(
-            "btnNewSearch"
-        )
-        .addEventListener(
-            "click",
-            newSearch
-        );
+    setText(
+        "scopeUser",
+        currentUser.full_name ||
+        currentUser.username ||
+        "-"
+    );
 
 
-    document
-        .getElementById(
-            "btnRefresh"
-        )
-        .addEventListener(
-            "click",
-            function(){
+    /*
+     * 2. Divisions affectées à l'utilisateur
+     */
 
-                executeSearch(true);
-
-            }
-        );
+    await loadUserDivisions();
 
 
-    document
-        .getElementById(
-            "closeModal"
-        )
-        .addEventListener(
-            "click",
-            closeModal
-        );
+    /*
+     * 3. Magasins accessibles
+     */
+
+    await loadMagasins();
 
 
-    document
-        .getElementById(
-            "modalBg"
-        )
-        .addEventListener(
-            "click",
-            function(event){
+    /*
+     * 4. Produits accessibles
+     */
 
-                if(
-                    event.target.id ===
-                    "modalBg"
-                ){
-
-                    closeModal();
-
-                }
-
-            }
-        );
+    await loadProduits();
 
 
-    /* =====================================================
-       MAGASIN CHANGE
-    ====================================================== */
+    /*
+     * 5. Préparer les listes
+     */
 
-    document
-        .getElementById(
-            "magasin"
-        )
-        .addEventListener(
-            "change",
-            onMagasinChange
-        );
+    populateDivisionSelect();
+
+    populateMagasinSelect();
+
+    populateProductFilters();
 
 
-    document.addEventListener(
-        "keydown",
-        function(event){
+    /*
+     * 6. Appliquer division
+     */
 
-            if(
-                event.key ===
-                "Escape"
-            ){
+    applyDivisionScope();
 
-                closeModal();
-
-            }
+}
 
 
-            if(
-                event.key ===
-                "Enter"
-            ){
+/* =========================================================
+   CURRENT USER
+========================================================= */
 
-                const search =
-                    document.getElementById(
-                        "searchScreen"
-                    );
+async function getCurrentLoggedUser(){
+
+    /*
+     * Priorité à la fonction du système
+     */
+
+    if(
+        window.SMTG &&
+        typeof window.SMTG.getCurrentUser ===
+        "function"
+    ){
+
+        try{
+
+            const user =
+                await window.SMTG.getCurrentUser();
 
 
-                if(
-                    search.style.display !==
-                    "none"
-                ){
+            if(user){
 
-                    executeSearch(false);
-
-                }
+                return user;
 
             }
 
         }
-    );
+        catch(error){
+
+            console.warn(
+                "SMTG.getCurrentUser:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+     * sessionStorage
+     */
+
+    const keys = [
+
+        "smtg_current_user",
+        "smtgUser"
+
+    ];
+
+
+    for(
+        const key of keys
+    ){
+
+        const raw =
+            sessionStorage.getItem(
+                key
+            );
+
+
+        if(raw){
+
+            try{
+
+                const user =
+                    JSON.parse(
+                        raw
+                    );
+
+
+                if(
+                    user &&
+                    user.id
+                ){
+
+                    return user;
+
+                }
+
+            }
+            catch(error){
+
+                console.warn(
+                    "Session parse:",
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /*
+     * localStorage fallback
+     */
+
+    for(
+        const key of keys
+    ){
+
+        const raw =
+            localStorage.getItem(
+                key
+            );
+
+
+        if(raw){
+
+            try{
+
+                const user =
+                    JSON.parse(
+                        raw
+                    );
+
+
+                if(
+                    user &&
+                    user.id
+                ){
+
+                    return user;
+
+                }
+
+            }
+            catch(error){
+
+                console.warn(
+                    "LocalStorage parse:",
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+
+    return null;
 
 }
 
 
 /* =========================================================
-   LOAD BASE DATA
+   USER DIVISIONS
 ========================================================= */
 
-async function loadBaseData(){
+async function loadUserDivisions(){
 
-    await Promise.all([
+    userDivisions = [];
 
-        loadDivisions(),
-
-        loadMagasins(),
-
-        loadProduits()
-
-    ]);
-
-}
-
-
-/* =========================================================
-   LOAD DIVISIONS
-========================================================= */
-
-async function loadDivisions(){
 
     const {
         data,
         error
     } =
         await client
-            .from("divisions")
-            .select(
-                "id,code,name,is_active"
-            )
+            .from("user_divisions")
+            .select(`
+                id,
+                user_id,
+                division_id,
+                division:divisions(
+                    id,
+                    code,
+                    name,
+                    is_active
+                )
+            `)
             .eq(
-                "is_active",
-                true
-            )
-            .order(
-                "code",
-                {
-                    ascending:true
-                }
+                "user_id",
+                currentUser.id
             );
 
 
@@ -2023,17 +2123,185 @@ async function loadDivisions(){
     }
 
 
+    userDivisions =
+        (data || [])
+            .filter(
+                row =>
+                    row.division &&
+                    row.division.is_active !== false
+            )
+            .map(
+                row =>
+                    row.division
+            )
+            .filter(
+                (division,index,self) =>
+                    index ===
+                    self.findIndex(
+                        x =>
+                            Number(x.id) ===
+                            Number(division.id)
+                    )
+            );
+
+
+    /*
+     * Si aucun résultat avec relation,
+     * on recharge les divisions séparément.
+     */
+
+    if(
+        userDivisions.length === 0
+    ){
+
+        const {
+            data: links,
+            error: linksError
+        } =
+            await client
+                .from("user_divisions")
+                .select(
+                    "division_id"
+                )
+                .eq(
+                    "user_id",
+                    currentUser.id
+                );
+
+
+        if(linksError){
+
+            throw linksError;
+
+        }
+
+
+        const ids =
+            (links || [])
+                .map(
+                    x =>
+                        x.division_id
+                )
+                .filter(Boolean);
+
+
+        if(ids.length){
+
+            const {
+                data: divisionRows,
+                error: divisionError
+            } =
+                await client
+                    .from("divisions")
+                    .select(
+                        "id,code,name,is_active"
+                    )
+                    .in(
+                        "id",
+                        ids
+                    )
+                    .eq(
+                        "is_active",
+                        true
+                    )
+                    .order(
+                        "code",
+                        {
+                            ascending:true
+                        }
+                    );
+
+
+            if(divisionError){
+
+                throw divisionError;
+
+            }
+
+
+            userDivisions =
+                divisionRows || [];
+
+        }
+
+    }
+
+
+    userDivisions.sort(
+        (a,b) =>
+            String(a.code || "")
+                .localeCompare(
+                    String(b.code || ""),
+                    "fr",
+                    {
+                        numeric:true
+                    }
+                )
+    );
+
+
     divisions =
-        data || [];
+        userDivisions;
+
+
+    /*
+     * Affichage scope
+     */
+
+    const scope =
+        userDivisions
+            .map(
+                x =>
+                    `${x.code} - ${x.name}`
+            )
+            .join(", ");
+
+
+    setText(
+        "scopeDivision",
+        scope || "Aucune division"
+    );
+
+
+    if(
+        userDivisions.length === 0
+    ){
+
+        showToast(
+            "Accès",
+            "Aucune division n'est affectée à cet utilisateur.",
+            "error"
+        );
+
+    }
 
 }
 
 
 /* =========================================================
    LOAD MAGASINS
+   UNIQUEMENT DES DIVISIONS DE L'UTILISATEUR
 ========================================================= */
 
 async function loadMagasins(){
+
+    if(
+        userDivisions.length === 0
+    ){
+
+        magasins = [];
+
+        return;
+
+    }
+
+
+    const divisionIds =
+        userDivisions.map(
+            x =>
+                x.id
+        );
+
 
     const {
         data,
@@ -2048,6 +2316,10 @@ async function loadMagasins(){
                 division_id,
                 is_active
             `)
+            .in(
+                "division_id",
+                divisionIds
+            )
             .eq(
                 "is_active",
                 true
@@ -2070,48 +2342,6 @@ async function loadMagasins(){
     magasins =
         data || [];
 
-
-    const select =
-        document.getElementById(
-            "magasin"
-        );
-
-
-    select.innerHTML = `
-
-        <option value="">
-            Tous les magasins
-        </option>
-
-    `;
-
-
-    magasins.forEach(
-        magasin => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                String(
-                    magasin.id
-                );
-
-
-            option.textContent =
-                `${magasin.code || ""} - ${magasin.name || ""}`;
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
-
 }
 
 
@@ -2121,7 +2351,8 @@ async function loadMagasins(){
 
 async function loadProduits(){
 
-    const allProducts = [];
+    produits = [];
+
 
     const pageSize = 1000;
 
@@ -2175,7 +2406,7 @@ async function loadProduits(){
         }
 
 
-        allProducts.push(
+        produits.push(
             ...data
         );
 
@@ -2196,23 +2427,16 @@ async function loadProduits(){
     }
 
 
-    produits =
-        allProducts;
-
-
-    buildProductIndex();
-
-
-    populateProductFilters();
+    buildProductIndexes();
 
 }
 
 
 /* =========================================================
-   PRODUCT INDEX
+   PRODUCT INDEXES
 ========================================================= */
 
-function buildProductIndex(){
+function buildProductIndexes(){
 
     productsByArticle =
         new Map();
@@ -2225,14 +2449,13 @@ function buildProductIndex(){
     produits.forEach(
         produit => {
 
-            const article =
-                produit.article;
-
-
             if(
-                article === null ||
-                article === undefined ||
-                article === ""
+                produit.article ===
+                    null ||
+                produit.article ===
+                    undefined ||
+                String(produit.article).trim() ===
+                    ""
             ){
 
                 return;
@@ -2240,26 +2463,26 @@ function buildProductIndex(){
             }
 
 
-            const exactKey =
+            const exact =
                 String(
-                    article
-                );
+                    produit.article
+                ).trim();
 
 
-            const normalizedKey =
+            const normalized =
                 normalize(
-                    article
+                    exact
                 );
 
 
             productsByArticle.set(
-                exactKey,
+                exact,
                 produit
             );
 
 
             productsByArticleNormalized.set(
-                normalizedKey,
+                normalized,
                 produit
             );
 
@@ -2270,7 +2493,305 @@ function buildProductIndex(){
 
 
 /* =========================================================
-   POPULATE PRODUCT FILTERS
+   POPULATE DIVISION
+========================================================= */
+
+function populateDivisionSelect(){
+
+    const select =
+        document.getElementById(
+            "division"
+        );
+
+
+    select.innerHTML = "";
+
+
+    if(
+        divisions.length === 0
+    ){
+
+        select.innerHTML = `
+
+            <option value="">
+                Aucune division affectée
+            </option>
+
+        `;
+
+        select.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    /*
+     * Une seule division :
+     * sélection automatique + verrouillage
+     */
+
+    if(
+        divisions.length === 1
+    ){
+
+        const division =
+            divisions[0];
+
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            String(
+                division.id
+            );
+
+
+        option.textContent =
+            `${division.code} - ${division.name}`;
+
+
+        option.selected =
+            true;
+
+
+        select.appendChild(
+            option
+        );
+
+
+        select.disabled =
+            true;
+
+
+        select.classList.add(
+            "locked"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Plusieurs divisions :
+     * l'utilisateur choisit uniquement
+     * parmi ses divisions.
+     */
+
+    select.disabled =
+        false;
+
+
+    select.classList.remove(
+        "locked"
+    );
+
+
+    const first =
+        document.createElement(
+            "option"
+        );
+
+
+    first.value =
+        "";
+
+
+    first.textContent =
+        "Toutes mes divisions";
+
+
+    select.appendChild(
+        first
+    );
+
+
+    divisions.forEach(
+        division => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                String(
+                    division.id
+                );
+
+
+            option.textContent =
+                `${division.code} - ${division.name}`;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    /*
+     * Pour plusieurs divisions,
+     * on laisse le choix.
+     */
+
+}
+
+
+/* =========================================================
+   APPLY DIVISION SCOPE
+========================================================= */
+
+function applyDivisionScope(){
+
+    const divisionSelect =
+        document.getElementById(
+            "division"
+        );
+
+
+    /*
+     * Si une seule division :
+     * sélection automatique.
+     */
+
+    if(
+        userDivisions.length === 1
+    ){
+
+        divisionSelect.value =
+            String(
+                userDivisions[0].id
+            );
+
+        populateMagasinSelect();
+
+    }
+
+
+    /*
+     * Plusieurs divisions :
+     * tous les magasins des divisions affectées.
+     */
+
+    else{
+
+        divisionSelect.value =
+            "";
+
+        populateMagasinSelect();
+
+    }
+
+}
+
+
+/* =========================================================
+   DIVISION CHANGE
+========================================================= */
+
+function onDivisionChange(){
+
+    populateMagasinSelect();
+
+}
+
+
+/* =========================================================
+   POPULATE MAGASINS
+========================================================= */
+
+function populateMagasinSelect(){
+
+    const select =
+        document.getElementById(
+            "magasin"
+        );
+
+
+    const divisionValue =
+        document.getElementById(
+            "division"
+        ).value;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Tous les magasins
+        </option>
+
+    `;
+
+
+    let filtered =
+        magasins;
+
+
+    /*
+     * Si division choisie
+     */
+
+    if(
+        divisionValue
+    ){
+
+        filtered =
+            magasins.filter(
+                magasin =>
+                    String(
+                        magasin.division_id
+                    ) ===
+                    String(
+                        divisionValue
+                    )
+            );
+
+    }
+
+
+    filtered.forEach(
+        magasin => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                String(
+                    magasin.id
+                );
+
+
+            option.textContent =
+                `${magasin.code || ""} - ${magasin.name || ""}`;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   POPULATE GROUP + TYPE
+   SELON PRODUITS DES DIVISIONS DE L'UTILISATEUR
 ========================================================= */
 
 function populateProductFilters(){
@@ -2313,8 +2834,72 @@ function populateProductFilters(){
         new Set();
 
 
+    /*
+     * Les produits sont filtrés
+     * selon les divisions de l'utilisateur.
+     *
+     * Attention :
+     * dans produits.division nous avons
+     * généralement un code comme ABT01.
+     */
+
+    const allowedDivisionCodes =
+        new Set(
+            userDivisions
+                .map(
+                    d =>
+                        normalize(
+                            d.code
+                        )
+                )
+        );
+
+
+    const allowedDivisionIds =
+        new Set(
+            userDivisions
+                .map(
+                    d =>
+                        String(
+                            d.id
+                        )
+                )
+        );
+
+
     produits.forEach(
         produit => {
+
+            const produitDivision =
+                normalize(
+                    produit.division
+                );
+
+
+            /*
+             * Si produit.division correspond
+             * à une division de l'utilisateur.
+             */
+
+            const belongs =
+                allowedDivisionCodes.has(
+                    produitDivision
+                ) ||
+
+                allowedDivisionIds.has(
+                    String(
+                        produit.division
+                    )
+                );
+
+
+            if(
+                !belongs
+            ){
+
+                return;
+
+            }
 
 
             const group =
@@ -2411,108 +2996,888 @@ function populateProductFilters(){
 
 
 /* =========================================================
-   MAGASIN CHANGE
-   DIVISION AUTOMATIQUE
+   ARTICLE SEARCH
 ========================================================= */
 
-function onMagasinChange(){
+function bindArticleAutocomplete(){
 
-    const magasinId =
+    const input =
         document.getElementById(
-            "magasin"
-        ).value;
+            "article"
+        );
 
 
-    const divisionInput =
+    const suggestions =
         document.getElementById(
-            "division"
+            "articleSuggestions"
         );
 
 
-    /* -----------------------------------------------
-       Aucun magasin
-    ------------------------------------------------ */
+    input.addEventListener(
+        "input",
+        function(){
 
-    if(
-        !magasinId
-    ){
-
-        divisionInput.value =
-            "";
+            selectedArticleCode =
+                "";
 
 
-        divisionInput.placeholder =
-            "Sélectionnez d'abord un magasin";
+            const value =
+                input.value.trim();
 
 
-        return;
+            if(
+                value.length === 0
+            ){
 
-    }
+                hideArticleSuggestions();
+
+                return;
+
+            }
 
 
-    const magasin =
-        magasins.find(
-            m =>
-                String(
-                    m.id
-                ) ===
-                String(
-                    magasinId
+            showArticleSuggestions(
+                value
+            );
+
+        }
+    );
+
+
+    input.addEventListener(
+        "focus",
+        function(){
+
+            const value =
+                input.value.trim();
+
+
+            if(value){
+
+                showArticleSuggestions(
+                    value
+                );
+
+            }
+
+        }
+    );
+
+
+    input.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key ===
+                "Escape"
+            ){
+
+                hideArticleSuggestions();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function(event){
+
+            if(
+                !event.target.closest(
+                    ".article-wrap"
                 )
+            ){
+
+                hideArticleSuggestions();
+
+            }
+
+        }
+    );
+
+}
+
+
+function showArticleSuggestions(
+    search
+){
+
+    const box =
+        document.getElementById(
+            "articleSuggestions"
         );
 
 
-    if(!magasin){
-
-        divisionInput.value =
-            "";
-
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------
-       Division du magasin
-    ------------------------------------------------ */
-
-    const division =
-        divisions.find(
-            d =>
-                Number(
-                    d.id
-                ) ===
-                Number(
-                    magasin.division_id
-                )
+    const wanted =
+        normalize(
+            search
         );
-
-
-    if(division){
-
-        divisionInput.value =
-            `${division.code} - ${division.name}`;
-
-    }
-    else{
-
-        divisionInput.value =
-            "Division non affectée";
-
-    }
 
 
     /*
-     * Important :
-     * Division reste readonly.
+     * Produits accessibles uniquement
+     * aux divisions de l'utilisateur.
      */
+
+    const allowedDivisionCodes =
+        new Set(
+            userDivisions
+                .map(
+                    d =>
+                        normalize(
+                            d.code
+                        )
+                )
+        );
+
+
+    let candidates =
+        produits.filter(
+            produit => {
+
+                const division =
+                    normalize(
+                        produit.division
+                    );
+
+
+                if(
+                    allowedDivisionCodes.size > 0 &&
+                    !allowedDivisionCodes.has(
+                        division
+                    )
+                ){
+
+                    return false;
+
+                }
+
+
+                const article =
+                    normalize(
+                        produit.article
+                    );
+
+
+                const designation =
+                    normalize(
+                        produit.designation
+                    );
+
+
+                return (
+
+                    article.includes(
+                        wanted
+                    )
+
+                    ||
+
+                    designation.includes(
+                        wanted
+                    )
+
+                );
+
+            }
+        );
+
+
+    /*
+     * Priorité :
+     * 1 code commence par
+     * 2 designation commence par
+     * 3 contient
+     */
+
+    candidates.sort(
+        function(a,b){
+
+            const aArticle =
+                normalize(
+                    a.article
+                );
+
+            const bArticle =
+                normalize(
+                    b.article
+                );
+
+            const aDesignation =
+                normalize(
+                    a.designation
+                );
+
+            const bDesignation =
+                normalize(
+                    b.designation
+                );
+
+
+            const score =
+                function(
+                    article,
+                    designation
+                ){
+
+                    if(
+                        article.startsWith(
+                            wanted
+                        )
+                    ){
+
+                        return 1;
+
+                    }
+
+
+                    if(
+                        designation.startsWith(
+                            wanted
+                        )
+                    ){
+
+                        return 2;
+
+                    }
+
+
+                    return 3;
+
+                };
+
+
+            const sa =
+                score(
+                    aArticle,
+                    aDesignation
+                );
+
+
+            const sb =
+                score(
+                    bArticle,
+                    bDesignation
+                );
+
+
+            if(
+                sa !== sb
+            ){
+
+                return sa - sb;
+
+            }
+
+
+            return String(
+                a.article || ""
+            ).localeCompare(
+                String(
+                    b.article || ""
+                ),
+                "fr",
+                {
+                    numeric:true
+                }
+            );
+
+        }
+    );
+
+
+    /*
+     * Maximum 30 suggestions
+     */
+
+    candidates =
+        candidates.slice(
+            0,
+            30
+        );
+
+
+    if(
+        candidates.length === 0
+    ){
+
+        box.innerHTML = `
+
+            <div class="article-empty">
+
+                <i
+                    class="fa-solid fa-box-open"
+                ></i>
+
+                Aucun produit trouvé.
+
+            </div>
+
+        `;
+
+
+        box.classList.add(
+            "show"
+        );
+
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        candidates
+            .map(
+                produit =>
+                    articleOptionHtml(
+                        produit
+                    )
+            )
+            .join("");
+
+
+    box
+        .querySelectorAll(
+            "[data-article-id]"
+        )
+        .forEach(
+            element => {
+
+                element.addEventListener(
+                    "mousedown",
+                    function(event){
+
+                        event.preventDefault();
+
+
+                        const id =
+                            Number(
+                                element.dataset.articleId
+                            );
+
+
+                        selectArticle(
+                            id
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    box.classList.add(
+        "show"
+    );
+
+}
+
+
+function articleOptionHtml(
+    produit
+){
+
+    return `
+
+        <div
+            class="article-option"
+            data-article-id="${produit.id}"
+        >
+
+            <div class="article-code">
+
+                ${escapeHtml(
+                    produit.article || "-"
+                )}
+
+            </div>
+
+            <div class="article-designation">
+
+                ${escapeHtml(
+                    produit.designation || "-"
+                )}
+
+            </div>
+
+            <div class="article-meta">
+
+                Groupe :
+                ${escapeHtml(
+                    produit.groupe || "-"
+                )}
+
+                &nbsp; | &nbsp;
+
+                Type :
+                ${escapeHtml(
+                    produit.type || "-"
+                )}
+
+                ${
+                    produit.division
+                    ?
+                    `&nbsp; | &nbsp;
+                     Division :
+                     ${escapeHtml(
+                         produit.division
+                     )}`
+                    :
+                    ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 
 
 /* =========================================================
-   LOAD ALL EMPACEMENTS
+   SELECT ARTICLE
+========================================================= */
+
+function selectArticle(
+    productId
+){
+
+    const produit =
+        produits.find(
+            x =>
+                Number(
+                    x.id
+                ) ===
+                Number(
+                    productId
+                )
+        );
+
+
+    if(!produit){
+
+        return;
+
+    }
+
+
+    /*
+     * IMPORTANT :
+     * on stocke le CODE article
+     * dans le champ Article.
+     */
+
+    selectedArticleCode =
+        String(
+            produit.article || ""
+        );
+
+
+    const input =
+        document.getElementById(
+            "article"
+        );
+
+
+    input.value =
+        selectedArticleCode;
+
+
+    hideArticleSuggestions();
+
+
+    /*
+     * Le choix de l'article
+     * peut automatiquement positionner
+     * le groupe et le type correspondants,
+     * mais ils restent modifiables.
+     */
+
+    const groupSelect =
+        document.getElementById(
+            "groupeMarch"
+        );
+
+
+    const typeSelect =
+        document.getElementById(
+            "typeArticle"
+        );
+
+
+    const groupValue =
+        cleanValue(
+            produit.groupe
+        );
+
+
+    const typeValue =
+        cleanValue(
+            produit.type
+        );
+
+
+    if(
+        groupValue &&
+        optionExists(
+            groupSelect,
+            groupValue
+        )
+    ){
+
+        groupSelect.value =
+            groupValue;
+
+    }
+
+
+    if(
+        typeValue &&
+        optionExists(
+            typeSelect,
+            typeValue
+        )
+    ){
+
+        typeSelect.value =
+            typeValue;
+
+    }
+
+}
+
+
+function hideArticleSuggestions(){
+
+    const box =
+        document.getElementById(
+            "articleSuggestions"
+        );
+
+
+    box.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function bindEvents(){
+
+    bindArticleAutocomplete();
+
+
+    document
+        .getElementById(
+            "btnExecute"
+        )
+        .addEventListener(
+            "click",
+            function(){
+
+                executeSearch(false);
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "btnClear"
+        )
+        .addEventListener(
+            "click",
+            clearCriteria
+        );
+
+
+    document
+        .getElementById(
+            "btnNewSearch"
+        )
+        .addEventListener(
+            "click",
+            newSearch
+        );
+
+
+    document
+        .getElementById(
+            "btnRefresh"
+        )
+        .addEventListener(
+            "click",
+            function(){
+
+                executeSearch(true);
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "division"
+        )
+        .addEventListener(
+            "change",
+            onDivisionChange
+        );
+
+
+    document
+        .getElementById(
+            "closeModal"
+        )
+        .addEventListener(
+            "click",
+            closeModal
+        );
+
+
+    document
+        .getElementById(
+            "modalBg"
+        )
+        .addEventListener(
+            "click",
+            function(event){
+
+                if(
+                    event.target.id ===
+                    "modalBg"
+                ){
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+    document.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key ===
+                "Escape"
+            ){
+
+                closeModal();
+
+                hideArticleSuggestions();
+
+            }
+
+
+            if(
+                event.key ===
+                "Enter"
+            ){
+
+                const search =
+                    document.getElementById(
+                        "searchScreen"
+                    );
+
+
+                if(
+                    search.style.display !==
+                    "none"
+                ){
+
+                    /*
+                     * Si suggestions ouvertes,
+                     * ne pas exécuter directement.
+                     */
+
+                    const suggestions =
+                        document.getElementById(
+                            "articleSuggestions"
+                        );
+
+
+                    if(
+                        suggestions.classList.contains(
+                            "show"
+                        )
+                    ){
+
+                        return;
+
+                    }
+
+
+                    executeSearch(false);
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+async function executeSearch(
+    isRefresh = false
+){
+
+    if(
+        !isRefresh
+    ){
+
+        currentCriteria =
+            getCriteria();
+
+
+        showResults();
+
+    }
+
+
+    setLoading(true);
+
+
+    try{
+
+
+        emplacements =
+            await loadAllEmplacements();
+
+
+        emplacements =
+            emplacements.map(
+                emp => ({
+
+                    ...emp,
+
+                    occupation:
+                        "FREE",
+
+                    stock_items:[],
+
+                    total_kg:0,
+
+                    palette_count:0
+
+                })
+            );
+
+
+        stockRows = [];
+
+
+        try{
+
+            const {
+                data,
+                error
+            } =
+                await client
+                    .from("stock")
+                    .select("*");
+
+
+            if(error){
+
+                console.warn(
+                    "Stock non disponible:",
+                    error.message
+                );
+
+            }
+            else{
+
+                stockRows =
+                    data || [];
+
+            }
+
+        }
+        catch(errorStock){
+
+            console.warn(
+                "Stock ignoré:",
+                errorStock
+            );
+
+            stockRows = [];
+
+        }
+
+
+        buildStockIndexes();
+
+        calculateOccupation();
+
+
+        results =
+            applyCriteria(
+                emplacements,
+                currentCriteria
+            );
+
+
+        updateSummary();
+
+        updateStats();
+
+        renderResults();
+
+
+        document.getElementById(
+            "resultSubtitle"
+        ).textContent =
+            `${formatNumber(results.length)} emplacement(s) trouvé(s)`;
+
+    }
+    catch(error){
+
+        console.error(
+            "EXECUTE ERROR:",
+            error
+        );
+
+
+        renderError();
+
+
+        showToast(
+            "Erreur",
+            getError(error),
+            "error"
+        );
+
+    }
+    finally{
+
+        setLoading(false);
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD ALL EMPLACEMENTS
 ========================================================= */
 
 async function loadAllEmplacements(){
@@ -2599,176 +3964,31 @@ async function loadAllEmplacements(){
     }
 
 
-    return allRows;
+    /*
+     * SECURITY / SCOPE :
+     * on garde uniquement les emplacements
+     * des magasins accessibles à l'utilisateur.
+     */
 
-}
-
-
-/* =========================================================
-   EXECUTE SEARCH
-========================================================= */
-
-async function executeSearch(
-    isRefresh = false
-){
-
-    if(
-        !isRefresh
-    ){
-
-        currentCriteria =
-            getCriteria();
-
-
-        showResults();
-
-    }
-
-
-    setLoading(true);
-
-
-    try{
-
-
-        /* ==========================================
-           EMPLACEMENTS
-        ========================================== */
-
-        emplacements =
-            await loadAllEmplacements();
-
-
-        /* ==========================================
-           INITIALISATION
-        ========================================== */
-
-        emplacements =
-            emplacements.map(
-                emp => ({
-
-                    ...emp,
-
-                    occupation:
-                        "FREE",
-
-                    stock_items:[],
-
-                    total_kg:0,
-
-                    palette_count:0
-
-                })
-            );
-
-
-        /* ==========================================
-           STOCK
-        ========================================== */
-
-        stockRows = [];
-
-
-        try{
-
-            const {
-                data,
-                error
-            } =
-                await client
-                    .from("stock")
-                    .select("*");
-
-
-            if(error){
-
-                console.warn(
-                    "Stock non disponible:",
-                    error.message
-                );
-
-            }
-            else{
-
-                stockRows =
-                    data || [];
-
-            }
-
-        }
-        catch(errorStock){
-
-            console.warn(
-                "Stock ignoré:",
-                errorStock
-            );
-
-            stockRows = [];
-
-        }
-
-
-        /* ==========================================
-           INDEX STOCK
-        ========================================== */
-
-        buildStockIndexes();
-
-
-        /* ==========================================
-           OCCUPATION
-        ========================================== */
-
-        calculateOccupation();
-
-
-        /* ==========================================
-           FILTER
-        ========================================== */
-
-        results =
-            applyCriteria(
-                emplacements,
-                currentCriteria
-            );
-
-
-        updateSummary();
-
-        updateStats();
-
-        renderResults();
-
-
-        document.getElementById(
-            "resultSubtitle"
-        ).textContent =
-            `${formatNumber(results.length)} emplacement(s) trouvé(s)`;
-
-    }
-    catch(error){
-
-        console.error(
-            "EXECUTE ERROR:",
-            error
+    const allowedMagasinIds =
+        new Set(
+            magasins.map(
+                m =>
+                    String(
+                        m.id
+                    )
+            )
         );
 
 
-        renderError();
-
-
-        showToast(
-            "Erreur",
-            getError(error),
-            "error"
-        );
-
-    }
-    finally{
-
-        setLoading(false);
-
-    }
+    return allRows.filter(
+        emp =>
+            allowedMagasinIds.has(
+                String(
+                    emp.magasin_id
+                )
+            )
+    );
 
 }
 
@@ -2785,52 +4005,56 @@ function getCriteria(){
         ).value;
 
 
-    let division = "";
+    const divisionId =
+        document.getElementById(
+            "division"
+        ).value;
 
 
-    /*
-     * Division ne vient plus d'une saisie utilisateur.
-     * Elle vient directement du magasin sélectionné.
-     */
+    let divisionCode = "";
+
 
     if(
-        magasinId
+        divisionId
     ){
 
-        const magasin =
-            magasins.find(
-                m =>
-                    String(
-                        m.id
-                    ) ===
-                    String(
-                        magasinId
-                    )
-            );
-
-
-        const divisionObj =
+        const division =
             divisions.find(
                 d =>
-                    Number(
+                    String(
                         d.id
                     ) ===
-                    Number(
-                        magasin?.division_id
+                    String(
+                        divisionId
                     )
             );
 
 
-        division =
-            divisionObj?.code ||
+        divisionCode =
+            division?.code ||
             "";
 
     }
 
 
+    /*
+     * Si plusieurs divisions et aucune sélection,
+     * le scope reste celui des divisions utilisateur.
+     */
+
     return {
 
         article:
+            document
+                .getElementById(
+                    "article"
+                )
+                .value
+                .trim(),
+
+
+        articleCode:
+            selectedArticleCode ||
             document
                 .getElementById(
                     "article"
@@ -2852,6 +4076,14 @@ function getCriteria(){
             magasinId,
 
 
+        divisionId:
+            divisionId,
+
+
+        division:
+            divisionCode,
+
+
         lot:
             document
                 .getElementById(
@@ -2859,10 +4091,6 @@ function getCriteria(){
                 )
                 .value
                 .trim(),
-
-
-        division:
-            division,
 
 
         typeArticle:
@@ -2894,7 +4122,7 @@ function getCriteria(){
 
 
 /* =========================================================
-   BUILD STOCK INDEXES
+   STOCK INDEXES
 ========================================================= */
 
 function buildStockIndexes(){
@@ -2909,7 +4137,6 @@ function buildStockIndexes(){
 
     stockRows.forEach(
         row => {
-
 
             const id =
                 getFirstValue(
@@ -2959,7 +4186,9 @@ function buildStockIndexes(){
             ){
 
                 const key =
-                    normalize(code);
+                    normalize(
+                        code
+                    );
 
 
                 if(
@@ -2987,7 +4216,7 @@ function buildStockIndexes(){
 
 
 /* =========================================================
-   GET PRODUCT FROM STOCK ARTICLE
+   PRODUCT FROM STOCK
 ========================================================= */
 
 function getProductForStockRow(
@@ -3015,7 +4244,7 @@ function getProductForStockRow(
         productsByArticle.get(
             String(
                 article
-            )
+            ).trim()
         );
 
 
@@ -3034,10 +4263,6 @@ function getProductForStockRow(
 
 }
 
-
-/* =========================================================
-   GET PRODUCT FIELD
-========================================================= */
 
 function getProductField(
     row,
@@ -3065,7 +4290,7 @@ function getProductField(
 
 
 /* =========================================================
-   CALCULATE OCCUPATION
+   OCCUPATION
 ========================================================= */
 
 function calculateOccupation(){
@@ -3073,10 +4298,11 @@ function calculateOccupation(){
     emplacements.forEach(
         emp => {
 
-
             let rows =
                 stockById.get(
-                    String(emp.id)
+                    String(
+                        emp.id
+                    )
                 ) || [];
 
 
@@ -3233,12 +4459,15 @@ function applyCriteria(
     return rows.filter(
         emp => {
 
-
             const magasin =
                 magasins.find(
                     m =>
-                        Number(m.id) ===
-                        Number(emp.magasin_id)
+                        Number(
+                            m.id
+                        ) ===
+                        Number(
+                            emp.magasin_id
+                        )
                 );
 
 
@@ -3246,47 +4475,9 @@ function applyCriteria(
                 emp.stock_items || [];
 
 
-            /* ==========================================
-               EMPLACEMENT
-            ========================================== */
-
-            if(
-                criteria.emplacement
-            ){
-
-                const wanted =
-                    normalize(
-                        criteria.emplacement
-                    );
-
-
-                const code =
-                    normalize(
-                        emp.code || ""
-                    );
-
-
-                const name =
-                    normalize(
-                        emp.name || ""
-                    );
-
-
-                if(
-                    !code.includes(wanted) &&
-                    !name.includes(wanted)
-                ){
-
-                    return false;
-
-                }
-
-            }
-
-
-            /* ==========================================
-               MAGASIN
-            ========================================== */
+            /*
+             * MAGASIN
+             */
 
             if(
                 criteria.magasin
@@ -3308,9 +4499,33 @@ function applyCriteria(
             }
 
 
-            /* ==========================================
-               ARTICLE
-            ========================================== */
+            /*
+             * DIVISION
+             */
+
+            if(
+                criteria.divisionId
+            ){
+
+                if(
+                    String(
+                        magasin?.division_id
+                    ) !==
+                    String(
+                        criteria.divisionId
+                    )
+                ){
+
+                    return false;
+
+                }
+
+            }
+
+
+            /*
+             * ARTICLE
+             */
 
             if(
                 criteria.article
@@ -3325,11 +4540,6 @@ function applyCriteria(
                 const found =
                     stock.some(
                         row => {
-
-
-                            /*
-                             * Recherche dans stock
-                             */
 
                             const article =
                                 getFirstValue(
@@ -3371,6 +4581,13 @@ function applyCriteria(
                     );
 
 
+                /*
+                 * Si aucune ligne stock,
+                 * on permet aussi la recherche
+                 * par emplacement dont le stock
+                 * n'est pas encore chargé.
+                 */
+
                 if(!found){
 
                     return false;
@@ -3380,9 +4597,47 @@ function applyCriteria(
             }
 
 
-            /* ==========================================
-               LOT
-            ========================================== */
+            /*
+             * EMPLACEMENT
+             */
+
+            if(
+                criteria.emplacement
+            ){
+
+                const wanted =
+                    normalize(
+                        criteria.emplacement
+                    );
+
+
+                const code =
+                    normalize(
+                        emp.code || ""
+                    );
+
+
+                const name =
+                    normalize(
+                        emp.name || ""
+                    );
+
+
+                if(
+                    !code.includes(wanted) &&
+                    !name.includes(wanted)
+                ){
+
+                    return false;
+
+                }
+
+            }
+
+
+            /*
+             * LOT
+             */
 
             if(
                 criteria.lot
@@ -3414,48 +4669,9 @@ function applyCriteria(
             }
 
 
-            /* ==========================================
-               DIVISION
-               AUTO SELON MAGASIN
-            ========================================== */
-
-            if(
-                criteria.division
-            ){
-
-                const division =
-                    divisions.find(
-                        d =>
-                            Number(
-                                d.id
-                            ) ===
-                            Number(
-                                magasin?.division_id
-                            )
-                    );
-
-
-                if(
-                    !division ||
-                    normalize(
-                        division.code
-                    ) !==
-                    normalize(
-                        criteria.division
-                    )
-                ){
-
-                    return false;
-
-                }
-
-            }
-
-
-            /* ==========================================
-               TYPE ARTICLE
-               PRODUITS.TYPE
-            ========================================== */
+            /*
+             * TYPE
+             */
 
             if(
                 criteria.typeArticle
@@ -3469,23 +4685,14 @@ function applyCriteria(
 
                 const found =
                     stock.some(
-                        row => {
-
-                            const type =
+                        row =>
+                            normalize(
                                 getProductField(
                                     row,
                                     "type"
-                                );
-
-
-                            return (
-                                normalize(
-                                    type
-                                ) ===
-                                wanted
-                            );
-
-                        }
+                                )
+                            ) ===
+                            wanted
                     );
 
 
@@ -3498,10 +4705,9 @@ function applyCriteria(
             }
 
 
-            /* ==========================================
-               GROUPE MARCHANDISE
-               PRODUITS.GROUPE
-            ========================================== */
+            /*
+             * GROUPE
+             */
 
             if(
                 criteria.groupeMarch
@@ -3515,23 +4721,14 @@ function applyCriteria(
 
                 const found =
                     stock.some(
-                        row => {
-
-                            const group =
+                        row =>
+                            normalize(
                                 getProductField(
                                     row,
                                     "groupe"
-                                );
-
-
-                            return (
-                                normalize(
-                                    group
-                                ) ===
-                                wanted
-                            );
-
-                        }
+                                )
+                            ) ===
+                            wanted
                     );
 
 
@@ -3544,9 +4741,9 @@ function applyCriteria(
             }
 
 
-            /* ==========================================
-               ETAT
-            ========================================== */
+            /*
+             * ETAT
+             */
 
             if(
                 criteria.etat
@@ -3573,7 +4770,7 @@ function applyCriteria(
 
 
 /* =========================================================
-   UPDATE SUMMARY
+   SUMMARY
 ========================================================= */
 
 function updateSummary(){
@@ -3620,8 +4817,12 @@ function updateSummary(){
         const mag =
             magasins.find(
                 m =>
-                    String(m.id) ===
-                    String(c.magasin)
+                    String(
+                        m.id
+                    ) ===
+                    String(
+                        c.magasin
+                    )
             );
 
 
@@ -3629,8 +4830,55 @@ function updateSummary(){
             makeChip(
                 "Magasin",
                 mag
-                    ? `${mag.code} - ${mag.name}`
-                    : c.magasin
+                    ?
+                    `${mag.code} - ${mag.name}`
+                    :
+                    c.magasin
+            )
+        );
+
+    }
+
+
+    if(c.divisionId){
+
+        const division =
+            divisions.find(
+                d =>
+                    String(
+                        d.id
+                    ) ===
+                    String(
+                        c.divisionId
+                    )
+            );
+
+
+        chips.push(
+            makeChip(
+                "Division",
+                division
+                    ?
+                    `${division.code} - ${division.name}`
+                    :
+                    "-"
+            )
+        );
+
+    }
+    else if(
+        divisions.length > 1
+    ){
+
+        chips.push(
+            makeChip(
+                "Divisions",
+                divisions
+                    .map(
+                        x =>
+                            x.code
+                    )
+                    .join(", ")
             )
         );
 
@@ -3649,26 +4897,12 @@ function updateSummary(){
     }
 
 
-    if(c.division){
-
-        const division =
-            divisions.find(
-                d =>
-                    normalize(
-                        d.code
-                    ) ===
-                    normalize(
-                        c.division
-                    )
-            );
-
+    if(c.groupeMarch){
 
         chips.push(
             makeChip(
-                "Division",
-                division
-                    ? `${division.code} - ${division.name}`
-                    : c.division
+                "Groupe",
+                c.groupeMarch
             )
         );
 
@@ -3681,18 +4915,6 @@ function updateSummary(){
             makeChip(
                 "Type article",
                 c.typeArticle
-            )
-        );
-
-    }
-
-
-    if(c.groupeMarch){
-
-        chips.push(
-            makeChip(
-                "Groupe",
-                c.groupeMarch
             )
         );
 
@@ -3733,7 +4955,7 @@ function updateSummary(){
         chips.push(
             makeChip(
                 "Recherche",
-                "Tous les emplacements"
+                "Tous les emplacements de votre périmètre"
             )
         );
 
@@ -3847,7 +5069,7 @@ function updateStats(){
 
 
 /* =========================================================
-   RENDER RESULTS
+   RENDER
 ========================================================= */
 
 function renderResults(){
@@ -3950,8 +5172,12 @@ function rowHtml(
     const magasin =
         magasins.find(
             m =>
-                Number(m.id) ===
-                Number(emp.magasin_id)
+                Number(
+                    m.id
+                ) ===
+                Number(
+                    emp.magasin_id
+                )
         );
 
 
@@ -3966,17 +5192,17 @@ function rowHtml(
         );
 
 
-    const articleDesignations =
-        uniqueProductDesignations(
-            stock
-        );
-
-
     const lots =
         uniqueValues(
             stock,
             LOT_FIELDS
         );
+
+
+    const designation =
+        uniqueProductDesignations(
+            stock
+    );
 
 
     const division =
@@ -3997,7 +5223,6 @@ function rowHtml(
             data-id="${emp.id}"
         >
 
-
             <td>
 
                 <span class="code">
@@ -4011,7 +5236,6 @@ function rowHtml(
             </td>
 
 
-
             <td>
 
                 <strong>
@@ -4021,7 +5245,6 @@ function rowHtml(
                     )}
 
                 </strong>
-
 
                 <div class="muted">
 
@@ -4034,7 +5257,6 @@ function rowHtml(
             </td>
 
 
-
             <td>
 
                 ${escapeHtml(
@@ -4042,7 +5264,6 @@ function rowHtml(
                 )}
 
             </td>
-
 
 
             <td>
@@ -4054,47 +5275,37 @@ function rowHtml(
             </td>
 
 
-
             <td>
 
                 ${
                     emp.palette_count > 0
-
                     ?
-
                     `${formatNumber(
                         emp.palette_count
                     )} / ${formatNumber(
                         capacity || 1
                     )}`
-
                     :
-
                     "-"
                 }
 
             </td>
 
 
-
             <td>
 
                 ${
                     articles.length
-
                     ?
-
                     escapeHtml(
                         articles.join(", ")
                     )
-
                     :
-
                     (
-                        articleDesignations.length
+                        designation.length
                         ?
                         escapeHtml(
-                            articleDesignations.join(", ")
+                            designation.join(", ")
                         )
                         :
                         "-"
@@ -4102,7 +5313,6 @@ function rowHtml(
                 }
 
             </td>
-
 
 
             <td>
@@ -4114,45 +5324,34 @@ function rowHtml(
             </td>
 
 
-
             <td>
 
                 ${
                     emp.total_kg > 0
-
                     ?
-
                     `${formatKg(
                         emp.total_kg
                     )} KG`
-
                     :
-
                     "-"
                 }
 
             </td>
-
 
 
             <td>
 
                 ${
                     capacity > 0
-
                     ?
-
                     `${formatNumber(
                         capacity
                     )} palette(s)`
-
                     :
-
                     "-"
                 }
 
             </td>
-
 
         </tr>
 
@@ -4162,7 +5361,46 @@ function rowHtml(
 
 
 /* =========================================================
-   PRODUCT DESIGNATIONS
+   DIVISION LABEL
+========================================================= */
+
+function getDivisionLabelForMagasin(
+    magasin
+){
+
+    if(!magasin){
+
+        return "-";
+
+    }
+
+
+    const division =
+        divisions.find(
+            d =>
+                Number(
+                    d.id
+                ) ===
+                Number(
+                    magasin.division_id
+                )
+        );
+
+
+    if(!division){
+
+        return "Non affectée";
+
+    }
+
+
+    return `${division.code} - ${division.name}`;
+
+}
+
+
+/* =========================================================
+   UNIQUE DESIGNATIONS
 ========================================================= */
 
 function uniqueProductDesignations(
@@ -4217,46 +5455,7 @@ function uniqueProductDesignations(
 
 
 /* =========================================================
-   DIVISION LABEL
-========================================================= */
-
-function getDivisionLabelForMagasin(
-    magasin
-){
-
-    if(!magasin){
-
-        return "-";
-
-    }
-
-
-    const division =
-        divisions.find(
-            d =>
-                Number(
-                    d.id
-                ) ===
-                Number(
-                    magasin.division_id
-                )
-        );
-
-
-    if(!division){
-
-        return "Non affectée";
-
-    }
-
-
-    return `${division.code} - ${division.name}`;
-
-}
-
-
-/* =========================================================
-   STATUS HTML
+   STATUS
 ========================================================= */
 
 function statusHtml(
@@ -4335,8 +5534,12 @@ function openDetail(
     const emp =
         emplacements.find(
             x =>
-                Number(x.id) ===
-                Number(id)
+                Number(
+                    x.id
+                ) ===
+                Number(
+                    id
+                )
         );
 
 
@@ -4350,8 +5553,12 @@ function openDetail(
     const magasin =
         magasins.find(
             m =>
-                Number(m.id) ===
-                Number(emp.magasin_id)
+                Number(
+                    m.id
+                ) ===
+                Number(
+                    emp.magasin_id
+                )
         );
 
 
@@ -4364,8 +5571,10 @@ function openDetail(
     setText(
         "dMagasin",
         magasin
-            ? `${magasin.code} - ${magasin.name}`
-            : "-"
+            ?
+            `${magasin.code} - ${magasin.name}`
+            :
+            "-"
     );
 
 
@@ -4520,17 +5729,13 @@ function openDetail(
 
                                     ${
                                         designation
-
                                         ?
-
                                         `<div class="muted">
                                             ${escapeHtml(
                                                 designation
                                             )}
                                         </div>`
-
                                         :
-
                                         ""
                                     }
 
@@ -4555,7 +5760,9 @@ function openDetail(
                                         type
                                         ?
                                         `Type :
-                                        ${escapeHtml(type)}`
+                                         ${escapeHtml(
+                                             type
+                                         )}`
                                         :
                                         ""
                                     }
@@ -4566,7 +5773,9 @@ function openDetail(
                                         groupe
                                         ?
                                         `Groupe :
-                                        ${escapeHtml(groupe)}`
+                                         ${escapeHtml(
+                                             groupe
+                                         )}`
                                         :
                                         ""
                                     }
@@ -4684,6 +5893,10 @@ function clearCriteria(){
         "";
 
 
+    selectedArticleCode =
+        "";
+
+
     document.getElementById(
         "emplacement"
     ).value =
@@ -4702,16 +5915,32 @@ function clearCriteria(){
         "";
 
 
-    document.getElementById(
-        "division"
-    ).value =
-        "";
+    /*
+     * Division :
+     * si une seule division,
+     * on la garde.
+     */
 
+    if(
+        userDivisions.length === 1
+    ){
 
-    document.getElementById(
-        "division"
-    ).placeholder =
-        "Sélectionnez d'abord un magasin";
+        document.getElementById(
+            "division"
+        ).value =
+            String(
+                userDivisions[0].id
+            );
+
+    }
+    else{
+
+        document.getElementById(
+            "division"
+        ).value =
+            "";
+
+    }
 
 
     document.getElementById(
@@ -4730,6 +5959,12 @@ function clearCriteria(){
         "etat"
     ).value =
         "";
+
+
+    hideArticleSuggestions();
+
+
+    populateMagasinSelect();
 
 }
 
@@ -4901,7 +6136,8 @@ function getNumber(
         Number(
             String(
                 value
-            ).replace(
+            )
+            .replace(
                 ",",
                 "."
             )
@@ -4911,8 +6147,10 @@ function getNumber(
     return Number.isFinite(
         number
     )
-        ? number
-        : 0;
+        ?
+        number
+        :
+        0;
 
 }
 
@@ -5102,13 +6340,38 @@ function localeSort(
     b
 ){
 
-    return String(a).localeCompare(
-        String(b),
+    return String(
+        a
+    ).localeCompare(
+        String(
+            b
+        ),
         "fr",
         {
             sensitivity:"base",
             numeric:true
         }
+    );
+
+}
+
+
+function optionExists(
+    select,
+    value
+){
+
+    return Array.from(
+        select.options
+    )
+    .some(
+        option =>
+            normalize(
+                option.value
+            ) ===
+            normalize(
+                value
+            )
     );
 
 }
