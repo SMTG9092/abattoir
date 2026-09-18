@@ -1,0 +1,6344 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mouvements de stock - SMTG</title>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="api/supabase.js"></script>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f3f6f4;
+    color:#253129;
+    min-height:100vh;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+    max-width:1800px;
+    margin:auto;
+    padding:20px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.title-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.title-icon{
+    width:50px;
+    height:50px;
+    border-radius:13px;
+    background:#145a1f;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    box-shadow:0 5px 16px rgba(20,90,31,.18);
+}
+
+.title-text h1{
+    font-size:24px;
+    color:#18351d;
+}
+
+.title-text p{
+    margin-top:3px;
+    color:#77817b;
+    font-size:11px;
+}
+
+.btn{
+    min-height:40px;
+    padding:0 15px;
+    border:0;
+    border-radius:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:600;
+    transition:.15s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-primary{
+    background:#145a1f;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#0e4818;
+}
+
+.btn-secondary{
+    background:#fff;
+    color:#35423a;
+    border:1px solid #d5ddd7;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:#fff;
+}
+
+.btn-success{
+    background:#15803d;
+    color:#fff;
+}
+
+
+/* =========================================================
+   USER SCOPE
+========================================================= */
+
+.scope-bar{
+    background:#eef7f0;
+    border:1px solid #d9e8dc;
+    border-radius:10px;
+    padding:11px 14px;
+    margin-bottom:15px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:11px;
+    color:#56635a;
+}
+
+.scope-bar i{
+    color:#145a1f;
+}
+
+.scope-bar strong{
+    color:#173b1d;
+}
+
+
+/* =========================================================
+   FILTER CARD
+========================================================= */
+
+.filter-card{
+    background:white;
+    border:1px solid #dfe6e1;
+    border-radius:14px;
+    overflow:visible;
+    box-shadow:0 4px 16px rgba(0,0,0,.035);
+    margin-bottom:16px;
+}
+
+.card-head{
+    padding:15px 18px;
+    background:#f8faf8;
+    border-bottom:1px solid #e5eae6;
+}
+
+.card-head h2{
+    font-size:14px;
+    color:#203a25;
+}
+
+.card-head p{
+    margin-top:3px;
+    color:#7a847e;
+    font-size:10px;
+}
+
+.filter-body{
+    padding:20px;
+}
+
+.filter-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.field{
+    min-width:0;
+}
+
+.field label{
+    display:block;
+    margin-bottom:6px;
+    color:#4e5a52;
+    font-size:10px;
+    font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    height:39px;
+    border:1px solid #ccd6cf;
+    border-radius:8px;
+    outline:none;
+    padding:0 10px;
+    background:#fff;
+    color:#29352e;
+    font-size:11px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:#145a1f;
+    box-shadow:0 0 0 3px rgba(20,90,31,.08);
+}
+
+.filter-actions{
+    margin-top:17px;
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+}
+
+
+/* =========================================================
+   ARTICLE AUTOCOMPLETE
+========================================================= */
+
+.article-wrapper{
+    position:relative;
+}
+
+.article-suggestions{
+    position:absolute;
+    left:0;
+    right:0;
+    top:44px;
+    z-index:5000;
+    background:#fff;
+    border:1px solid #d4ddd6;
+    border-radius:9px;
+    box-shadow:0 12px 30px rgba(0,0,0,.14);
+    max-height:300px;
+    overflow:auto;
+    display:none;
+}
+
+.article-suggestions.show{
+    display:block;
+}
+
+.article-option{
+    padding:10px 12px;
+    border-bottom:1px solid #edf1ee;
+    cursor:pointer;
+}
+
+.article-option:hover{
+    background:#f0f7f2;
+}
+
+.article-code{
+    font-size:12px;
+    font-weight:700;
+    color:#145a1f;
+}
+
+.article-name{
+    margin-top:3px;
+    font-size:10px;
+    color:#59665e;
+}
+
+.article-meta{
+    margin-top:4px;
+    font-size:9px;
+    color:#89938d;
+}
+
+.article-empty{
+    padding:14px;
+    text-align:center;
+    color:#7a847e;
+    font-size:10px;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:11px;
+    margin-bottom:16px;
+}
+
+.stat{
+    background:#fff;
+    border:1px solid #e0e7e2;
+    border-radius:12px;
+    padding:13px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.stat-icon{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:#edf6ef;
+    color:#145a1f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.stat-label{
+    color:#7a847e;
+    font-size:9px;
+}
+
+.stat-value{
+    margin-top:2px;
+    color:#24342a;
+    font-size:18px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.table-card{
+    background:#fff;
+    border:1px solid #dfe6e1;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.035);
+}
+
+.table-head{
+    min-height:51px;
+    padding:11px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    border-bottom:1px solid #e5eae6;
+}
+
+.table-head strong{
+    font-size:12px;
+    color:#2d3d32;
+}
+
+.table-head span{
+    font-size:10px;
+    color:#7a847e;
+}
+
+.table-wrap{
+    width:100%;
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    min-width:1250px;
+    border-collapse:collapse;
+}
+
+thead th{
+    background:#f7f9f7;
+    padding:10px 11px;
+    border-bottom:1px solid #dfe6e1;
+    color:#5c6760;
+    text-align:left;
+    white-space:nowrap;
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+tbody td{
+    padding:10px 11px;
+    border-bottom:1px solid #edf0ee;
+    font-size:10px;
+    color:#334039;
+    white-space:nowrap;
+}
+
+tbody tr:hover{
+    background:#f8fbf9;
+}
+
+.article-code-table{
+    color:#145a1f;
+    font-weight:700;
+}
+
+.muted{
+    color:#8a948e;
+    font-size:9px;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   MOVEMENT BADGES
+========================================================= */
+
+.movement{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.movement-in{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.movement-out{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.movement-plus{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.movement-minus{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+.qty-in{
+    color:#15803d;
+    font-weight:700;
+}
+
+.qty-out{
+    color:#dc2626;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions{
+    display:flex;
+    gap:5px;
+}
+
+.icon-btn{
+    width:30px;
+    height:30px;
+    border:1px solid #dce4df;
+    background:white;
+    border-radius:7px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#4f5c54;
+}
+
+.icon-btn:hover{
+    background:#f2f7f3;
+    color:#145a1f;
+}
+
+.icon-btn.delete:hover{
+    background:#fff1f2;
+    color:#dc2626;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY
+========================================================= */
+
+.loading,
+.empty{
+    padding:55px 20px;
+    text-align:center;
+    color:#78827b;
+    font-size:11px;
+}
+
+.loading{
+    display:none;
+}
+
+.loading.show{
+    display:block;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+    margin:0 auto 10px;
+    border:3px solid #e0e8e2;
+    border-top-color:#145a1f;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.empty{
+    display:none;
+}
+
+.empty.show{
+    display:block;
+}
+
+.empty i{
+    font-size:35px;
+    color:#c3ccc5;
+    margin-bottom:10px;
+}
+
+.empty h3{
+    font-size:13px;
+    color:#5e6962;
+    margin-bottom:4px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    background:rgba(8,18,11,.58);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-bg.show{
+    display:flex;
+}
+
+.modal{
+    width:min(900px,100%);
+    max-height:92vh;
+    overflow:auto;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 25px 80px rgba(0,0,0,.28);
+}
+
+.modal-head{
+    padding:15px 18px;
+    border-bottom:1px solid #e4e9e5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.modal-head h3{
+    color:#1c3921;
+    font-size:15px;
+}
+
+.close-btn{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:8px;
+    background:#f0f3f1;
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-field{
+    min-width:0;
+}
+
+.form-field.full{
+    grid-column:1/-1;
+}
+
+.form-field label{
+    display:block;
+    margin-bottom:6px;
+    color:#465249;
+    font-size:10px;
+    font-weight:700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea{
+    width:100%;
+    border:1px solid #ccd6cf;
+    border-radius:8px;
+    outline:none;
+    padding:9px 10px;
+    color:#27342c;
+    background:white;
+    font-size:11px;
+}
+
+.form-field input,
+.form-field select{
+    height:40px;
+}
+
+.form-field textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+    border-color:#145a1f;
+    box-shadow:0 0 0 3px rgba(20,90,31,.08);
+}
+
+.readonly{
+    background:#f2f7f3 !important;
+    color:#145a1f !important;
+    font-weight:700;
+}
+
+.stock-info{
+    margin-top:15px;
+    padding:11px 13px;
+    border:1px solid #dce8df;
+    background:#f1f7f2;
+    border-radius:9px;
+    color:#4c5b51;
+    font-size:10px;
+}
+
+.stock-info strong{
+    color:#145a1f;
+}
+
+.modal-footer{
+    padding:14px 18px;
+    border-top:1px solid #e4e9e5;
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+}
+
+
+/* =========================================================
+   CONFIRM
+========================================================= */
+
+.confirm-box{
+    text-align:center;
+    padding:10px 5px;
+}
+
+.confirm-icon{
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    background:#fff1f2;
+    color:#dc2626;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 12px;
+    font-size:21px;
+}
+
+.confirm-box h3{
+    color:#26352b;
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.confirm-box p{
+    color:#707a74;
+    font-size:11px;
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toasts{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:min(380px,calc(100vw - 36px));
+    z-index:20000;
+}
+
+.toast{
+    background:white;
+    border:1px solid #dfe6e1;
+    border-left:4px solid #145a1f;
+    border-radius:9px;
+    padding:11px 13px;
+    margin-top:7px;
+    box-shadow:0 10px 30px rgba(0,0,0,.13);
+}
+
+.toast.error{
+    border-left-color:#dc2626;
+}
+
+.toast.warning{
+    border-left-color:#d97706;
+}
+
+.toast strong{
+    display:block;
+    font-size:11px;
+    margin-bottom:3px;
+}
+
+.toast span{
+    color:#68736c;
+    font-size:10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+    .filter-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .page{
+        padding:13px;
+    }
+
+    .filter-grid,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-field.full{
+        grid-column:auto;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:480px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="page-header">
+
+    <div class="title-box">
+
+        <div class="title-icon">
+            <i class="fa-solid fa-right-left"></i>
+        </div>
+
+        <div class="title-text">
+
+            <h1>
+                Mouvements de stock
+            </h1>
+
+            <p>
+                Gestion des entrées, sorties et ajustements de stock
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        id="btnNewMovement"
+        class="btn btn-primary"
+        type="button"
+    >
+
+        <i class="fa-solid fa-plus"></i>
+
+        Nouveau mouvement
+
+    </button>
+
+</header>
+
+
+<!-- =========================================================
+     USER SCOPE
+========================================================= -->
+
+<div class="scope-bar">
+
+    <i class="fa-solid fa-user-shield"></i>
+
+    <span>
+        Utilisateur :
+        <strong id="scopeUser">-</strong>
+    </span>
+
+    <span>|</span>
+
+    <span>
+        Divisions :
+        <strong id="scopeDivision">
+            Chargement...
+        </strong>
+    </span>
+
+</div>
+
+
+<!-- =========================================================
+     FILTERS
+========================================================= -->
+
+<section class="filter-card">
+
+    <div class="card-head">
+
+        <h2>
+            <i class="fa-solid fa-filter"></i>
+            Recherche
+        </h2>
+
+        <p>
+            Rechercher les mouvements dans votre périmètre.
+        </p>
+
+    </div>
+
+
+    <div class="filter-body">
+
+        <div class="filter-grid">
+
+
+            <!-- ARTICLE -->
+
+            <div class="field">
+
+                <label>
+                    Article
+                </label>
+
+                <div class="article-wrapper">
+
+                    <input
+                        id="filterArticle"
+                        type="text"
+                        placeholder="Code ou désignation"
+                        autocomplete="off"
+                    >
+
+                    <div
+                        id="filterArticleSuggestions"
+                        class="article-suggestions"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DIVISION -->
+
+            <div class="field">
+
+                <label>
+                    Division
+                </label>
+
+                <select
+                    id="filterDivision"
+                >
+
+                    <option value="">
+                        Toutes mes divisions
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- MAGASIN -->
+
+            <div class="field">
+
+                <label>
+                    Magasin
+                </label>
+
+                <select
+                    id="filterMagasin"
+                >
+
+                    <option value="">
+                        Tous les magasins
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- EMPLACEMENT -->
+
+            <div class="field">
+
+                <label>
+                    Emplacement
+                </label>
+
+                <select
+                    id="filterEmplacement"
+                >
+
+                    <option value="">
+                        Tous les emplacements
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- LOT -->
+
+            <div class="field">
+
+                <label>
+                    Lot
+                </label>
+
+                <input
+                    id="filterLot"
+                    type="text"
+                    placeholder="Numéro de lot"
+                >
+
+            </div>
+
+
+            <!-- TYPE -->
+
+            <div class="field">
+
+                <label>
+                    Type de mouvement
+                </label>
+
+                <select
+                    id="filterType"
+                >
+
+                    <option value="">
+                        Tous
+                    </option>
+
+                    <option value="ENTREE">
+                        Entrée
+                    </option>
+
+                    <option value="SORTIE">
+                        Sortie
+                    </option>
+
+                    <option value="AJUSTEMENT_PLUS">
+                        Ajustement +
+                    </option>
+
+                    <option value="AJUSTEMENT_MOINS">
+                        Ajustement -
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DATE DEBUT -->
+
+            <div class="field">
+
+                <label>
+                    Date début
+                </label>
+
+                <input
+                    id="filterDateStart"
+                    type="date"
+                >
+
+            </div>
+
+
+            <!-- DATE FIN -->
+
+            <div class="field">
+
+                <label>
+                    Date fin
+                </label>
+
+                <input
+                    id="filterDateEnd"
+                    type="date"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <div class="filter-actions">
+
+            <button
+                id="btnResetFilters"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-eraser"></i>
+
+                Réinitialiser
+
+            </button>
+
+
+            <button
+                id="btnSearch"
+                class="btn btn-primary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Rechercher
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<div class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-list"></i>
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Mouvements
+            </div>
+
+            <div
+                id="statMovements"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-arrow-down"></i>
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Entrées KG
+            </div>
+
+            <div
+                id="statIn"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-arrow-up"></i>
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Sorties KG
+            </div>
+
+            <div
+                id="statOut"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-plus-minus"></i>
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Ajustements KG
+            </div>
+
+            <div
+                id="statAdjust"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+
+        <div>
+
+            <div class="stat-label">
+                Solde net KG
+            </div>
+
+            <div
+                id="statNet"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TABLE
+========================================================= -->
+
+<section class="table-card">
+
+
+    <div class="table-head">
+
+        <strong>
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            Historique des mouvements
+
+        </strong>
+
+        <span id="tableCount">
+            0 mouvement
+        </span>
+
+    </div>
+
+
+    <div
+        id="loading"
+        class="loading"
+    >
+
+        <div class="spinner"></div>
+
+        Chargement...
+
+    </div>
+
+
+    <div
+        id="empty"
+        class="empty"
+    >
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>
+            Aucun mouvement
+        </h3>
+
+        <p>
+            Aucun mouvement ne correspond aux critères.
+        </p>
+
+    </div>
+
+
+    <div
+        id="tableWrap"
+        class="table-wrap"
+        style="display:none;"
+    >
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Date / Heure
+                    </th>
+
+                    <th>
+                        Division
+                    </th>
+
+                    <th>
+                        Magasin
+                    </th>
+
+                    <th>
+                        Emplacement
+                    </th>
+
+                    <th>
+                        Article
+                    </th>
+
+                    <th>
+                        Lot
+                    </th>
+
+                    <th>
+                        Mouvement
+                    </th>
+
+                    <th>
+                        Quantité KG
+                    </th>
+
+                    <th>
+                        Motif
+                    </th>
+
+                    <th>
+                        Référence
+                    </th>
+
+                    <th>
+                        Utilisateur
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="movementsBody"
+            ></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =========================================================
+     CREATE / EDIT MODAL
+========================================================= -->
+
+<div
+    id="movementModal"
+    class="modal-bg"
+>
+
+    <div class="modal">
+
+        <div class="modal-head">
+
+            <h3 id="movementModalTitle">
+
+                <i class="fa-solid fa-right-left"></i>
+
+                Nouveau mouvement
+
+            </h3>
+
+
+            <button
+                id="closeMovementModal"
+                class="close-btn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="form-grid">
+
+
+                <!-- DATE -->
+
+                <div class="form-field">
+
+                    <label>
+                        Date / Heure *
+                    </label>
+
+                    <input
+                        id="movementDate"
+                        type="datetime-local"
+                    >
+
+                </div>
+
+
+                <!-- TYPE -->
+
+                <div class="form-field">
+
+                    <label>
+                        Type de mouvement *
+                    </label>
+
+                    <select
+                        id="movementType"
+                    >
+
+                        <option value="">
+                            Sélectionner...
+                        </option>
+
+                        <option value="ENTREE">
+                            Entrée
+                        </option>
+
+                        <option value="SORTIE">
+                            Sortie
+                        </option>
+
+                        <option value="AJUSTEMENT_PLUS">
+                            Ajustement positif
+                        </option>
+
+                        <option value="AJUSTEMENT_MOINS">
+                            Ajustement négatif
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DIVISION -->
+
+                <div class="form-field">
+
+                    <label>
+                        Division *
+                    </label>
+
+                    <select
+                        id="movementDivision"
+                    >
+
+                        <option value="">
+                            Sélectionner...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- MAGASIN -->
+
+                <div class="form-field">
+
+                    <label>
+                        Magasin *
+                    </label>
+
+                    <select
+                        id="movementMagasin"
+                    >
+
+                        <option value="">
+                            Sélectionner...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- EMPLACEMENT -->
+
+                <div class="form-field">
+
+                    <label>
+                        Emplacement *
+                    </label>
+
+                    <select
+                        id="movementEmplacement"
+                    >
+
+                        <option value="">
+                            Sélectionner...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ARTICLE -->
+
+                <div class="form-field">
+
+                    <label>
+                        Article *
+                    </label>
+
+                    <div
+                        class="article-wrapper"
+                    >
+
+                        <input
+                            id="movementArticle"
+                            type="text"
+                            placeholder="Code ou désignation"
+                            autocomplete="off"
+                        >
+
+                        <div
+                            id="movementArticleSuggestions"
+                            class="article-suggestions"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESIGNATION -->
+
+                <div class="form-field full">
+
+                    <label>
+                        Désignation
+                    </label>
+
+                    <input
+                        id="movementDesignation"
+                        class="readonly"
+                        type="text"
+                        readonly
+                        placeholder="Désignation automatique"
+                    >
+
+                </div>
+
+
+                <!-- GROUPE -->
+
+                <div class="form-field">
+
+                    <label>
+                        Groupe de marchandises
+                    </label>
+
+                    <input
+                        id="movementGroup"
+                        class="readonly"
+                        type="text"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- TYPE ARTICLE -->
+
+                <div class="form-field">
+
+                    <label>
+                        Type d'article
+                    </label>
+
+                    <input
+                        id="movementArticleType"
+                        class="readonly"
+                        type="text"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- LOT -->
+
+                <div class="form-field">
+
+                    <label>
+                        Lot *
+                    </label>
+
+                    <input
+                        id="movementLot"
+                        type="text"
+                        placeholder="Numéro de lot"
+                    >
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="form-field">
+
+                    <label>
+                        Quantité KG *
+                    </label>
+
+                    <input
+                        id="movementQuantity"
+                        type="number"
+                        min="0.001"
+                        step="0.001"
+                        placeholder="0.000"
+                    >
+
+                </div>
+
+
+                <!-- UNIT -->
+
+                <div class="form-field">
+
+                    <label>
+                        Unité
+                    </label>
+
+                    <select
+                        id="movementUnit"
+                    >
+
+                        <option value="KG">
+                            KG
+                        </option>
+
+                        <option value="PCS">
+                            PCS
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- REFERENCE -->
+
+                <div class="form-field">
+
+                    <label>
+                        Référence
+                    </label>
+
+                    <input
+                        id="movementReference"
+                        type="text"
+                        placeholder="N° document / BL / etc."
+                    >
+
+                </div>
+
+
+                <!-- MOTIF -->
+
+                <div class="form-field full">
+
+                    <label>
+                        Motif / commentaire
+                    </label>
+
+                    <textarea
+                        id="movementMotif"
+                        placeholder="Motif du mouvement..."
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="stock-info">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                Stock actuel de l'emplacement/article/lot :
+
+                <strong id="currentStockInfo">
+                    0.000 KG
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                id="cancelMovement"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                Annuler
+
+            </button>
+
+
+            <button
+                id="saveMovement"
+                class="btn btn-primary"
+                type="button"
+            >
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     DELETE MODAL
+========================================================= -->
+
+<div
+    id="deleteModal"
+    class="modal-bg"
+>
+
+    <div
+        class="modal"
+        style="max-width:430px;"
+    >
+
+        <div class="modal-head">
+
+            <h3>
+                Confirmation
+            </h3>
+
+            <button
+                id="closeDeleteModal"
+                class="close-btn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="confirm-box">
+
+                <div class="confirm-icon">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </div>
+
+                <h3>
+                    Supprimer ce mouvement ?
+                </h3>
+
+                <p id="deleteMessage">
+                    Cette opération est irréversible.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                id="cancelDelete"
+                class="btn btn-secondary"
+                type="button"
+            >
+
+                Annuler
+
+            </button>
+
+
+            <button
+                id="confirmDelete"
+                class="btn btn-danger"
+                type="button"
+            >
+
+                <i class="fa-solid fa-trash"></i>
+
+                Supprimer
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOASTS
+========================================================= -->
+
+<div
+    id="toasts"
+    class="toasts"
+></div>
+
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+const db =
+    window.smtgSupabase;
+
+
+let currentUser =
+    null;
+
+
+let divisions =
+    [];
+
+
+let magasins =
+    [];
+
+
+let emplacements =
+    [];
+
+
+let produits =
+    [];
+
+
+let movements =
+    [];
+
+
+let selectedMovement =
+    null;
+
+
+let deleteMovementId =
+    null;
+
+
+let selectedFilterArticle =
+    null;
+
+
+let selectedFormArticle =
+    null;
+
+
+/* =========================================================
+   DOM READY
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        try{
+
+            if(!db){
+
+                throw new Error(
+                    "Client Supabase non disponible."
+                );
+
+            }
+
+
+            bindEvents();
+
+
+            await initialize();
+
+        }
+        catch(error){
+
+            console.error(
+                error
+            );
+
+
+            showToast(
+                "Erreur",
+                error.message ||
+                "Erreur d'initialisation.",
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function initialize(){
+
+    currentUser =
+        await getCurrentUser();
+
+
+    if(!currentUser){
+
+        throw new Error(
+            "Utilisateur connecté introuvable."
+        );
+
+    }
+
+
+    document.getElementById(
+        "scopeUser"
+    ).textContent =
+        currentUser.full_name ||
+        currentUser.username ||
+        "-";
+
+
+    await loadUserDivisions();
+
+
+    await loadMagasins();
+
+
+    await loadEmplacements();
+
+
+    await loadProduits();
+
+
+    populateDivisionFilters();
+
+
+    populateMagasinFilters();
+
+
+    populateFormDivision();
+
+
+    setupArticleAutocomplete();
+
+
+    await searchMovements();
+
+}
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+async function getCurrentUser(){
+
+    if(
+        window.SMTG &&
+        typeof window.SMTG.getCurrentUser ===
+        "function"
+    ){
+
+        try{
+
+            const user =
+                await window.SMTG.getCurrentUser();
+
+
+            if(user){
+
+                return user;
+
+            }
+
+        }
+        catch(error){
+
+            console.warn(
+                error
+            );
+
+        }
+
+    }
+
+
+    const keys = [
+
+        "smtg_current_user",
+        "smtgUser"
+
+    ];
+
+
+    for(
+        const key of keys
+    ){
+
+        const raw =
+            sessionStorage.getItem(
+                key
+            );
+
+
+        if(raw){
+
+            try{
+
+                const user =
+                    JSON.parse(
+                        raw
+                    );
+
+
+                if(
+                    user &&
+                    user.id
+                ){
+
+                    return user;
+
+                }
+
+            }
+            catch(error){}
+
+        }
+
+    }
+
+
+    for(
+        const key of keys
+    ){
+
+        const raw =
+            localStorage.getItem(
+                key
+            );
+
+
+        if(raw){
+
+            try{
+
+                const user =
+                    JSON.parse(
+                        raw
+                    );
+
+
+                if(
+                    user &&
+                    user.id
+                ){
+
+                    return user;
+
+                }
+
+            }
+            catch(error){}
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   USER DIVISIONS
+========================================================= */
+
+async function loadUserDivisions(){
+
+    divisions = [];
+
+
+    const {
+        data,
+        error
+    } =
+        await db
+            .from("user_divisions")
+            .select(`
+                division_id,
+                divisions(
+                    id,
+                    code,
+                    name,
+                    is_active
+                )
+            `)
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    divisions =
+        (data || [])
+            .map(
+                row =>
+                    row.divisions
+            )
+            .filter(
+                division =>
+                    division &&
+                    division.is_active !== false
+            );
+
+
+    divisions =
+        uniqueById(
+            divisions
+        );
+
+
+    divisions.sort(
+        sortByCode
+    );
+
+
+    document.getElementById(
+        "scopeDivision"
+    ).textContent =
+        divisions.length
+        ?
+        divisions
+            .map(
+                x =>
+                    `${x.code} - ${x.name}`
+            )
+            .join(", ")
+        :
+        "Aucune division";
+
+}
+
+
+/* =========================================================
+   MAGASINS
+========================================================= */
+
+async function loadMagasins(){
+
+    magasins = [];
+
+
+    if(
+        divisions.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    const ids =
+        divisions.map(
+            x =>
+                x.id
+        );
+
+
+    const {
+        data,
+        error
+    } =
+        await db
+            .from("magasins")
+            .select(`
+                id,
+                code,
+                name,
+                division_id,
+                is_active
+            `)
+            .in(
+                "division_id",
+                ids
+            )
+            .eq(
+                "is_active",
+                true
+            )
+            .order(
+                "code",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    magasins =
+        data || [];
+
+}
+
+
+/* =========================================================
+   EMPLACEMENTS
+========================================================= */
+
+async function loadEmplacements(){
+
+    emplacements = [];
+
+
+    if(
+        magasins.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    const magasinIds =
+        magasins.map(
+            x =>
+                x.id
+        );
+
+
+    const pageSize =
+        1000;
+
+
+    let from =
+        0;
+
+
+    while(true){
+
+        const to =
+            from +
+            pageSize -
+            1;
+
+
+        const {
+            data,
+            error
+        } =
+            await db
+                .from("emplacements")
+                .select(`
+                    id,
+                    magasin_id,
+                    code,
+                    name,
+                    is_active
+                `)
+                .in(
+                    "magasin_id",
+                    magasinIds
+                )
+                .eq(
+                    "is_active",
+                    true
+                )
+                .order(
+                    "code",
+                    {
+                        ascending:true
+                    }
+                )
+                .range(
+                    from,
+                    to
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(
+            !data ||
+            data.length === 0
+        ){
+
+            break;
+
+        }
+
+
+        emplacements.push(
+            ...data
+        );
+
+
+        if(
+            data.length <
+            pageSize
+        ){
+
+            break;
+
+        }
+
+
+        from +=
+            pageSize;
+
+    }
+
+}
+
+
+/* =========================================================
+   PRODUITS
+========================================================= */
+
+async function loadProduits(){
+
+    produits = [];
+
+
+    const pageSize =
+        1000;
+
+
+    let from =
+        0;
+
+
+    while(true){
+
+        const to =
+            from +
+            pageSize -
+            1;
+
+
+        const {
+            data,
+            error
+        } =
+            await db
+                .from("produits")
+                .select(`
+                    id,
+                    article,
+                    designation,
+                    groupe,
+                    type,
+                    unite,
+                    division,
+                    statut
+                `)
+                .range(
+                    from,
+                    to
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(
+            !data ||
+            data.length === 0
+        ){
+
+            break;
+
+        }
+
+
+        produits.push(
+            ...data
+        );
+
+
+        if(
+            data.length <
+            pageSize
+        ){
+
+            break;
+
+        }
+
+
+        from +=
+            pageSize;
+
+    }
+
+}
+
+
+/* =========================================================
+   DIVISION FILTER
+========================================================= */
+
+function populateDivisionFilters(){
+
+    const filter =
+        document.getElementById(
+            "filterDivision"
+        );
+
+
+    const form =
+        document.getElementById(
+            "movementDivision"
+        );
+
+
+    filter.innerHTML = `
+        <option value="">
+            Toutes mes divisions
+        </option>
+    `;
+
+
+    form.innerHTML = `
+        <option value="">
+            Sélectionner...
+        </option>
+    `;
+
+
+    divisions.forEach(
+        division => {
+
+            const option1 =
+                document.createElement(
+                    "option"
+                );
+
+
+            option1.value =
+                division.id;
+
+
+            option1.textContent =
+                `${division.code} - ${division.name}`;
+
+
+            filter.appendChild(
+                option1
+            );
+
+
+            const option2 =
+                option1.cloneNode(
+                    true
+                );
+
+
+            form.appendChild(
+                option2
+            );
+
+        }
+    );
+
+
+    /*
+     * Une seule division :
+     * sélection automatique.
+     */
+
+    if(
+        divisions.length === 1
+    ){
+
+        filter.value =
+            String(
+                divisions[0].id
+            );
+
+
+        form.value =
+            String(
+                divisions[0].id
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   MAGASIN FILTER
+========================================================= */
+
+function populateMagasinFilters(){
+
+    const filter =
+        document.getElementById(
+            "filterMagasin"
+        );
+
+
+    filter.innerHTML = `
+        <option value="">
+            Tous les magasins
+        </option>
+    `;
+
+
+    magasins.forEach(
+        magasin => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                magasin.id;
+
+
+            option.textContent =
+                `${magasin.code} - ${magasin.name}`;
+
+
+            filter.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FORM DIVISION
+========================================================= */
+
+function populateFormDivision(){
+
+    const division =
+        document.getElementById(
+            "movementDivision"
+        );
+
+
+    if(
+        divisions.length === 1
+    ){
+
+        division.disabled =
+            true;
+
+        division.classList.add(
+            "readonly"
+        );
+
+    }
+    else{
+
+        division.disabled =
+            false;
+
+        division.classList.remove(
+            "readonly"
+        );
+
+    }
+
+
+    updateFormMagasins();
+
+}
+
+
+/* =========================================================
+   FORM MAGASINS
+========================================================= */
+
+function updateFormMagasins(){
+
+    const divisionId =
+        document.getElementById(
+            "movementDivision"
+        ).value;
+
+
+    const select =
+        document.getElementById(
+            "movementMagasin"
+        );
+
+
+    select.innerHTML = `
+        <option value="">
+            Sélectionner...
+        </option>
+    `;
+
+
+    let rows =
+        magasins;
+
+
+    if(divisionId){
+
+        rows =
+            magasins.filter(
+                magasin =>
+                    String(
+                        magasin.division_id
+                    ) ===
+                    String(
+                        divisionId
+                    )
+            );
+
+    }
+
+
+    rows.forEach(
+        magasin => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                magasin.id;
+
+
+            option.textContent =
+                `${magasin.code} - ${magasin.name}`;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    updateFormEmplacements();
+
+}
+
+
+/* =========================================================
+   FORM EMPLACEMENTS
+========================================================= */
+
+function updateFormEmplacements(){
+
+    const magasinId =
+        document.getElementById(
+            "movementMagasin"
+        ).value;
+
+
+    const select =
+        document.getElementById(
+            "movementEmplacement"
+        );
+
+
+    select.innerHTML = `
+        <option value="">
+            Sélectionner...
+        </option>
+    `;
+
+
+    if(!magasinId){
+
+        return;
+
+    }
+
+
+    const rows =
+        emplacements.filter(
+            emp =>
+                String(
+                    emp.magasin_id
+                ) ===
+                String(
+                    magasinId
+                )
+        );
+
+
+    rows.forEach(
+        emp => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                emp.id;
+
+
+            option.textContent =
+                `${emp.code}${emp.name ? " - " + emp.name : ""}`;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FILTER MAGASIN CHANGE
+========================================================= */
+
+function updateFilterMagasins(){
+
+    const divisionId =
+        document.getElementById(
+            "filterDivision"
+        ).value;
+
+
+    const select =
+        document.getElementById(
+            "filterMagasin"
+        );
+
+
+    select.innerHTML = `
+        <option value="">
+            Tous les magasins
+        </option>
+    `;
+
+
+    let rows =
+        magasins;
+
+
+    if(divisionId){
+
+        rows =
+            magasins.filter(
+                magasin =>
+                    String(
+                        magasin.division_id
+                    ) ===
+                    String(
+                        divisionId
+                    )
+            );
+
+    }
+
+
+    rows.forEach(
+        magasin => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                magasin.id;
+
+
+            option.textContent =
+                `${magasin.code} - ${magasin.name}`;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    updateFilterEmplacements();
+
+}
+
+
+/* =========================================================
+   FILTER EMPLACEMENTS
+========================================================= */
+
+function updateFilterEmplacements(){
+
+    const magasinId =
+        document.getElementById(
+            "filterMagasin"
+        ).value;
+
+
+    const select =
+        document.getElementById(
+            "filterEmplacement"
+        );
+
+
+    select.innerHTML = `
+        <option value="">
+            Tous les emplacements
+        </option>
+    `;
+
+
+    let rows =
+        emplacements;
+
+
+    if(magasinId){
+
+        rows =
+            rows.filter(
+                emp =>
+                    String(
+                        emp.magasin_id
+                    ) ===
+                    String(
+                        magasinId
+                    )
+            );
+
+    }
+
+
+    rows.forEach(
+        emp => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                emp.id;
+
+
+            option.textContent =
+                emp.code;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ARTICLE AUTOCOMPLETE
+========================================================= */
+
+function setupArticleAutocomplete(){
+
+    setupArticleInput(
+        "filterArticle",
+        "filterArticleSuggestions",
+        function(product){
+
+            selectedFilterArticle =
+                product;
+
+
+        }
+    );
+
+
+    setupArticleInput(
+        "movementArticle",
+        "movementArticleSuggestions",
+        function(product){
+
+            selectedFormArticle =
+                product;
+
+
+            document.getElementById(
+                "movementArticle"
+            ).value =
+                product.article || "";
+
+
+            document.getElementById(
+                "movementDesignation"
+            ).value =
+                product.designation || "";
+
+
+            document.getElementById(
+                "movementGroup"
+            ).value =
+                product.groupe || "";
+
+
+            document.getElementById(
+                "movementArticleType"
+            ).value =
+                product.type || "";
+
+
+            updateCurrentStock();
+
+        }
+    );
+
+}
+
+
+function setupArticleInput(
+    inputId,
+    suggestionId,
+    onSelect
+){
+
+    const input =
+        document.getElementById(
+            inputId
+        );
+
+
+    const box =
+        document.getElementById(
+            suggestionId
+        );
+
+
+    input.addEventListener(
+        "input",
+        function(){
+
+            if(
+                inputId ===
+                "filterArticle"
+            ){
+
+                selectedFilterArticle =
+                    null;
+
+            }
+            else{
+
+                selectedFormArticle =
+                    null;
+
+            }
+
+
+            const value =
+                input.value.trim();
+
+
+            if(!value){
+
+                box.classList.remove(
+                    "show"
+                );
+
+
+                if(
+                    inputId ===
+                    "movementArticle"
+                ){
+
+                    document.getElementById(
+                        "movementDesignation"
+                    ).value = "";
+
+
+                    document.getElementById(
+                        "movementGroup"
+                    ).value = "";
+
+
+                    document.getElementById(
+                        "movementArticleType"
+                    ).value = "";
+
+                }
+
+
+                return;
+
+            }
+
+
+            renderArticleSuggestions(
+                value,
+                box,
+                onSelect
+            );
+
+        }
+    );
+
+
+    input.addEventListener(
+        "focus",
+        function(){
+
+            const value =
+                input.value.trim();
+
+
+            if(value){
+
+                renderArticleSuggestions(
+                    value,
+                    box,
+                    onSelect
+                );
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function(event){
+
+            if(
+                !event.target.closest(
+                    `#${inputId}`
+                ) &&
+                !event.target.closest(
+                    `#${suggestionId}`
+                )
+            ){
+
+                box.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+function renderArticleSuggestions(
+    search,
+    box,
+    onSelect
+){
+
+    const wanted =
+        normalize(
+            search
+        );
+
+
+    /*
+     * Produits des divisions
+     * de l'utilisateur.
+     */
+
+    const allowedDivisionCodes =
+        new Set(
+            divisions.map(
+                division =>
+                    normalize(
+                        division.code
+                    )
+            )
+        );
+
+
+    let rows =
+        produits.filter(
+            product => {
+
+                /*
+                 * Si le produit possède une division,
+                 * elle doit appartenir au scope utilisateur.
+                 *
+                 * Si division est vide, on ne bloque pas.
+                 */
+
+                const productDivision =
+                    normalize(
+                        product.division
+                    );
+
+
+                if(
+                    productDivision &&
+                    allowedDivisionCodes.size &&
+                    !allowedDivisionCodes.has(
+                        productDivision
+                    )
+                ){
+
+                    return false;
+
+                }
+
+
+                const article =
+                    normalize(
+                        product.article
+                    );
+
+
+                const designation =
+                    normalize(
+                        product.designation
+                    );
+
+
+                return (
+                    article.includes(
+                        wanted
+                    )
+                    ||
+                    designation.includes(
+                        wanted
+                    )
+                );
+
+            }
+        );
+
+
+    rows.sort(
+        function(a,b){
+
+            const aa =
+                normalize(
+                    a.article
+                );
+
+            const ba =
+                normalize(
+                    b.article
+                );
+
+            const ad =
+                normalize(
+                    a.designation
+                );
+
+            const bd =
+                normalize(
+                    b.designation
+                );
+
+
+            function score(
+                article,
+                designation
+            ){
+
+                if(
+                    article.startsWith(
+                        wanted
+                    )
+                ){
+
+                    return 1;
+
+                }
+
+
+                if(
+                    designation.startsWith(
+                        wanted
+                    )
+                ){
+
+                    return 2;
+
+                }
+
+
+                return 3;
+
+            }
+
+
+            const sa =
+                score(
+                    aa,
+                    ad
+                );
+
+
+            const sb =
+                score(
+                    ba,
+                    bd
+                );
+
+
+            if(sa !== sb){
+
+                return sa - sb;
+
+            }
+
+
+            return aa.localeCompare(
+                ba,
+                "fr",
+                {
+                    numeric:true
+                }
+            );
+
+        }
+    );
+
+
+    rows =
+        rows.slice(
+            0,
+            30
+        );
+
+
+    if(
+        rows.length === 0
+    ){
+
+        box.innerHTML = `
+
+            <div class="article-empty">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                Aucun produit trouvé.
+
+            </div>
+
+        `;
+
+
+        box.classList.add(
+            "show"
+        );
+
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        rows.map(
+            product => `
+
+                <div
+                    class="article-option"
+                    data-product-id="${product.id}"
+                >
+
+                    <div class="article-code">
+
+                        ${escapeHtml(
+                            product.article || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="article-name">
+
+                        ${escapeHtml(
+                            product.designation || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="article-meta">
+
+                        Groupe :
+                        ${escapeHtml(
+                            product.groupe || "-"
+                        )}
+
+                        &nbsp; | &nbsp;
+
+                        Type :
+                        ${escapeHtml(
+                            product.type || "-"
+                        )}
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+
+    box.querySelectorAll(
+        "[data-product-id]"
+    )
+    .forEach(
+        element => {
+
+            element.addEventListener(
+                "mousedown",
+                function(event){
+
+                    event.preventDefault();
+
+
+                    const product =
+                        produits.find(
+                            p =>
+                                Number(
+                                    p.id
+                                ) ===
+                                Number(
+                                    element.dataset.productId
+                                )
+                        );
+
+
+                    if(!product){
+
+                        return;
+
+                    }
+
+
+                    onSelect(
+                        product
+                    );
+
+
+                    box.classList.remove(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    box.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH MOVEMENTS
+========================================================= */
+
+async function searchMovements(){
+
+    setLoading(
+        true
+    );
+
+
+    try{
+
+        let query =
+            db
+                .from(
+                    "mouvements_stock"
+                )
+                .select(`
+                    id,
+                    date_mouvement,
+                    division_id,
+                    magasin_id,
+                    emplacement_id,
+                    article,
+                    lot,
+                    type_mouvement,
+                    quantite_kg,
+                    unite,
+                    motif,
+                    reference,
+                    created_by,
+                    created_at,
+                    updated_by,
+                    updated_at
+                `)
+                .in(
+                    "division_id",
+                    divisions.map(
+                        x =>
+                            x.id
+                    )
+                )
+                .order(
+                    "date_mouvement",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        if(
+            divisions.length === 0
+        ){
+
+            movements = [];
+
+            renderMovements();
+
+            updateStats();
+
+            return;
+
+        }
+
+
+        const article =
+            document.getElementById(
+                "filterArticle"
+            ).value.trim();
+
+
+        const lot =
+            document.getElementById(
+                "filterLot"
+            ).value.trim();
+
+
+        const divisionId =
+            document.getElementById(
+                "filterDivision"
+            ).value;
+
+
+        const magasinId =
+            document.getElementById(
+                "filterMagasin"
+            ).value;
+
+
+        const emplacementId =
+            document.getElementById(
+                "filterEmplacement"
+            ).value;
+
+
+        const type =
+            document.getElementById(
+                "filterType"
+            ).value;
+
+
+        const dateStart =
+            document.getElementById(
+                "filterDateStart"
+            ).value;
+
+
+        const dateEnd =
+            document.getElementById(
+                "filterDateEnd"
+            ).value;
+
+
+        if(divisionId){
+
+            query =
+                query.eq(
+                    "division_id",
+                    divisionId
+                );
+
+        }
+
+
+        if(magasinId){
+
+            query =
+                query.eq(
+                    "magasin_id",
+                    magasinId
+                );
+
+        }
+
+
+        if(emplacementId){
+
+            query =
+                query.eq(
+                    "emplacement_id",
+                    emplacementId
+                );
+
+        }
+
+
+        if(type){
+
+            query =
+                query.eq(
+                    "type_mouvement",
+                    type
+                );
+
+        }
+
+
+        if(lot){
+
+            query =
+                query.ilike(
+                    "lot",
+                    `%${lot}%`
+                );
+
+        }
+
+
+        if(article){
+
+            query =
+                query.ilike(
+                    "article",
+                    `%${article}%`
+                );
+
+        }
+
+
+        if(dateStart){
+
+            query =
+                query.gte(
+                    "date_mouvement",
+                    `${dateStart}T00:00:00`
+                );
+
+        }
+
+
+        if(dateEnd){
+
+            query =
+                query.lt(
+                    "date_mouvement",
+                    addOneDay(
+                        dateEnd
+                    )
+                );
+
+        }
+
+
+        const {
+            data,
+            error
+        } =
+            await query;
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        movements =
+            data || [];
+
+
+        /*
+         * Si Article sélectionné par désignation,
+         * on filtre aussi avec son code.
+         */
+
+        if(
+            selectedFilterArticle
+        ){
+
+            const code =
+                normalize(
+                    selectedFilterArticle.article
+                );
+
+
+            movements =
+                movements.filter(
+                    movement =>
+                        normalize(
+                            movement.article
+                        ) ===
+                        code
+                );
+
+        }
+
+
+        renderMovements();
+
+        updateStats();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            error.message ||
+            "Impossible de charger les mouvements.",
+            "error"
+        );
+
+    }
+    finally{
+
+        setLoading(
+            false
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderMovements(){
+
+    const body =
+        document.getElementById(
+            "movementsBody"
+        );
+
+
+    const table =
+        document.getElementById(
+            "tableWrap"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    document.getElementById(
+        "tableCount"
+    ).textContent =
+        `${formatNumber(
+            movements.length
+        )} mouvement${movements.length > 1 ? "s" : ""}`;
+
+
+    if(
+        movements.length === 0
+    ){
+
+        body.innerHTML =
+            "";
+
+
+        table.style.display =
+            "none";
+
+
+        empty.classList.add(
+            "show"
+        );
+
+
+        return;
+
+    }
+
+
+    empty.classList.remove(
+        "show"
+    );
+
+
+    table.style.display =
+        "block";
+
+
+    body.innerHTML =
+        movements
+            .map(
+                movementRow
+            )
+            .join("");
+
+
+    body.querySelectorAll(
+        "[data-edit-id]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function(event){
+
+                    event.stopPropagation();
+
+
+                    openEditMovement(
+                        Number(
+                            button.dataset.editId
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    body.querySelectorAll(
+        "[data-delete-id]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function(event){
+
+                    event.stopPropagation();
+
+
+                    openDeleteMovement(
+                        Number(
+                            button.dataset.deleteId
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   MOVEMENT ROW
+========================================================= */
+
+function movementRow(
+    movement
+){
+
+    const division =
+        findDivision(
+            movement.division_id
+        );
+
+
+    const magasin =
+        findMagasin(
+            movement.magasin_id
+        );
+
+
+    const emplacement =
+        findEmplacement(
+            movement.emplacement_id
+        );
+
+
+    const product =
+        findProduct(
+            movement.article
+        );
+
+
+    const user =
+        movement.created_by ===
+        currentUser.id
+            ?
+            (
+                currentUser.full_name ||
+                currentUser.username
+            )
+            :
+            String(
+                movement.created_by ||
+                "-"
+            );
+
+
+    return `
+
+        <tr>
+
+            <td>
+
+                ${formatDateTime(
+                    movement.date_mouvement
+                )}
+
+            </td>
+
+
+            <td>
+
+                <strong>
+
+                    ${escapeHtml(
+                        division?.code || "-"
+                    )}
+
+                </strong>
+
+                <div class="muted">
+
+                    ${escapeHtml(
+                        division?.name || ""
+                    )}
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+
+                    ${escapeHtml(
+                        magasin?.code || "-"
+                    )}
+
+                </strong>
+
+                <div class="muted">
+
+                    ${escapeHtml(
+                        magasin?.name || ""
+                    )}
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    emplacement?.code || "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                <span class="article-code-table">
+
+                    ${escapeHtml(
+                        movement.article || "-"
+                    )}
+
+                </span>
+
+                ${
+                    product?.designation
+                    ?
+                    `<div class="muted">
+                        ${escapeHtml(
+                            product.designation
+                        )}
+                    </div>`
+                    :
+                    ""
+                }
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    movement.lot || "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${movementTypeHtml(
+                    movement.type_mouvement
+                )}
+
+            </td>
+
+
+            <td>
+
+                <span
+                    class="${
+                        isPositiveMovement(
+                            movement.type_mouvement
+                        )
+                        ?
+                        "qty-in"
+                        :
+                        "qty-out"
+                    }"
+                >
+
+                    ${
+                        isPositiveMovement(
+                            movement.type_mouvement
+                        )
+                        ?
+                        "+"
+                        :
+                        "-"
+                    }
+
+                    ${formatKg(
+                        movement.quantite_kg
+                    )}
+
+                </span>
+
+                KG
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    movement.motif ||
+                    "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    movement.reference ||
+                    "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    user
+                )}
+
+            </td>
+
+
+            <td>
+
+                <div class="actions">
+
+                    <button
+                        class="icon-btn"
+                        title="Modifier"
+                        data-edit-id="${movement.id}"
+                    >
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+
+                    <button
+                        class="icon-btn delete"
+                        title="Supprimer"
+                        data-delete-id="${movement.id}"
+                    >
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   MOVEMENT TYPE HTML
+========================================================= */
+
+function movementTypeHtml(
+    type
+){
+
+    const map = {
+
+        ENTREE:{
+            label:"Entrée",
+            icon:"fa-arrow-down",
+            className:"movement-in"
+        },
+
+        SORTIE:{
+            label:"Sortie",
+            icon:"fa-arrow-up",
+            className:"movement-out"
+        },
+
+        AJUSTEMENT_PLUS:{
+            label:"Ajustement +",
+            icon:"fa-plus",
+            className:"movement-plus"
+        },
+
+        AJUSTEMENT_MOINS:{
+            label:"Ajustement -",
+            icon:"fa-minus",
+            className:"movement-minus"
+        }
+
+    };
+
+
+    const item =
+        map[type] ||
+        {
+            label:type || "-",
+            icon:"fa-right-left",
+            className:"movement-plus"
+        };
+
+
+    return `
+
+        <span
+            class="movement ${item.className}"
+        >
+
+            <i
+                class="fa-solid ${item.icon}"
+            ></i>
+
+            ${item.label}
+
+        </span>
+
+    `;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+    let totalIn =
+        0;
+
+
+    let totalOut =
+        0;
+
+
+    let totalAdjust =
+        0;
+
+
+    movements.forEach(
+        movement => {
+
+            const qty =
+                Number(
+                    movement.quantite_kg
+                ) || 0;
+
+
+            if(
+                movement.type_mouvement ===
+                "ENTREE"
+            ){
+
+                totalIn +=
+                    qty;
+
+            }
+            else if(
+                movement.type_mouvement ===
+                "SORTIE"
+            ){
+
+                totalOut +=
+                    qty;
+
+            }
+            else{
+
+                totalAdjust +=
+                    movement.type_mouvement ===
+                    "AJUSTEMENT_PLUS"
+                    ?
+                    qty
+                    :
+                    -qty;
+
+            }
+
+        }
+    );
+
+
+    const net =
+        totalIn -
+        totalOut +
+        totalAdjust;
+
+
+    setText(
+        "statMovements",
+        formatNumber(
+            movements.length
+        )
+    );
+
+
+    setText(
+        "statIn",
+        formatKg(
+            totalIn
+        )
+    );
+
+
+    setText(
+        "statOut",
+        formatKg(
+            totalOut
+        )
+    );
+
+
+    setText(
+        "statAdjust",
+        formatKg(
+            totalAdjust
+        )
+    );
+
+
+    setText(
+        "statNet",
+        formatKg(
+            net
+        )
+    );
+
+}
+
+
+/* =========================================================
+   OPEN CREATE
+========================================================= */
+
+function openCreateMovement(){
+
+    selectedMovement =
+        null;
+
+
+    selectedFormArticle =
+        null;
+
+
+    document.getElementById(
+        "movementModalTitle"
+    ).innerHTML = `
+
+        <i class="fa-solid fa-plus"></i>
+
+        Nouveau mouvement
+
+    `;
+
+
+    resetMovementForm();
+
+
+    /*
+     * Date actuelle
+     */
+
+    document.getElementById(
+        "movementDate"
+    ).value =
+        getDateTimeLocal();
+
+
+    /*
+     * Division utilisateur
+     */
+
+    if(
+        divisions.length === 1
+    ){
+
+        document.getElementById(
+            "movementDivision"
+        ).value =
+            String(
+                divisions[0].id
+            );
+
+    }
+
+
+    updateFormMagasins();
+
+
+    document.getElementById(
+        "movementModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   OPEN EDIT
+========================================================= */
+
+async function openEditMovement(
+    id
+){
+
+    const movement =
+        movements.find(
+            x =>
+                Number(
+                    x.id
+                ) ===
+                Number(
+                    id
+                )
+        );
+
+
+    if(!movement){
+
+        return;
+
+    }
+
+
+    selectedMovement =
+        movement;
+
+
+    document.getElementById(
+        "movementModalTitle"
+    ).innerHTML = `
+
+        <i class="fa-solid fa-pen"></i>
+
+        Modifier le mouvement
+
+    `;
+
+
+    resetMovementForm();
+
+
+    document.getElementById(
+        "movementDate"
+    ).value =
+        toDateTimeLocal(
+            movement.date_mouvement
+        );
+
+
+    document.getElementById(
+        "movementType"
+    ).value =
+        movement.type_mouvement;
+
+
+    document.getElementById(
+        "movementDivision"
+    ).value =
+        String(
+            movement.division_id
+        );
+
+
+    updateFormMagasins();
+
+
+    document.getElementById(
+        "movementMagasin"
+    ).value =
+        String(
+            movement.magasin_id
+        );
+
+
+    updateFormEmplacements();
+
+
+    document.getElementById(
+        "movementEmplacement"
+    ).value =
+        String(
+            movement.emplacement_id
+        );
+
+
+    const product =
+        findProduct(
+            movement.article
+        );
+
+
+    selectedFormArticle =
+        product;
+
+
+    document.getElementById(
+        "movementArticle"
+    ).value =
+        movement.article ||
+        "";
+
+
+    document.getElementById(
+        "movementDesignation"
+    ).value =
+        product?.designation ||
+        "";
+
+
+    document.getElementById(
+        "movementGroup"
+    ).value =
+        product?.groupe ||
+        "";
+
+
+    document.getElementById(
+        "movementArticleType"
+    ).value =
+        product?.type ||
+        "";
+
+
+    document.getElementById(
+        "movementLot"
+    ).value =
+        movement.lot ||
+        "";
+
+
+    document.getElementById(
+        "movementQuantity"
+    ).value =
+        movement.quantite_kg ||
+        "";
+
+
+    document.getElementById(
+        "movementUnit"
+    ).value =
+        movement.unite ||
+        "KG";
+
+
+    document.getElementById(
+        "movementReference"
+    ).value =
+        movement.reference ||
+        "";
+
+
+    document.getElementById(
+        "movementMotif"
+    ).value =
+        movement.motif ||
+        "";
+
+
+    updateCurrentStock();
+
+
+    document.getElementById(
+        "movementModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetMovementForm(){
+
+    document.getElementById(
+        "movementDate"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementType"
+    ).value =
+        "";
+
+
+    if(
+        divisions.length === 1
+    ){
+
+        document.getElementById(
+            "movementDivision"
+        ).value =
+            String(
+                divisions[0].id
+            );
+
+    }
+    else{
+
+        document.getElementById(
+            "movementDivision"
+        ).value =
+            "";
+
+    }
+
+
+    document.getElementById(
+        "movementMagasin"
+    ).innerHTML = `
+        <option value="">
+            Sélectionner...
+        </option>
+    `;
+
+
+    document.getElementById(
+        "movementEmplacement"
+    ).innerHTML = `
+        <option value="">
+            Sélectionner...
+        </option>
+    `;
+
+
+    document.getElementById(
+        "movementArticle"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementDesignation"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementGroup"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementArticleType"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementLot"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementQuantity"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementUnit"
+    ).value =
+        "KG";
+
+
+    document.getElementById(
+        "movementReference"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "movementMotif"
+    ).value =
+        "";
+
+
+    setText(
+        "currentStockInfo",
+        "0.000 KG"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MOVEMENT
+========================================================= */
+
+function closeMovementModal(){
+
+    document.getElementById(
+        "movementModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    selectedMovement =
+        null;
+
+
+    selectedFormArticle =
+        null;
+
+}
+
+
+/* =========================================================
+   SAVE MOVEMENT
+========================================================= */
+
+async function saveMovement(){
+
+    try{
+
+        const date =
+            document.getElementById(
+                "movementDate"
+            ).value;
+
+
+        const type =
+            document.getElementById(
+                "movementType"
+            ).value;
+
+
+        const divisionId =
+            document.getElementById(
+                "movementDivision"
+            ).value;
+
+
+        const magasinId =
+            document.getElementById(
+                "movementMagasin"
+            ).value;
+
+
+        const emplacementId =
+            document.getElementById(
+                "movementEmplacement"
+            ).value;
+
+
+        const article =
+            document.getElementById(
+                "movementArticle"
+            ).value.trim();
+
+
+        const lot =
+            document.getElementById(
+                "movementLot"
+            ).value.trim();
+
+
+        const quantity =
+            Number(
+                document.getElementById(
+                    "movementQuantity"
+                ).value
+            );
+
+
+        const unit =
+            document.getElementById(
+                "movementUnit"
+            ).value;
+
+
+        const reference =
+            document.getElementById(
+                "movementReference"
+            ).value.trim();
+
+
+        const motif =
+            document.getElementById(
+                "movementMotif"
+            ).value.trim();
+
+
+        if(!date){
+
+            throw new Error(
+                "La date du mouvement est obligatoire."
+            );
+
+        }
+
+
+        if(!type){
+
+            throw new Error(
+                "Le type de mouvement est obligatoire."
+            );
+
+        }
+
+
+        if(!divisionId){
+
+            throw new Error(
+                "La Division est obligatoire."
+            );
+
+        }
+
+
+        if(!magasinId){
+
+            throw new Error(
+                "Le Magasin est obligatoire."
+            );
+
+        }
+
+
+        if(!emplacementId){
+
+            throw new Error(
+                "L'Emplacement est obligatoire."
+            );
+
+        }
+
+
+        if(!article){
+
+            throw new Error(
+                "L'Article est obligatoire."
+            );
+
+        }
+
+
+        if(!lot){
+
+            throw new Error(
+                "Le Lot est obligatoire."
+            );
+
+        }
+
+
+        if(
+            !Number.isFinite(
+                quantity
+            ) ||
+            quantity <= 0
+        ){
+
+            throw new Error(
+                "La quantité doit être supérieure à 0."
+            );
+
+        }
+
+
+        /*
+         * Vérifier que le magasin appartient
+         * à la division sélectionnée.
+         */
+
+        const magasin =
+            magasins.find(
+                m =>
+                    String(
+                        m.id
+                    ) ===
+                    String(
+                        magasinId
+                    )
+            );
+
+
+        if(!magasin){
+
+            throw new Error(
+                "Magasin invalide."
+            );
+
+        }
+
+
+        if(
+            String(
+                magasin.division_id
+            ) !==
+            String(
+                divisionId
+            )
+        ){
+
+            throw new Error(
+                "Le Magasin ne correspond pas à la Division."
+            );
+
+        }
+
+
+        /*
+         * Vérifier emplacement
+         */
+
+        const emplacement =
+            emplacements.find(
+                e =>
+                    String(
+                        e.id
+                    ) ===
+                    String(
+                        emplacementId
+                    )
+            );
+
+
+        if(!emplacement){
+
+            throw new Error(
+                "Emplacement invalide."
+            );
+
+        }
+
+
+        if(
+            String(
+                emplacement.magasin_id
+            ) !==
+            String(
+                magasinId
+            )
+        ){
+
+            throw new Error(
+                "L'Emplacement ne correspond pas au Magasin."
+            );
+
+        }
+
+
+        /*
+         * Vérifier le stock avant une SORTIE.
+         */
+
+        if(
+            type ===
+            "SORTIE" ||
+            type ===
+            "AJUSTEMENT_MOINS"
+        ){
+
+            const currentStock =
+                await calculateCurrentStock(
+                    divisionId,
+                    magasinId,
+                    emplacementId,
+                    article,
+                    lot,
+                    selectedMovement?.id
+                );
+
+
+            if(
+                quantity >
+                currentStock
+            ){
+
+                throw new Error(
+                    `Stock insuffisant. Stock disponible : ${formatKg(currentStock)} KG.`
+                );
+
+            }
+
+        }
+
+
+        const payload = {
+
+            date_mouvement:
+                new Date(
+                    date
+                ).toISOString(),
+
+            division_id:
+                Number(
+                    divisionId
+                ),
+
+            magasin_id:
+                Number(
+                    magasinId
+                ),
+
+            emplacement_id:
+                Number(
+                    emplacementId
+                ),
+
+            article:
+                article,
+
+            lot:
+                lot,
+
+            type_mouvement:
+                type,
+
+            quantite_kg:
+                quantity,
+
+            unite:
+                unit || "KG",
+
+            motif:
+                motif ||
+                null,
+
+            reference:
+                reference ||
+                null,
+
+            updated_by:
+                currentUser.id
+
+        };
+
+
+        let result;
+
+
+        if(
+            selectedMovement
+        ){
+
+            result =
+                await db
+                    .from(
+                        "mouvements_stock"
+                    )
+                    .update(
+                        payload
+                    )
+                    .eq(
+                        "id",
+                        selectedMovement.id
+                    )
+                    .select()
+                    .single();
+
+        }
+        else{
+
+            payload.created_by =
+                currentUser.id;
+
+
+            result =
+                await db
+                    .from(
+                        "mouvements_stock"
+                    )
+                    .insert(
+                        payload
+                    )
+                    .select()
+                    .single();
+
+        }
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        /*
+         * Audit
+         */
+
+        if(
+            window.SMTG &&
+            typeof window.SMTG.logCrudAction ===
+            "function"
+        ){
+
+            await window.SMTG.logCrudAction(
+
+                selectedMovement
+                    ?
+                    "UPDATE"
+                    :
+                    "CREATE",
+
+                "STOCK",
+
+                "MOUVEMENTS_STOCK",
+
+                result.data?.id ||
+                selectedMovement?.id,
+
+                selectedMovement
+                    ?
+                    "Modification mouvement de stock"
+                    :
+                    "Création mouvement de stock",
+
+                {
+                    division_id:
+                        Number(
+                            divisionId
+                        ),
+
+                    magasin_id:
+                        Number(
+                            magasinId
+                        ),
+
+                    emplacement_id:
+                        Number(
+                            emplacementId
+                        ),
+
+                    article:
+                        article,
+
+                    lot:
+                        lot,
+
+                    type_mouvement:
+                        type,
+
+                    quantite_kg:
+                        quantity
+
+                }
+
+            );
+
+        }
+
+
+        closeMovementModal();
+
+
+        showToast(
+            "Succès",
+            selectedMovement
+                ?
+                "Mouvement modifié avec succès."
+                :
+                "Mouvement créé avec succès."
+        );
+
+
+        await searchMovements();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            error.message ||
+            "Impossible d'enregistrer le mouvement.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CURRENT STOCK
+========================================================= */
+
+async function updateCurrentStock(){
+
+    const divisionId =
+        document.getElementById(
+            "movementDivision"
+        ).value;
+
+
+    const magasinId =
+        document.getElementById(
+            "movementMagasin"
+        ).value;
+
+
+    const emplacementId =
+        document.getElementById(
+            "movementEmplacement"
+        ).value;
+
+
+    const article =
+        document.getElementById(
+            "movementArticle"
+        ).value.trim();
+
+
+    const lot =
+        document.getElementById(
+            "movementLot"
+        ).value.trim();
+
+
+    if(
+        !divisionId ||
+        !magasinId ||
+        !emplacementId ||
+        !article ||
+        !lot
+    ){
+
+        setText(
+            "currentStockInfo",
+            "0.000 KG"
+        );
+
+
+        return;
+
+    }
+
+
+    try{
+
+        const stock =
+            await calculateCurrentStock(
+                divisionId,
+                magasinId,
+                emplacementId,
+                article,
+                lot,
+                selectedMovement?.id
+            );
+
+
+        setText(
+            "currentStockInfo",
+            `${formatKg(stock)} KG`
+        );
+
+    }
+    catch(error){
+
+        console.warn(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CALCUL STOCK
+========================================================= */
+
+async function calculateCurrentStock(
+    divisionId,
+    magasinId,
+    emplacementId,
+    article,
+    lot,
+    excludeId = null
+){
+
+    let query =
+        db
+            .from(
+                "mouvements_stock"
+            )
+            .select(`
+                id,
+                type_mouvement,
+                quantite_kg
+            `)
+            .eq(
+                "division_id",
+                divisionId
+            )
+            .eq(
+                "magasin_id",
+                magasinId
+            )
+            .eq(
+                "emplacement_id",
+                emplacementId
+            )
+            .eq(
+                "article",
+                article
+            )
+            .eq(
+                "lot",
+                lot
+            );
+
+
+    if(excludeId){
+
+        query =
+            query.neq(
+                "id",
+                excludeId
+            );
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await query;
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return (
+        data || []
+    )
+    .reduce(
+        (
+            total,
+            row
+        ) => {
+
+            const qty =
+                Number(
+                    row.quantite_kg
+                ) || 0;
+
+
+            if(
+                row.type_mouvement ===
+                "ENTREE" ||
+                row.type_mouvement ===
+                "AJUSTEMENT_PLUS"
+            ){
+
+                return total +
+                    qty;
+
+            }
+
+
+            if(
+                row.type_mouvement ===
+                "SORTIE" ||
+                row.type_mouvement ===
+                "AJUSTEMENT_MOINS"
+            ){
+
+                return total -
+                    qty;
+
+            }
+
+
+            return total;
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function openDeleteMovement(
+    id
+){
+
+    const movement =
+        movements.find(
+            x =>
+                Number(
+                    x.id
+                ) ===
+                Number(
+                    id
+                )
+        );
+
+
+    if(!movement){
+
+        return;
+
+    }
+
+
+    deleteMovementId =
+        movement.id;
+
+
+    document.getElementById(
+        "deleteMessage"
+    ).textContent =
+        `Mouvement ${movement.type_mouvement} de ${formatKg(movement.quantite_kg)} KG pour l'article ${movement.article}, lot ${movement.lot}.`;
+
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+function closeDeleteModal(){
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    deleteMovementId =
+        null;
+
+}
+
+
+async function confirmDelete(){
+
+    if(!deleteMovementId){
+
+        return;
+
+    }
+
+
+    try{
+
+        const id =
+            deleteMovementId;
+
+
+        const movement =
+            movements.find(
+                x =>
+                    Number(
+                        x.id
+                    ) ===
+                    Number(
+                        id
+                    )
+            );
+
+
+        const {
+            error
+        } =
+            await db
+                .from(
+                    "mouvements_stock"
+                )
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(
+            window.SMTG &&
+            typeof window.SMTG.logCrudAction ===
+            "function"
+        ){
+
+            await window.SMTG.logCrudAction(
+
+                "DELETE",
+
+                "STOCK",
+
+                "MOUVEMENTS_STOCK",
+
+                id,
+
+                "Suppression mouvement de stock",
+
+                {
+                    article:
+                        movement?.article,
+
+                    lot:
+                        movement?.lot,
+
+                    type_mouvement:
+                        movement?.type_mouvement,
+
+                    quantite_kg:
+                        movement?.quantite_kg
+
+                }
+
+            );
+
+        }
+
+
+        closeDeleteModal();
+
+
+        showToast(
+            "Succès",
+            "Mouvement supprimé avec succès."
+        );
+
+
+        await searchMovements();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            "Erreur",
+            error.message ||
+            "Impossible de supprimer le mouvement.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function bindEvents(){
+
+    document.getElementById(
+        "btnNewMovement"
+    )
+    .addEventListener(
+        "click",
+        openCreateMovement
+    );
+
+
+    document.getElementById(
+        "btnSearch"
+    )
+    .addEventListener(
+        "click",
+        searchMovements
+    );
+
+
+    document.getElementById(
+        "btnResetFilters"
+    )
+    .addEventListener(
+        "click",
+        resetFilters
+    );
+
+
+    document.getElementById(
+        "filterDivision"
+    )
+    .addEventListener(
+        "change",
+        updateFilterMagasins
+    );
+
+
+    document.getElementById(
+        "filterMagasin"
+    )
+    .addEventListener(
+        "change",
+        updateFilterEmplacements
+    );
+
+
+    document.getElementById(
+        "movementDivision"
+    )
+    .addEventListener(
+        "change",
+        updateFormMagasins
+    );
+
+
+    document.getElementById(
+        "movementMagasin"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            updateFormEmplacements();
+
+            updateCurrentStock();
+
+        }
+    );
+
+
+    document.getElementById(
+        "movementEmplacement"
+    )
+    .addEventListener(
+        "change",
+        updateCurrentStock
+    );
+
+
+    document.getElementById(
+        "movementLot"
+    )
+    .addEventListener(
+        "input",
+        updateCurrentStock
+    );
+
+
+    document.getElementById(
+        "movementArticle"
+    )
+    .addEventListener(
+        "input",
+        updateCurrentStock
+    );
+
+
+    document.getElementById(
+        "closeMovementModal"
+    )
+    .addEventListener(
+        "click",
+        closeMovementModal
+    );
+
+
+    document.getElementById(
+        "cancelMovement"
+    )
+    .addEventListener(
+        "click",
+        closeMovementModal
+    );
+
+
+    document.getElementById(
+        "saveMovement"
+    )
+    .addEventListener(
+        "click",
+        saveMovement
+    );
+
+
+    document.getElementById(
+        "closeDeleteModal"
+    )
+    .addEventListener(
+        "click",
+        closeDeleteModal
+    );
+
+
+    document.getElementById(
+        "cancelDelete"
+    )
+    .addEventListener(
+        "click",
+        closeDeleteModal
+    );
+
+
+    document.getElementById(
+        "confirmDelete"
+    )
+    .addEventListener(
+        "click",
+        confirmDelete
+    );
+
+
+    document.getElementById(
+        "movementModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target.id ===
+                "movementModal"
+            ){
+
+                closeMovementModal();
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "deleteModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target.id ===
+                "deleteModal"
+            ){
+
+                closeDeleteModal();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key ===
+                "Escape"
+            ){
+
+                closeMovementModal();
+
+                closeDeleteModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RESET FILTERS
+========================================================= */
+
+function resetFilters(){
+
+    document.getElementById(
+        "filterArticle"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterLot"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterType"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterDateStart"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "filterDateEnd"
+    ).value =
+        "";
+
+
+    selectedFilterArticle =
+        null;
+
+
+    if(
+        divisions.length === 1
+    ){
+
+        document.getElementById(
+            "filterDivision"
+        ).value =
+            String(
+                divisions[0].id
+            );
+
+    }
+    else{
+
+        document.getElementById(
+            "filterDivision"
+        ).value =
+            "";
+
+    }
+
+
+    updateFilterMagasins();
+
+
+    document.getElementById(
+        "filterMagasin"
+    ).value =
+        "";
+
+
+    updateFilterEmplacements();
+
+
+    document.getElementById(
+        "filterEmplacement"
+    ).value =
+        "";
+
+
+    searchMovements();
+
+}
+
+
+/* =========================================================
+   FINDERS
+========================================================= */
+
+function findDivision(
+    id
+){
+
+    return divisions.find(
+        x =>
+            Number(
+                x.id
+            ) ===
+            Number(
+                id
+            )
+    ) || null;
+
+}
+
+
+function findMagasin(
+    id
+){
+
+    return magasins.find(
+        x =>
+            Number(
+                x.id
+            ) ===
+            Number(
+                id
+            )
+    ) || null;
+
+}
+
+
+function findEmplacement(
+    id
+){
+
+    return emplacements.find(
+        x =>
+            Number(
+                x.id
+            ) ===
+            Number(
+                id
+            )
+    ) || null;
+
+}
+
+
+function findProduct(
+    article
+){
+
+    const wanted =
+        normalize(
+            article
+        );
+
+
+    return produits.find(
+        product =>
+            normalize(
+                product.article
+            ) ===
+            wanted
+    ) || null;
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function normalize(
+    value
+){
+
+    return String(
+        value ??
+        ""
+    )
+    .normalize(
+        "NFD"
+    )
+    .replace(
+        /[\u0300-\u036f]/g,
+        ""
+    )
+    .toLowerCase()
+    .trim();
+
+}
+
+
+function uniqueById(
+    rows
+){
+
+    const map =
+        new Map();
+
+
+    rows.forEach(
+        row => {
+
+            if(row){
+
+                map.set(
+                    String(
+                        row.id
+                    ),
+                    row
+                );
+
+            }
+
+        }
+    );
+
+
+    return Array.from(
+        map.values()
+    );
+
+}
+
+
+function sortByCode(
+    a,
+    b
+){
+
+    return String(
+        a.code ||
+        ""
+    ).localeCompare(
+        String(
+            b.code ||
+            ""
+        ),
+        "fr",
+        {
+            numeric:true
+        }
+    );
+
+}
+
+
+function isPositiveMovement(
+    type
+){
+
+    return (
+        type ===
+        "ENTREE" ||
+        type ===
+        "AJUSTEMENT_PLUS"
+    );
+
+}
+
+
+function formatNumber(
+    value
+){
+
+    return Number(
+        value ||
+        0
+    ).toLocaleString(
+        "fr-FR",
+        {
+            maximumFractionDigits:0
+        }
+    );
+
+}
+
+
+function formatKg(
+    value
+){
+
+    return Number(
+        value ||
+        0
+    ).toLocaleString(
+        "fr-FR",
+        {
+            minimumFractionDigits:3,
+            maximumFractionDigits:3
+        }
+    );
+
+}
+
+
+function formatDateTime(
+    value
+){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "-";
+
+    }
+
+
+    return date.toLocaleString(
+        "fr-FR",
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+function getDateTimeLocal(){
+
+    const date =
+        new Date();
+
+
+    const pad =
+        value =>
+            String(
+                value
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+
+}
+
+
+function toDateTimeLocal(
+    value
+){
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return getDateTimeLocal();
+
+    }
+
+
+    const pad =
+        value =>
+            String(
+                value
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+
+}
+
+
+function addOneDay(
+    dateString
+){
+
+    const date =
+        new Date(
+            `${dateString}T00:00:00`
+        );
+
+
+    date.setDate(
+        date.getDate() +
+        1
+    );
+
+
+    return date
+        .toISOString();
+
+}
+
+
+function setText(
+    id,
+    value
+){
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if(element){
+
+        element.textContent =
+            value;
+
+    }
+
+}
+
+
+function setLoading(
+    show
+){
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    if(show){
+
+        loading.classList.add(
+            "show"
+        );
+
+    }
+    else{
+
+        loading.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ??
+        ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    title,
+    message,
+    type = ""
+){
+
+    const container =
+        document.getElementById(
+            "toasts"
+        );
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.className =
+        `toast ${type}`;
+
+
+    toast.innerHTML = `
+
+        <strong>
+
+            ${escapeHtml(
+                title
+            )}
+
+        </strong>
+
+        <span>
+
+            ${escapeHtml(
+                message
+            )}
+
+        </span>
+
+    `;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        function(){
+
+            toast.remove();
+
+        },
+        4500
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
