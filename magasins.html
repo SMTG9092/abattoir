@@ -1,608 +1,1084 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Magasins - SMTG</title>
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         STYLE
+    ====================================================== -->
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
+
         body {
+
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #f4f6f8;
+
             color: #1f2937;
         }
 
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
         .page-container {
-            padding: 24px;
+
+            width: 100%;
+
             max-width: 1600px;
-            margin: auto;
+
+            margin: 0 auto;
+
+            padding: 20px;
         }
 
-        /* =========================
+
+        /* =====================================================
            HEADER
-        ========================= */
+        ====================================================== */
 
         .page-header {
-            background: white;
+
+            background: #ffffff;
+
             border-radius: 14px;
-            padding: 20px 24px;
+
+            padding: 16px 20px;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             gap: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                0 2px 10px
+                rgba(0,0,0,.05);
         }
+
 
         .page-title {
+
             display: flex;
+
             align-items: center;
-            gap: 14px;
+
+            gap: 12px;
         }
+
 
         .page-title-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 10px;
+
             background: #145a1f;
+
             color: white;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            font-size: 22px;
-        }
 
-        .page-title h1 {
-            margin: 0;
-            font-size: 23px;
-        }
-
-        .page-title p {
-            margin: 4px 0 0;
-            color: #6b7280;
-            font-size: 13px;
-        }
-
-        .btn {
-            border: none;
-            border-radius: 9px;
-            padding: 10px 16px;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: .2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-        }
-
-        .btn-primary {
-            background: #145a1f;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0e4316;
-        }
-
-        .btn-secondary {
-            background: #eef1f4;
-            color: #374151;
-        }
-
-        .btn-danger {
-            background: #dc2626;
-            color: white;
-        }
-
-        .btn-warning {
-            background: #f59e0b;
-            color: white;
-        }
-
-        .btn-sm {
-            padding: 7px 10px;
-            font-size: 12px;
-        }
-
-        /* =========================
-           STATS
-        ========================= */
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 13px;
-            padding: 18px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .stat-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e9f5eb;
-            color: #145a1f;
             font-size: 19px;
         }
 
-        .stat-value {
-            font-size: 22px;
-            font-weight: 700;
+
+        .page-title h1 {
+
+            margin: 0;
+
+            font-size: 20px;
+
+            color: #1f2937;
         }
+
+
+        .page-title p {
+
+            margin: 3px 0 0;
+
+            font-size: 11px;
+
+            color: #7b8490;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ====================================================== */
+
+        .btn {
+
+            border: none;
+
+            border-radius: 8px;
+
+            padding: 9px 13px;
+
+            cursor: pointer;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: .2s;
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .btn:disabled {
+
+            opacity: .55;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .btn-primary {
+
+            background: #145a1f;
+
+            color: white;
+        }
+
+
+        .btn-primary:hover {
+
+            background: #0d4316;
+        }
+
+
+        .btn-secondary {
+
+            background: #eef1f4;
+
+            color: #374151;
+        }
+
+
+        .btn-secondary:hover {
+
+            background: #e2e6ea;
+        }
+
+
+        .btn-warning {
+
+            background: #f59e0b;
+
+            color: white;
+        }
+
+
+        .btn-danger {
+
+            background: #dc2626;
+
+            color: white;
+        }
+
+
+        .btn-sm {
+
+            padding: 6px 9px;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           STATS
+        ====================================================== */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border-radius: 11px;
+
+            padding: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,.04);
+        }
+
+
+        .stat-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 9px;
+
+            background: #eaf5ec;
+
+            color: #145a1f;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 15px;
+        }
+
+
+        .stat-value {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            line-height: 1;
+        }
+
 
         .stat-label {
-            font-size: 12px;
-            color: #6b7280;
-            margin-top: 3px;
+
+            margin-top: 4px;
+
+            font-size: 9px;
+
+            color: #7b8490;
         }
 
-        /* =========================
+
+        /* =====================================================
            FILTERS
-        ========================= */
+        ====================================================== */
 
         .filters-card {
+
             background: white;
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+
+            border-radius: 11px;
+
+            padding: 13px;
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,.04);
         }
 
+
         .filters {
+
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
-            gap: 12px;
+
+            grid-template-columns:
+                2fr
+                1fr
+                1fr
+                auto;
+
+            gap: 10px;
+
             align-items: end;
         }
 
+
         .form-group {
+
             display: flex;
+
             flex-direction: column;
-            gap: 6px;
+
+            gap: 5px;
         }
 
+
         .form-group label {
-            font-size: 12px;
+
+            font-size: 10px;
+
             font-weight: 700;
+
             color: #374151;
         }
+
 
         input,
         select,
         textarea {
+
             width: 100%;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 14px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            padding: 9px 10px;
+
             background: white;
+
             outline: none;
+
+            font-family: inherit;
+
+            font-size: 12px;
         }
+
 
         input:focus,
         select:focus,
         textarea:focus {
+
             border-color: #145a1f;
-            box-shadow: 0 0 0 3px rgba(20,90,31,.08);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(20,90,31,.08);
         }
 
-        /* =========================
+
+        textarea {
+
+            resize: vertical;
+        }
+
+
+        /* =====================================================
            TABLE
-        ========================= */
+        ====================================================== */
 
         .table-card {
+
             background: white;
-            border-radius: 14px;
+
+            border-radius: 11px;
+
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,.04);
         }
 
+
         .table-header {
-            padding: 16px 18px;
-            border-bottom: 1px solid #e5e7eb;
+
+            padding: 12px 14px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
         }
 
+
         .table-header h2 {
+
             margin: 0;
-            font-size: 16px;
+
+            font-size: 13px;
+
+            color: #374151;
         }
 
+
         .table-wrapper {
+
             overflow-x: auto;
         }
 
+
         table {
+
             width: 100%;
+
             border-collapse: collapse;
-            min-width: 1000px;
+
+            min-width: 1050px;
         }
+
 
         th {
+
+            padding: 10px;
+
             background: #f8faf9;
-            color: #374151;
-            font-size: 12px;
-            text-transform: uppercase;
-            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
             text-align: left;
-            border-bottom: 1px solid #e5e7eb;
+
             white-space: nowrap;
+
+            font-size: 9px;
+
+            color: #4b5563;
+
+            text-transform: uppercase;
         }
 
+
         td {
-            padding: 12px;
-            border-bottom: 1px solid #edf0f2;
-            font-size: 13px;
+
+            padding: 10px;
+
+            border-bottom:
+                1px solid #edf0f2;
+
+            font-size: 11px;
+
             vertical-align: middle;
         }
 
+
         tr:hover td {
+
             background: #fafdfb;
         }
 
+
         .code {
-            font-weight: 700;
+
             color: #145a1f;
+
+            font-weight: 700;
         }
+
 
         .division-badge {
+
             display: inline-flex;
+
             align-items: center;
-            gap: 6px;
-            padding: 5px 9px;
-            border-radius: 7px;
+
+            gap: 5px;
+
+            padding: 4px 7px;
+
+            border-radius: 6px;
+
             background: #edf7ef;
+
             color: #145a1f;
+
             font-weight: 700;
-            font-size: 12px;
+
+            font-size: 9px;
+
+            white-space: nowrap;
         }
 
+
         .no-division {
+
             color: #9ca3af;
+
+            font-size: 10px;
+
             font-style: italic;
         }
 
+
         .status {
+
             display: inline-flex;
+
             align-items: center;
-            gap: 6px;
-            padding: 5px 9px;
+
+            gap: 5px;
+
+            padding: 4px 8px;
+
             border-radius: 20px;
-            font-size: 11px;
+
+            font-size: 9px;
+
             font-weight: 700;
         }
 
+
         .status.active {
+
             background: #dcfce7;
+
             color: #166534;
         }
 
+
         .status.inactive {
+
             background: #fee2e2;
+
             color: #991b1b;
         }
 
+
         .actions {
+
             display: flex;
-            gap: 6px;
+
+            gap: 5px;
         }
 
+
         .empty {
+
             text-align: center;
-            padding: 45px 20px;
+
+            padding: 40px 20px;
+
             color: #9ca3af;
         }
 
+
         .empty i {
-            font-size: 35px;
-            margin-bottom: 10px;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
         }
 
-        /* =========================
+
+        .loading {
+
+            text-align: center;
+
+            padding: 35px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
            MODAL
-        ========================= */
+        ====================================================== */
 
         .modal-overlay {
+
             position: fixed;
+
             inset: 0;
-            background: rgba(0,0,0,.45);
+
+            background:
+                rgba(0,0,0,.45);
+
             display: none;
+
             align-items: center;
+
             justify-content: center;
+
             padding: 20px;
+
             z-index: 9999;
         }
 
+
         .modal-overlay.show {
+
             display: flex;
         }
+
 
         .modal {
+
             width: 100%;
+
             max-width: 650px;
+
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,.2);
+
+            border-radius: 14px;
+
             overflow: hidden;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.25);
         }
+
 
         .modal-header {
-            padding: 18px 22px;
-            border-bottom: 1px solid #e5e7eb;
+
+            padding: 15px 19px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
         }
+
 
         .modal-header h2 {
+
             margin: 0;
-            font-size: 18px;
+
+            font-size: 16px;
         }
+
 
         .modal-close {
-            width: 34px;
-            height: 34px;
+
+            width: 32px;
+
+            height: 32px;
+
             border: none;
+
+            border-radius: 7px;
+
             background: #f3f4f6;
-            border-radius: 8px;
+
             cursor: pointer;
-            font-size: 17px;
         }
+
 
         .modal-body {
-            padding: 22px;
+
+            padding: 19px;
         }
+
 
         .form-grid {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
         }
+
 
         .full {
-            grid-column: 1 / -1;
+
+            grid-column:
+                1 / -1;
         }
+
 
         .modal-footer {
-            padding: 16px 22px;
-            border-top: 1px solid #e5e7eb;
+
+            padding: 13px 19px;
+
+            border-top:
+                1px solid #e5e7eb;
+
             display: flex;
+
             justify-content: flex-end;
-            gap: 10px;
+
+            gap: 8px;
         }
 
-        /* =========================
-           LOADING
-        ========================= */
 
-        .loading {
-            text-align: center;
-            padding: 35px;
-            color: #6b7280;
-        }
-
-        .loading i {
-            margin-right: 7px;
-        }
-
-        /* =========================
+        /* =====================================================
            TOAST
-        ========================= */
+        ====================================================== */
 
         .toast-container {
+
             position: fixed;
-            top: 20px;
-            right: 20px;
+
+            top: 18px;
+
+            right: 18px;
+
             z-index: 20000;
+
             display: flex;
+
             flex-direction: column;
-            gap: 10px;
+
+            gap: 8px;
         }
+
 
         .toast {
-            min-width: 280px;
-            max-width: 420px;
-            padding: 13px 16px;
-            border-radius: 10px;
+
+            min-width: 260px;
+
+            max-width: 400px;
+
             background: white;
-            box-shadow: 0 8px 25px rgba(0,0,0,.15);
+
+            padding: 11px 13px;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,.15);
+
             display: flex;
+
             align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            animation: toastIn .25s ease;
+
+            gap: 9px;
+
+            font-size: 12px;
         }
+
 
         .toast.success {
-            border-left: 4px solid #16a34a;
+
+            border-left:
+                4px solid #16a34a;
         }
+
 
         .toast.error {
-            border-left: 4px solid #dc2626;
+
+            border-left:
+                4px solid #dc2626;
         }
+
 
         .toast.warning {
-            border-left: 4px solid #f59e0b;
+
+            border-left:
+                4px solid #f59e0b;
         }
 
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
 
-        /* =========================
+        /* =====================================================
            RESPONSIVE
-        ========================= */
+        ====================================================== */
 
         @media (max-width: 1000px) {
+
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
+
             .filters {
-                grid-template-columns: 1fr 1fr;
+
+                grid-template-columns:
+                    1fr 1fr;
             }
         }
 
+
         @media (max-width: 650px) {
+
             .page-container {
-                padding: 12px;
+
+                padding: 10px;
             }
 
+
             .page-header {
+
                 flex-direction: column;
+
                 align-items: flex-start;
             }
 
+
             .stats-grid {
+
                 grid-template-columns: 1fr;
             }
+
 
             .filters {
+
                 grid-template-columns: 1fr;
             }
+
 
             .form-grid {
+
                 grid-template-columns: 1fr;
             }
 
+
             .full {
+
                 grid-column: auto;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="page-container">
 
-    <!-- =========================
+
+    <!-- =====================================================
          HEADER
-    ========================= -->
+    ====================================================== -->
 
     <div class="page-header">
 
         <div class="page-title">
 
             <div class="page-title-icon">
+
                 <i class="fa-solid fa-warehouse"></i>
+
             </div>
 
+
             <div>
-                <h1>Magasins</h1>
-                <p>Gestion des magasins par division</p>
+
+                <h1>
+                    Magasins
+                </h1>
+
+                <p>
+                    Gestion des magasins par division
+                </p>
+
             </div>
 
         </div>
 
-        <button class="btn btn-primary" onclick="openCreateModal()">
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="btnNew"
+            onclick="openCreateModal()"
+        >
+
             <i class="fa-solid fa-plus"></i>
+
             Nouveau magasin
+
         </button>
 
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          STATS
-    ========================= -->
+    ====================================================== -->
 
     <div class="stats-grid">
 
+
         <div class="stat-card">
+
             <div class="stat-icon">
+
                 <i class="fa-solid fa-warehouse"></i>
+
             </div>
 
+
             <div>
-                <div class="stat-value" id="statTotal">0</div>
-                <div class="stat-label">Total magasins</div>
+
+                <div
+                    class="stat-value"
+                    id="statTotal"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Total magasins
+                </div>
+
             </div>
+
         </div>
 
 
+
         <div class="stat-card">
+
             <div class="stat-icon">
+
                 <i class="fa-solid fa-circle-check"></i>
+
             </div>
 
+
             <div>
-                <div class="stat-value" id="statActive">0</div>
-                <div class="stat-label">Magasins actifs</div>
+
+                <div
+                    class="stat-value"
+                    id="statActive"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Magasins actifs
+                </div>
+
             </div>
+
         </div>
 
 
+
         <div class="stat-card">
+
             <div class="stat-icon">
+
                 <i class="fa-solid fa-circle-xmark"></i>
+
             </div>
 
+
             <div>
-                <div class="stat-value" id="statInactive">0</div>
-                <div class="stat-label">Magasins inactifs</div>
+
+                <div
+                    class="stat-value"
+                    id="statInactive"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Magasins inactifs
+                </div>
+
             </div>
+
         </div>
+
 
 
         <div class="stat-card">
+
             <div class="stat-icon">
+
                 <i class="fa-solid fa-code-branch"></i>
+
             </div>
 
+
             <div>
-                <div class="stat-value" id="statDivisions">0</div>
-                <div class="stat-label">Divisions utilisées</div>
+
+                <div
+                    class="stat-value"
+                    id="statDivisions"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Divisions utilisées
+                </div>
+
             </div>
+
         </div>
+
 
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          FILTERS
-    ========================= -->
+    ====================================================== -->
 
     <div class="filters-card">
 
         <div class="filters">
 
+
             <div class="form-group">
-                <label for="searchInput">
+
+                <label>
                     Recherche
                 </label>
 
@@ -610,69 +1086,106 @@
                     type="text"
                     id="searchInput"
                     placeholder="Code, nom, description..."
-                    oninput="applyFilters()"
                 >
+
             </div>
+
 
 
             <div class="form-group">
 
-                <label for="divisionFilter">
+                <label>
                     Division
                 </label>
 
-                <select id="divisionFilter" onchange="applyFilters()">
-                    <option value="">Toutes les divisions</option>
+                <select id="divisionFilter">
+
+                    <option value="">
+                        Toutes les divisions
+                    </option>
+
                 </select>
 
             </div>
+
 
 
             <div class="form-group">
 
-                <label for="statusFilter">
+                <label>
                     Statut
                 </label>
 
-                <select id="statusFilter" onchange="applyFilters()">
-                    <option value="">Tous</option>
-                    <option value="true">Actif</option>
-                    <option value="false">Inactif</option>
+                <select id="statusFilter">
+
+                    <option value="">
+                        Tous
+                    </option>
+
+                    <option value="true">
+                        Actif
+                    </option>
+
+                    <option value="false">
+                        Inactif
+                    </option>
+
                 </select>
 
             </div>
 
 
-            <button class="btn btn-secondary" onclick="resetFilters()">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnReset"
+            >
+
                 <i class="fa-solid fa-rotate-left"></i>
+
                 Réinitialiser
+
             </button>
+
 
         </div>
 
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          TABLE
-    ========================= -->
+    ====================================================== -->
 
     <div class="table-card">
+
 
         <div class="table-header">
 
             <h2>
+
                 <i class="fa-solid fa-list"></i>
+
                 Liste des magasins
+
             </h2>
 
-            <button class="btn btn-secondary btn-sm"
-                    onclick="loadData()">
+
+            <button
+                type="button"
+                class="btn btn-secondary btn-sm"
+                id="btnRefresh"
+            >
+
                 <i class="fa-solid fa-arrows-rotate"></i>
+
                 Actualiser
+
             </button>
 
         </div>
+
 
 
         <div class="table-wrapper">
@@ -681,33 +1194,72 @@
 
                 <thead>
 
-                <tr>
-                    <th>ID</th>
-                    <th>Code</th>
-                    <th>Nom</th>
-                    <th>Division</th>
-                    <th>Type</th>
-                    <th>Emplacements</th>
-                    <th>Max palettes</th>
-                    <th>Max tonnage KG</th>
-                    <th>Statut</th>
-                    <th>Actions</th>
-                </tr>
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Code
+                        </th>
+
+                        <th>
+                            Nom
+                        </th>
+
+                        <th>
+                            Division
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Emplacements
+                        </th>
+
+                        <th>
+                            Max palettes
+                        </th>
+
+                        <th>
+                            Max tonnage KG
+                        </th>
+
+                        <th>
+                            Statut
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
 
                 </thead>
 
+
                 <tbody id="tableBody">
 
-                <tr>
-                    <td colspan="10">
+                    <tr>
 
-                        <div class="loading">
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-                            Chargement...
-                        </div>
+                        <td colspan="10">
 
-                    </td>
-                </tr>
+                            <div class="loading">
+
+                                <i
+                                    class="fa-solid fa-spinner fa-spin"
+                                ></i>
+
+                                Chargement...
+
+                            </div>
+
+                        </td>
+
+                    </tr>
 
                 </tbody>
 
@@ -717,16 +1269,23 @@
 
     </div>
 
+
 </div>
 
 
-<!-- =========================
-     MODAL
-========================= -->
 
-<div class="modal-overlay" id="modalOverlay">
+<!-- =====================================================
+     MODAL
+====================================================== -->
+
+<div
+    class="modal-overlay"
+    id="modalOverlay"
+>
+
 
     <div class="modal">
+
 
         <div class="modal-header">
 
@@ -734,38 +1293,51 @@
                 Nouveau magasin
             </h2>
 
-            <button class="modal-close"
-                    onclick="closeModal()">
+
+            <button
+                type="button"
+                class="modal-close"
+                id="btnCloseModal"
+            >
+
                 <i class="fa-solid fa-xmark"></i>
+
             </button>
 
         </div>
 
 
-        <form id="magasinForm"
-              onsubmit="saveMagasin(event)">
+
+        <form id="magasinForm">
+
 
             <div class="modal-body">
 
-                <input type="hidden" id="magasinId">
+
+                <input
+                    type="hidden"
+                    id="magasinId"
+                >
 
 
                 <div class="form-grid">
+
 
                     <!-- CODE -->
 
                     <div class="form-group">
 
-                        <label for="code">
+                        <label>
                             Code *
                         </label>
 
                         <input
                             type="text"
                             id="code"
-                            required
                             maxlength="100"
-                            placeholder="Ex: A407"
+                            required
+                            autocomplete="off"
+                            placeholder="Ex : A407"
                         >
 
                     </div>
@@ -775,16 +1347,17 @@
 
                     <div class="form-group">
 
-                        <label for="name">
+                        <label>
                             Nom *
                         </label>
 
                         <input
                             type="text"
                             id="name"
-                            required
                             maxlength="150"
-                            placeholder="Ex: FAR"
+                            required
+                            autocomplete="off"
+                            placeholder="Ex : FAR"
                         >
 
                     </div>
@@ -794,7 +1367,7 @@
 
                     <div class="form-group">
 
-                        <label for="divisionId">
+                        <label>
                             Division
                         </label>
 
@@ -813,7 +1386,7 @@
 
                     <div class="form-group">
 
-                        <label for="type">
+                        <label>
                             Type
                         </label>
 
@@ -821,7 +1394,7 @@
                             type="text"
                             id="type"
                             maxlength="100"
-                            placeholder="Ex: Chambre, magasin..."
+                            placeholder="Ex : Chambre"
                         >
 
                     </div>
@@ -831,7 +1404,7 @@
 
                     <div class="form-group">
 
-                        <label for="maxPalettes">
+                        <label>
                             Max palettes
                         </label>
 
@@ -850,7 +1423,7 @@
 
                     <div class="form-group">
 
-                        <label for="maxTonnage">
+                        <label>
                             Max tonnage KG
                         </label>
 
@@ -865,11 +1438,11 @@
                     </div>
 
 
-                    <!-- HAS EMPLACEMENTS -->
+                    <!-- EMPLACEMENTS -->
 
                     <div class="form-group">
 
-                        <label for="hasEmplacements">
+                        <label>
                             Gestion des emplacements
                         </label>
 
@@ -892,7 +1465,7 @@
 
                     <div class="form-group">
 
-                        <label for="isActive">
+                        <label>
                             Statut
                         </label>
 
@@ -915,7 +1488,7 @@
 
                     <div class="form-group full">
 
-                        <label for="description">
+                        <label>
                             Description
                         </label>
 
@@ -927,186 +1500,616 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
 
+
             <div class="modal-footer">
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        onclick="closeModal()">
-
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="btnCancel"
+                >
                     Annuler
-
                 </button>
 
-                <button type="submit"
-                        class="btn btn-primary"
-                        id="saveButton">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveButton"
+                >
 
                     <i class="fa-solid fa-floppy-disk"></i>
+
                     Enregistrer
 
                 </button>
 
             </div>
 
+
         </form>
+
 
     </div>
 
 </div>
 
 
-<!-- =========================
+
+<!-- =====================================================
      TOAST
-========================= -->
+====================================================== -->
 
-<div class="toast-container" id="toastContainer"></div>
+<div
+    class="toast-container"
+    id="toastContainer"
+></div>
 
 
-<!-- =========================
-     SUPABASE
-========================= -->
+
+<!-- =====================================================
+     IMPORTANT
+     SUPABASE JS V2 AVANT api/supabase.js
+====================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="api/supabase.js"></script>
 
 
+
+<!-- =====================================================
+     PAGE JAVASCRIPT
+====================================================== -->
+
 <script>
 
-    const db = window.smtgSupabase;
-
-    let allMagasins = [];
-    let allDivisions = [];
-    let filteredMagasins = [];
-    let currentUser = null;
+"use strict";
 
 
-    /* =====================================================
-       INIT
-    ===================================================== */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
-    document.addEventListener("DOMContentLoaded", async () => {
+let db = null;
 
-        try {
+let allMagasins = [];
 
-            currentUser = window.SMTG?.getCurrentUser
-                ? window.SMTG.getCurrentUser()
-                : null;
+let allDivisions = [];
 
-            await loadDivisions();
-            await loadData();
+let filteredMagasins = [];
 
-        } catch (error) {
+let currentUser = null;
 
-            console.error(error);
 
-            showToast(
-                "Erreur lors du chargement de la page.",
-                "error"
+/* =========================================================
+   DOM READY
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initPage
+);
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+async function initPage() {
+
+    try {
+
+        /* -----------------------------------------------
+           Vérifier Supabase JS
+        ------------------------------------------------ */
+
+        if (
+            typeof window.supabase ===
+            "undefined"
+        ) {
+
+            throw new Error(
+                "Supabase JS v2 n'est pas chargé."
             );
 
         }
 
-    });
+
+        /* -----------------------------------------------
+           Vérifier client SMTG
+        ------------------------------------------------ */
+
+        db =
+            window.smtgSupabase;
 
 
-    /* =====================================================
-       LOAD DIVISIONS
-    ===================================================== */
+        if (!db) {
 
-    async function loadDivisions() {
-
-        const { data, error } = await db
-            .from("divisions")
-            .select(`
-                id,
-                code,
-                name,
-                is_active
-            `)
-            .order("code", { ascending: true });
-
-        if (error) {
-
-            console.error(
-                "Erreur loadDivisions:",
-                error
+            throw new Error(
+                "Le client SMTG Supabase n'est pas initialisé."
             );
 
-            throw error;
         }
 
-        allDivisions = data || [];
 
-        fillDivisionSelects();
+        /* -----------------------------------------------
+           Current user
+        ------------------------------------------------ */
+
+        currentUser =
+            getCurrentUser();
+
+
+        /* -----------------------------------------------
+           Events
+        ------------------------------------------------ */
+
+        setupEvents();
+
+
+        /* -----------------------------------------------
+           Load divisions
+        ------------------------------------------------ */
+
+        await loadDivisions();
+
+
+        /* -----------------------------------------------
+           Load magasins
+        ------------------------------------------------ */
+
+        await loadMagasins();
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "INIT MAGASINS:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "Erreur de chargement.",
+            "error"
+        );
+
+
+        showTableError(
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function setupEvents() {
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener(
+            "input",
+            applyFilters
+        );
+
+
+    document
+        .getElementById("divisionFilter")
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById("statusFilter")
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    document
+        .getElementById("btnReset")
+        .addEventListener(
+            "click",
+            resetFilters
+        );
+
+
+    document
+        .getElementById("btnRefresh")
+        .addEventListener(
+            "click",
+            async function () {
+
+                await loadDivisions();
+
+                await loadMagasins();
+
+            }
+        );
+
+
+    document
+        .getElementById("btnCloseModal")
+        .addEventListener(
+            "click",
+            closeModal
+        );
+
+
+    document
+        .getElementById("btnCancel")
+        .addEventListener(
+            "click",
+            closeModal
+        );
+
+
+    document
+        .getElementById("magasinForm")
+        .addEventListener(
+            "submit",
+            saveMagasin
+        );
+
+
+    document
+        .getElementById("modalOverlay")
+        .addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    this
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+function getCurrentUser() {
+
+    try {
+
+        if (
+            window.SMTG &&
+            typeof window.SMTG.getCurrentUser ===
+            "function"
+        ) {
+
+            const user =
+                window.SMTG.getCurrentUser();
+
+            if (user) {
+
+                return user;
+
+            }
+
+        }
+
+
+        const sessionUser =
+            sessionStorage.getItem(
+                "smtg_current_user"
+            );
+
+
+        if (sessionUser) {
+
+            return JSON.parse(
+                sessionUser
+            );
+
+        }
+
+
+        const localUser =
+            localStorage.getItem(
+                "smtg_current_user"
+            );
+
+
+        if (localUser) {
+
+            return JSON.parse(
+                localUser
+            );
+
+        }
+
+
+        const oldUser =
+            sessionStorage.getItem(
+                "smtgUser"
+            );
+
+
+        if (oldUser) {
+
+            return JSON.parse(
+                oldUser
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "GET CURRENT USER:",
+            error
+        );
 
     }
 
 
-    /* =====================================================
-       FILL DIVISION SELECTS
-    ===================================================== */
+    return null;
 
-    function fillDivisionSelects() {
+}
 
-        const filter = document.getElementById(
+
+/* =========================================================
+   CURRENT USER ID
+========================================================= */
+
+function getCurrentUserId() {
+
+    const user =
+        currentUser ||
+        getCurrentUser();
+
+
+    if (
+        user &&
+        user.id !== null &&
+        user.id !== undefined
+    ) {
+
+        return Number(
+            user.id
+        );
+
+    }
+
+
+    /*
+     * Fallback technique SYSTEM.
+     */
+
+    return 1;
+
+}
+
+
+/* =========================================================
+   LOAD DIVISIONS
+========================================================= */
+
+async function loadDivisions() {
+
+    if (!db) {
+
+        throw new Error(
+            "Client Supabase indisponible."
+        );
+
+    }
+
+
+    const {
+        data,
+        error
+    } = await db
+        .from("divisions")
+        .select(`
+            id,
+            code,
+            name,
+            is_active
+        `)
+        .order(
+            "code",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "LOAD DIVISIONS:",
+            error
+        );
+
+        throw error;
+
+    }
+
+
+    allDivisions =
+        data || [];
+
+
+    fillDivisionSelects();
+
+}
+
+
+/* =========================================================
+   FILL DIVISION SELECTS
+========================================================= */
+
+function fillDivisionSelects() {
+
+    const filter =
+        document.getElementById(
             "divisionFilter"
         );
 
-        const select = document.getElementById(
+
+    const select =
+        document.getElementById(
             "divisionId"
         );
 
 
-        filter.innerHTML =
-            `<option value="">Toutes les divisions</option>`;
+    if (!filter || !select) {
 
-
-        select.innerHTML =
-            `<option value="">-- Aucune division --</option>`;
-
-
-        allDivisions.forEach(division => {
-
-            const text =
-                `${division.code} - ${division.name}`;
-
-
-            if (division.is_active) {
-
-                filter.innerHTML += `
-                    <option value="${division.id}">
-                        ${escapeHtml(text)}
-                    </option>
-                `;
-
-            }
-
-
-            select.innerHTML += `
-                <option value="${division.id}">
-                    ${escapeHtml(text)}
-                </option>
-            `;
-
-        });
+        return;
 
     }
 
 
-    /* =====================================================
-       LOAD MAGASINS
-    ===================================================== */
-
-    async function loadData() {
-
-        showTableLoading();
+    filter.innerHTML = `
+        <option value="">
+            Toutes les divisions
+        </option>
+    `;
 
 
-        const { data, error } = await db
+    select.innerHTML = `
+        <option value="">
+            -- Aucune division --
+        </option>
+    `;
+
+
+    allDivisions.forEach(
+        function (division) {
+
+
+            const label =
+                `${division.code} - ${division.name}`;
+
+
+            /* -------------------------------------------
+               FILTER
+            ------------------------------------------- */
+
+            if (
+                division.is_active
+            ) {
+
+                const optionFilter =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                optionFilter.value =
+                    division.id;
+
+
+                optionFilter.textContent =
+                    label;
+
+
+                filter.appendChild(
+                    optionFilter
+                );
+
+            }
+
+
+            /* -------------------------------------------
+               FORM
+            ------------------------------------------- */
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                division.id;
+
+
+            option.textContent =
+                label;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD MAGASINS
+========================================================= */
+
+async function loadMagasins() {
+
+    if (!db) {
+
+        throw new Error(
+            "Client Supabase indisponible."
+        );
+
+    }
+
+
+    showTableLoading();
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await db
             .from("magasins")
             .select(`
                 id,
@@ -1124,183 +2127,322 @@
                 updated_by,
                 updated_at
             `)
-            .order("code", { ascending: true });
+            .order(
+                "code",
+                {
+                    ascending: true
+                }
+            );
 
 
         if (error) {
 
-            console.error(
-                "Erreur loadData:",
-                error
-            );
+            throw error;
 
-            showToast(
-                "Impossible de charger les magasins.",
-                "error"
-            );
-
-            return;
         }
 
 
-        allMagasins = data || [];
+        allMagasins =
+            data || [];
 
-        applyFilters();
 
         updateStats();
 
+
+        applyFilters();
+
+    }
+    catch (error) {
+
+        console.error(
+            "LOAD MAGASINS:",
+            error
+        );
+
+
+        showTableError(
+            error.message
+        );
+
+
+        showToast(
+            "Impossible de charger les magasins.",
+            "error"
+        );
+
     }
 
-
-    /* =====================================================
-       FILTERS
-    ===================================================== */
-
-    function applyFilters() {
-
-        const search =
-            document.getElementById("searchInput")
-                .value
-                .trim()
-                .toLowerCase();
+}
 
 
-        const divisionId =
-            document.getElementById("divisionFilter")
-                .value;
+/* =========================================================
+   APPLY FILTERS
+========================================================= */
+
+function applyFilters() {
+
+    const search =
+        (
+            document.getElementById(
+                "searchInput"
+            ).value || ""
+        )
+        .trim()
+        .toLowerCase();
 
 
-        const status =
-            document.getElementById("statusFilter")
-                .value;
+    const divisionId =
+        document.getElementById(
+            "divisionFilter"
+        ).value;
 
 
-        filteredMagasins =
-            allMagasins.filter(magasin => {
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
 
-                let okSearch = true;
-                let okDivision = true;
-                let okStatus = true;
 
+    filteredMagasins =
+        allMagasins.filter(
+            function (magasin) {
+
+
+                let matchSearch =
+                    true;
+
+
+                let matchDivision =
+                    true;
+
+
+                let matchStatus =
+                    true;
+
+
+                /* ---------------------------------------
+                   SEARCH
+                --------------------------------------- */
 
                 if (search) {
 
                     const division =
-                        getDivision(magasin.division_id);
+                        getDivision(
+                            magasin.division_id
+                        );
 
 
                     const content = [
+
                         magasin.code,
+
                         magasin.name,
+
                         magasin.description,
+
                         magasin.type,
+
                         division?.code,
+
                         division?.name
+
                     ]
-                        .filter(Boolean)
-                        .join(" ")
-                        .toLowerCase();
+                    .filter(
+                        value =>
+                            value !==
+                            null &&
+                            value !==
+                            undefined
+                    )
+                    .join(" ")
+                    .toLowerCase();
 
 
-                    okSearch =
-                        content.includes(search);
+                    matchSearch =
+                        content.includes(
+                            search
+                        );
 
                 }
 
 
-                if (divisionId) {
+                /* ---------------------------------------
+                   DIVISION
+                --------------------------------------- */
 
-                    okDivision =
-                        String(magasin.division_id)
-                        === String(divisionId);
+                if (
+                    divisionId !== ""
+                ) {
+
+                    matchDivision =
+                        String(
+                            magasin.division_id
+                        ) ===
+                        String(
+                            divisionId
+                        );
 
                 }
 
 
-                if (status !== "") {
+                /* ---------------------------------------
+                   STATUS
+                --------------------------------------- */
 
-                    okStatus =
-                        String(magasin.is_active)
-                        === status;
+                if (
+                    status !== ""
+                ) {
+
+                    matchStatus =
+                        String(
+                            magasin.is_active
+                        ) ===
+                        String(
+                            status
+                        );
 
                 }
 
 
                 return (
-                    okSearch &&
-                    okDivision &&
-                    okStatus
+                    matchSearch &&
+                    matchDivision &&
+                    matchStatus
                 );
 
-            });
+            }
+        );
 
 
-        renderTable();
+    renderTable();
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetFilters() {
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "divisionFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "statusFilter"
+    ).value = "";
+
+
+    applyFilters();
+
+}
+
+
+/* =========================================================
+   GET DIVISION
+========================================================= */
+
+function getDivision(
+    divisionId
+) {
+
+    if (
+        divisionId ===
+        null ||
+        divisionId ===
+        undefined
+    ) {
+
+        return null;
 
     }
 
 
-    function resetFilters() {
+    return allDivisions.find(
+        function (division) {
 
+            return Number(
+                division.id
+            ) === Number(
+                divisionId
+            );
+
+        }
+    ) || null;
+
+}
+
+
+/* =========================================================
+   RENDER TABLE
+========================================================= */
+
+function renderTable() {
+
+    const tbody =
         document.getElementById(
-            "searchInput"
-        ).value = "";
+            "tableBody"
+        );
 
 
-        document.getElementById(
-            "divisionFilter"
-        ).value = "";
+    if (!tbody) {
 
-
-        document.getElementById(
-            "statusFilter"
-        ).value = "";
-
-
-        applyFilters();
+        return;
 
     }
 
 
-    /* =====================================================
-       RENDER TABLE
-    ===================================================== */
+    if (
+        filteredMagasins.length ===
+        0
+    ) {
 
-    function renderTable() {
+        tbody.innerHTML = `
 
-        const tbody =
-            document.getElementById("tableBody");
+            <tr>
 
+                <td colspan="10">
 
-        if (!filteredMagasins.length) {
+                    <div class="empty">
 
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="10">
+                        <i
+                            class="fa-solid fa-warehouse"
+                        ></i>
 
-                        <div class="empty">
-
-                            <i class="fa-solid fa-warehouse"></i>
-
-                            <div>
-                                Aucun magasin trouvé.
-                            </div>
-
+                        <div>
+                            Aucun magasin trouvé.
                         </div>
 
-                    </td>
-                </tr>
-            `;
+                    </div>
 
-            return;
-        }
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
 
 
-        tbody.innerHTML =
-            filteredMagasins.map(magasin => {
+    tbody.innerHTML =
+        filteredMagasins
+        .map(
+            function (magasin) {
+
 
                 const division =
-                    getDivision(magasin.division_id);
+                    getDivision(
+                        magasin.division_id
+                    );
 
 
                 const statusClass =
@@ -1315,10 +2457,10 @@
                         : "Inactif";
 
 
-                const hasEmplacements =
-                    magasin.has_emplacements
-                        ? "Oui"
-                        : "Non";
+                const statusIcon =
+                    magasin.is_active
+                        ? "fa-check"
+                        : "fa-xmark";
 
 
                 return `
@@ -1326,23 +2468,33 @@
                     <tr>
 
                         <td>
-                            ${magasin.id}
-                        </td>
-
-
-                        <td>
-                            <span class="code">
-                                ${escapeHtml(
-                                    magasin.code || ""
-                                )}
-                            </span>
-                        </td>
-
-
-                        <td>
                             ${escapeHtml(
-                                magasin.name || ""
+                                magasin.id
                             )}
+                        </td>
+
+
+                        <td>
+
+                            <span class="code">
+
+                                ${escapeHtml(
+                                    magasin.code ||
+                                    ""
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                magasin.name ||
+                                ""
+                            )}
+
                         </td>
 
 
@@ -1351,27 +2503,42 @@
                             ${
                                 division
 
-                                ? `
-                                    <span class="division-badge">
+                                ?
 
-                                        <i class="fa-solid fa-code-branch"></i>
+                                `
+
+                                    <span
+                                        class="division-badge"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-code-branch"
+                                        ></i>
 
                                         ${escapeHtml(
                                             division.code
                                         )}
 
                                         -
+
                                         ${escapeHtml(
                                             division.name
                                         )}
 
                                     </span>
+
                                 `
 
-                                : `
-                                    <span class="no-division">
+                                :
+
+                                `
+
+                                    <span
+                                        class="no-division"
+                                    >
                                         Non affecté
                                     </span>
+
                                 `
                             }
 
@@ -1379,40 +2546,56 @@
 
 
                         <td>
+
                             ${escapeHtml(
-                                magasin.type || "-"
+                                magasin.type ||
+                                "-"
                             )}
+
                         </td>
 
 
                         <td>
-                            ${hasEmplacements}
+
+                            ${
+                                magasin.has_emplacements
+                                    ? "Oui"
+                                    : "Non"
+                            }
+
                         </td>
 
 
                         <td>
+
                             ${formatNumber(
                                 magasin.max_palettes
                             )}
+
                         </td>
 
 
                         <td>
+
                             ${formatKg(
                                 magasin.max_tonnage_kg
                             )}
+
                         </td>
 
 
                         <td>
 
-                            <span class="status ${statusClass}">
+                            <span
+                                class="status ${statusClass}"
+                            >
 
-                                <i class="fa-solid ${
-                                    magasin.is_active
-                                        ? "fa-check"
-                                        : "fa-xmark"
-                                }"></i>
+                                <i
+                                    class="
+                                        fa-solid
+                                        ${statusIcon}
+                                    "
+                                ></i>
 
                                 ${statusText}
 
@@ -1425,26 +2608,34 @@
 
                             <div class="actions">
 
+
                                 <button
+                                    type="button"
                                     class="btn btn-warning btn-sm"
-                                    onclick="openEditModal(${magasin.id})"
+                                    onclick="openEditModal(${Number(magasin.id)})"
                                     title="Modifier"
                                 >
 
-                                    <i class="fa-solid fa-pen"></i>
+                                    <i
+                                        class="fa-solid fa-pen"
+                                    ></i>
 
                                 </button>
 
 
                                 <button
+                                    type="button"
                                     class="btn btn-danger btn-sm"
-                                    onclick="deleteMagasin(${magasin.id})"
+                                    onclick="deleteMagasin(${Number(magasin.id)})"
                                     title="Supprimer"
                                 >
 
-                                    <i class="fa-solid fa-trash"></i>
+                                    <i
+                                        class="fa-solid fa-trash"
+                                    ></i>
 
                                 </button>
+
 
                             </div>
 
@@ -1454,647 +2645,872 @@
 
                 `;
 
-            }).join("");
+            }
+        )
+        .join("");
 
-    }
-
-
-    /* =====================================================
-       STATS
-    ===================================================== */
-
-    function updateStats() {
-
-        const total =
-            allMagasins.length;
+}
 
 
-        const active =
-            allMagasins.filter(
-                m => m.is_active
-            ).length;
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats() {
+
+    const total =
+        allMagasins.length;
 
 
-        const inactive =
-            allMagasins.filter(
-                m => !m.is_active
-            ).length;
+    const active =
+        allMagasins.filter(
+            function (m) {
+
+                return m.is_active;
+
+            }
+        ).length;
 
 
-        const divisions =
-            new Set(
-                allMagasins
-                    .map(m => m.division_id)
-                    .filter(Boolean)
-            ).size;
+    const inactive =
+        allMagasins.filter(
+            function (m) {
+
+                return !m.is_active;
+
+            }
+        ).length;
 
 
-        document.getElementById(
-            "statTotal"
-        ).textContent = total;
+    const divisions =
+        new Set(
+            allMagasins
+                .map(
+                    function (m) {
+
+                        return m.division_id;
+
+                    }
+                )
+                .filter(
+                    function (id) {
+
+                        return (
+                            id !==
+                            null &&
+                            id !==
+                            undefined
+                        );
+
+                    }
+                )
+        ).size;
 
 
-        document.getElementById(
-            "statActive"
-        ).textContent = active;
+    document.getElementById(
+        "statTotal"
+    ).textContent =
+        total;
 
 
-        document.getElementById(
-            "statInactive"
-        ).textContent = inactive;
+    document.getElementById(
+        "statActive"
+    ).textContent =
+        active;
 
 
-        document.getElementById(
-            "statDivisions"
-        ).textContent = divisions;
-
-    }
-
-
-    /* =====================================================
-       CREATE
-    ===================================================== */
-
-    function openCreateModal() {
-
-        document.getElementById(
-            "modalTitle"
-        ).textContent = "Nouveau magasin";
+    document.getElementById(
+        "statInactive"
+    ).textContent =
+        inactive;
 
 
+    document.getElementById(
+        "statDivisions"
+    ).textContent =
+        divisions;
+
+}
+
+
+/* =========================================================
+   OPEN CREATE
+========================================================= */
+
+function openCreateModal() {
+
+    const form =
         document.getElementById(
             "magasinForm"
-        ).reset();
+        );
 
 
-        document.getElementById(
-            "magasinId"
-        ).value = "";
+    form.reset();
 
 
-        document.getElementById(
-            "maxPalettes"
-        ).value = 0;
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Nouveau magasin";
 
 
-        document.getElementById(
-            "maxTonnage"
-        ).value = 0;
+    document.getElementById(
+        "magasinId"
+    ).value =
+        "";
 
 
-        document.getElementById(
-            "hasEmplacements"
-        ).value = "false";
+    document.getElementById(
+        "maxPalettes"
+    ).value =
+        "0";
 
 
-        document.getElementById(
-            "isActive"
-        ).value = "true";
+    document.getElementById(
+        "maxTonnage"
+    ).value =
+        "0";
 
 
-        document.getElementById(
-            "divisionId"
-        ).value = "";
+    document.getElementById(
+        "hasEmplacements"
+    ).value =
+        "false";
 
 
-        document.getElementById(
-            "modalOverlay"
-        ).classList.add("show");
+    document.getElementById(
+        "isActive"
+    ).value =
+        "true";
 
 
-        setTimeout(() => {
+    document.getElementById(
+        "divisionId"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "modalOverlay"
+    ).classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function () {
 
             document.getElementById(
                 "code"
             ).focus();
 
-        }, 100);
+        },
+        100
+    );
+
+}
+
+
+/* =========================================================
+   OPEN EDIT
+========================================================= */
+
+function openEditModal(
+    id
+) {
+
+    const magasin =
+        allMagasins.find(
+            function (item) {
+
+                return Number(
+                    item.id
+                ) === Number(
+                    id
+                );
+
+            }
+        );
+
+
+    if (!magasin) {
+
+        showToast(
+            "Magasin introuvable.",
+            "error"
+        );
+
+        return;
 
     }
 
 
-    /* =====================================================
-       EDIT
-    ===================================================== */
-
-    function openEditModal(id) {
-
-        const magasin =
-            allMagasins.find(
-                m => Number(m.id) === Number(id)
-            );
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Modifier le magasin";
 
 
-        if (!magasin) {
-
-            showToast(
-                "Magasin introuvable.",
-                "error"
-            );
-
-            return;
-        }
+    document.getElementById(
+        "magasinId"
+    ).value =
+        magasin.id;
 
 
-        document.getElementById(
-            "modalTitle"
-        ).textContent =
-            "Modifier le magasin";
+    document.getElementById(
+        "code"
+    ).value =
+        magasin.code ||
+        "";
 
 
+    document.getElementById(
+        "name"
+    ).value =
+        magasin.name ||
+        "";
+
+
+    document.getElementById(
+        "divisionId"
+    ).value =
+        magasin.division_id ??
+        "";
+
+
+    document.getElementById(
+        "type"
+    ).value =
+        magasin.type ||
+        "";
+
+
+    document.getElementById(
+        "maxPalettes"
+    ).value =
+        magasin.max_palettes ??
+        0;
+
+
+    document.getElementById(
+        "maxTonnage"
+    ).value =
+        magasin.max_tonnage_kg ??
+        0;
+
+
+    document.getElementById(
+        "hasEmplacements"
+    ).value =
+        String(
+            Boolean(
+                magasin.has_emplacements
+            )
+        );
+
+
+    document.getElementById(
+        "isActive"
+    ).value =
+        String(
+            Boolean(
+                magasin.is_active
+            )
+        );
+
+
+    document.getElementById(
+        "description"
+    ).value =
+        magasin.description ||
+        "";
+
+
+    document.getElementById(
+        "modalOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    document.getElementById(
+        "modalOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+async function saveMagasin(
+    event
+) {
+
+    event.preventDefault();
+
+
+    if (!db) {
+
+        showToast(
+            "Connexion Supabase indisponible.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const id =
         document.getElementById(
             "magasinId"
-        ).value =
-            magasin.id;
+        ).value;
 
 
+    const code =
         document.getElementById(
             "code"
-        ).value =
-            magasin.code || "";
+        ).value
+        .trim();
 
 
+    const name =
         document.getElementById(
             "name"
-        ).value =
-            magasin.name || "";
+        ).value
+        .trim();
 
 
+    const divisionValue =
         document.getElementById(
             "divisionId"
-        ).value =
-            magasin.division_id ?? "";
+        ).value;
 
 
+    const type =
         document.getElementById(
             "type"
-        ).value =
-            magasin.type || "";
+        ).value
+        .trim();
 
 
-        document.getElementById(
-            "maxPalettes"
-        ).value =
-            magasin.max_palettes ?? 0;
+    const maxPalettes =
+        Number(
+            document.getElementById(
+                "maxPalettes"
+            ).value ||
+            0
+        );
 
 
-        document.getElementById(
-            "maxTonnage"
-        ).value =
-            magasin.max_tonnage_kg ?? 0;
+    const maxTonnage =
+        Number(
+            document.getElementById(
+                "maxTonnage"
+            ).value ||
+            0
+        );
 
 
+    const hasEmplacements =
         document.getElementById(
             "hasEmplacements"
-        ).value =
-            String(
-                Boolean(magasin.has_emplacements)
-            );
+        ).value ===
+        "true";
 
 
+    const isActive =
         document.getElementById(
             "isActive"
-        ).value =
-            String(
-                Boolean(magasin.is_active)
-            );
+        ).value ===
+        "true";
 
 
+    const description =
         document.getElementById(
             "description"
-        ).value =
-            magasin.description || "";
+        ).value
+        .trim();
 
 
-        document.getElementById(
-            "modalOverlay"
-        ).classList.add("show");
+    /* -----------------------------------------------
+       VALIDATION
+    ------------------------------------------------ */
 
-    }
+    if (!code) {
 
+        showToast(
+            "Le code est obligatoire.",
+            "warning"
+        );
 
-    /* =====================================================
-       CLOSE MODAL
-    ===================================================== */
-
-    function closeModal() {
-
-        document.getElementById(
-            "modalOverlay"
-        ).classList.remove("show");
+        return;
 
     }
 
 
-    /* =====================================================
-       SAVE
-    ===================================================== */
+    if (!name) {
 
-    async function saveMagasin(event) {
+        showToast(
+            "Le nom est obligatoire.",
+            "warning"
+        );
 
-        event.preventDefault();
+        return;
 
-
-        const id =
-            document.getElementById(
-                "magasinId"
-            ).value;
+    }
 
 
-        const code =
-            document.getElementById(
-                "code"
-            ).value
-            .trim();
+    if (
+        !Number.isFinite(
+            maxPalettes
+        ) ||
+        maxPalettes < 0
+    ) {
+
+        showToast(
+            "Max palettes invalide.",
+            "warning"
+        );
+
+        return;
+
+    }
 
 
-        const name =
-            document.getElementById(
-                "name"
-            ).value
-            .trim();
+    if (
+        !Number.isFinite(
+            maxTonnage
+        ) ||
+        maxTonnage < 0
+    ) {
+
+        showToast(
+            "Max tonnage invalide.",
+            "warning"
+        );
+
+        return;
+
+    }
 
 
-        const divisionValue =
-            document.getElementById(
-                "divisionId"
-            ).value;
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
 
 
-        const type =
-            document.getElementById(
-                "type"
-            ).value
-            .trim();
+    saveButton.disabled =
+        true;
 
 
-        const maxPalettes =
-            Number(
-                document.getElementById(
-                    "maxPalettes"
-                ).value || 0
-            );
+    saveButton.innerHTML = `
+
+        <i
+            class="fa-solid fa-spinner fa-spin"
+        ></i>
+
+        Enregistrement...
+
+    `;
 
 
-        const maxTonnage =
-            Number(
-                document.getElementById(
-                    "maxTonnage"
-                ).value || 0
-            );
+    try {
 
 
-        const hasEmplacements =
-            document.getElementById(
-                "hasEmplacements"
-            ).value === "true";
+        const divisionId =
+            divisionValue
+                ? Number(
+                    divisionValue
+                )
+                : null;
 
 
-        const isActive =
-            document.getElementById(
-                "isActive"
-            ).value === "true";
+        const userId =
+            getCurrentUserId();
 
 
-        const description =
-            document.getElementById(
-                "description"
-            ).value
-            .trim();
+        const payload = {
 
-
-        if (!code || !name) {
-
-            showToast(
-                "Le code et le nom sont obligatoires.",
-                "warning"
-            );
-
-            return;
-        }
-
-
-        if (maxPalettes < 0) {
-
-            showToast(
-                "Le nombre maximum de palettes ne peut pas être négatif.",
-                "warning"
-            );
-
-            return;
-        }
-
-
-        if (maxTonnage < 0) {
-
-            showToast(
-                "Le tonnage maximum ne peut pas être négatif.",
-                "warning"
-            );
-
-            return;
-        }
-
-
-        const saveButton =
-            document.getElementById(
-                "saveButton"
-            );
-
-
-        saveButton.disabled = true;
-
-        saveButton.innerHTML = `
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            Enregistrement...
-        `;
-
-
-        try {
-
-            const divisionId =
-                divisionValue
-                    ? Number(divisionValue)
-                    : null;
-
-
-            const payload = {
-
+            code:
                 code,
+
+            name:
                 name,
-                description:
-                    description || null,
 
-                type:
-                    type || null,
+            description:
+                description ||
+                null,
 
-                has_emplacements:
-                    hasEmplacements,
+            type:
+                type ||
+                null,
 
-                max_palettes:
-                    maxPalettes,
+            has_emplacements:
+                hasEmplacements,
 
-                max_tonnage_kg:
-                    maxTonnage,
+            max_palettes:
+                maxPalettes,
 
-                is_active:
-                    isActive,
+            max_tonnage_kg:
+                maxTonnage,
 
-                division_id:
-                    divisionId
+            is_active:
+                isActive,
 
-            };
+            division_id:
+                divisionId
 
-
-            let result;
-
-
-            /* =========================
-               UPDATE
-            ========================= */
-
-            if (id) {
-
-                payload.updated_by =
-                    getCurrentUserId();
+        };
 
 
-                result =
-                    await db
-                        .from("magasins")
-                        .update(payload)
-                        .eq("id", Number(id))
-                        .select()
-                        .single();
+        /* =================================================
+           UPDATE
+        ================================================= */
+
+        if (id) {
 
 
-                if (result.error) {
-                    throw result.error;
-                }
+            payload.updated_by =
+                userId;
 
 
-                const updated =
-                    result.data;
-
-
-                await logCrud(
-                    "UPDATE",
-                    updated.id,
-                    "Modification du magasin",
-                    {
-                        code:
-                            updated.code,
-
-                        name:
-                            updated.name,
-
-                        division_id:
-                            updated.division_id
-                    }
-                );
-
-
-                await logSystem(
-                    "Modification magasin",
-                    `Magasin ${updated.code} modifié`
-                );
-
-
-                showToast(
-                    "Magasin modifié avec succès.",
-                    "success"
-                );
-
-            }
-
-
-            /* =========================
-               INSERT
-            ========================= */
-
-            else {
-
-                payload.created_by =
-                    getCurrentUserId();
-
-
-                payload.updated_by =
-                    getCurrentUserId();
-
-
-                result =
-                    await db
-                        .from("magasins")
-                        .insert(payload)
-                        .select()
-                        .single();
-
-
-                if (result.error) {
-                    throw result.error;
-                }
-
-
-                const created =
-                    result.data;
-
-
-                await logCrud(
-                    "CREATE",
-                    created.id,
-                    "Création du magasin",
-                    {
-                        code:
-                            created.code,
-
-                        name:
-                            created.name,
-
-                        division_id:
-                            created.division_id
-                    }
-                );
-
-
-                await logSystem(
-                    "Création magasin",
-                    `Magasin ${created.code} créé`
-                );
-
-
-                showToast(
-                    "Magasin créé avec succès.",
-                    "success"
-                );
-
-            }
-
-
-            closeModal();
-
-            await loadData();
-
-        } catch (error) {
-
-            console.error(
-                "Erreur saveMagasin:",
+            const {
+                data,
                 error
-            );
-
-
-            if (
-                error?.code === "23505"
-            ) {
-
-                showToast(
-                    "Ce code magasin existe déjà.",
-                    "error"
-                );
-
-            } else {
-
-                showToast(
-                    error?.message ||
-                    "Erreur lors de l'enregistrement.",
-                    "error"
-                );
-
-            }
-
-        } finally {
-
-            saveButton.disabled = false;
-
-            saveButton.innerHTML = `
-                <i class="fa-solid fa-floppy-disk"></i>
-                Enregistrer
-            `;
-
-        }
-
-    }
-
-
-    /* =====================================================
-       DELETE
-    ===================================================== */
-
-    async function deleteMagasin(id) {
-
-        const magasin =
-            allMagasins.find(
-                m => Number(m.id) === Number(id)
-            );
-
-
-        if (!magasin) {
-            return;
-        }
-
-
-        const confirmed =
-            confirm(
-                `Voulez-vous vraiment supprimer le magasin "${magasin.code} - ${magasin.name}" ?`
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        try {
-
-            const { error } =
-                await db
-                    .from("magasins")
-                    .delete()
-                    .eq("id", Number(id));
+            } = await db
+                .from("magasins")
+                .update(
+                    payload
+                )
+                .eq(
+                    "id",
+                    Number(id)
+                )
+                .select()
+                .single();
 
 
             if (error) {
+
                 throw error;
+
             }
 
 
-            await logCrud(
-                "DELETE",
-                magasin.id,
-                "Suppression du magasin",
+            /* -------------------------------------------
+               ACTIVITY LOG
+            ------------------------------------------- */
+
+            await writeCrudLog(
+                "UPDATE",
+                data.id,
+                "Modification du magasin",
                 {
+
                     code:
-                        magasin.code,
+                        data.code,
 
                     name:
-                        magasin.name,
+                        data.name,
 
                     division_id:
-                        magasin.division_id
+                        data.division_id
+
                 }
             );
 
 
-            await logSystem(
-                "Suppression magasin",
-                `Magasin ${magasin.code} supprimé`
+            showToast(
+                "Magasin modifié avec succès.",
+                "success"
+            );
+
+        }
+
+
+        /* =================================================
+           INSERT
+        ================================================= */
+
+        else {
+
+
+            payload.created_by =
+                userId;
+
+
+            payload.updated_by =
+                userId;
+
+
+            const {
+                data,
+                error
+            } = await db
+                .from("magasins")
+                .insert(
+                    payload
+                )
+                .select()
+                .single();
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            /* -------------------------------------------
+               ACTIVITY LOG
+            ------------------------------------------- */
+
+            await writeCrudLog(
+                "CREATE",
+                data.id,
+                "Création du magasin",
+                {
+
+                    code:
+                        data.code,
+
+                    name:
+                        data.name,
+
+                    division_id:
+                        data.division_id
+
+                }
             );
 
 
             showToast(
-                "Magasin supprimé avec succès.",
+                "Magasin créé avec succès.",
                 "success"
             );
 
+        }
 
-            await loadData();
 
-        } catch (error) {
+        closeModal();
 
-            console.error(
-                "Erreur deleteMagasin:",
-                error
+
+        await loadMagasins();
+
+
+    }
+    catch (error) {
+
+
+        console.error(
+            "SAVE MAGASIN:",
+            error
+        );
+
+
+        if (
+            error &&
+            error.code ===
+            "23505"
+        ) {
+
+            showToast(
+                "Ce code magasin existe déjà.",
+                "error"
             );
 
+        }
+        else if (
+            error &&
+            error.code ===
+            "23503"
+        ) {
+
+            showToast(
+                "La division sélectionnée n'existe pas.",
+                "error"
+            );
+
+        }
+        else {
+
+            showToast(
+                error?.message ||
+                "Erreur lors de l'enregistrement.",
+                "error"
+            );
+
+        }
+
+    }
+    finally {
+
+
+        saveButton.disabled =
+            false;
+
+
+        saveButton.innerHTML = `
+
+            <i
+                class="fa-solid fa-floppy-disk"
+            ></i>
+
+            Enregistrer
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+async function deleteMagasin(
+    id
+) {
+
+    if (!db) {
+
+        showToast(
+            "Connexion Supabase indisponible.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const magasin =
+        allMagasins.find(
+            function (item) {
+
+                return Number(
+                    item.id
+                ) === Number(
+                    id
+                );
+
+            }
+        );
+
+
+    if (!magasin) {
+
+        showToast(
+            "Magasin introuvable.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            `Voulez-vous vraiment supprimer le magasin "${magasin.code} - ${magasin.name}" ?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const {
+            error
+        } = await db
+            .from("magasins")
+            .delete()
+            .eq(
+                "id",
+                Number(id)
+            );
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        await writeCrudLog(
+            "DELETE",
+            magasin.id,
+            "Suppression du magasin",
+            {
+
+                code:
+                    magasin.code,
+
+                name:
+                    magasin.name,
+
+                division_id:
+                    magasin.division_id
+
+            }
+        );
+
+
+        showToast(
+            "Magasin supprimé avec succès.",
+            "success"
+        );
+
+
+        await loadMagasins();
+
+
+    }
+    catch (error) {
+
+
+        console.error(
+            "DELETE MAGASIN:",
+            error
+        );
+
+
+        if (
+            error &&
+            error.code ===
+            "23503"
+        ) {
+
+            showToast(
+                "Impossible de supprimer ce magasin car il est utilisé par d'autres données.",
+                "error"
+            );
+
+        }
+        else {
 
             showToast(
                 error?.message ||
@@ -2106,358 +3522,349 @@
 
     }
 
+}
 
-    /* =====================================================
-       HELPERS
-    ===================================================== */
 
-    function getDivision(divisionId) {
+/* =========================================================
+   CRUD LOG
+========================================================= */
+
+async function writeCrudLog(
+    action,
+    recordId,
+    description,
+    metadata
+) {
+
+    try {
+
 
         if (
-            divisionId === null ||
-            divisionId === undefined
+            window.SMTG &&
+            typeof window.SMTG.logCrudAction ===
+            "function"
         ) {
-            return null;
-        }
 
 
-        return allDivisions.find(
-            d => Number(d.id) === Number(divisionId)
-        ) || null;
+            await window.SMTG.logCrudAction(
 
-    }
+                action,
 
+                "ADMINISTRATION",
 
-    function getCurrentUserId() {
+                "MAGASINS",
 
-        try {
+                recordId,
 
-            if (
-                window.SMTG &&
-                typeof window.SMTG.getCurrentUser === "function"
-            ) {
+                description,
 
-                const user =
-                    window.SMTG.getCurrentUser();
+                metadata
 
-
-                if (user?.id) {
-                    return Number(user.id);
-                }
-
-            }
-
-
-            const raw =
-                sessionStorage.getItem(
-                    "smtg_current_user"
-                );
-
-
-            if (raw) {
-
-                const user =
-                    JSON.parse(raw);
-
-
-                if (user?.id) {
-                    return Number(user.id);
-                }
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Impossible de récupérer l'utilisateur courant:",
-                error
             );
 
         }
 
+    }
+    catch (error) {
 
         /*
-         * SYSTEM = 1 uniquement comme
-         * valeur technique de secours.
+         * Le log ne doit pas bloquer
+         * l'opération principale.
          */
 
-        return 1;
+        console.warn(
+            "CRUD LOG:",
+            error
+        );
 
     }
 
-
-    /* =====================================================
-       LOG CRUD
-    ===================================================== */
-
-    async function logCrud(
-        action,
-        recordId,
-        description,
-        details
-    ) {
-
-        try {
-
-            if (
-                window.SMTG &&
-                typeof window.SMTG.logCrudAction === "function"
-            ) {
-
-                await window.SMTG.logCrudAction(
-                    action,
-                    "ADMINISTRATION",
-                    "MAGASINS",
-                    recordId,
-                    description,
-                    details
-                );
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Erreur journalisation CRUD:",
-                error
-            );
-
-        }
-
-    }
+}
 
 
-    /* =====================================================
-       LOG SYSTEM
-    ===================================================== */
+/* =========================================================
+   TABLE LOADING
+========================================================= */
 
-    async function logSystem(
-        action,
-        message
-    ) {
+function showTableLoading() {
 
-        try {
-
-            if (
-                window.SMTG &&
-                typeof window.SMTG.logSystem === "function"
-            ) {
-
-                await window.SMTG.logSystem(
-                    action,
-                    message,
-                    {
-                        page: "magasins.html"
-                    }
-                );
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Erreur journalisation système:",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       TABLE LOADING
-    ===================================================== */
-
-    function showTableLoading() {
-
+    const tbody =
         document.getElementById(
             "tableBody"
-        ).innerHTML = `
+        );
 
-            <tr>
 
-                <td colspan="10">
+    tbody.innerHTML = `
 
-                    <div class="loading">
+        <tr>
 
-                        <i class="fa-solid fa-spinner fa-spin"></i>
+            <td colspan="10">
 
-                        Chargement des magasins...
+                <div class="loading">
 
+                    <i
+                        class="fa-solid fa-spinner fa-spin"
+                    ></i>
+
+                    Chargement des magasins...
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TABLE ERROR
+========================================================= */
+
+function showTableError(
+    message
+) {
+
+    const tbody =
+        document.getElementById(
+            "tableBody"
+        );
+
+
+    if (!tbody) {
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = `
+
+        <tr>
+
+            <td colspan="10">
+
+                <div class="empty">
+
+                    <i
+                        class="fa-solid fa-triangle-exclamation"
+                    ></i>
+
+                    <div>
+                        Impossible de charger les magasins.
                     </div>
 
-                </td>
+                    <small>
+                        ${escapeHtml(
+                            message ||
+                            ""
+                        )}
+                    </small>
 
-            </tr>
+                </div>
 
-        `;
+            </td>
 
-    }
+        </tr>
 
+    `;
 
-    /* =====================================================
-       FORMAT
-    ===================================================== */
-
-    function formatNumber(value) {
-
-        const number =
-            Number(value || 0);
+}
 
 
-        return number.toLocaleString(
-            "fr-FR",
-            {
-                maximumFractionDigits: 0
-            }
+/* =========================================================
+   FORMAT NUMBER
+========================================================= */
+
+function formatNumber(
+    value
+) {
+
+    const number =
+        Number(
+            value ||
+            0
         );
 
-    }
 
+    return number.toLocaleString(
+        "fr-FR",
+        {
 
-    function formatKg(value) {
+            maximumFractionDigits:
+                0
 
-        const number =
-            Number(value || 0);
-
-
-        return number.toLocaleString(
-            "fr-FR",
-            {
-                minimumFractionDigits: 3,
-                maximumFractionDigits: 3
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
-
-    function escapeHtml(value) {
-
-        if (
-            value === null ||
-            value === undefined
-        ) {
-            return "";
         }
+    );
+
+}
 
 
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+/* =========================================================
+   FORMAT KG
+========================================================= */
 
-    }
+function formatKg(
+    value
+) {
+
+    const number =
+        Number(
+            value ||
+            0
+        );
 
 
-    /* =====================================================
-       TOAST
-    ===================================================== */
+    return number.toLocaleString(
+        "fr-FR",
+        {
 
-    function showToast(
-        message,
-        type = "success"
+            minimumFractionDigits:
+                3,
+
+            maximumFractionDigits:
+                3
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
     ) {
 
-        const container =
-            document.getElementById(
-                "toastContainer"
-            );
+        return "";
+
+    }
 
 
-        const toast =
-            document.createElement("div");
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
 
 
-        toast.className =
-            `toast ${type}`;
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
 
 
-        let icon =
-            "fa-circle-check";
+    const toast =
+        document.createElement(
+            "div"
+        );
 
 
-        if (type === "error") {
-            icon = "fa-circle-xmark";
-        }
-
-        if (type === "warning") {
-            icon = "fa-triangle-exclamation";
-        }
+    toast.className =
+        `toast ${type}`;
 
 
-        toast.innerHTML = `
-
-            <i class="fa-solid ${icon}"></i>
-
-            <span>
-                ${escapeHtml(message)}
-            </span>
-
-        `;
+    let icon =
+        "fa-circle-check";
 
 
-        container.appendChild(toast);
+    if (
+        type ===
+        "error"
+    ) {
+
+        icon =
+            "fa-circle-xmark";
+
+    }
 
 
-        setTimeout(() => {
+    if (
+        type ===
+        "warning"
+    ) {
+
+        icon =
+            "fa-triangle-exclamation";
+
+    }
+
+
+    toast.innerHTML = `
+
+        <i
+            class="fa-solid ${icon}"
+        ></i>
+
+        <span>
+            ${escapeHtml(
+                message
+            )}
+        </span>
+
+    `;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        function () {
 
             toast.remove();
 
-        }, 4000);
-
-    }
-
-
-    /* =====================================================
-       CLOSE MODAL OUTSIDE
-    ===================================================== */
-
-    document.getElementById(
-        "modalOverlay"
-    ).addEventListener(
-        "click",
-        function(event) {
-
-            if (
-                event.target === this
-            ) {
-
-                closeModal();
-
-            }
-
-        }
+        },
+        4000
     );
 
-
-    /* =====================================================
-       ESCAPE KEY
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
+}
 
 </script>
+
 
 </body>
 </html>
